@@ -4,7 +4,26 @@ Este repositorio es una template con el formato basico de LaTeX para una tesina 
 Esta basada en las tesinas de Martín, Fefo, Fede y Seba. Es una versión en español y con varios ejemplos de cosas que podrían servir.
 Parece grande el repo, pero es bastante simple de usar (para lo que es LaTeX), con instalar y correr `make` funciona.
 
-## Instrucciones de Instalación
+## Cómo recibirme
+
+[Acá está todo](https://dcc.fceia.unr.edu.ar/es/lcc/tesinas-grado), pero step by step:
+
+1. Conseguir director/a y tema.
+
+2. Presentar un plan de tesina:
+
+No la cuelgues, apenas tengas algo de idea es necesario que te aprueben.
+
+Adjunto un documento (EjemploPropuestaTesina.pdf) para que vean qué onda.
+
+3. Hacer el trabajo de la tesina (easy)
+
+4. Escribirla.
+
+No la cuelgues con escribir, toma tieeeempo. 
+El repo es para ayudar con eso.
+
+## Instrucciones de Instalación del Latex
 
 - Forkea el repo.
 
