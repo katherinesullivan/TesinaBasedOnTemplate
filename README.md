@@ -1,6 +1,8 @@
 # Template Tesina LCC
 
-Este repositorio es una template con el formato basico de LaTeX para una tesina de LCC. Esta basada en las tesinas de Martín y de Fefo. Yo arme esta versión para solo español y con un ejemplo minimo.
+Este repositorio es una template con el formato basico de LaTeX para una tesina de LCC. 
+Esta basada en las tesinas de Martín, Fefo, Fede y Seba. Es una versión en español y con varios ejemplos de cosas que podrían servir.
+Parece grande el repo, pero es bastante simple de usar (para lo que es LaTeX), con instalar y correr `make` funciona.
 
 ## Instrucciones de Instalación
 
