@@ -30,8 +30,9 @@ Este repositorio es una template con el formato basico de LaTeX para una tesina 
 ### Otros:
 - `make clean`: Limpia la carpeta
 - `make carta` / `make slides`: Crean el .pdf de la carta / slides.
-- `make lint` / `make lint-carta` / `make lint-slides`: Corre el lint en la Tesina / Carta / Slides
-- `make format` / `make format-carta` / `make format-slides`: Formatea tus archivos
+- `make lint` / `make lint-carta` / `make lint-slides`: Corre el lint en la Tesina / Carta / Slides.
+- `make format` / `make format-carta` / `make format-slides`: Formatea tus archivos.
+- `make spell-check`: Chequea errores ortográficos (el diccionario es solo español, se puede cambiar).
 
 ## Organización de archivos
 
@@ -69,13 +70,15 @@ Este repositorio es una template con el formato basico de LaTeX para una tesina 
 
 Para lint este repositorio usa `Chktex`.
 Para modificar las reglas, referirse a `.chktexrc`.
-Para cancelar el lint, modificar el Makefile (instrucciones adentro)
+Es opcional, excepto que agregues el precommit (para forzarlo para los commits).
+El lint encuentra errores de Latex que capaz se van a ver raros, no es tan estricto.
+Se puede ignorar al agregar un comentario `% chktex 38` ignora la regla 38 en esa linea.
 
 ### Formatter
 
 Como Formatter, este repo usa `latexindent`. 
 Para modificar las reglas de formateo, ver `.localSettings.yaml`
-Para cancelar el formatter, modificar el Makefile (instrucciones adentro)
+Para cancelar el formatter, modificar el Makefile (instrucciones adentro).
 
 ### Pre-commit hooks
 
@@ -85,5 +88,6 @@ Para evitar los pre-commit hooks, remover `.pre-commit-config.yaml`
 
 ## Contribuciones
 
+- Fede Badaloni, que hizo el original del que hago el fork.
 - [@ZimmSebas](https://github.com/ZimmSebas)
 - Vos, próximamente ;)

@@ -58,29 +58,30 @@ CARTA = carta
 
 RM = rm -f
 LATEX = latex
-PDFLATEX = pdflatex
+MKLATEX = latexmk -shell-escape
 BIB = biber
 EXT = *.bak* *.nav *.snm *.ptb *.blg *.log *.lof *.lot *.bit *.idx *.glo *.bbl *.ilg *.toc *.out *.ind *~ *.ml* *.mt* *.th* *.bmt *.xyc *.bcf *.run.xml *.dot *.ptc
 LINT = chktex
 FORMAT = latexindent -w -s -m -l=.localSettings.yaml
+SPELLCHECK = aspell -c -d es -t
 
-.PHONY: pdflatex clean carta slides lint-all format-all format lint 
+.PHONY: latex clean carta slides lint-all format-all format lint spell-check
 
-default: pdflatex
+default: latex
 
 pre-commit: 
 	pre-commit install
 
-carta: clean format-carta lint-carta
-	$(PDFLATEX) $(CARTA).tex
+carta: clean format-carta
+	$(MKLATEX) $(CARTA).tex
 
-slides: clean format-slides lint-slides
-	$(PDFLATEX) $(SLIDES).tex
+slides: clean format-slides
+	$(MKLATEX) $(SLIDES).tex
 	@latex_count=100 ; \
 	while egrep -s 'Rerun (LaTeX|to get)' $(SLIDES).log && [ $$latex_count -gt 0 ] ;\
 	    do \
 	      echo "Rerunning latex...." ;\
-	      $(PDFLATEX) $(SLIDES).tex ;\
+	      $(MKLATEX) $(SLIDES).tex ;\
 		  sleep 0.5;\
 	      latex_count=`expr $$latex_count - 1` ;\
 	    done
@@ -101,17 +102,21 @@ dvi: clean
 ps: dvi
 	dvips -f $(MAINTEX).dvi > $(MAINTEX).ps
 
-pdflatex: clean format lint 
-	$(PDFLATEX) $(MAINTEX).tex
+latex: clean format
+	$(MKLATEX) $(MAINTEX).tex
 	$(BIB) $(MAINTEX)
 	@latex_count=100 ; \
 	while egrep -s 'rerun (LaTeX|to get cross-references right)' $(MAINTEX).log && [ $$latex_count -gt 0 ] ;\
-		do \
-			echo "Rerunning latex...." ;\
-			$(PDFLATEX) $(MAINTEX).tex ;\
-			sleep 0.5;\
-				latex_count=`expr $$latex_count - 1` ;\
-			done
+	    do \
+	      echo "Rerunning latex...." ;\
+	      $(MKLATEX) $(MAINTEX).tex ;\
+		  sleep 0.5;\
+	      latex_count=`expr $$latex_count - 1` ;\
+	    done
+
+
+biber:
+	$(BIB) $(MAINTEX)
 
 lint: 
 	$(LINT) $(MAINTEX)
@@ -155,6 +160,13 @@ clean-all: clean
 	$(RM) *.ps
 	$(RM) *.pdf
 
+spell-check:
+	 $(SPELLCHECK) $(MAINTEX).tex 
+	for filename in ./Capitulos/*.tex;\
+	do \
+		$(SPELLCHECK) "$${filename}";\
+	done;
+
 tar: clean
 	alias NOMBRE="basename `pwd`";\
 	tar -cvjf `NOMBRE`.tar.bz2\
@@ -167,12 +179,17 @@ tar: clean
 help:
 	@echo "    Read the README, list of commands:"
 	@echo "    make dvi"
-	@echo "    make all           -- dvi ps pdf slides carta"
+	@echo "    make all           -- dvi ps latex slides carta"
 	@echo "    make ps"
-	@echo "    make pdflatex      -- default"
+	@echo "    make latex         -- default"
 	@echo "    make clean"
 	@echo "    make clean-all"
 	@echo "    make tar"
-	@echo "    make slides"
-	@echo "    make lint"
-	@echo "    make format"
+	@echo "    make slides        -- Prepara las slides"
+	@echo "    make lint          -- Lint sobre Tesina" 
+	@echo "    make format        -- Format sobre Tesina"
+	@echo "    make lint-carta    -- Lint sobre Carta"	
+	@echo "    make lint-slides   -- Lint sobre Slides"
+	@echo "    make format-carta  -- Format sobre Carta"	
+	@echo "    make format-slides -- Format sobre Slides"
+			
