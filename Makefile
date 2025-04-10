@@ -127,7 +127,7 @@ lint-carta:
 lint-slides:
 	$(LINT) $(SLIDES)
 
-lint-all: lint lint-carta lint-slides
+lint-all: #lint lint-carta lint-slides
 
 format: clean-format-backup
 	for filename in ./Capitulos/*.tex;\

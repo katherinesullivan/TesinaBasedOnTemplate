@@ -1,4 +1,8 @@
-# Template Tesina LCC
+# Tesina basada en template
+
+Esto es una especie de tesina en construcción. En particular el repo es un fork del laburazo que se mandaron Seba y Fede. Dejo el README original abajo para su comodidad.
+
+## Template Tesina LCC
 
 Este repositorio es una template con el formato basico de LaTeX para una tesina de LCC. 
 Esta basada en las tesinas de Martín, Fefo, Fede y Seba. Es una versión en español y con varios ejemplos de cosas que podrían servir.

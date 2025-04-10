@@ -1,22 +1,138 @@
+@inbook{Kučera2011, place={Cambridge}, title={Turn-Based Stochastic Games}, booktitle={Lectures in Game Theory for Computer Scientists}, publisher={Cambridge University Press}, author={Kučera, Antonín}, editor={Apt, Krzysztof R. and Grädel, ErichEditors}, year={2011}, pages={146–184}}
 
-@article{esp:blast2,
-    author = {Altschul, Stephen and Madden, T.L. and Schäffer, Alejandro and Zhang, Jianmin and Zhang, Zhengh and Miller, W.E. and Lipman, D.J.},
-    year = {1997},
-    month = {10},
-    pages = {3389-3402},
-    title = {Gapped BLAST and PSI-BLAST: a new generation of protein databases search programs},
-    volume = {25},
-    journal = {Nucleic acids research},
-    doi = {10.1093/nar/25.17.3389}
+@article{Polytopal,
+    author = {Pablo F. Castro and Pedro R. D'Argenio},
+    title = {Polytopal Stochastic Games},
+    journal = {},
+    note = {Enviado para publicación},
+    year = {2024}
 }
 
-@inproceedings{p-np,
-  author    = {Stephen A. Cook},
-  title     = {The Complexity of Theorem-Proving Procedures},
-  booktitle = {Proceedings of the Third Annual ACM Symposium on Theory of Computing},
-  year      = {1971},
-  pages     = {151--158},
-  publisher = {ACM},
-  address   = {New York, NY, USA},
-  doi       = {10.1145/800157.805047}
+@techreport{AlfaroThesis,
+author = {de Alfaro, Luca},
+title = {Formal Verification of Probabilistic Systems},
+year = {1998},
+publisher = {Stanford University},
+address = {Stanford, CA, USA},
+abstract = {This dissertation presents methods for the formal modeling and specification of probabilistic systems, and algorithms for the automated verification of these systems. Our system models describe the behavior of a system in terms of probability, nondeterminism, fairness and time. The formal specification languages we consider are based on extensions of branching-time temporal logics, and enable the expression of single-event and long-run average system properties. This latter class of properties, not expressible with previous formal languages, includes most of the performance properties studied in the field of performance evaluation, such as system throughput and average response time. Our choice of system models and specification languages has been guided by the goal of providing efficient verification algorithms. The algorithms rely on the theory of Markov decision processes, and exploit a connection between the graph-theoretical and probabilistic properties of these processes. This connection also leads to new results about classical problems, such as an extension to the solvable cases of the stochastic shortest path problem, an improved algorithm for the computation of reachability probabilities, and new results on the average reward problem for semi-Markov decision processes.}
+}
+
+@article{Chatterjee1,
+title = {A survey of stochastic $\omega$-regular \ games},
+journal = {Journal of Computer and System Sciences},
+volume = {78},
+number = {2},
+pages = {394-413},
+year = {2012},
+note = {Games in Verification},
+issn = {0022-0000},
+doi = {https://doi.org/10.1016/j.jcss.2011.05.002},
+url = {https://www.sciencedirect.com/science/article/pii/S0022000011000511},
+author = {Krishnendu Chatterjee and Thomas A. Henzinger},
+keywords = {Game theory, Stochastic games, Regular objectives},
+abstract = {We summarize classical and recent results about two-player games played on graphs with omega-regular objectives. These games have applications in the verification and synthesis of reactive systems. Important distinctions are whether a graph game is turn-based or concurrent; deterministic or stochastic; zero-sum or not. We cluster known results and open problems according to these classifications.}
+}
+
+@InProceedings{ComplexityRabin,
+author="Chatterjee, Krishnendu
+and de Alfaro, Luca
+and Henzinger, Thomas A.",
+editor="Caires, Lu{\'i}s
+and Italiano, Giuseppe F.
+and Monteiro, Lu{\'i}s
+and Palamidessi, Catuscia
+and Yung, Moti",
+title="The Complexity of Stochastic Rabin and Streett Games ",
+booktitle="Automata, Languages and Programming",
+year="2005",
+publisher="Springer Berlin Heidelberg",
+address="Berlin, Heidelberg",
+pages="878--890",
+abstract="The theory of graph games with $\omega$-regular winning conditions is the foundation for modeling and synthesizing reactive processes. In the case of stochastic reactive processes, the corresponding stochastic graph games have three players, two of them (System and Environment) behaving adversarially, and the third (Uncertainty) behaving probabilistically. We consider two problems for stochastic graph games: the qualitative problem asks for the set of states from which a player can win with probability 1 (almost-sure winning); the quantitative problem asks for the maximal probability of winning (optimal winning) from each state. We show that for Rabin winning conditions, both problems are in NP. As these problems were known to be NP-hard, it follows that they are NP-complete for Rabin conditions, and dually, coNP-complete for Streett conditions. The proof proceeds by showing that pure memoryless strategies suffice for qualitatively and quantitatively winning stochastic graph games with Rabin conditions. This insight is of interest in its own right, as it implies that controllers for Rabin objectives have simple implementations. We also prove that for every $\omega$-regular condition, optimal winning strategies are no more complex than almost-sure winning strategies.",
+isbn="978-3-540-31691-6"
+}
+
+@book{ziegler2012lectures,
+  title={Lectures on Polytopes},
+  author={Ziegler, Günter M.},
+  isbn={9780387943657},
+  lccn={94021784},
+  series={Graduate Texts in Mathematics},
+  url={https://books.google.com.ar/books?id=xd25TXSSUcgC},
+  year={2012},
+  publisher={Springer New York}
+}
+
+@book{BaierKatoen,
+author = {Baier, Christel and Katoen, Joost-Pieter},
+year = {2008},
+pages = {},
+publisher={The MIT Press},
+title = {Principles of Model Checking},
+volume = {26202649},
+isbn = {978-0-262-02649-9}
+}
+
+@article{Shapley1953,
+author = {Lloyd S. Shapley },
+title = {Stochastic Games},
+journal = {Proceedings of the National Academy of Sciences},
+volume = {39},
+number = {10},
+pages = {1095-1100},
+year = {1953},
+doi = {10.1073/pnas.39.10.1095},
+URL = {https://www.pnas.org/doi/abs/10.1073/pnas.39.10.1095},
+eprint = {https://www.pnas.org/doi/pdf/10.1073/pnas.39.10.1095}}
+
+@inbook{Gillette1958,
+url = {https://doi.org/10.1515/9781400882151-011},
+title = {Stochastic Games with Zero Stop Probabilities},
+booktitle = {Contributions to the Theory of Games, Volume III},
+author = {Dean Gillette},
+publisher = {Princeton University Press},
+address = {Princeton},
+pages = {179--188},
+doi = {doi:10.1515/9781400882151-011},
+isbn = {9781400882151},
+year = {1958},
+lastchecked = {2024-10-03}
+}
+
+@article{CONDON1992,
+title = {The complexity of stochastic games},
+journal = {Information and Computation},
+volume = {96},
+number = {2},
+pages = {203-224},
+year = {1992},
+issn = {0890-5401},
+doi = {https://doi.org/10.1016/0890-5401(92)90048-K},
+url = {https://www.sciencedirect.com/science/article/pii/089054019290048K},
+author = {Anne Condon},
+abstract = {We consider the complexity of stochastic games—simple games of chance played by two players. We show that the problem of deciding which player has the greatest chance of winning the game is in the class NP ⌢ co-NP.}
+}
+
+@InProceedings{PolyTimeVerifPCTL,
+author="Puggelli, Alberto
+and Li, Wenchao
+and Sangiovanni-Vincentelli, Alberto L.
+and Seshia, Sanjit A.",
+editor="Sharygina, Natasha
+and Veith, Helmut",
+title="Polynomial-Time Verification of PCTL Properties of MDPs with Convex Uncertainties",
+booktitle="Computer Aided Verification",
+year="2013",
+publisher="Springer Berlin Heidelberg",
+address="Berlin, Heidelberg",
+pages="527--542",
+abstract="We address the problem of verifying Probabilistic Computation Tree Logic (PCTL) properties of Markov Decision Processes (MDPs) whose state transition probabilities are only known to lie within uncertainty sets. We first introduce the model of Convex-MDPs (CMDPs), i.e., MDPs with convex uncertainty sets. CMDPs generalize Interval-MDPs (IMDPs) by allowing also more expressive (convex) descriptions of uncertainty. Using results on strong duality for convex programs, we then present a PCTL verification algorithm for CMDPs, and prove that it runs in time polynomial in the size of a CMDP for a rich subclass of convex uncertainty models. This result allows us to lower the previously known algorithmic complexity upper bound for IMDPs from co-NP to PTIME. We demonstrate the practical effectiveness of the proposed approach by verifying a consensus protocol and a dynamic configuration protocol for IPv4 addresses.",
+isbn="978-3-642-39799-8"
+}
+
+@phdthesis{Chatterjee2007,
+    author = "Chatterjee, Krishnendu",
+    title = "Stochastic $\omega$-Regular Games",
+    school = "University of California at Berkeley",
+    year = 2007
 }

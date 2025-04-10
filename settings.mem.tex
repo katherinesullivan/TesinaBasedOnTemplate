@@ -46,6 +46,22 @@
 \usepackage{pifont} % simbolos extras
 \usepackage{mathtools}
 
+\usepackage{mathrsfs} % \mathsrc
+\usepackage{color,soul} % highlighting
+\usepackage{commath} % \abs
+\usepackage{enumitem} % specify labels in enums
+\usepackage{tcolorbox} % boxes
+\newtcolorbox[auto counter, number within=section]{boxamarillo}[2][]{%
+  colback=white,   % Color de fondo
+  colbacktitle=yellow, % Color de fondo del título
+  coltitle=black,  % Color del título
+  title=#1,        % Título del box
+  width=\textwidth-1.5em, % Ancho del box
+  before=\vspace{0.25cm}, % Espacio vertical antes del box
+  after=\vspace{0.25cm},
+  #2               % Contenido del box
+}
+
 %\renewcommand{\refname}{Referencias} % Cambiar nombre a Referencias
 %\bibliographystyle{ieeetr} % Ordenar referencias por orden de aparición
 
@@ -59,9 +75,9 @@
 
 %lemmas
 \usepackage{amsthm}
-\newtheorem{theorem}{Teorema}[section]
-\newtheorem{corollary}{Corolario}[theorem]
-\newtheorem{lemma}{Lema}[theorem]
+% \newtheorem{theorem}{Teorema}[section]
+% \newtheorem{corollary}{Corolario}[theorem]
+% \newtheorem{lemma}{Lema}[theorem]
 
 %algorithms
 \usepackage{algorithm}
@@ -118,21 +134,21 @@
 % Para graficar
 \usepackage{tikz}
 \usepackage{etoolbox}
-\usetikzlibrary{automata, positioning, shapes, arrows, calc}
-\tikzset{
-    block/.style =  { draw
-                    , thick
-                    , rectangle
-                    , fill=green!10},
-    dot/.style  =   { draw
-                    , circle
-                    , minimum size = .2em
-                    , inner sep = 0pt
-                    , outer sep = 0pt
-                    , fill=black
-                },
-    }
-% \AtBeginEnvironment{tikzpicture}{\shorthandoff{>}\shorthandoff{<}}{}{}
+\usetikzlibrary{ arrows.meta, positioning, shapes.geometric}
+% \tikzset{
+%     block/.style =  { draw
+%                     , thick
+%                     , rectangle
+%                     , fill=green!10},
+%     dot/.style  =   { draw
+%                     , circle
+%                     , minimum size = .2em
+%                     , inner sep = 0pt
+%                     , outer sep = 0pt
+%                     , fill=black
+%                 },
+%     }
+\AtBeginEnvironment{tikzpicture}{\shorthandoff{>}\shorthandoff{<}}{}{}
 
 % PP Haskell
 \usepackage{listings}
@@ -212,3 +228,83 @@
 \newenvironment{dedication}
     {\vspace{6ex}\begin{quotation}\begin{center}\begin{em}}
     {\par\end{em}\end{center}\end{quotation}}
+
+
+% Comandos Kathy
+
+% % Comandos teoremas
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{corollary}{Corolario}[theorem]
+\newtheorem{lemma}[theorem]{Lema}
+\newtheorem{definition}{Definición}[section]
+\newtheorem{proposition}{Proposición}
+
+% Comandos
+\newcommand{\St}{\mathcal{S}}
+\newcommand{\K}{\mathcal{K}}
+\newcommand{\Gk}{\mathcal{G}_\K}
+\newcommand{\Hk}{\mathcal{H}_\K}
+\newcommand{\Act}{\mathcal{A}}
+\newcommand{\Prob}{\mathbb{P}}
+
+\newcommand{\G}{\mathcal{G}}
+\newcommand{\Gl}{\mathcal{G}^\mathit{l}}
+
+\newcommand{\cuad}{\square}
+\newcommand{\diam}{\diamondsuit}
+\newcommand{\picuad}{\pi_\cuad}
+\newcommand{\Picuad}{\Pi_\cuad}
+\newcommand{\pidiam}{\pi_\diam}
+\newcommand{\Pidiam}{\Pi_\diam}
+
+\newcommand{\piHdiamMD}{\pidiam \in \Pi^{MD}_{\Hk,\diam}}
+\newcommand{\piHcuadMD}{\picuad \in \Pi^{MD}_{\Hk,\cuad}}
+\newcommand{\piHdiamS}{\pidiam \in \Pi^{S}_{\Hk,\diam}}
+\newcommand{\piHcuadS}{\picuad \in \Pi^{S}_{\Hk,\cuad}}
+\newcommand{\piHdiamXS}{\pidiam \in \Pi^{XS}_{\Hk,\diam}}
+\newcommand{\piHcuadXS}{\picuad \in \Pi^{XS}_{\Hk,\cuad}}
+\newcommand{\piHdiam}{\pidiam \in \Pi_{\Hk,\diam}}
+\newcommand{\piHcuad}{\picuad \in \Pi_{\Hk,\cuad}}
+
+\newcommand{\piGdiamMD}{\pidiam \in \Pi^{MD}_{\Gk,\diam}}
+\newcommand{\piGcuadMD}{\picuad \in \Pi^{MD}_{\Gk,\cuad}}
+\newcommand{\piGdiamS}{\pidiam \in \Pi^{S}_{\Gk,\diam}}
+\newcommand{\piGcuadS}{\picuad \in \Pi^{S}_{\Gk,\cuad}}
+\newcommand{\piGdiamXS}{\pidiam \in \Pi^{XS}_{\Gk,\diam}}
+\newcommand{\piGcuadXS}{\picuad \in \Pi^{XS}_{\Gk,\cuad}}
+\newcommand{\piGdiam}{\pidiam \in \Pi_{\Gk,\diam}}
+\newcommand{\piGcuad}{\picuad \in \Pi_{\Gk,\cuad}}
+\newcommand{\pidiamset}{\pidiam \in \Pidiam}
+\newcommand{\picuadset}{\picuad \in \Picuad}
+
+\newcommand{\ProbH}{\Prob_{\Hk, s}^{\picuad, \pidiam}}
+\newcommand{\ProbG}{\Prob_{\Gk, s}^{\picuad, \pidiam}}
+
+\newcommand{\siempevent}{\cuad \diam}
+\newcommand{\eventsiemp}{\diam \cuad}
+\newcommand{\alc}{\diam}
+\newcommand{\nextltl}{\bigcirc}
+
+\newcommand{\EC}{\mathcal{E}}
+\newcommand{\newV}{\bigcup_{\substack{s \in \St \\ V' \in V_s}} v_{V'}}
+\newcommand{\DGk}{Derand(\Gk)}
+\newcommand{\W}{\mathcal{W}}
+
+\newcommand{\picuadGk}{\hat{\pi}_{\cuad}^{*}}
+\newcommand{\picuadDGk}{\check{\pi}_{\cuad}^{*}}
+
+\newcommand{\infsigma}{\text{Inf}(\sigma)}
+
+\newcommand{\val}[1]{\sup_{\picuad \in \Picuad} \inf_{\pidiam \in \Pidiam} \Prob_{\Gk, #1}^{\picuad, \pidiam} (\phi)}
+
+\newcommand{\until}{\ \mathcal{U} \ }
+
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\ProbPMDP}{\Prob_{\M, s}^\pi}
+
+\newcommand{\inft}{\textit{inf}}
+
+\newcommand{\paths}{\textit{Paths}}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
