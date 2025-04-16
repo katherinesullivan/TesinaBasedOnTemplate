@@ -1,0 +1,150 @@
+\chapter{Juegos Estocásticos Politópicos - PSGs}
+~\label{cap:psg}
+
+\section{Definiciones}
+
+\subsection{Politopos}
+
+\subsection{PSGs}
+
+Los juegos estocásticos politópicos fueron presentados en 2024 por Castro y
+D'Argenio \cite{Polytopal}. La idea de su creción ...
+
+Un juego estocástico politópico se caracteriza a través de una estructura que
+contiene un conjunto finito de estados divididos en dos conjuntos, cada uno
+perteneciente a un jugador diferente. Además, a cada estado se le asigna un
+conjunto finito de politopos convexos de distribuciones de probabilidad sobre
+los estados. La definición formal es como sigue:
+
+\begin{definition}[PSG]
+	Un juego estocástico politópico (abreviado PSG, por sus siglas en inglés) es una estructura \( \K = (\St, (\St_\square, \St_\diamondsuit), \Theta) \) tal que \( \St \) es un conjunto finito de estados particionado en \( \St = \St_\square \biguplus \St_\diamondsuit \) y \( \Theta : \St \to \mathcal{P}_f(\textsf{DPoly}(\St)) \).
+\end{definition}
+
+La idea de un PSG es la esperada: en un estado \( s \in \St_i \) (para \( i \in
+\{ \square, \diamondsuit \} \)), el jugador \( i \) elige jugar un politopo \(
+K \in \Theta(s) \) y una distribución \( \mu \in K \). El siguiente estado \(
+s' \) se selecciona de acuerdo con la distribución \( \mu \), y el juego
+continúa desde \( s' \) repitiendo el mismo proceso.
+
+El desarrollo de un juego estocástico politópico se interpreta en términos de
+un juego estocástico donde el número de transiciones salientes desde los
+estados de los jugadores puede ser no numerable. Formalmente, la interpretación
+de un PSG es la siguiente.
+
+\begin{definition}[Interpretación de un PSG]
+	La interpretación del juego estocástico politópico \( \K \) se define por el juego estocástico \( \Gk = (\St, (\St_\square, \St_\diamondsuit), \Act, \theta) \), donde \( \Act = \bigcup_{s \in \St} \Theta(s) \times \textsf{Dist}(\St) \) y
+	\[
+		\theta(s, (K, \mu), s') =
+		\begin{cases}
+			\mu(s') & \text{si } K \in \Theta(s) \text{ y } \mu \in K \\
+			0 & \text{en otro caso}.
+		\end{cases}
+	\]
+\end{definition}
+
+Nótese que el conjunto de acciones \( \Act \) puede ser no numerable, al igual
+que cada conjunto \( \Act(s) = \bigcup_{K \in \Theta(s)} \{K\} \times K \) de
+todas las acciones realizables en el estado s, identificado por el politopo
+elegido y la distribución seleccionada dentro del politopo. Por lo tanto,
+necesitamos extender las estrategias a este dominio no numerable, que debe
+estar dotado de una \( \sigma \)-álgebra adecuada.
+
+Para esto, utilizamos una construcción estándar para darle a \(
+\textsf{Dist}(S) \) una \( \sigma \)-álgebra: \( \Sigma_{\textsf{Dist}(S)} \)
+se define como la \( \sigma \)-álgebra más pequeña que contiene los conjuntos
+\( \{\mu \in \textsf{Dist}(S) \mid \mu(S) \geq p\} \) para todo \( S \subseteq
+S \) y \( p \in [0, 1] \). Ahora, dotamos a \( \Act \) con la \( \sigma
+\)-álgebra producto \( \Sigma_\Act = \mathscr{P} \left(\bigcup_{s \in S}
+\Theta(s)\right) \otimes \Sigma_{\text{Dist}(S)} \), y llamamos \(
+\textsf{PMeas}(A) \) al conjunto de todas las medidas de probabilidad sobre \(
+\Sigma_\Act \). No es difícil comprobar que cada conjunto de acciones
+habilitadas \( \Act(s) \) es medible (es decir, \( \Act(s) \in \Sigma_\Act \))
+y que la función \( \theta(s, \cdot, s') \) es medible (es decir, \( \{a \in
+\Act \mid \theta(s, a, s') \leq p\} \in \Sigma_\Act \) para todo \( p \in [0,
+	1] \)).
+
+Ahora bien, para definir formalmente las estrategias, introduciremos el
+\hl{concepto de comportamiento en PSGs}. Esto difiere de la formulación
+original hecha para PSGs en \cite{Polytopal}, pero no afecta a los resultados
+que se mostrarán en este trabajo.
+
+\begin{definition}[Comportamiento en un PSG]
+	Un comportamiento en un PSG es una secuencia infinita que alterna entre estados y conjuntos resultado. Formalmente un comportamiento es un $\omega = (s_0, (K_0, \mu_0), s_1, (K_1, \mu_1), \dots)$ tal que $s_i \in \St$, $(K_i, \mu_i) \in \Act(s_i)$ y $\mu_i(s_{i+1}) > 0$ para todo $i \geq 0$.
+
+	Notaremos al conjunto de todos los comportamientos de un PSG como $\Omega$.
+	Dado un estado $s$, indicaremos con $\Omega_s$ el conjunto de los
+	comportamientos que se originan en $s$, y con $\Omega_s^n$ al conjunto de los
+	comportamientos que se originan en $s$ y tiene un total de $n$ estados.
+\end{definition}
+
+\begin{definition}[Conjuntos soporte y acciones]
+	Dada una acción $(K, \mu)$ definiremos su conjunto soporte, $supp((K, \mu))$ como el conjunto formado por los estados a los cuales $(K, \mu)$ les asigna una probabilidad positiva. Es decir,
+
+	$$supp((K, \mu)) = \{s \in \St \mid \mu(s) > 0\}$$
+
+	Dado un estado $s$ y un conjunto de estados $V$, definiremos como $acc(s, V)$ a
+	las acciones que parten desde $s$ y tienen como conjunto soporte $V$. Es decir,
+
+	$$acc(s, V) = \{\alpha \in \Act(s) \mid supp(\alpha) = V\} = \{(K, \mu) \in \Act(s) \mid \mu(V) = 1 \wedge \forall v \in V, \ \mu(v) > 0\}$$
+
+	Por último, dado un estado $s$, definiremos como $V_s$ al conjunto de todos los
+	soportes que pueden tener las distintas acciones desde $s$. Es decir,
+
+	\begin{align*}~\label{definicionVs}
+		V_s &= \{supp(\mu) \mid \exists K \in \Theta(s): \mu \in K\} = \\
+		&= \{V' \subseteq \St | \exists \mu \in K, K \in \Theta(s) \text{ tal que } \mu(V') = 1 \text{ y } \forall s' \in V', \mu(s') > 0\}
+	\end{align*}
+
+\end{definition}
+
+Entonces, ahora sí podemos extender el concepto de estrategia en un PSG:
+
+\begin{definition}[Estrategia en un PSG]
+	Una estrategia $\pi_i$ para el jugador $i$ ($i \in \{\cuad, \diam\}$) en un PSG será una función $\pi_i : (\St \times \Act) \St_i \rightarrow \textsf{PMeas}(\Act)$ que asigna una medida de probabilidad a cada $\omega s$ tal que $\pi_i(\omega s)(\Act(s)) = 1$.
+\end{definition}
+
+\hl{Habría que agregar alguna justificación de esta idea de comportamientos?}
+
+\begin{boxamarillo}[Medida de probabilidad que no va a ir probablemente]{}
+	Con la formalización del concepto de estrategia ahora podemos presentar
+	formalmente la definición de $\ProbG$, la medida de probabilidad definida por
+	la cadena de Markov dada por $\Gk$ y las estrategias $\picuad$ y $\pidiam$.
+
+	Para eso, primero para cada $n \geq 0$ y $s \in \St$ definimos $\Prob^{\picuad,
+			\pidiam, n}_{\Gk, s} : \Omega^{n+1} \rightarrow [0, 1]$ para todo $s' \in \St$
+	y $\hat{\omega} \in \Omega_s^{n+1}$ inductivamente como sigue:
+
+	\begin{align*}
+		&\Prob^{\picuad, \pidiam, 0}_{\Gk, s}(s') = \delta_s(s') \\
+		&\Prob^{\picuad, \pidiam, n+1}_{\Gk, s}(\hat{\omega}s_nV's') = \Prob^{\picuad, \pidiam, n}_{\Gk, s}(\hat{\omega} s_n) \int_{\{ a \in A(s_n) \mid \text{sop}(a) = V'\}} \theta(s_n, a, s') \, d(\pi_i(\hat{\omega}s_n)(a)) \\ & \qquad \qquad \qquad \qquad \qquad \text{si } s_n \in \St_i \text{ con } i \in \{\square, \diamondsuit\}
+	\end{align*}
+
+	(sop(a) = V' significa que el soporte de a es V')
+
+	(capaz restringirse sobre las acciones con soporte V'? No sé bien cómo va a quedar esto)
+
+	y extendemos \( \Prob^{\pi_\square, \pi_\diamondsuit, n}_{\Gk, s} :
+	\mathcal{P}(\Omega^{n+1}) \to [0, 1] \) a conjuntos como la suma de la medida
+	sobre los elementos del conjunto.
+
+	Sea \( \Sigma_\Omega \) la \( \sigma \)-álgebra discreta sobre \( \Omega \)
+	(pues tanto $\St$ como los conjuntos soportes serán conjuntos finitos) y \(
+	\Sigma_{\Omega^\omega} \) la \( \sigma \)-álgebra producto usual sobre \(
+	\Omega^\omega \). Por el teorema de extensión de Carathéodory, \(
+	\Prob^{\picuad, \pidiam}_{\Gk, s} : \Sigma_{\Omega^\omega} \to [0, 1] \) se
+	define como la única medida de probabilidad tal que para todo \( n \geq 0 \), y
+	\( SV_i \in \Sigma_\Omega \), \( 0 \leq i \leq n \),
+
+	\[
+		\Prob^{\picuad, \pidiam}_{\Gk, s}(SV_0 \times \dots \times SV_n \times \Omega^\omega) = \Prob^{\picuad, \pidiam, n}_{\Gk, s}(SV_0 \times \dots \times SV_n).
+	\]
+\end{boxamarillo}
+
+\section{Teoremas}
+
+En esta sección presentamos los resultados desarrollados en \cite{Polytopal}
+que nos servirán más adelante en el documento.
+
+Algo más que teo1?
+
+AGG RDOS DEL PAPER DE PEDRO
