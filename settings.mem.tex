@@ -30,6 +30,9 @@
 % \usepackage[toc,page]{appendix}
 \usepackage{csquotes}
 
+\linespread{1.25}
+\setlength{\parskip}{\baselineskip}
+
 % \usepackage{minted}
 
 \usepackage[style=numeric, maxbibnames=10, giveninits=true, uniquename=false, backend=biber, sortcites=true, sorting=none]{biblatex}
@@ -238,6 +241,7 @@
 \newtheorem{lemma}[theorem]{Lema}
 \newtheorem{definition}{Definición}[section]
 \newtheorem{proposition}{Proposición}
+\newtheorem{example}{Ejemplo}[section]
 
 % Comandos
 \newcommand{\St}{\mathcal{S}}
@@ -306,5 +310,14 @@
 
 \newcommand{\paths}{\textit{Paths}}
 
+\newcommand{\pathsfin}{\textit{Paths}_\textit{fin}}
+
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\N}{\mathbb{N}}
+
+\newcommand{\rand}{\textsf{rand}}
+\newcommand{\derand}{\textsf{derand}}
+\newcommand{\supp}{\textsf{supp}}
+\DeclareRobustCommand{\hlcyan}[1]{{\sethlcolor{cyan}\hl{#1}}}
+
+\newcommand{\eventE}{\mathfrak{E}}

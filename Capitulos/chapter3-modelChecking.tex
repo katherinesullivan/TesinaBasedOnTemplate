@@ -15,9 +15,79 @@ Capaz esto iría mas en la introducción para platear la idea de trabajo
 
 \section{Cadenas de Markov}
 
-Baier and Katoen
+\begin{definition}[Cadena de Markov]
+	Una cadena de Markov es una tupla $M = (S, P)$ donde $S$ es un conjunto finito no vacío de estados y $P: S \times S \rightarrow [0,1]$ es una función tal que para todos los estados $s$ vale que
+	$$ \sum_{s' \in S} P(s, s') = 1$$.
+\end{definition}
+
+La función de probabilidad de transición $P$ especifica para cada estado $s$ la
+probabilidad $P(s, s')$ de moverse de $s$ a $s'$ en un solo paso. La
+restricción impuesta en $P$ asegura que la función sea una distribución.
+
+Una cadena de Markov induce un grafo subyacente, donde los estados actúan como
+vértices y hay una arista entre $s$ y $s'$ si y solo si $P(s, s') > 0$. Las
+cadenas de Markov se suelen representa por su grafo subyacente donde sus
+aristas estarán anotadas con las probabilidades en el intervalo $(0, 1]$.
+
+Los caminos en una cadena de Markov son los caminos en el grafo subyacente. Son
+definidos como secuencias infinitas de estados $\omega = (s_0, s_1, s_2, \dots)
+	\in S^\omega$ tales que $P(s_i, s_{i+1}) > 0 $ para todo $i \geq 0$.
+
+Veamos un pequeño ejemplo de cómo sería una cadena de Markov.
+
+\begin{example}
+	Supongamos que queremos observar el comportamiento de un pequeño robot llamado \textit{Roborto}. \textit{Roborto} se comporta probabilísticamente de la siguiente manera: desde su posición inicial de quietud tiene una probabilidad de \dots
+\end{example}
+
+Para poder asociar probabilidades a eventos en cadenas de Markov, la noción
+intuitiva de probabilidades en $M$ es formalizada al asociarle un espacio de
+probabilidad (\ref{cap:pre:sec:algebra}). Los caminos infinitos de $M$ juegan
+el rol de resultados. Esto es $Outc^M = \paths(M)$. La $\sigma$-álgebra
+asociada con $M$ es generada pot los conjuntos cilindro formados por los
+fragmentos de caminos finitos en $M$.
+
+\begin{definition}[Conjunto cilindro]
+	El conjunto cilindro de $\hat \omega = (s_0, \dots, s_n) \in \pathsfin(M)$ está definido como
+	$$Cyl(\hat \omega) = \{\omega \in \paths(M) \mid \hat \omega \in pref(\omega)\}$$
+\end{definition}
+
+\begin{definition}[$\sigma$-álegra de una cadena de Markov]
+	La $\sigma$-álgebra $\eventE^M$ asociada a la cadena de Markov $M$ es la $\sigma$-álgebra más pequeña que contiene todos los conjuntos cilindro $Cyl(\hat \omega)$ donde $\hat \omega \in \pathsfin(M)$.
+\end{definition}
+
+De conceptos clásicos de teoría de probabilidad se sigue que por cada estado
+$s_0$ existe una única medida de probabilidad $\Prob^M_{s_0}$ en la
+$\sigma$-álgebra $\eventE^M$ asociada a $M$ donde las probabilidades para los
+conjunto cilindros (es decir, los eventos) están dadas por:
+$$Prob^M_{s_0}(Cyl(s_0, \dots, s_n)) = \prod_{0 \leq i < n} P(si, s_{i+1})$$.
+\hl{Capaz es mejor agregar lo de estados iniciales y después la extensión}.
+
+\textbf{Notación}: en lo que sigue, usaremos notación LTl para describir ciertos eventos en cadenas de Markov. Por ejemplo, para un conjunto $B \subseteq S$ de estados, $\alc B$ denota el evento de llegar eventualmente a (algún estado en) $B$, mientras que $siempevent B$ describe el evento en el que $B$ es visitado infinitamente a menudo. \hl{Algo más? sí}
+
+\hl{EJEMPLO DE ROBOT y la pregunta de alcanzabilidad}.
 
 \section{Procesos de Decisión de Markov}
+
+Un proceso de decisión de Markov (MDP, por sus siglas en inglés) es una
+generalización de una cadena de Markov donde un conjunto de acciones posibles
+es asociado a cada estado. A cada par estado-acción le corresponde una
+distribución de probabilidad en los estados, que es usada para seleccionar el
+próximo estado. A su vez, una cadena de Markov se corresponde a un MDP donde
+hay exactamente una acción asociada a cada estado. Asumiremos la existencia de
+un conjunto fijo de acciones $Act$. La definición de un proceso de decisión de
+Markov es como sigue:
+
+\begin{definition}[Proceso de Decisión de Markov]
+	Un proceso de decisión de Markov (S, A) consiste de un conjunto finito de estados $S$ y de un componente $A$ de acciones que especifica la estructura de transición:
+	\begin{itemize}
+		\item Para cada $s \in S$, $A(s) \subseteq Acts$ es el conjunto finito no vacío de
+		      acciones disponibles en $s$, donde cada acción es una distribución de
+		      probabilidad en el conjunto de estados.
+		\item Para cada $s, t \in S$ y $a \in A(s)$, $a(t)$ es la probabilidad de
+		      transicionar de $s$ a $t$ cuando la acción $a$ es seleccionada. Como $a$ es una
+		      distribución
+	\end{itemize}
+\end{definition}
 
 Baier and Katoen + Tesis de l de alfaro
 

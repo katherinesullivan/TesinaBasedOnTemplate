@@ -1,0 +1,359 @@
+\section{Juegos justos: la respuesta a la pregunta cualitativa}
+
+\subsection{Juegos de adversario justo}
+
+Sea $G$ un juego de grafo de dos jugadores y sea $E^{l} \subseteq (V_1 \times
+	V) \cap E$ un conjunto dado de aristas vivas \hl{ver traducción}. Sea $V^{l} :=
+	\mathrm{dom}(E^{l})$ el conjunto de vértices del jugador $\diam$ que están en
+el dominio de $E^{l}$. Intuitivamente, las aristas en $E^{l}$ representan
+suposiciones de justicia sobre el jugador $\diam$: para cada arista $(v, v')
+	\in E^{l}$, si $v$ es visitado infinitamente a menudo en una jugada, se espera
+que la arista $(v, v')$ sea elegida también infinitamente a menudo por el
+jugador $\diam$. Es decir, si un vértice $v$ es visitado infinitamente, se
+espera también que toda arista viva saliente de $v$ sea tomada infinitamente a
+menudo.
+
+Denotamos por $G^{l} = \langle G, E^{l} \rangle$ a un juego de grafo de dos
+jugadores con aristas vivas, y extendemos nociones como jugadas, estrategias,
+condiciones ganadoras, regiones ganadoras, etc., de juegos de grafo a juegos de
+grafos con aristas vivas. Una jugada $\pi$ sobre $G^{l}$ es fuertemente justa
+si satisface la siguiente fórmula en lógica temporal lineal (LTL):
+
+\[
+	\alpha := \bigwedge_{(v, v') \in E^{l}} \left( \siempevent v \rightarrow \siempevent (v \wedge \bigcirc v') \right).
+\]
+
+Dado $G^{l}$ y una condición de victoria $\varphi$, el jugador $\cuad$ gana el
+juego de adversario justo sobre $G^{l}$ con respecto a la condición de victoria
+$\varphi$ desde un vértice $v_0 \in V$ si gana el juego sobre $G^{l}$ para la
+condición de victoria $\alpha \rightarrow \varphi$ desde $v_0$.
+
+Hay dos observaciones interesantes sobre los juegos de adversario justo.
+
+Primero, las aristas vivas permiten descartar ciertas estrategias del jugador
+$\diam$, facilitando que el jugador $\cuad$ gane en determinadas situaciones.
+Por ejemplo, consideremos un grafo de juego (figura X, parte superior) con dos
+vértices $p$ y $q$. El vértice $p$ pertenece al jugador $\diam$ y el vértice
+$q$ al jugador $\cuad$. La arista $(p, q)$ es una arista viva (representada con
+línea discontinua). Supongamos que la especificación para el jugador $\cuad$ es
+$\varphi = \siempevent q$. Si la arista $(p, q)$ no fuera viva, el jugador
+$\cuad$ no ganaría desde $p$, porque el jugador $\diam$ podría mantener el
+juego atrapado en $p$ eligiéndose a sí mismo como sucesor en cada turno. En
+contraste, el jugador $\cuad$ gana desde $p$ en el juego adversarial justo,
+porque la suposición de liveness sobre la arista $(p, q)$ fuerza al jugador
+$\diam$ a elegir infinitamente a menudo la transición hacia $q$.
+
+Segundo, las suposiciones de justicia modeladas por aristas vivas restringen
+las elecciones de estrategias del jugador $\diam$ menos que lo que
+restringirían la suposición de que el jugador $\diam$ elige probabilísticamente
+entre estas aristas. Consideremos, por ejemplo, un juego de adversario justo
+con un único vértice del jugador $\diam$, $p$ (cuadrado) con dos aristas vivas
+salientes hacia los estados $q$ y $q'$, como se muestra en la Figura 1 (parte
+inferior). Si el jugador $\diam$ elige aleatoriamente entre las aristas $(p,
+	q)$ y $(p, q')$, toda secuencia finita de visitas a los estados $q$ y $q'$
+ocurrirá infinitamente a menudo con probabilidad uno. Esto no es cierto en el
+juego de adversario justo. Aquí el jugador $\diam$ puede elegir una secuencia
+particular de visitas a $q$ y $q'$ (por ejemplo, simplemente $qq'qq'qq'\dots$),
+siempre que ambos sean visitados infinitamente a menudo.
+
+\begin{figure}[ht]
+	\centering
+	\begin{tikzpicture}[>=Stealth, node distance=3.5cm, font=\scriptsize]
+		% Definición de estilos para los nodos
+		\tikzset{
+			state/.style={draw, circle, minimum size=1.2cm, font=\normalsize},
+			square state/.style={draw, rectangle, minimum size=1.2cm, font=\normalsize},
+			diamond state/.style={draw, diamond, aspect=1.5, minimum size=1.5cm,font=\normalsize}
+		}
+
+		% --- Figura superior ---.
+		\node[diamond state] (p1) at (0,0) {$p$};
+		\node[square state] (q1) [right of=p1] {$q$};
+
+		% Transiciones:
+		\draw[->] (p1) edge[loop left] (p1);
+		\draw[->, dashed] (p1) to[bend left=20] (q1);
+		\draw[->] (q1) edge[bend left=20] (p1);
+
+		% --- Figura inferior ---
+		\node[diamond state] (p2) at (0,-3.5) {$p$};
+		\node[square state] (q2) [above right=0.5cm and 1cm of p2] {$q$};
+		\node[square state] (q2p) [below right=0.5cm and 1cm of p2]  {$q'$};
+
+		% Transiciones:
+		\draw[->, dashed] (p2) to[left] (q2);
+		\draw[->, dashed] (p2) edge[left] (q2p);
+		\draw[->] (q2) edge[bend left=20] (p2);
+		\draw[->] (q2p) edge[bend left=20] (p2);
+
+	\end{tikzpicture}
+	\caption{Dos juegos de adversario justo.}
+	\label{fig:juego-justo}
+\end{figure}
+
+\subsection{Desrandomización de PSGs}
+
+Dada la interpretación de un juego estocástico politópico $\Gk = (\St,
+	(\St_\cuad, \St_\diam), \Act, \theta)$, se define la \textit{desrandomización
+	de} $\Gk$, $\DGk := (( V, V_\cuad, V_\diam, E ), E^l )$, como el (vamos con
+esta traducción?) juego de grafo de 2 jugadores extremadamente equitativo con:
+
+\begin{alignat*}{2}
+	&\tilde V &&= \newV \\
+	&V &&= \St \cup \tilde V \\
+	&V_\cuad &&= \St_\cuad \\
+	&V_\diam &&= \St_\diam \cup \tilde V \\
+	&E &&= \{(s, v_{V}) : V \in V_s\} \\
+	&E^l &&= \{(v_{V}, s') : s' \in V\}
+\end{alignat*}
+
+y para el cual se cumple la siguiente condición de equidad: $$ \varphi^l :=
+	\bigwedge_{(v_{V'},s') \in E^l} (\siempevent v_{V'} \rightarrow \siempevent
+	(v_{V'} \wedge \bigcirc s' )) $$
+
+o lo que es lo mismo si todo camino cumple que para todo $v_V \in \tilde V$ $$
+	\varphi^l := \bigwedge_{\substack{s' \in V'}} (\siempevent v_{V'} \rightarrow
+	\siempevent (v_{V'} \wedge \bigcirc s' )) $$
+
+\subsubsection*{Relación entre un PSG y su desrandomización}
+
+Nos será útil pensar en transformaciones entre los distintos juegos para las
+pruebas que tenemos más adelante, así que veremos algunas definiciones. Antes,
+fijemos la interpretación de un juego estocástico politópico $\Gk$ y su
+desrandomización $\DGk$.
+
+\begin{definition}[transformación de caminos]
+	Dado un comportamiento $\omega = (s_0, \alpha_0, s_1, \alpha_1, \dots)$ en $\Gk$, podemos obtener un único camino en $\DGk$ al que llamaremos $\derand(\omega)$ y tendrá la siguiente forma:
+	$$\derand(\omega) = (s_0, v_{\supp(\alpha_0)}, s_1, v_{\supp(\alpha_1), \dots})$$
+	Por otro lado, si tenemos un camino $\rho = (s_0, v_{V_0}, s_1, v_{V_1}, \dots)$ en $\DGk$, existen varios comportamientos en $\Gk$ que se corresponderían con él. Llamaremos a este conjunto de comportamientos $\rand(\rho)$. Es decir,
+	$$\rand(\rho) = \{(s_0, \alpha_0, s_1, \alpha_1, \dots) \in \Omega_{\Gk,s} \mid \forall i \geq 0, \ \supp(\alpha_i) = V_i\}$$
+\end{definition}
+
+\begin{definition}[desrandomización de estrategias]
+	Dada una estrategia $\pi_\cuad$ en $\Gk$, vamos a definir una estrategia $\sigma_\cuad$ en $\DGk$. $\pi_\cuad$ está definida para cada prefijo finito de comportamiento $\omega$, debemos definir $\sigma_\cuad$ para cada prefijo finito $\derand(\omega)$. Sin embargo, para cada prefijo finito $\rho= (s_0, v_{V_0}, s_1, v_{V_1}, \dots)$ en $\DGk$, existe más de un $\hat\omega$ tal que $\derand(\hat\omega) = \rho$. Por eso, lo primero que debemos hacer es elegir un camino $\omega$ particular tal que $\derand(\omega) = \rho$ y definir $\sigma_\cuad(\derand(\omega))$ a partir de ese $\omega$.
+
+	Sabemos que $\pi_\cuad (\omega s)$ es una función que asigna a cada acción
+	$\hat\alpha \in \Act(s)$ una probabilidad de ser seleccionada como próxima.
+	Para cada $\derand(\omega)s$, $\sigma_\cuad$ debemos asignar un próximo
+	vértice. Lo que haremos para definir que vértice será seleccionado será elegir
+	alguna acción $\hat\alpha^*$ a la que $\pi_\cuad(\omega s)$ le haya asignado
+	una probabilidad positiva, y entonces diremos que $\sigma_i(\derand(\omega) s)
+		= v_{\supp(\hat\alpha^*)}$.
+
+	%Ahora bien, si estamos definiendo una estrategia $\sigma_\diam$ también debemos tener en cuenta que esta debe tomar decisiones en los estados con la forma $v_{V}$. ¿Cómo definimos esos estados? NO NECESITAMOS DEFINIR PARA $\pi_\diam$
+
+	A esta nueva estrategia $\sigma_\cuad$ que hemos obtenido a partir de
+	$\pi_\cuad$ la llamaremos $\derand(\pi_\cuad)$.
+\end{definition}
+
+\hl{¿Capaz estaría bueno definirlo como tipo algoritmo?} Y capaz dar alguna noción de corrección viendo que siempre existen las cosas que elegimos?
+
+\begin{definition}[randomización de estrategias]
+	Ahora supongamos que tenemos una estrategia $\sigma_i$ en $\DGk$ y queremos construir una estrategia $\pi_i$ en $\Gk$ que tenga un comportamiento similar. $\sigma_i$ está definida para todos los prefijos finitos de caminos $\rho$ en $\DGk$ y nuestra idea es definir $\pi_i$ para todos los comportamiento $\omega$ en $\Gk$. Nuestra idea será definir $\pi_i$ de igual manera para todos los elementos del conjunto $\rand(\rho)$.
+
+	Solo nos va a interesar ver cómo $\sigma_i$ se comporta en los prefijos finitos
+	de caminos $\rho$ que terminen en un estado $s \in \St$ \footnote{Desde los
+		prefijos finitos de caminos donde el último elemento es un vértice $v_V$, las
+		decisiones son tomadas por el jugador $\diam$ y solo reflejan lo que sería la
+		decisión probabilística en $\Gk$.}. Para cada uno de estos $\rho$, tenemos que
+	$\sigma_i(\rho) = v_{\widehat{V}}$ para algún $v_V$. Lo que haremos para la
+	construcción de $\pi_i$ es para cada $\omega \in \derand(\rho)$ definir
+	$\pi_i(\omega)(\hat\alpha) = 1$ para algún $\hat\alpha$ particular tal que
+	$\supp(\hat\alpha) = \widehat{V}$.
+
+	Llamaremos a esta nueva estrategia $\pi_i$ obtenida a partir de $\sigma_i$,
+	$\rand(\sigma_i)$.
+\end{definition}
+
+\subsection{Prueba de igualdad sobre los conjuntos ganadores}
+
+\begin{theorem}
+	\label{teocuali}
+	Sea $\Gk = (\St, (\St_\cuad, \St_\diam), \Act, \theta)$ la interpretación de un juego estocástico politópico, $\widetilde{\mathcal{R}} = \{ \langle G_1, R_1 \rangle, ..., \langle G_k, R_k \rangle \}$ una condición de Rabin sobre $\St$, con su especificación LTL $\varphi$,
+
+	$$
+		\varphi := \bigvee_{j \in [1, k]} \left( \eventsiemp \overline{R_j} \wedge \eventsiemp G_j \right)
+	$$
+
+	y sea $\DGk$ su desrandomización.
+
+	Sea $\W \subseteq \St$ el conjunto de todos los estados desde los cuales el
+	jugador $\cuad$ gana en $\DGk$ y sea $\W^{as}$ el conjunto de vértices desde
+	los cuales el jugador $\cuad$ gana casi seguramente con estrategias de memoria
+	finita. Entonces, $\W = \W^{as}$.
+
+	Es más, a partir de una estrategia ganadora en $\DGk$ se puede construir
+	fácilmente una estrategia ganadora en $\Gk$, y viceversa.
+\end{theorem}
+
+\begin{proof}
+	Probaremos la doble contención:
+
+	\textbf{Primera contención: } $\W \subseteq \W^{as}$
+
+	Sea $s \in \W$. Entonces, sabemos que existe al menos una estrategia del
+	jugador $\cuad$ ganadora desde $s$ en $\DGk$. Llamemos a esta
+	$\sigma_\cuad^{*}$.
+
+	Queremos ver que $s \in \W^{as}$, lo que requiere ver que existe una estrategia
+	$\picuadGk$ tal que:
+	\begin{equation}
+		\label{pisirve}
+		\inf_{\pidiam \in \Pidiam} \Prob_{\Gk,s}^{\picuadGk, \pidiam}(\varphi) = 1
+	\end{equation}
+
+	Proponemos $\picuadGk = \rand(\sigma_\cuad^*)$.
+
+	Ahora bien, ¿cómo podemos probar \ref{pisirve}?
+
+	Por definición de $\sigma_\cuad^*$ sabemos que si se está frente a una
+	estrategia $\sigma_\diam$ que respeta la condición de equidad $\varphi^l$,
+	entonces la jugada determinada por ambas estrategias cumple la especificación
+	$\varphi$.
+
+	\hl{A esto de acá abajo es que le faltaría una justificación más precisa.}
+
+	Pedir que valga $\varphi^l$ en $\DGk$ es pedir que valga $\hat{\varphi}^l$ en
+	$\Gk$ para todo comportamiento en el juego y acción $\alpha$ en el
+	comportamiento, vale que:
+
+	$$
+		\hat{\varphi}^l = \bigwedge_{s' \in \supp(\alpha)} \left( \siempevent \alpha \rightarrow \siempevent (\alpha \wedge \bigcirc s' ) \right)
+	$$
+
+	\hl{Capaz es notable el que por cada soporte $V$, por cómo está definido $\rand$ de estrategias, habrá una única acción $\alpha$ que se elije (por eso se sabe la equivalencia? por eso se sabe que habrá infinitas elecciones de $\alpha$?)}.
+
+	Entonces, por cómo $\picuadGk$ está definida (a partir de $\sigma_\cuad^*$)
+	sabemos que
+
+	\begin{equation}
+		\label{implicancia}
+		\inf_{\pidiam \in \Pidiam} \Prob_{\Gk,s}^{\picuadGk, \pidiam}(\hat{\varphi}^l \rightarrow \varphi) = 1
+	\end{equation}
+
+	Veamos ahora que la ecuación \ref{pisirve} valdrá porque la probabilidad de que
+	no valga $\hat{\varphi}^l$ es 0. Veamos:
+
+	\hl{Esto no me está quedando bien con el tema de que esto es para cada $\alpha$ que aparece en el comportamiento, pero medio que entendiendo que es algo del camino capaz está bien y ni vale la pena hacerse mucha cabeza}
+
+	\begin{align*}
+		&\Prob_{\Gk, s}^{\picuadGk, \pidiam}(\neg \hat{\varphi}^l) = \\
+		&\Prob_{\Gk, s}^{\picuadGk, \pidiam}\left(\neg \left(\bigwedge_{s' \in \supp(\alpha)} \left( \siempevent \alpha \rightarrow \siempevent (\alpha \wedge \bigcirc s' ) \right)\right)\right) = \\
+		&\Prob_{\Gk, s}^{\picuadGk, \pidiam} \left(\bigvee_{s' \in \supp(\alpha)} \neg \left( \siempevent \alpha \rightarrow \siempevent (\alpha \wedge \bigcirc s' ) \right)\right) = \\
+		&\Prob_{\Gk, s}^{\picuadGk, \pidiam} \left(\bigvee_{s' \in \supp(\alpha)} \left( \siempevent \alpha \wedge \eventsiemp \neg (\alpha \wedge \bigcirc s' ) \right)\right) \leq \\
+		&\sum_{s' \in \supp(\alpha)} \Prob_{\Gk, s}^{\picuadGk, \pidiam} \left( \siempevent \alpha \wedge \eventsiemp \neg (\alpha \wedge \bigcirc s' ) \right)
+	\end{align*}
+
+	Mostramos que este último término es igual a 0, viendo que para cada $s' \in
+		\supp(\alpha)$,
+
+	$$
+		\Prob_{\Gk, s}^{\picuadGk, \pidiam} \left( \siempevent \alpha \wedge \eventsiemp \neg (\alpha \wedge \bigcirc s' ) \right) = 0
+	$$
+
+	Sea $\omega$ una jugada. Notemos con $\mu$ a la distribución asociada a la
+	acción $\alpha$. Sea $I$ el conjunto infinito de momentos donde se elije la
+	acción $\alpha$. La probabilidad de elegir $s'$ como próximo vértice en
+	cualquier momento $i \in I$ estará dada por $\mu(s')$.
+
+	Entonces, para cada momento $i$, la probabilidad de no visitar $s'$ por los
+	próximos $k$ momentos $i$, está acotada superiormente por $(1 - \mu(s'))^k$,
+	que converge a $0$ cuando $k$ tiende de a $\infty$. Por lo tanto, tenemos que
+	$\Prob_{\Gk, s}^{\picuadGk, \pidiam} \left( \siempevent \alpha \wedge
+		\eventsiemp \neg (\alpha \wedge \bigcirc s' ) \right) = 0$.
+
+	\hl{Queda raro esto porque no hay un estado $s$ de por sí.}
+
+	\hlcyan{Consideremos un $s' \in \supp(\alpha)$ arbitrario. Sea $\omega$ una jugada y sea $I$ el conjunto infinito de momentos donde se llega a $s$ y se elige una acción $(K, \mu) \in acc(s, \supp(\alpha))$. Llamemos $\mu_i$ a la distribución elegida en el momento $i \in I$. La probabilidad de elegir $s'$ como próximo vértice en el momento $i \in I$ estará dada por $\mu_i(s')$.
+
+		Como estamos trabajando con estrategias de memoria finita, habrá solo una
+		cantidad finita de distribuciones que $\pidiam$ puede elegir desde $s$, así que
+		existirá una distribución, llamémosla $\mu_{\max}$ tal que da la probabilidad
+		máxima de ir a $s'$.}
+
+	\hl{No tengo porqué hablar de acciones de memoria finita mepa. Voy a elegir infinitas veces la misma acción. Solo elijo una acción por cada soporte por la manera en la que definimos rand.}
+
+	\hlcyan{Entonces, para cada momento $i$, la probabilidad de no visitar $s'$ por los próximos $k$ momentos $i$, está acotada superiormente por $(1 - \mu_{max}(s'))^l$, que converge a $0$ cuando $l$ tiende de a $\infty$. Por lo tanto, tenemos que $\Prob_{\Gk, s}^{\picuadGk, \pidiam} \left( \siempevent \alpha \wedge \eventsiemp \neg (\alpha \wedge \bigcirc s' ) \right) = 0$}
+
+	En consecuencia, se sigue que $\sum_{s' \in \supp(\alpha)} \Prob_{\Gk,
+			s}^{\picuadGk, \pidiam} \left( \siempevent \alpha \wedge \eventsiemp \neg
+			(\alpha \wedge \bigcirc s' ) \right) = 0$, lo que a su vez establece que
+	$\Prob_{\Gk, s}^{\picuadGk, \pidiam}(\neg \hat{\varphi}^l) = 0$.
+
+	Luego vale que:
+
+	\begin{align*}
+		&\Prob_{\Gk,s}^{\picuadGk, \pidiam}(\hat{\varphi}^l \rightarrow \varphi) = \Prob_{\Gk,s}^{\picuadGk, \pidiam}(\neg \hat{\varphi}^l \vee \varphi) \leq \\
+		&\Prob_{\Gk,s}^{\picuadGk, \pidiam}(\neg \hat{\varphi}^l) + \Prob_{\Gk,s}^{\picuadGk, \pidiam}(\varphi) = 0 + \Prob_{\Gk,s}^{\picuadGk, \pidiam}(\varphi) = \\
+		&\Prob_{\Gk,s}^{\picuadGk, \pidiam}(\varphi)
+	\end{align*}
+
+	Y por \ref{implicancia} entonces vale que $\inf_{\pidiam \in \Pidiam}
+		\Prob_{\Gk,s}^{\picuadGk, \pidiam}(\varphi) = 1$ como queríamos probar.
+
+	% -------------------------------------------------------------------------------------------------------------------------------------------------
+
+	\textbf{Segunda contención: } $\W^{as} \subseteq \W$
+
+	Sea $s \in \W^{as}$, veamos que $s \in \W$.
+
+	Como $s \in \W^{as}$, entonces existe $\picuad^*$ en $\Gk$ tal que
+	$\inf_{\pidiam \in \Pidiam}\Prob_{\Gk,s}^{\picuad^*, \pidiam}(\varphi) = 1$.
+
+	Lo que queremos ver para probar que $s \in \W$ es que existe una estrategia
+	$\sigma_\cuad^*$ tal que $\cuad$ gana con ella desde $s$ en $\DGk$.
+
+	Definimos $\sigma_\cuad^* = \derand(\picuad^*)$
+
+	Entonces ahora queremos ver que $\sigma_\cuad*$ es ganadora en $\DGk$ desde
+	$s$.
+
+	Una manera de ver esto es probar que para un comportamiento cualquiera $\rho$
+	generado por $\sigma_\cuad^*$ y una estrategia válida $\pidiam \in \Pidiam$
+	arbitraria, $\inft(\rho)$ cumple con la especificación $\varphi$. Es decir, que
+	vale la siguiente fórmula:
+
+	%(Ver que quede la definición de Inf antes).
+
+	\begin{equation}
+		\label{varphi'}
+		\varphi' := \bigvee_{j = 1}^{k} \left((\inft(\rho) \cap R_j = \emptyset) \wedge (\inft(\rho) \cap G_j \neq \emptyset)  \right)
+	\end{equation}
+
+	Si podemos probar que $\inft(\rho)$ es un sub-PMDP alcanzable en el PMDP que se
+	forma al fijar la estrategia de memoria finita $\picuad^*$ en $\Gk$, por el
+	teorema \ref{adaptB30} podemos ver que vale la ecuación \ref{varphi'}.
+
+	Primero, podemos ver que $\inft(\rho)$ \hl{(entendiendo los vértices de la
+		forma $v_V$ como el conjunto resultado $V$)} es una componente final en el
+	polytopal markov decision process que se forma al fijar la estrategia
+	$\picuad^*$ en $\Gk$, llamémoslo $(C,D)$, viendo que cumple las dos
+	propiedades:
+
+	\begin{itemize}
+		\item Para cada $V^i$ que aparece como subíndice de vértices \textit{especiales} en
+		      $\inft(\rho)$, vale que $V^i \subseteq C$. En el caso de que existiese algún
+		      $s_x \in V^i$ tal que $s_x \notin C$, se estaría contradiciendo que $\pidiam$
+		      sea una estrategia válida en $\DGk$, puesto que visitaría infinitas veces
+		      $v_{V^i}$ y solo finitas veces $s_x$, uno de sus sucesores.
+		\item El grafo dirigido inducido por $\inft(\rho)$ es fuertemente conexo. Si fuese de
+		      otra manera habría dos vértices $u, v \in \inft(\rho)$ tales que $v$ no sería
+		      alcanzable desde $u$, contradiciendo así que $u$ y $v$ son visitados infinitas
+		      veces por $\sigma$.
+	\end{itemize}
+
+	Luego, podemos ver que $\inft(\rho)$ es alcanzable en $\Gk$ viendo que existe
+	una estrategia $\pidiam^*$ en $\Gk$ que lo posibilita.
+
+	Definamos $\pidiam^* = \rand(\sigma_\diam)$.
+
+	Esta estrategia permite llegar con probabilidad positiva a $\inft(\rho)$,
+	puesto que tanto $\pidiam^*$ como $\picuad^*$ le da probabilidad positiva a los
+	mismos vértices que $\pidiam$ asegura visitar infinitamente. \hl{Capaz esto se
+		podría explicar mejor}.
+
+	Con lo cual hemos probado que vale \ref{varphi'} y, por lo tanto, que
+	$\sigma_\cuad*$ es ganadora en $\DGk$ desde $s$, con lo que hemos probado que
+	$s \in \W$.
+
+\end{proof}

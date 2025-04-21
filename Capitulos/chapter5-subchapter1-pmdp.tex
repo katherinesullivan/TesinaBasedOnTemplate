@@ -137,7 +137,6 @@ final".
 
 \begin{theorem}[teorema fundamental de las componentes finales] \label{teoFundEC}
 	Sea $\M$ un PMDP. Para todo $s \in S$, toda estrategia $\pi$ de memoria finita,
-
 	$$\Prob^\pi_{\M, s}(\{ \omega \in \paths(s) \mid sub(inft(\omega)) \text{ es una componente final}\}) = 1$$
 \end{theorem}
 
@@ -146,13 +145,11 @@ final".
 	%(otra forma de decirlo capaz podría ser: conjunto de comportamientos que se estabilizan en el sub-PMDP $(C,D)$).
 
 	Si podemos mostrar que
-
 	\begin{equation}\label{omegaEnOmega0}
 		\Prob^\pi_{\M, s}(\{ \omega \in \paths(s) \mid \omega \in \Omega_s^{(C,D)}\}) = 0
-	\end{equation} como $(C,D)$ es un sub-PMDP cualquiera y como hay una cantidad finita de sub-PMDPs en $\M$, esto es lo mismo que mostrar que
-
+	\end{equation}
+	como $(C,D)$ es un sub-PMDP cualquiera y como hay una cantidad finita de sub-PMDPs en $\M$, esto es lo mismo que mostrar que
 	$$\Prob^\pi_{\M, s}(\{ \omega \in \paths(s) \mid sub(inft(\omega)) \text{ es una componente final}\}) = 1$$.
-
 	Veamos que vale \ref{omegaEnOmega0}, dividiendo en casos según cuál es la
 	condición de la definición \ref{defEC} que no se cumple para $(C,D)$:
 
