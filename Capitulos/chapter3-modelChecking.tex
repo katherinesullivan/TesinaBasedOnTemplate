@@ -16,8 +16,8 @@ Capaz esto iría mas en la introducción para platear la idea de trabajo
 \section{Cadenas de Markov}
 
 \begin{definition}[Cadena de Markov]
-	Una cadena de Markov es una tupla $M = (S, P)$ donde $S$ es un conjunto finito no vacío de estados y $P: S \times S \rightarrow [0,1]$ es una función tal que para todos los estados $s$ vale que
-	$$ \sum_{s' \in S} P(s, s') = 1$$.
+	Una cadena de Markov es una tupla $M = (S, P)$ donde $S$ es un conjunto (finito ?) no vacío de estados y $P: S \times S \rightarrow [0,1]$ es una función tal que para todos los estados $s$ vale que
+	$$ \sum_{s' \in S} P(s, s') = 1$$
 \end{definition}
 
 La función de probabilidad de transición $P$ especifica para cada estado $s$ la
@@ -46,6 +46,8 @@ el rol de resultados. Esto es $Outc^M = \paths(M)$. La $\sigma$-álgebra
 asociada con $M$ es generada pot los conjuntos cilindro formados por los
 fragmentos de caminos finitos en $M$.
 
+\hl{Me falta la noción de prefijo}.
+
 \begin{definition}[Conjunto cilindro]
 	El conjunto cilindro de $\hat \omega = (s_0, \dots, s_n) \in \pathsfin(M)$ está definido como
 	$$Cyl(\hat \omega) = \{\omega \in \paths(M) \mid \hat \omega \in pref(\omega)\}$$
@@ -56,11 +58,19 @@ fragmentos de caminos finitos en $M$.
 \end{definition}
 
 De conceptos clásicos de teoría de probabilidad se sigue que por cada estado
-$s_0$ existe una única medida de probabilidad $\Prob^M_{s_0}$ en la
-$\sigma$-álgebra $\eventE^M$ asociada a $M$ donde las probabilidades para los
+$s$ existe una única medida de probabilidad $\Prob^M_{s}$ en la
+$\sigma$-álgebra $\eventE^M$ asociada a $M$, donde las probabilidades para los
 conjunto cilindros (es decir, los eventos) están dadas por:
-$$Prob^M_{s_0}(Cyl(s_0, \dots, s_n)) = \prod_{0 \leq i < n} P(si, s_{i+1})$$.
-\hl{Capaz es mejor agregar lo de estados iniciales y después la extensión}.
+\begin{equation}
+	\label{probMC}
+	\Prob^M_{s}(Cyl(s_0, \dots, s_n)) = \iota(s,s_0) \cdot \prod_{0 \leq i < n} P(si, s_{i+1})\text{, donde }\iota(s,s_0) =
+	\begin{cases}
+		1 &\text{si } s = s_0 \\
+		0 &\text{en otro caso}
+	\end{cases}
+\end{equation}
+
+\hl{No estoy muy segura de cómo manejar lo de estado inicial}.
 
 \textbf{Notación}: en lo que sigue, usaremos notación LTl para describir ciertos eventos en cadenas de Markov. Por ejemplo, para un conjunto $B \subseteq S$ de estados, $\alc B$ denota el evento de llegar eventualmente a (algún estado en) $B$, mientras que $siempevent B$ describe el evento en el que $B$ es visitado infinitamente a menudo. \hl{Algo más? sí}
 
@@ -78,18 +88,148 @@ un conjunto fijo de acciones $Act$. La definición de un proceso de decisión de
 Markov es como sigue:
 
 \begin{definition}[Proceso de Decisión de Markov]
-	Un proceso de decisión de Markov (S, A) consiste de un conjunto finito de estados $S$ y de un componente $A$ de acciones que especifica la estructura de transición:
+	Un proceso de decisión de Markov $\M =(S, A, \theta)$ consiste de un conjunto finito de estados $S$ y de dos componentes $A$ y $\theta$ que especifican la estructura de transición:
 	\begin{itemize}
-		\item Para cada $s \in S$, $A(s) \subseteq Acts$ es el conjunto finito no vacío de
-		      acciones disponibles en $s$, donde cada acción es una distribución de
-		      probabilidad en el conjunto de estados.
-		\item Para cada $s, t \in S$ y $a \in A(s)$, $a(t)$ es la probabilidad de
-		      transicionar de $s$ a $t$ cuando la acción $a$ es seleccionada. Como $a$ es una
-		      distribución
+		\item $A$ es un conjunto de acciones. Para cada $s \in S$, $A(s) \subseteq Acts$ es el conjunto finito no vacío de
+		      acciones disponibles en $s$. Para cada estado $s \in S$ se requiere que $A(s) \neq \emptyset$.
+		\item $\theta : S \times A \times S \rightarrow [0,1]$ es una función de transición probabilística. Para todo estado $s \in S$, si $a \in A(s)$ tenemos que $\sum_{s' \in S} \theta(s, a, s') = 1$, mientras que si $a \notin A(s)$, $\sum_{s' \in S} \theta(s, a, s') = 0$. Para cada $s, t \in S$ y $a \in A(s)$, $\theta(s, a, t)$ es la probabilidad de transicionar de $s$ a $t$ cuando la acción $a$ es seleccionada.
 	\end{itemize}
 \end{definition}
 
-Baier and Katoen + Tesis de l de alfaro
+\hl{Agregar ejemplo de robot}
+
+Un comportamiento en un proceso de decisión de Markov es una secuencia
+alternante infinita de estados y acciones, construida iterativamente por un
+proceso de dos pasos. Primero, dado un estado $s$, una acción $a \in A(s)$ es
+seleccionada no-determinísticamente. Luego, el sucesor $t$ de $s$ es
+seleccionado de acuerdo a la distribución asociada a la acción $a$. La
+definición formal es como sigue:
+
+\begin{definition}[Comportamiento en un MDP]
+	Un comportamiento en un MDP $\M$ es una secuencia infinita $\omega = (s_0, a_0, s_1, a_1, \dots)$ tal que $a_i \in A(s_i)$ y $a_i(s_{i+1}) > 0$ para todo $i \geq 0$.
+
+	Dado un estado $s$, indicaremos con $\Omega_s$ el conjunto de todos los
+	comportamientos que se originan en $s$, con $\Omega_\M$ el conjunto de todos
+	los comportamientos en $\M$ y con $\Omega^{\textit{fin}}_\M$ el conjunto de
+	todos los prefijos finitos de comportamientos en $\M$ que terminan en un estado
+	$s \in S$.
+\end{definition}
+
+Para cadenas de Markov, el conjunto de caminos está equipado con una
+$\sigma$-álgebra y una medida de probabilidad que refleja la noción intuitiva
+de probabilidad para conjuntos (medibles) de caminos. Para los MDPs, esto es
+levemente distinto. Como no hay restricciones en la resolución de las
+elecciones no determinista, no hay una única medida de probabilidad asociada.
+(\hl{capaz acá podría ir algo tipo un ejemplo como el de la página 841})
+
+Para poder razonar sobre probabilidades de conjuntos de comportamientos en un
+MDP necesitamos resolver de alguna manera el no determinismo, y para ello
+introduciremos el concepto de estrategia.
+
+\begin{definition}[Estrategia en un MDP]
+	Sea $\M = (S, A, \theta)$ un MDP. Una estrategia para $\M$ es una función $\pi: \Omega^{\textit{fin}} \rightarrow \dist (A)$ que asigna una distribución de probabilidad a cada prefijo finito de comportamiento tal que $\pi(\hat \omega) (a) > 0$ solo si $a \in A(s)$.
+\end{definition}
+
+\hl{Comentar algo de que en la literatura se suelen bajar las acciones de la definición de estrategia? O capaz la idea sería dropear las acciones de la definición de estrategia acá?}
+
+\hl{Lo que está a continuación me hace un poco de ruido por la parte de la definición de la cadena de Markov. Es como lo presentan en el libro de Baier y Katoen y tiene esta idea de ir armando una continuidad entre MCs y MDPs en la explicación. La otra opción es ir poco más con el enfoque de Luca de Alfaro y presentar la $\sigma$-álgebra sin mencionar nada de MDPs}.
+
+Como una estrategia resuelve todas las elecciones no deterministas en un MDP,
+induce una cadena de Markov. Esto es, el funcionamiento de un MDP $\M$
+siguiendo las decisiones de una estrategia $\pi$ puede ser formalizado por una
+cadena de Markov $\M_\pi$, donde los estados son los prefijos finitos de
+comportamientos en $\M$.
+
+\begin{definition}[Cadena de Markov de un MDP inducida por una estrategia]
+	Sea $\M = (S, A, \theta)$ un MDP y $\pi$ una estrategia en $\M$. La cadena de Markov $\M_\pi$ está dada por
+	$$\M_\pi = (\Omega^{\textit{fin}}_\M, P_\pi)$$
+	donde para $\hat \omega = (s_0, a_0, s_1, a_1, \dots, s_n)$:
+	$$P_\pi(\hat \omega, \hat \omega a s_{n+1}) = \pi(\hat \omega)(a) \cdot \theta(s_n, a, s_{n+1})$$
+\end{definition}
+
+Nótese que $\M_\pi$ cuenta con un espacio de estados infinito aun, aun cuando
+el MDP $\M$ es finito. \hl{Entonces cuenta como una MC?}.
+
+Como $\M_\pi$ es una cadena de Markov, uno ahora puede razonar sobre las
+probabilidades de los conjuntos medibles de caminos que siguen la estrategia
+$\pi$, simplemente usando las distintas medidas de probabilidad
+$\Prob^{\M_\pi}_s$ asociadas a la cadena de Markov $\M_\pi$ (véase
+\ref{probMC}).
+
+\hl{Responder preguntas de probabilidad de cosas en MDP robot}
+
+Intuitivamente, el estado $(s_0, a_0, \dots, s_n)$ de $\M_\pi$ representa la
+configuración donde el MDP $\M$ está en el estado $s_n$ y cuenta con la
+historia $(s_0, a_0, \cdots, s_{n-1}, a_{n-1})$. Según la definición que vimos
+las estrategias pueden depender de la historia en su totalidad, produciendo
+resultados distintos si al menos una acción o estado en su historia cambia,
+pero es cierto que este caso no es lo usual. Veamos algunos tipos particulares
+de estrategias donde esto no sucede.
+
+\begin{definition}[Estrategias sin memoria]
+	Sea $\M$ un MDP con espacio de estados $S$. Una estrategia $\pi$ en $\M$ es sin memoria sii para cada par de comportamientos $(s_0, a_0, \dots, s_n)$ y $(t_0, a'_0, \dots, t_m)$ con $s_n = t_m$ vale que:
+	$$\pi(s_0, a_0, \dots, s_n) = \pi(t_0, a'_0, \dots, t_m)$$
+	En este caso, $\pi$ puede ser vista como una función $\pi : S \rightarrow \dist(A)$.
+\end{definition}
+
+Coloquialmente, una estrategia es sin memoria si no recuerda nada de la
+historia y solo elige probabilidades para las acciones basándose en el estado
+actual. Esto puede ser bastante extremo en ciertos casos, por eso existe una
+variante que busca reflejar la idea de finitud sin ser tan restrictiva: las
+estrategias de memoria finita. Una estrategia de memoria finita puede ser
+pensada intuitivamente como que solo puede guardar hasta una cantidad finita
+fija de información de la historia, por lo que no podrá ser distinta para
+\textbf{todo} prefijo finito de comportamiento. Formalmente, la definiremos a
+través de una autómata determinista finito (DFA). La distribución de
+probabilidad de las acciones será seleecionada a partir del estado actual en
+$\M$ y el estado actual del autómata (al que llamaremos modo). Veamos su
+definición:
+
+\begin{definition}[Estrategias con memoria finita]
+	Sea $\M$ un MDP con espacio de estados $S$ y conjunto de acciones $A$. Una estrategia de memoria finita para $\M$ es una tupla $\pi = (Q, f_\pi, \Gamma, start)$ donde
+	\begin{itemize}
+		\item $Q$ es un conjunto finito de modos,
+		\item $\Delta : Q \times A \times S \rightarrow Q$ es la función de transición del autómata,
+		\item $start: S \rightarrow Q$ es la función que determina el modo en el que empieza el automáta para un estado inicial $s$,
+		\item $f_\pi : Q \times S \rightarrow \dist(A)$ es la función que asigna la distribución de probabilidad en las acciones desde un estado $s$, es decir, lo que veníamos entendiendo como estrategia en sí.
+	\end{itemize}
+	El funcionamiento del MDP bajo la estrategia de memoria finita sería como sigue. En principio, se inicializa el modo del DFA a $q_0 = start(s_0)$. Luego, desde cada estado $s_i$ posterior el proceso será iterativo. Primero, se seleccionará la distribución de probabilidad en las acciones a partir del modo actual $q_i$ del autómata con $f_\pi((q_i,s_i))$. Una vez tomada la decisión, se determina probabilísticamente la siguiente acción $a_{i+1}$, y, a partir de ella, se determina también probabilísticamente el siguiente estado $s_{i+1}$. Con la nueva acción y estado se selecionará el próximo modo del DFA $q{i+1} = \Delta(q_i, a_{i+1}, s_{i+1})$ y se repetirá el proceso.
+
+	Para $\hat \omega \in \Omega^{\textit{fin}}_\M$, notaremos con $\pi(\hat
+		\omega)$ a la distribución obtenida al realizar el proceso explicado
+	anteriormente con $\hat \omega$ \hl{pero qué pasa con la elección
+		probabilística de las acciones? No habría que tenerlo? Y que hay de sin
+		memoria? Ahi en realidad entonces no tendria que ser ultimo estado y penultima
+		accion?}.
+\end{definition}
+
+Además de su categorización en base a qué tanto dependen de su historia, existe
+otro tipo notable de estrategias: las estrategias deterministas. Una estrategia
+es determinista cuando .... En la literatura (véase \cite{BaierKatoen}
+\cite{AlfaroThesis}) es usual encontrarse con el estudio de estrategias solo en
+su variante determinista.
+
+\hl{Mencionar de que tipos son las estrategias vistas en el ejemplo de robot}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \begin{definition}[Conjunto cilindro]
+% 	El conjunto cilindro de $\hat \omega = (s_0, a_0, \dots, s_n) \in \Omega^{\textit{fin}}_\M$ está definido como
+% 	$$Cyl(\hat \omega) = \{\omega \in \Omega_\M \mid \hat \omega \in pref(\omega)\}$$
+% \end{definition}
+
+% \begin{definition}[$\sigma$-álegra de un MDP]
+% 	La $\sigma$-álgebra $\eventE^\M$ asociada al proceso de decisión de Markov $\M$ es la $\sigma$-álgebra más pequeña que contiene todos los conjuntos cilindro $Cyl(\hat \omega)$ donde $\hat \omega \in \Omega^{\textit{fin}}_\M$.
+
+% 	Para cada estado $s \in S$, definiremos como $\B_s \subseteq 2^{\Omega_s}$ a la
+% 	$\sigma$-álgebra más pequeña que contiene a todos los conjuntos cilindros
+% 	$Cyl(\hat \omega)$ donde $\hat \omega \in \Omega^{\textit{fin}}_{s}$.
+% \end{definition}
+
+% \hl{Todavía no sé muy bien cómo manejar lo de estados iniciales}
+
+% Para poder hablar de probabilidad de conjuntos de comportamientos querríamos
+% asociar a cada $\gamma \in \B_s$ su medida de probabilidad
 
 \section{Juegos estocásticos}
 
