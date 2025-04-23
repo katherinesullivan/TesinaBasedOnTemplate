@@ -106,7 +106,7 @@ seleccionado de acuerdo a la distribución asociada a la acción $a$. La
 definición formal es como sigue:
 
 \begin{definition}[Comportamiento en un MDP]
-	Un comportamiento en un MDP $\M$ es una secuencia infinita $\omega = (s_0, a_0, s_1, a_1, \dots)$ tal que $a_i \in A(s_i)$ y $a_i(s_{i+1}) > 0$ para todo $i \geq 0$.
+	Un comportamiento en un MDP $\M$ es una secuencia infinita $\omega = (s_0, a_0, s_1, a_1, \dots)$ tal que $s \in S$, $a_i \in A(s_i)$ y $a_i(s_{i+1}) > 0$ para todo $i \geq 0$.
 
 	Dado un estado $s$, indicaremos con $\Omega_s$ el conjunto de todos los
 	comportamientos que se originan en $s$, con $\Omega_\M$ el conjunto de todos
@@ -193,7 +193,7 @@ definición:
 		\item $start: S \rightarrow Q$ es la función que determina el modo en el que empieza el automáta para un estado inicial $s$,
 		\item $f_\pi : Q \times S \rightarrow \dist(A)$ es la función que asigna la distribución de probabilidad en las acciones desde un estado $s$, es decir, lo que veníamos entendiendo como estrategia en sí.
 	\end{itemize}
-	El funcionamiento del MDP bajo la estrategia de memoria finita sería como sigue. En principio, se inicializa el modo del DFA a $q_0 = start(s_0)$. Luego, desde cada estado $s_i$ posterior el proceso será iterativo. Primero, se seleccionará la distribución de probabilidad en las acciones a partir del modo actual $q_i$ del autómata con $f_\pi((q_i,s_i))$. Una vez tomada la decisión, se determina probabilísticamente la siguiente acción $a_{i+1}$, y, a partir de ella, se determina también probabilísticamente el siguiente estado $s_{i+1}$. Con la nueva acción y estado se selecionará el próximo modo del DFA $q{i+1} = \Delta(q_i, a_{i+1}, s_{i+1})$ y se repetirá el proceso.
+	El funcionamiento del MDP bajo la estrategia de memoria finita sería como sigue. En principio, se inicializa el modo del DFA a $q_0 = start(s_0)$. Luego, desde cada estado $s_i$ posterior el proceso será iterativo. Primero, se seleccionará la distribución de probabilidad en las acciones a partir del modo actual $q_i$ del autómata con $f_\pi((q_i,s_i))$. Una vez tomada la decisión, se determina probabilísticamente la siguiente acción $a_{i+1}$, y, a partir de ella, se determina también probabilísticamente el siguiente estado $s_{i+1}$. Con la nueva acción y estado se selecionará el próximo modo del DFA $q_{i+1} = \Delta(q_i, a_{i+1}, s_{i+1})$ y se repetirá el proceso.
 
 	Para $\hat \omega \in \Omega^{\textit{fin}}_\M$, notaremos con $\pi(\hat
 		\omega)$ a la distribución obtenida al realizar el proceso explicado
@@ -205,9 +205,13 @@ definición:
 
 Además de su categorización en base a qué tanto dependen de su historia, existe
 otro tipo notable de estrategias: las estrategias deterministas. Una estrategia
-es determinista cuando .... En la literatura (véase \cite{BaierKatoen}
-\cite{AlfaroThesis}) es usual encontrarse con el estudio de estrategias solo en
-su variante determinista.
+es determinista cuando para cada $\hat \omega \in \Omega^{\textit{fin}}_\M$ la
+distribución $\pi(\hat \omega)$ es una distribución de Dirac (es decir, una
+distribución $\delta_a$ tal que $\delta_a(a) = 1$ y $\delta_a(b) = 0$ para todo
+$b \neq a$). En la literatura (véase \cite{BaierKatoen, AlfaroThesis}) es usual
+encontrarse con el estudio de estrategias solo en su variante determinista y,
+en ese caso, se puede pensar a las estrategias como una función $\pi:
+	\Omega^{\textit{fin}}_\M \rightarrow A$.
 
 \hl{Mencionar de que tipos son las estrategias vistas en el ejemplo de robot}
 
@@ -233,23 +237,92 @@ su variante determinista.
 
 \section{Juegos estocásticos}
 
+¿textito de conexión con MDPs?
+
+\hl{Definir cómo queda con lo de acciones habilitadas esto o MDP}
+\begin{definition}[Juego estocástico]
+	Un juego estocástico (SG) es una tupla $\G = (\St, (\St_\cuad, \St_\diam), \Act, \theta)$ donde:
+	\begin{itemize}
+		\item $\St$, un conjunto finito de estados con $\St_\cuad, \St_\diam \subseteq \St$ siendo una partición de él,
+		\item $\Act$ es un conjuno de acciones, y
+		\item $\theta : \St \times \Act \times S \rightarrow [0,1]$ es una función de transición probabilística tal que para cada $s \in \St$, $\theta(s, a, \cdot) \in \dist(\St)$ o  $\theta(s, a, \St) = 0$.
+	\end{itemize}
+	Notaremos con $\Act(s) = \{a \in \Act \mid \theta(s,a,\St) = 1\}$ al conjunto de acciones habilitadas en $s$, y
+\end{definition}
+
+Se puede notar que si $S_\cuad = \emptyset$ o $\S_\diam = \emptyset$, entonces
+$\G$ es un proceso de decisión de Markov, y, como vimos antes, si a la vez
+$\abs{\Act(s)} = 1$ entonces $\G$ es una cadena de Markov.
+
+Otra manera de verlo es que podemos pensar a los juegos estocásticos como un
+procesos de decisión de Markov donde el conjunto de estados está particionado
+en dos: los estados correspondientes al jugador $\cuad$ y los estados
+correspondientes al jugador $\diam$. La idea de esta anotación de a quién
+pertence los estados es lo que introduce esta idea adversarial: no solo habrá
+un ente que tome las decisiones no deterministas, sino dos. Esto quiere decir
+que tendremos dos tipos de estrategias, una por cada tipo de jugador.
+
+Al igual que con los MDPs, antes de definir las estrategias, presentamos el
+concepto de comportamiento en un juego estocástico.
+
+\begin{definition}[Comportamiento en un SG]
+	Un comportamiento en un SG $\G$ es una secuencia infinita $\omega = (s_0, a_0, s_1, a_1, \dots)$ tal que $s_i \in \St$, $a_i \in \Act(s_i)$ y $a_i(s_{i+1}) > 0$ para todo $i \geq 0$.
+
+	Dado un estado $s$, indicaremos con $\Omega_s$ el conjunto de todos los
+	comportamientos que se originan en $s$, con $\Omega_\G$ el conjunto de todos
+	los comportamientos en $\G$ y con $\Omega^{\textit{fin}}_{\G, i}$ el conjunto
+	de todos los prefijos finitos de comportamientos en $\G$ que terminan en un
+	estado $s \in \St_i$, con $i \in \{\cuad, \diam\}$.
+\end{definition}
+
+\begin{definition}[Estrategia en un juego estocástico]
+	Sea $\G = (\St, (\St_\cuad, \St_\diam), \Act, \theta)$ un SG. Una estrategia $\pi_i$ para el jugador $i$ en $\G$ es una función $\pi: \Omega^{\textit{fin}}_i \rightarrow \dist (A)$ que asigna una distribución de probabilidad a cada prefijo finito de comportamiento que termina en un estado del jugador $i$ tal que $\pi(\hat \omega) (a) > 0$ solo si $a \in A(s)$.
+
+	Llamaremos $\Pi_\cuad$ al conjunto de todas las estrategias del jugador $\cuad$
+	y $\Pi_\diam$ al conjunto de todas las estrategias del jugador $\diam$.
+\end{definition}
+
+Podemos ver que las estrategias en un juego estocástico se definen igual a cómo
+se las definen para procesos de decisión de Markov con la salvedad de que
+pertenecerán a un jugador específico. Los distintos tipos de estrategias
+presentadas en la sección anterior se extienden naturalemente a SG. \hl{Ver
+	redacción}. Llamaremos $\Pi^{M}_i$ al conjunto de las estrategias sin memoria
+del jugador $i$, $\Pi^{F}_i$ al conjunto de las estrategias de memoria finita
+del jugador $i$, $\Pi^{D}_i$ al conjunto de las estrategias deterministas del
+jugador $i$, $\Pi^{MD}_i$ al conjunto de las estrategias deterministas sin
+memoria del jugador $i$ y $\Pi^{FD}_i$ al conjunto de las estrategias
+deterministas con memoria finita del jugador $i$.
+
+De manera similar a como lo razonamos para procesos de decisión de Markov, si
+fijamos dos estrategias $\pi_\cuad \in \Pi_\cuad$ y $\pi_\diam \in \Pi_\diam$
+en un juego estocástico $\G$ obtenemos una cadena de Markov a la que
+denotaremos $\G^{\picuad, \pidiam}$. Esta cadena de Markov, para cada $s \in
+	\St$ definirá una medida de probabilidad $\ProbG$ en la $\sigma$-álgebra de
+Borel del conjunto de comportamientos en $\G$. \hl{¿Es comportamientos?}. Si
+$\varepsilon$ es un conjunto medible en la $\sigma$-álgebra de Borel,
+$\ProbG(\varepsilon)$ será la probabilidad de que las estrategias $\picuad$ y
+$\pidiam$ sigan un comportamiento en $\varepsilon$ empezando desde el estado
+$s$.
+
+Tal como fue aclarado en las dos secciones anteriores, usaremos notación LTL
+para representar conjunto específicos de comportamientos. Sin embargo, en el
+estudio de juegos estocásticos es usual hacer un análisis sobre descripciones
+particulares de conjuntos de comportamientos conocidos como objetivos. mmm
+
+\subsubsection{Objetivos en juegos estocásticos}
+
+Lo primero que será importante notar es que vamos a trabajar con juegos de suma
+cero.
+
+distintos tipos y organizacion / ver de que manera presentarlos
+
+Kucera, omega reg, Chatterjee
+
 \subsection{Una breve historia sobre los juegos estocásticos}
 
 Enfoque mc -> mdp -> sg -> psg
 
 Enfoque juegos deterministas -> juegos estocasticos (Shapley etc)
-
-\subsection{Draft}
-Cosas de Kucera y de la parte preliminar del paper de Pedro.
-
-Me gustaría incluir cosas de Kucera/Banerjee y sus ideas de <<1>> val etc.
-(concepto de distintas maneras de ganar)
-
-Capaz algo de omega regular stochastic games y qsy
-
-\subsubsection{Objetivos}
-
-distintos tipos y organizacion / ver de que manera presentarlos
 
 \section{Juegos deterministas}
 
