@@ -140,11 +140,99 @@ Entonces, ahora sí podemos extender el concepto de estrategia en un PSG:
 	\]
 \end{boxamarillo}
 
+Entonces, logramos interpretar un PSG como un SG pero con un conjunto infinito
+de acciones. La idea de este paper va a ser demostrar cómo se pueden probar
+ciertos resultados de esta interpretación infinita con resultado en una
+interpretación finita, que presentamos a continuación.
+
+\begin{definition}[Interpretación extrema de un PSG]
+	Dada $\Gk = (\St, (\St_\cuad, \St_\diam), \Act, \theta)$ la interepretación de un PSG $\K$, la interpretación extrema de $\K$ es el juego estocástico $\Hk = (\St, (\St_\cuad, \St_\diam), \V(\Act), \theta_{\Hk})$ donde $\theta_{\Hk}$ es la restricción de  $\theta$ a las acciones en $\V(\Act) = \{(K, \mu) \in \Act \mid \mu \in \V(K)\}$. Es decir, para todos $s, s' \in \St$ y $a \in \V(\Act)$, $\theta_{\Hk}(s, a, s') = \theta(s, a, s')$.
+
+	Como $\V(\Act)$ es finito, $\Hk$ es un juego estocástico finito.
+\end{definition}
+
 \section{Teoremas}
 
-En esta sección presentamos los resultados desarrollados en \cite{Polytopal}
-que nos servirán más adelante en el documento.
+En esta sección presentamos los resultados principales desarrollados en
+\cite{Polytopal}.
 
-Algo más que teo1?
+Si bien el paper aborda 4 tipos distintos de objetivos (a saber, ...), solo nos
+concentraremos en los resultados que el paper presenta para objetivos de
+alcanzabilidad.
 
-AGG RDOS DEL PAPER DE PEDRO
+El primer teorema, nos permite establecer la determinación de los juegos
+estocásticos a la vez de que establece que los objetivos de alcanzabilidad en
+PSGs puede ser resueltos de manera equivalente en la interpretación extrema del
+PSG.
+
+\begin{theorem}[Reducción de PSGs]
+	Sean $\Gk$ y $\Hk$ la interpretación y la interpretación extrema, respectivamente, de un juego estocástico politópico $\K$. Sea $C$ un subconjunto de estados en $\K$. Entonces vale que:
+	\begin{align*}
+		&\inf_{\pidiam \in \Pidiam} \sup_{\picuad \in \Picuad} \ProbG(\alc C) = \\
+		&\inf_{\pidiam \in \Pidiam^{MD}} \sup_{\picuad \in \Picuad^{MD}} \ProbH(\alc C) = \\
+		&\sup_{\picuad \in \Picuad^{MD}} \inf_{\pidiam \in \Pidiam^{MD}} \ProbH(\alc C) = \\
+		&\sup_{\picuad \in \Picuad} \inf_{\pidiam \in \Pidiam} \ProbG(\alc C)
+	\end{align*}
+\end{theorem}
+
+Dado que las interpretaciones extremas son finitas, los valores se pueden
+calcular siguiendo algoritmos conocidos \cite{CONDON1992} (agg refe filar). Por
+lo tanto, este teorema también proporciona inmediatamente una solución
+algorítmica para los PSGs.
+
+El segundo resultado en el paper, se deriva fácilmente del primero y será el
+que nos permitirá hablar de la complejidad de hallar un valor (referenciar la
+definición) en un juego estocástico politópico.
+
+\begin{theorem}[Complejidad en un PSG]
+	Para todo PSG $\K$, $q \in \mathbb{Q}$, $G \subseteq \St$ y $s \in \St$, el problema de decidir si $\val_{\Gk, s}(\alc G) \geq q$ está en $NP \cap coNP$.
+\end{theorem}
+
+\hl{Agregar algo en prelim o apéndice de clases de complejidad?}
+
+% El número de vértices de un politopo crece exponencialmente en la dimensión del
+% politopo [16]. Más precisamente, si \( d \) es la dimensión de un politopo \( K
+% \) y \( m \) es el número de desigualdades que lo definen, entonces \( V(K)
+% \sim \Omega(m^{\lfloor d/2 \rfloor}) \). Esto implica que la interpretación
+% extrema \( \gameH_\gameK \) crece exponencialmente con el tamaño más grande de
+% los conjuntos de soporte de las distribuciones involucradas en el PSG original
+% \( \gameK \), lo cual esperamos que no sea demasiado grande. (En nuestro
+% ejemplo de la Sección 2, \( \lfloor d/2 \rfloor = 2 \)). \duda{¿Qué son los
+% 	conjuntos soporte?}
+
+% Condon [9] demostró que decidir la alcanzabilidad en los juegos estocásticos
+% está en \( \textbf{NP} \cap \textbf{coNP} \). A pesar del crecimiento
+% exponencial, este sigue siendo nuestro caso, como mostramos a continuación. Sea
+% \( \text{Val}_s(\gameK) \) el valor del juego en el estado \( s \), es decir,
+% es igual a
+% \[
+% 	\sup_{\pi_\square \in \Pi_\square} \inf_{\pi_\diamondsuit \in \Pi_\diamondsuit} P^{\pi_\square, \pi_\diamondsuit}_{\gameG_\gameK,s}(\diamondsuit G), \quad \text{o} \quad \sup_{\pi_\square \in \Pi_\square} \inf_{\pi_\diamondsuit \in \Pi_\diamondsuit} \mathbb{E}^{\pi_\square, \pi_\diamondsuit}_{\gameG_\gameK,s}[\text{rew}_\textsf{f}],
+% \]
+% el problema es entonces decidir si \( \text{Val}_s(\gameK) \geq q \), para un
+% dado \( q \in \mathbb{Q} \) y \( s \in \states \).
+
+% Dado que en todos los casos (recompensa total, recompensa descontada,
+% recompensa promedio y objetivos de alcanzabilidad bajo las respectivas
+% condiciones) el valor \( \text{Val}_s(\gameK) \) del juego puede lograrse con
+% estrategias determinísticas y sin memoria extremas, podemos razonar de la
+% siguiente manera:
+% \begin{enumerate}
+% 	\item Adivinar (proponer?) una estrategia determinística y sin memoria para cada
+% 	      jugador,
+% 	\item En la cadena de Markov resultante, calcular la medida correspondiente (es
+% 	      decir, recompensa total, recompensa descontada, recompensa promedio o
+% 	      alcanzabilidad) en el conjunto respectivo de ecuaciones lineales, lo cual se
+% 	      puede hacer en tiempo polinómico (para recompensa, se necesita una suma lineal
+% 	      extra) [19],
+% 	\item Verificar si es un punto fijo de las ecuaciones de Bellman (para recompensas
+% 	      descontadas o totales), o un punto fijo del Algoritmo 5.1.1 de [12], en el caso
+% 	      de recompensa promedio, \duda{¿Qué son las ecuaciones de punto fijo de
+% 		      Bellman?}
+% 	\item Comprobar si \( \text{Val}_s(\gameK) \geq q \).
+% \end{enumerate}
+
+% Esto coloca nuestro problema en \( \textbf{NP} \). Con el mismo proceso,
+% podemos verificar si \( \text{Val}_s(\gameK) < q \), lo que también pone el
+% problema en \( \textbf{coNP} \). Por lo tanto, tenemos el siguiente teorema:
+
+% \textbf{Teorema 2.} Para cualquier PSG \( \gameK \), \( q \in \mathbb{Q} \) y \( s \in \states \), el problema de decidir si \( \text{Val}_s(\gameK) \geq q \) está en \( \textbf{NP} \cap \textbf{coNP} \). Para \( \text{rew}_\textsf{f} \in \{\text{rew}_\textsf{t}, \text{rew}_\textsf{a}\} \), el problema de decisión está restringido a \( \gameG_\gameK \) siendo casi seguramente detenedor e irreducible, respectivamente.
