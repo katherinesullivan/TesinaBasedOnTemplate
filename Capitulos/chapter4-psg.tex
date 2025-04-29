@@ -5,6 +5,98 @@
 
 \subsection{Politopos}
 
+Un \textbf{politopo convexo} en $\mathbb{R}^n$ es un conjunto acotado $K = \{ x
+	\in \mathbb{R}^n | Ax \leq b\}$ con $A \in \mathbb{R}^{m\times n}$ y $ b \in
+	\mathbb{R}^m$, para algún $m \in \mathbb{N}$.
+
+Por acotado nos referimos a que $\exists \ M \in \mathbb{R}_{\geq 0}$ tal que
+$\sum_{i=1}^{n} |x_i| \leq M \ \forall x \in K$, y siendo $S$ un conjunto
+finito, como las funciones en $\mathbb{R}^S$ pueden ser vistas como vectores en
+$\mathbb{R}^{|S|}$, generalmente, nos referiremos a politopos en
+$\mathbb{R}^S$.
+
+Sea \( \textbf{Poly}(S) \) el conjunto de todos los politopos convexos en \(
+\mathbb{R}^S \). Nótese que el conjunto de todas las funciones de probabilidad
+en \( S \) forma el politopo convexo
+
+\( \text{Dist}(S) = \{ \mu \in \mathbb{R}^S \mid \sum_{s \in S} \mu(s) = 1 \text{ y } \forall s \in S : \mu(s) \geq 0 \} \)
+
+Definimos \( \textbf{DPoly}(S) = \{ K \cap \text{Dist}(S) \mid K \in
+\text{Poly}(S) \} \) (el conjunto de los politopos formados por distribuciones
+de probabilidad sobre $S$?). Cada \( K \in \text{DPoly}(S) \) es un politopo
+convexo cuyos elementos son también funciones de probabilidad sobre \( S \), y
+su conjunto de desigualdades característico \( Ax \leq b \) ya codifica las
+desigualdades \( \sum_{s \in S} x_s = 1 \) y \( x_s \geq 0 \) para todo \( s
+\in S \).
+
+\subsection{Juegos estocásticos}
+
+Un juego estocástico es una tupla \( \G = (\St, (\St_\square,
+\St_\diamondsuit), \Act, \theta) \), donde \( \St \) es un conjunto finito de
+estados, con \( \St_\square, \St_\diamondsuit \subseteq \St \) siendo una
+partición de \( \St \), y \( \theta : \St \times \Act \times \St \to [0, 1] \)
+es una función de transición probabilística tal que para todo \( s \in \St \) y
+\( a \in \Act \), \( \theta(s, a, \cdot) \in \text{Dist}(\St) \) o \( \theta(s,
+a, \St) = 0 \) (dados un estado $s$ y una acción $a$, $\theta$ define una
+distribución en $s$ o no hay estados alcanzables por $a$ desde $s$).
+
+Sea \( \Act(s) = \{ a \in \Act \mid \theta(s, a, \St) = 1 \} \) el conjunto de
+acciones habilitadas en el estado \( s \). Si \( \St_\square = \emptyset \) o
+\( \St_\diamondsuit = \emptyset \), entonces \( \G \) es un proceso de decisión
+de Markov (o MDP). Si, además, \( |\Act(s)| = 1 \) para todo \( s \in \St \),
+\( \G \) es una cadena de Markov (o MC).
+
+Un camino en el juego \( \G \) es una secuencia infinita de estados \( \rho =
+s_0 s_1 \dots \) tal que \( \theta(s_k, a, s_{k+1}) > 0 \) para alguna \( a \in
+\Act \) y para todo \( k \in \mathbb{N} \). Para \( i \geq 0 \), \( \rho_i \)
+indica el \( i \)-ésimo estado en el camino \( \rho \) (nótese que \( \rho_0 \)
+es el primer estado en \( \rho \)). Denotamos por \( \text{Paths}_\G \) el
+conjunto de todos los caminos, y por \( \text{FPaths}_\G \) el conjunto de los
+prefijos finitos de caminos. De manera similar, \( \text{Paths}_{\G,s} \) y \(
+\text{FPaths}_{\G,s} \) denotan el conjunto de caminos y el conjunto de caminos
+finitos que comienzan en el estado \( s \).
+
+Una estrategia para el jugador \( i \) (para \( i \in \{\square, \diamondsuit\}
+\)) en un juego \( G \) es una función \( \pi_i : \St^\ast \St_i \to
+\text{Dist}(\Act) \) que asigna una distribución probabilística a cada
+secuencia finita de estados, tal que \( \pi_i(\hat{\rho}s)(a) > 0 \) solo si \(
+a \in \Act(s) \). El conjunto de todas las estrategias para el jugador \( i \)
+se denomina \( \Pi_i \). Cuando sea conveniente, indicamos que el conjunto de
+estrategias \( \Pi_i \) pertenece al juego \( \G \) escribiendo \( \Pi_{\G,i}
+\).
+
+Una estrategia \( \pi_i \) se dice pura o determinista si, para todo \(
+\hat{\rho}s \in \St^\ast \St_i \), \( \pi_i(\hat{\rho}s) \) es una distribución
+de Dirac (es decir, una distribución \( \delta_a \) tal que \( \delta_a(a) = 1
+\) y \( \delta_a(b) = 0 \) para todo \( b \neq a \)), y se llama sin memoria si
+\( \pi_i(\hat{\rho}s) = \pi_i(s) \), para todo \( \hat{\rho} \in \St^\ast \).
+Sea \( \Pi^M_i \) el conjunto de todas las estrategias sin memoria para el
+jugador \( i \), y \( \Pi^{MD}_i \) el conjunto de todas sus estrategias
+deterministas y sin memoria.
+
+Dadas las estrategias \( \pi_\square \in \Pi_\square \) y \( \pi_\diamondsuit
+\in \Pi_\diamondsuit \), y un estado inicial \( s \), el resultado del juego es
+una cadena de Markov denotada \( \G^{\pi_\square, \pi_\diamondsuit}_s \).
+
+La cadena de Markov \( \G^{\pi_\square, \pi_\diamondsuit}_s \) define
+una\textbf{ medida de probabilidad} \( \Prob^{\pi_\square,
+	\pi_\diamondsuit}_{\G,s} \) sobre la \( \sigma \)-álgebra de Borel generada por
+los cilindros de \( \text{Paths}_{\G,s} \). Si \( \xi \) es un conjunto medible
+en dicha \( \sigma \)-álgebra de Borel, \( \Prob^{\pi_\square,
+	\pi_\diamondsuit}_{\G,s}(\xi) \) es la probabilidad de que las estrategias \(
+\pi_\square \) y \( \pi_\diamondsuit \) sigan un camino en \( \xi \) partiendo
+del estado \( s \).
+
+Usamos la notación LTL para representar conjuntos específicos de caminos, en
+particular: \( D U^n C = \{ \rho \in \St^\omega \mid \rho_n \in C \text{ y }
+\forall j < n : \rho_j \in D \} = D^n \times C \times \St^\omega \) es el
+conjunto de caminos que alcanzan \( C \subseteq \St \) en exactamente \( n \geq
+0 \) pasos, recorriendo antes solo estados en \( D \subseteq \St \); \(
+\diamondsuit^n C = \St U^n C \) es el conjunto de todos los caminos que
+alcanzan los estados en \( C \) en exactamente \( n \) pasos; \( \diamondsuit C
+= \bigcup_{n \geq 0} (\St \setminus C) U^n C \) es el conjunto de todos los
+caminos que alcanzan un estado en \( C \).
+
 \subsection{PSGs}
 
 Los juegos estocásticos politópicos fueron presentados en 2024 por Castro y
@@ -156,14 +248,14 @@ interpretación finita, que presentamos a continuación.
 En esta sección presentamos los resultados principales desarrollados en
 \cite{Polytopal}.
 
-Si bien el paper aborda 4 tipos distintos de objetivos (a saber, ...), solo nos
-concentraremos en los resultados que el paper presenta para objetivos de
-alcanzabilidad.
+Si bien el paper aborda 4 tipos distintos de objetivos (a saber, de
+alcanzabilidad, de recompensa media, de recompensa total acumulada y de
+recompensa total descontada), solo nos concentraremos en los resultados que el
+paper presenta para objetivos de alcanzabilidad.
 
-El primer teorema, nos permite establecer la determinación de los juegos
-estocásticos a la vez de que establece que los objetivos de alcanzabilidad en
-PSGs puede ser resueltos de manera equivalente en la interpretación extrema del
-PSG.
+El primer teorema, establece la determinación de los juegos estocásticos a la
+vez de que establece que los objetivos de alcanzabilidad en PSGs puede ser
+resueltos de manera equivalente en la interpretación extrema del PSG.
 
 \begin{theorem}[Reducción de PSGs]
 	Sean $\Gk$ y $\Hk$ la interpretación y la interpretación extrema, respectivamente, de un juego estocástico politópico $\K$. Sea $C$ un subconjunto de estados en $\K$. Entonces vale que:
@@ -176,19 +268,18 @@ PSG.
 \end{theorem}
 
 Dado que las interpretaciones extremas son finitas, los valores se pueden
-calcular siguiendo algoritmos conocidos \cite{CONDON1992} (agg refe filar). Por
-lo tanto, este teorema también proporciona inmediatamente una solución
-algorítmica para los PSGs.
+calcular siguiendo algoritmos conocidos \cite{CONDON1992,filar}. Por lo tanto,
+este teorema también proporciona inmediatamente una solución algorítmica para
+los PSGs.
 
-El segundo resultado en el paper, se deriva fácilmente del primero y será el
-que nos permitirá hablar de la complejidad de hallar un valor (referenciar la
-definición) en un juego estocástico politópico.
+El segundo resultado, se deriva fácilmente del primero y será el que nos
+permitirá hablar de la complejidad en juegos estocástico politópico.
 
 \begin{theorem}[Complejidad en un PSG]
 	Para todo PSG $\K$, $q \in \mathbb{Q}$, $G \subseteq \St$ y $s \in \St$, el problema de decidir si $\val_{\Gk, s}(\alc G) \geq q$ está en $NP \cap coNP$.
 \end{theorem}
 
-\hl{Agregar algo en prelim o apéndice de clases de complejidad?}
+\hl{¿Agregar algo en prelim o apéndice de clases de complejidad?}
 
 % El número de vértices de un politopo crece exponencialmente en la dimensión del
 % politopo [16]. Más precisamente, si \( d \) es la dimensión de un politopo \( K

@@ -305,14 +305,57 @@ $\pidiam$ sigan un comportamiento en $\varepsilon$ empezando desde el estado
 $s$.
 
 Tal como fue aclarado en las dos secciones anteriores, usaremos notación LTL
-para representar conjunto específicos de comportamientos. Sin embargo, en el
-estudio de juegos estocásticos es usual hacer un análisis sobre descripciones
-particulares de conjuntos de comportamientos conocidos como objetivos. mmm
+para representar conjunto específicos de comportamientos. Sin embargo, estando
+en el análisis de juegos nos interesan hacernos preguntas sobre probabilidades
+de ganar. Para poder hablar de ellas necesitamos formalizar ciertos conceptos
+que presentamos a continuación.
+
+\subsubsection{Valor en un juego y maneras de ganar}
+
+\subsubsection{Determinismo}
 
 \subsubsection{Objetivos en juegos estocásticos}
 
 Lo primero que será importante notar es que vamos a trabajar con juegos de suma
 cero.
+
+\subsubsection{Recompensas cualitativas}
+
+Sea \(C = \{c_1, \ldots, c_n\}\) un conjunto finito de colores, y \(\nu : V
+\rightarrow 2^C\) una valuación. Una clase importante y bien estudiada de
+recompensas cualitativas son las \textbf{funciones características de
+	subconjuntos \(\omega\)-regulares de \textit{Run}(G)}.
+
+La pertenencia a un conjunto \(\omega\)-regular de ejecuciones se determina por
+una de las \textbf{condiciones de aceptación} listadas a continuación. Estas
+condiciones corresponden a criterios de aceptación de autómatas de estado
+finito sobre palabras infinitas (ver Sección 5.2.2 para más detalles).
+
+\begin{itemize}
+	\item \textbf{Alcanzabilidad y seguridad (Reachability and safety).} Una ejecución \(w \in \textit{Run}(G)\) satisface la condición de \textbf{alcanzabilidad} determinada por un color \(c \in C\) si \(c \in \nu(w(i))\) para algún \(i \geq 0\). La condición de \textbf{seguridad} determinada por \(c\) es dual, es decir, \(c \notin \nu(w(i))\) para todo \(i \geq 0\).
+
+	\item \textbf{Büchi y co-Büchi.} Una ejecución \(w \in \textit{Run}(G)\) satisface la condición de \textbf{Büchi} determinada por un color \(c \in C\) si \(c \in \nu(w(i))\) para infinitos \(i \geq 0\). La condición de \textbf{co-Büchi} es dual, es decir, solo hay un número finito de \(i \geq 0\) tal que \(c \in \nu(w(i))\).
+
+	\item \textbf{Rabin, Rabin-chain y Street.} Sea \textit{Pairs} un conjunto finito de pares de colores \newline \(\{(c_1, d_1), \ldots, (c_m, d_m)\}\). Una ejecución \(w \in \textit{Run}(G)\) satisface la condición de \textbf{Rabin} determinada por \textit{Pairs} si existe \((c, d) \in \textit{Pairs}\) tal que \(w\) satisface la condición de Büchi determinada por \(d\) y la condición de co-Büchi determinada por \(c\).
+
+	      La condición de \textbf{Street} determinada por \textit{Pairs} es dual a Rabin,
+	      es decir, para cada \((c, d) \in \textit{Pairs}\) tenemos que \(w\) satisface
+	      la condición de co-Büchi determinada por \(d\) ó la condición de Büchi
+	      determinada por \(c\).
+
+	      Para un color dado \(c\), sea \(V(c)\) el conjunto de todos los \(v \in V\)
+	      tales que \(c \in \nu(v)\). La condición de \textbf{Rabin-chain} (o paridad) es
+	      un caso especial de la condición de Rabin donde \textit{Pairs} y \(\nu\)
+	      satisfacen \(V(c_1) \subset V(d_1) \subset \cdots \subset V(c_m) \subset
+	      V(d_m)\).
+
+	\item \textbf{Muller.} Sea \(M \subseteq 2^C\) un conjunto de subconjuntos de colores. Una ejecución \(w \in \textit{Run}(G)\) satisface la condición de \textbf{Muller} determinada por \(M\) si el conjunto de todos los \(c \in C\) tales que \(w\) satisface la condición de Büchi determinada por \(c\) es un elemento de \(M\). (En criollo, ``los conjuntos de colores que w visita infinitas veces están en M")
+\end{itemize}
+
+Nótese que los conjuntos \(\omega\)-regulares de ejecuciones son relativamente
+simples en el sentido de que están contenidos en los dos primeros niveles de la
+jerarquía de Borel (los conjuntos de ejecuciones que satisfacen las condiciones
+de alcanzabilidad y seguridad están en el primer nivel).
 
 distintos tipos y organizacion / ver de que manera presentarlos
 
@@ -367,4 +410,4 @@ nuevas explicadas
 
 (Capaz agregar un apéndice con cuadritos de esto ?)
 
-(En general, estaría bueno ver problemas y agregar un apéndice con ejemplos)
+(estaría bueno ver problemas y agregar un apéndice con ejemplos?)

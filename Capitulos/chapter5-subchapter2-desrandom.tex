@@ -211,7 +211,34 @@ desrandomización $\DGk$.
 	entonces la jugada determinada por ambas estrategias cumple la especificación
 	$\varphi$.
 
-	\hl{A esto de acá abajo es que le faltaría una justificación más precisa.}
+	\hl{A esto de acá abajo es que le faltaría una justificación más precisa. Capaz tampoco es la manera en la que habría que definir el varphil original.}
+
+	\textbf{Versión 2}
+	Si definimos
+	$$ \varPsi = \bigwedge_{\substack{s \in pred(v_V) \\ s' \in V}}  \left( \siempevent s \rightarrow \siempevent (s \wedge \bigcirc s' ) \right)$$
+	$$ \hat \varPsi = \bigwedge_{s' \in \cup_{\alpha \in acc(s, V)} \supp(\alpha)}  \left( \siempevent s \rightarrow \siempevent (s \wedge \bigcirc s' ) \right)$$
+
+	sabemos que $\varPsi \implies \varphi^l$ y que $\hat \varPsi$ es la adaptación
+	de $\varPsi$ a un juego estocástico politópico. Con lo que tendríamos que
+	\begin{equation}
+		\label{implicancia2}
+		\inf_{\pidiam \in \Pidiam} \Prob_{\Gk,s}^{\picuadGk, \pidiam}(\hat{\varPsi} \rightarrow \varphi) = 1
+	\end{equation}
+
+	Acá iría algo similar a la versión 1 ... Vemos que $\neg \hat{\varPsi}$ es 0,
+	viendo que para cada $\alpha \in acc(s, V)$ y cada $s' \in \supp(\alpha)$,
+
+	$$
+		\Prob_{\Gk, s}^{\picuadGk, \pidiam} \left( \siempevent s \wedge \eventsiemp \neg (s \wedge \bigcirc s' ) \right) = 0
+	$$
+
+	Como $\picuadGk$ solo le da probabilidad positiva a una $\alpha \in acc(s, V)$
+	por definición de $\rand(\sigma_\cuad)$, podemos concentrarnos en esa única
+	acción. \hl{mmm esto. Mejor vamos con}
+
+	Sea $\alpha$ una acción y sea
+
+	\textbf{Versión 1}
 
 	Pedir que valga $\varphi^l$ en $\DGk$ es pedir que valga $\hat{\varphi}^l$ en
 	$\Gk$ para todo comportamiento en el juego y acción $\alpha$ en el
@@ -357,3 +384,19 @@ desrandomización $\DGk$.
 	$s \in \W$.
 
 \end{proof}
+
+Haber podido probar esta igualdad nos permite calcular el conjunto de estados
+casi seguramente ganadores para $\cuad$ en $\Gk$ mediante el algoritmo que se
+propone en \cite{Banerjee} para calcular el conjunto de vértices ganadores en
+un juego de adversario justo $G$ con un objetivo de Rabin $R$. Este algoritmo
+tiene una complejidad de $O(n^2 k!)$ donde $n$ es la cantidad de vértices en
+$G$ y $k$ la cantidad de pares en $R$.
+
+Esto quiere decir que podemos calcular el conjunto de estados casi seguramente
+ganadores para $\cuad$ en un PSG $\K$ con un objetivo de Rabin $R$ con una
+complejidad de $O((n l)^2 k! )$ donde $n$ es la cantidad de estados en $\K$,
+$k$ es la cantidad de pares en $R$ y $l = \max \{\abs{V_s} \mid s \in \St \}$
+es la cantidad máxima de conjuntos soporte para las acciones que puede haber
+desde un estado $s$ en $\K$.
+
+\hl{¿Agregar algo sobre cómo es el algoritmo? ¿Sobre el teorema en sí? ¿Dejar el segundo párrafo como teorema? ¿Qué vamos a hablar de complejidad en PSG Rabin?}

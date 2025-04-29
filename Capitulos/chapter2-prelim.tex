@@ -4,5 +4,252 @@
 \section{sigma algebras}
 ~\label{cap:pre:sec:algebra}
 
+\subsection{Baier y Katoen}
+
+Una \textbf{\(\sigma\)-álgebra} es un par \((Outc, \eventE)\) donde \(Outc\) es
+un conjunto no vacío y \(\eventE \subseteq 2^{Outc}\) es un conjunto que
+consiste en subconjuntos de \(Outc\) que contiene el conjunto vacío y es
+cerrado bajo complementación y uniones contables, es decir:
+
+\begin{itemize}
+	\item \(\emptyset \in \eventE\),
+	\item si \(E \in \eventE\), entonces \(Outc \setminus E \in \eventE\),
+	\item si \(E_1, E_2, \ldots \in \eventE\), entonces \(\bigcup_{n=1}^{\infty} E_n \in
+	      \eventE\).
+\end{itemize}
+
+Nótese que las condiciones de las \(\sigma\)-álgebras implican que \(Outc \in
+\eventE\), ya que \(Outc \neq \emptyset\), y que \(\eventE\) es cerrado bajo
+intersecciones contables, ya que \(\bigcap_{n=1}^{\infty} E_n =
+\overline{\bigcap_{n=1}^{\infty} \overline{E_n}}\).
+
+A veces se supone que el conjunto \(Outc\) está fijado y \(\eventE\) se llama
+una \(\sigma\)-álgebra. Los elementos de \(Outc\) a menudo se llaman resultados
+(\textit{outcomes}), mientras que los elementos de \(\eventE\) se llaman
+eventos.
+
+Para cualquier conjunto \(Outc\), el conjunto potencia \(\eventE = 2^{Outc}\)
+produce una \(\sigma\)-álgebra sobre \(Outc\). En esta \(\sigma\)-álgebra,
+todos los subconjuntos de \(Outc\) son eventos. El otro extremo es la
+\(\sigma\)-álgebra que consiste en el conjunto vacío y \(Outc\), es decir,
+\(\eventE = \{ \emptyset, Outc \}\). Aquí, ningún subconjunto propio no vacío
+de \(Outc\) es un evento.
+
+Una\textbf{ medida de probabilidad} sobre \((Outc, \eventE)\) es una función
+\(Pr : \eventE \to [0, 1]\) tal que \(Pr(Outc) = 1\), y si
+\((E_n)_{n=1}^{\infty}\) es una familia de eventos disjuntos dos a dos con
+\(E_n \in \eventE\), entonces:
+
+\[
+	Pr\left(\bigcup_{n=1}^{\infty} E_n\right) = \sum_{n=1}^{\infty} Pr(E_n).
+\]
+
+Un \textbf{espacio de probabilidad} es una \(\sigma\)-álgebra equipada con una
+medida de probabilidad, es decir, es un trupla \((Outc, \eventE, Pr)\) donde
+\((Outc, \eventE)\) es una \(\sigma\)-álgebra y \(Pr\) es una medida de
+probabilidad sobre \((Outc, \eventE)\). El valor \(Pr(E)\) se llama la medida
+de probabilidad de \(E\), o simplemente la probabilidad de \(E\).
+
+En el contexto de las medidas de probabilidad, los eventos (es decir, los
+elementos de \(\eventE\)) a menudo se dice que son medibles. Es decir, la
+medibilidad de un conjunto \(E \subseteq Outc\) significa que \(E \in
+\eventE\), y por lo tanto, tiene sentido hablar de la medida de probabilidad de
+\(E\).
+
+En general, siempre que \(Outc\) sea contable, se puede obtener una medida de
+probabilidad sobre el conjunto potencia de \(Outc\) fijando una función \(\mu :
+Outc \to [0, 1]\) tal que
+
+\[
+	\sum_{e \in Outc} \mu(e) = 1.
+\]
+
+Tales funciones \(\mu\) se llaman \textbf{distribuciones} sobre \(Outc\).
+Cualquier distribución \(\mu\) induce una medida de probabilidad sobre la
+\(\sigma\)-álgebra \(E = 2^{Outc}\) de la siguiente manera. Para un subconjunto
+\(E\) de \(Outc\), \(Pr_\mu(E)\) se define como
+
+\[
+	Pr_\mu(E) = \sum_{e \in E} \mu(e).
+\]
+
+De hecho, es fácil verificar que \(\mu\) satisface las condiciones de una
+medida de probabilidad. En lo sucesivo, \(Pr_\mu(E)\) a menudo se abrevia como
+\(\mu(E)\) y \(Distr(Outc)\) se usa para denotar el conjunto de distribuciones
+sobre \(Outc\).
+
+Resumamos algunas propiedades fundamentales de las medidas de probabilidad.
+Dado que \(E \cup \overline{E} = Outc\) y \(E\) y \(\overline{E}\) son
+disjuntos, las condiciones anteriores implican que
+
+\[
+	Pr(E) = 1 - Pr(\overline{E}).
+\]
+
+En particular, \(Pr(\emptyset) = Pr(Outc) = 1 - Pr(Outc) = 1 - 1 = 0\).
+
+Las medidas de probabilidad son monótonas, es decir, para eventos \(E\) y
+\(E'\) tales que \(E \subseteq E'\), se cumple que
+
+\[
+	Pr(E') = Pr(E') + Pr(E' \setminus E) \geq Pr(E).
+\]
+
+Además, si \((E_n)_{n=1}^{\infty}\) es una familia de eventos, posiblemente no
+disjuntos entre sí, entonces:
+
+\[
+	\bigcup_{n=1}^{\infty} E_n = \bigcup_{n=1}^{\infty} E'_n,
+\]
+
+donde \(E'_1 = E_1\) y \(E'_n = E_n \setminus (E_1 \cup \ldots \cup E_{n-1})\)
+para \(n \geq 2\). Dado que \(E'_n \cap E'_m = \emptyset\) para \(n \neq m\),
+tenemos que:
+
+\[
+	Pr\left( \bigcup_{n=1}^{\infty} E_n \right) = Pr\left( \bigcup_{n=1}^{\infty} E'_n \right) = \sum_{n=1}^{\infty} Pr(E'_n).
+\]
+
+Si \(E_1 \subseteq E_2 \subseteq E_3 \subseteq \cdots\) y \(E'_n\) es como se
+indicó antes, entonces tenemos \(E'_n = E_n \setminus E_{n-1}\) para \(n \geq
+2\), lo que resulta en:
+
+\begin{align*}
+	&Pr\left( \bigcup_{n=1}^{\infty} E_n \right) = Pr(E_1) + \sum_{n=2}^{\infty} (Pr(E_n) - Pr(E_{n-1})) = \\ &= \lim_{N \to \infty} \left( Pr(E_1) + \sum_{n=2}{N} Pr(E_n) - Pr(E_{n-1})\right) =\lim_{N \to \infty} Pr(E_N).
+\end{align*}
+
+Este límite existe y concuerda con el supremo de \(\{Pr(E_1), Pr(E_2), \dots
+\}\), ya que la monotonía de \(Pr\) implica que \(Pr(E_1) \leq Pr(E_2) \leq
+\dots \leq 1\). Para intersecciones numerables se aplican resultados análogos.
+Es decir, si \(E_1 \supseteq E_2 \supseteq \dots\), entonces
+
+\[
+	Pr\left( \bigcap_{n=1}^{\infty} E_n \right) = \lim_{n \to \infty} Pr(E_n) = \inf_{n \geq 1} Pr(E_n).
+\]
+
+Esto se sigue del hecho de que la secuencia \((\overline{E_n})_{n \geq 1}\) de
+los complementos \(\overline{E_n} = \text{Outc} \setminus E_n\) es decreciente.
+Por lo tanto, obtenemos:
+
+\[
+	Pr\left( \bigcap_{n=1}^{\infty} E_n \right) = 1 - Pr(\overline{\bigcup_{n \geq 1} \overline{E_n}}) = 1 - \lim_{n \to \infty} Pr(\overline{E_n}) = 1 - \lim_{n \to \infty} Pr(\overline{E_n}) = \lim_{n \to \infty} Pr(E_n).
+\]
+
+Cualquier evento \(E\) con \(Pr(E) = 1\) se dice que ocurre \textbf{casi
+	seguramente}. Nótese que si \(E\) ocurre casi seguramente, entonces \(Pr(D) =
+Pr(E \cap D)\) para todos los eventos \(D\), ya que \(Pr(D \setminus E) = 0\),
+dado que \(D \setminus E\) es un subconjunto de \(\overline{E}\) y
+\(Pr(\overline{E}) = 1 - Pr(E) = 1 - 1 = 0\). Esto implica que:
+
+\[
+	Pr(D) = Pr(E \cap D) + Pr(D \setminus E) = Pr(E \cap D).
+\]
+
+En particular, el evento \(E_1 \cap E_2\), de eventos \(E_1\) y \(E_2\) que
+ocurren casi seguramente, también ocurre casi seguramente. Como se puede
+demostrar por inducción, esto se extiende a cualquier evento que pueda
+escribirse como una intersección finita \(\bigcap_{1 \leq i \leq n} E_i\) de
+eventos \(E_1, \dots, E_n\) que ocurren casi seguramente. Al tomar el límite de
+tales intersecciones finitas, obtenemos que \(\bigcap_{i \geq 1} E_i\) ocurre
+casi seguramente si \(Pr(E_i) = 1\) para todo \(i \geq 0\).
+
+Para cada conjunto \(\text{Outc}\) y cada subconjunto \(\Pi\) de
+\(2^{\text{Outc}}\), existe la \(\sigma\)-álgebra más pequeña que contiene a
+\(\Pi\). Esto se debe a las siguientes observaciones:
+
+\begin{itemize}
+	\item El conjunto potencia \(2^{\text{Outc}}\) de \(\text{Outc}\) es una
+	      \(\sigma\)-álgebra, y
+	\item La intersección de \(\sigma\)-álgebras es una \(\sigma\)-álgebra.
+\end{itemize}
+
+La intersección \(\eventE_\Pi = \bigcap_\eventE \eventE\), donde \(\eventE\)
+varía sobre todas las \(\sigma\)-álgebras sobre \(\text{Outc}\) que contienen a
+\(\Pi\), es una \(\sigma\)-álgebra y está contenida en cualquier
+\(\sigma\)-álgebra \(\eventE\) tal que \(\Pi \subseteq \eventE\). A esta
+\(\sigma\)-álgebra \(\eventE_\Pi\) se la llama la \textbf{\(\sigma\)-álgebra
+	generada por \(\Pi\)}, y \(\Pi\) es la \textbf{base} para \(\eventE_\Pi\).
+
+\subsection{Kucera}
+
+\textbf{Espacios de probabilidad}
+
+Sea \( A \) un conjunto finito o numerablemente infinito. Una
+\textbf{distribución de probabilidad} sobre \( A \) es una función \( \mu : A
+\rightarrow [0, 1] \) tal que \( \sum_{a \in A} \mu(a) = 1 \).
+
+Una distribución \( \mu \) es \textbf{racional} si \( \mu(a) \) es racional
+para cada \( a \in A \), positiva si \( \mu(a) > 0 \) para cada \( a \in A \),
+y \textbf{de Dirac} si \( \mu(a) = 1 \) para algún \( a \in A \). Una
+distribución de Dirac \( \mu \) donde \( \mu(a) = 1 \) también se denota por \(
+\mu_a \) o simplemente \( a \).
+
+Sea \( \Omega \) un conjunto de eventos elementales. Una
+\textbf{\(\sigma\)-álgebra} sobre \( \Omega \) es un conjunto \( \mathcal{F}
+\subseteq 2^{\Omega} \) que incluye \( \Omega \) y está cerrado bajo
+complementos y uniones numerables. Un \textbf{espacio medible} es un par \(
+(\Omega, \mathcal{F}) \) donde \( \mathcal{F} \) es una \(\sigma\)-álgebra
+sobre \( \Omega \). Una función \textbf{\( \mathcal{F} \)-medible} sobre \(
+(\Omega, \mathcal{F}) \) es una función \( f : \Omega \rightarrow \mathbb{R} \)
+tal que \( f^{-1}(I) \in \mathcal{F} \) para cada intervalo \( I \) en \(
+\mathbb{R} \).
+
+Una \textbf{medida de probabilidad} sobre un espacio medible \((\Omega,
+\mathcal{F})\) es una función \( \mathcal{P} : \mathcal{F} \rightarrow [0, 1]
+\) tal que, para cada colección numerable \(\{A_i\}_{i \in I}\) de elementos
+disjuntos de a pares de \(\mathcal{F}\), tenemos que \( \mathcal{P}\left(
+\bigcup_{i \in I} A_i \right) = \sum_{i \in I} \mathcal{P}(A_i) \), y además \(
+\mathcal{P}(\Omega) = 1 \).
+
+Un \textbf{espacio de probabilidad} es una terna donde \((\Omega,
+\mathcal{F})\) es un espacio medible y \(\mathcal{P}\) es una medida de
+probabilidad sobre \((\Omega, \mathcal{F})\).
+
+Una \textbf{variable aleatoria} sobre un espacio de probabilidad \((\Omega,
+\mathcal{F}, \mathcal{P})\) es una función \(\mathcal{F}\)-medible \(X : \Omega
+\rightarrow \mathbb{R}\). El \textbf{valor esperado} de \(X\), denotado por
+\(E(X)\), se define como la integral de Lebesgue \(\int_{\Omega} X \,
+d\mathcal{P}\).
+
+Una \textbf{variable aleatoria \(X\) es discreta} si existe un subconjunto
+finito o numerablemente infinito \(N\) de \(\mathbb{R}\) tal que \(P(X^{-1}(N))
+= 1\). El valor esperado de una variable aleatoria discreta \(X\) es igual a
+\(\sum_{n \in N} n \cdot \mathcal{P}(X=n)\), donde \(X=n\) denota el conjunto
+\(X^{-1}(\{n\})\).
+
+\textbf{$\sigma$-álgebra de Borel}
+
+Sea \( T = (S, \rightarrow) \) un sistema de transiciones. Sea \( \mathcal{B}
+\) la menor \(\sigma\)-álgebra sobre \( \textit{Run} \) que contiene todos los
+cilindros básicos \( \textit{Run}(w) \) donde \( w \in \textit{Fpath} \) (es
+decir, \( \mathcal{B} \) es la \(\sigma\)-álgebra de Borel generada por
+conjuntos abiertos en la topología de Cantor sobre \( \textit{Run} \)).
+Entonces, \((\textit{Run}, \mathcal{B})\) es un espacio medible, y los
+elementos de \( \mathcal{B} \) se llaman \textbf{conjuntos de Borel de
+	ejecuciones}.
+
+La \textbf{\(\sigma\)-álgebra de Borel} \( \mathcal{B} \) contiene muchos
+elementos interesantes. Por ejemplo, sea \( s, t \in S \) y sea \(
+\textit{Reach}(s, t) \) el conjunto de todas las ejecuciones iniciadas en \( s
+\) que visitan \( t \). Obviamente, \( \textit{Reach}(s, t) \) es la unión de
+todos los cilindros básicos \( \mathcal{R}\text{un}(w) \) donde \( w \in
+\text{Fpath}(s) \) y \( w \) visita \( t \), y por lo tanto \( \text{Reach}(s,
+t) \in \mathcal{B} \).
+
+De manera similar, se puede demostrar que el conjunto de todas las ejecuciones
+iniciadas en \( s \) que visitan \( t \) infinitamente a menudo es Borel. En
+realidad, la mayoría de los conjuntos `interesantes' de ejecuciones son de
+Borel, aunque también existen subconjuntos de \(\textit{Run}\) que no están en
+\(\mathcal{B}\).
+
+Sea \( A \in \mathcal{B} \), y sea \( f : \textit{Run} \rightarrow \{0, 1\} \)
+una función que asigna a un dado \( w \in \mathcal{R}\text{un} \) 1 o 0,
+dependiendo de si \( w \in A \) o no, respectivamente. Entonces, \( f \) es
+\(\mathcal{B}\)-medible, porque para cada intervalo \( I \) en \( \mathbb{R} \)
+tenemos que \( f^{-1}(I) \) es igual a \(\mathcal{R}\text{un}\), \( A \),
+\(\mathcal{R}\text{un} \setminus A \) o \( \emptyset \), dependiendo de si \( I
+\cap \{0, 1\} \) es igual a \{0, 1\}, \{1\}, \{0\}, o \(\emptyset\),
+respectivamente.
+
 \section{Rabin}
 
