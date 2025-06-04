@@ -1,5 +1,19 @@
 \section{Juegos justos: la respuesta a la pregunta cualitativa}
 
+A fin de responder la pregunta ``¿desde qué estados existe probabilidad uno de
+ganar?", presentaremos un tipo nuevo de juegos deterministas: los juegos
+justos. Probaremos que el conjunto de vértices casi seguramente ganadores en un
+juego estocástico politópico con un objetivo de Rabin es igual al conjunto de
+vértices ganadores de un juego justo construido a partir del PSG.
+
+Para eso primero presentaremos el concepto de juego justo y la construcción del
+juego justo a partir del PSG. Luego, explicitaremos un poco más la relación
+entre el PSG y el juego justo construido, al cual llamaremos su
+desrandomización. Seguido de eso, expondremos la prueba formal de la igualdad
+entre los conjuntos. Y, por último, mostraremos un algoritmo para la sintésis
+de estrategias de memoria finita casi seguramente ganadoras para un PSG con un
+objetivo de Rabin.
+
 \subsection{Juegos de adversario justo}
 
 Sea $G$ un juego de grafo de dos jugadores y sea $E^{l} \subseteq (V_1 \times
@@ -111,59 +125,132 @@ y para el cual se cumple la siguiente condición de equidad: $$ \varphi^l :=
 	\bigwedge_{(v_{V'},s') \in E^l} (\siempevent v_{V'} \rightarrow \siempevent
 	(v_{V'} \wedge \bigcirc s' )) $$
 
-o lo que es lo mismo si todo camino cumple que para todo $v_V \in \tilde V$ $$
-	\varphi^l := \bigwedge_{\substack{s' \in V'}} (\siempevent v_{V'} \rightarrow
-	\siempevent (v_{V'} \wedge \bigcirc s' )) $$
+Esta misma condición de equidad se puede expresar como
 
-\subsubsection*{Relación entre un PSG y su desrandomización}
+\begin{center}
+	$ \varphi^l : = \bigwedge_{v_V \in \tilde V} \varphi^V $, donde
+
+	$ \varphi^V := \bigwedge_{s' \in V} (\siempevent v_{V'} \rightarrow \siempevent (v_{V'} \wedge \bigcirc s' ))$
+\end{center}
+
+\subsection{Relación entre un PSG y su desrandomización}
 
 Nos será útil pensar en transformaciones entre los distintos juegos para las
 pruebas que tenemos más adelante, así que veremos algunas definiciones. Antes,
 fijemos la interpretación de un juego estocástico politópico $\Gk$ y su
 desrandomización $\DGk$.
 
-\begin{definition}[transformación de caminos]
-	Dado un comportamiento $\omega = (s_0, \alpha_0, s_1, \alpha_1, \dots)$ en $\Gk$, podemos obtener un único camino en $\DGk$ al que llamaremos $\derand(\omega)$ y tendrá la siguiente forma:
-	$$\derand(\omega) = (s_0, v_{\supp(\alpha_0)}, s_1, v_{\supp(\alpha_1), \dots})$$
-	Por otro lado, si tenemos un camino $\rho = (s_0, v_{V_0}, s_1, v_{V_1}, \dots)$ en $\DGk$, existen varios comportamientos en $\Gk$ que se corresponderían con él. Llamaremos a este conjunto de comportamientos $\rand(\rho)$. Es decir,
-	$$\rand(\rho) = \{(s_0, \alpha_0, s_1, \alpha_1, \dots) \in \Omega_{\Gk,s} \mid \forall i \geq 0, \ \supp(\alpha_i) = V_i\}$$
-\end{definition}
+\textbf{Condición de equidad en el juego estocástico politópico}
 
-\begin{definition}[desrandomización de estrategias]
-	Dada una estrategia $\pi_\cuad$ en $\Gk$, vamos a definir una estrategia $\sigma_\cuad$ en $\DGk$. $\pi_\cuad$ está definida para cada prefijo finito de comportamiento $\omega$, debemos definir $\sigma_\cuad$ para cada prefijo finito $\derand(\omega)$. Sin embargo, para cada prefijo finito $\rho= (s_0, v_{V_0}, s_1, v_{V_1}, \dots)$ en $\DGk$, existe más de un $\hat\omega$ tal que $\derand(\hat\omega) = \rho$. Por eso, lo primero que debemos hacer es elegir un camino $\omega$ particular tal que $\derand(\omega) = \rho$ y definir $\sigma_\cuad(\derand(\omega))$ a partir de ese $\omega$.
+Podemos expresar fácilmente la condición de equidad en el juego estocástico
+politópico de la siguiente forma:
 
-	Sabemos que $\pi_\cuad (\omega s)$ es una función que asigna a cada acción
-	$\hat\alpha \in \Act(s)$ una probabilidad de ser seleccionada como próxima.
-	Para cada $\derand(\omega)s$, $\sigma_\cuad$ debemos asignar un próximo
-	vértice. Lo que haremos para definir que vértice será seleccionado será elegir
-	alguna acción $\hat\alpha^*$ a la que $\pi_\cuad(\omega s)$ le haya asignado
-	una probabilidad positiva, y entonces diremos que $\sigma_i(\derand(\omega) s)
-		= v_{\supp(\hat\alpha^*)}$.
+\begin{center}
+	$
+		\hat \varphi^l := \bigwedge_{\alpha \in \Act} \hat \varphi^{\supp(\alpha)}
+	$, con
 
-	%Ahora bien, si estamos definiendo una estrategia $\sigma_\diam$ también debemos tener en cuenta que esta debe tomar decisiones en los estados con la forma $v_{V}$. ¿Cómo definimos esos estados? NO NECESITAMOS DEFINIR PARA $\pi_\diam$
+	$
+		\hat \varphi^{\supp(\alpha)} := \bigwedge_{s' \in \supp(\alpha)} (\siempevent \alpha \rightarrow \siempevent (\alpha \wedge \bigcirc s' ))
+	$
+\end{center}
 
-	A esta nueva estrategia $\sigma_\cuad$ que hemos obtenido a partir de
-	$\pi_\cuad$ la llamaremos $\derand(\pi_\cuad)$.
-\end{definition}
+\textbf{Comportamientos y caminos}
 
-\hl{¿Capaz estaría bueno definirlo como tipo algoritmo?} Y capaz dar alguna noción de corrección viendo que siempre existen las cosas que elegimos?
+Dado un comportamiento $\omega = (s_0, \alpha_0, s_1, \alpha_1, \dots)$ en
+$\Gk$, podemos obtener un único camino en $\DGk$ al que llamaremos
+$\derand(\omega)$ y tendrá la siguiente forma: $$\derand(\omega) = (s_0,
+	v_{\supp(\alpha_0)}, s_1, v_{\supp(\alpha_1), \dots})$$ Por otro lado, si
+tenemos un camino $\rho = (s_0, v_{V_0}, s_1, v_{V_1}, \dots)$ en $\DGk$,
+existen varios comportamientos en $\Gk$ que se corresponderían con él.
+Llamaremos a este conjunto de comportamientos $\rand(\rho)$. Es decir,
+$$\rand(\rho) = \{(s_0, \alpha_0, s_1, \alpha_1, \dots) \in \Omega_{\Gk,s} \mid
+	\forall i \geq 0, \ \supp(\alpha_i) = V_i\}$$
 
-\begin{definition}[randomización de estrategias]
-	Ahora supongamos que tenemos una estrategia $\sigma_i$ en $\DGk$ y queremos construir una estrategia $\pi_i$ en $\Gk$ que tenga un comportamiento similar. $\sigma_i$ está definida para todos los prefijos finitos de caminos $\rho$ en $\DGk$ y nuestra idea es definir $\pi_i$ para todos los comportamiento $\omega$ en $\Gk$. Nuestra idea será definir $\pi_i$ de igual manera para todos los elementos del conjunto $\rand(\rho)$.
+Estas definiciones también se extienden a prefijos finitos de comportamientos y
+caminos de manera natural.
 
-	Solo nos va a interesar ver cómo $\sigma_i$ se comporta en los prefijos finitos
-	de caminos $\rho$ que terminen en un estado $s \in \St$ \footnote{Desde los
-		prefijos finitos de caminos donde el último elemento es un vértice $v_V$, las
-		decisiones son tomadas por el jugador $\diam$ y solo reflejan lo que sería la
-		decisión probabilística en $\Gk$.}. Para cada uno de estos $\rho$, tenemos que
-	$\sigma_i(\rho) = v_{\widehat{V}}$ para algún $v_V$. Lo que haremos para la
-	construcción de $\pi_i$ es para cada $\omega \in \derand(\rho)$ definir
-	$\pi_i(\omega)(\hat\alpha) = 1$ para algún $\hat\alpha$ particular tal que
-	$\supp(\hat\alpha) = \widehat{V}$.
+\textbf{Randomización y desrandomización de estrategias}
 
-	Llamaremos a esta nueva estrategia $\pi_i$ obtenida a partir de $\sigma_i$,
-	$\rand(\sigma_i)$.
-\end{definition}
+Supongamos que tenemos una estrategia $\sigma_i$ en $\DGk$ y queremos construir
+una estrategia $\pi_i$ en $\Gk$ que tenga un comportamiento similar. $\sigma_i$
+está definida para todos los prefijos finitos de caminos $\rho$ en $\DGk$ y
+nuestra idea es definir $\pi_i$ para todos los prefijos finitos de
+comportamiento $\omega$ en $\Gk$. La idea, entonces, será definir $\pi_i$ de
+igual manera para todos los elementos del conjunto $\rand(\rho)$.
+
+Solo nos va a interesar ver cómo $\sigma_i$ se comporta en los prefijos finitos
+de caminos $\rho$ que terminen en un estado $s \in \St$ \footnote{Desde los
+	prefijos finitos de caminos donde el último elemento es un vértice $v_V$, las
+	decisiones son tomadas por el jugador $\diam$, pero solo reflejan lo que sería
+	la decisión probabilística en $\Gk$.}. Para cada uno de estos $\rho$, tenemos
+que $\sigma_i(\rho) = v_{\widehat{V}}$ para algún $v_V$. Lo que haremos para la
+construcción de $\pi_i$ es para cada $\omega \in \derand(\rho)$ definir
+$\pi_i(\omega)(\hat\alpha) = 1$ para algún $\hat\alpha$ particular tal que
+$\supp(\hat\alpha) = \widehat{V}$.
+
+Llamaremos a esta nueva estrategia $\pi_i$ obtenida a partir de $\sigma_i$,
+$\rand(\sigma_i)$.
+
+\begin{center}
+	$\sigma_i(s_0, v_{V_0}, \dots, s_k) = v_{V_k} \implies \rand(\sigma_i)(s_0, \alpha_0, \dots, s_k)(\alpha_k) = 1$ donde \\ $\forall i \ \supp(\alpha_i) = V_i$.
+	\captionof{figure}{Una forma de ver la randomización de estrategias en $\DGk$}
+\end{center}
+
+Supongamos ahora que tenemos una estrategia $\pi_i$ en $\Gk$ y queremos
+construir una estrategia $\sigma_i$ en $\DGk$ que tenga un comportamiento
+similar.
+
+Para cada prefijo finito de camino $\rho$ debemos definir qué vértice será el
+que elija $\sigma_i(\rho)$. La idea será que elegiremos un vértice $v_V$ que se
+corresponde al soporte de una acción a la que $\pi_i(\omega)$ (siendo $\omega$
+tal que $\derand(\omega) = \rho$) le asigne una probabilidad positiva.
+
+Como existen varios prefijos de comportamiento que podrían cumplir con la
+condición de $\omega$, la definición de $\derand(\pi_i)$ dependerá de la
+elección de un prefijo de comportamiento $\omega$ para cada prefijo de camino
+$\rho$ tal que $\derand(\omega) = \rho$.
+
+Además, como cada acción le puede dar probabilidad positiva a varias acciones
+con distintos soportes, la definición de $\derand(\pi_i)$ también dependerá de
+la elección de una acción a la que $\pi_i(\omega)$ le asigne una probabilidad
+positiva (por cada $\omega$ seleccionado en el paso anterior).
+
+\begin{boxgris}[¿Cómo se podrían tomar esas elecciones?]{}
+	Suponiendo que tenemos una estrategia $\pi_i$ en $\Gk$, es probable que a su vez tengamos comportamientos $\omega'_1, \omega'_2, \dots$ en $\Gk$ específicos en que estemos interesados que $\sigma_i$ replique. En ese caso, lo que podemos hacer es utilizar los prefijos finitos de los distintos $\omega'_k$ ... algo acciones a partir de esos omegas
+\end{boxgris}
+
+Con estas decisiones tomadas, podemos definir como se comportará $\sigma_i$
+para cada prefijo de camino que termina en un estado $s \in \St$.
+
+Ahora bien, para el caso de $\sigma_\diam$ también hay que definir cómo se
+comporta la estrategia en los caminos que terminan en los vértices de la forma
+$v_V$. Es decir, debemos elegir qué estado $s_{k+1}$ será el que cumpla
+$\sigma_\diam(s_0, v_{V_0}, \dots, s_k, v_{V_k}) = s_{k+1}$ para cada $k$. En
+este caso, lo que nos debemos asegurar es que se cumpla la condición de
+equidad.
+
+% Se podría pensar como tener esto aparte o enmarcado en una box. Se podría agregar otra box con lo que sería medio la precontinuacion del punto 2
+\begin{boxgris}[¿Cómo asegurar la condición de equidad?]{}
+	Presentamos dos maneras fáciles con las cuales se podría asegurar esto, pero
+	podrían existir infinidades de ellas:
+	\begin{enumerate}
+		\item como cada $V_k$ es finito, podemos numerar cada $s^{V_k} \in V_k$ de manera
+		      $s_0^{V_k}, s_1^{V_k}, \dots$. Esto nos permite seleccionar el próximo estado
+		      en base a la cantidad de veces que se visitó $v_{V_k}$. Si $n$ fueron las veces
+		      que se visitó $v_{V_k}$ en el prefijo finito de camino $\rho '$, entonces
+		      podemos definir $\sigma_\diam(\rho ' v_{V_k}) = s_n^{V_k}$.
+		\item si tenemos un comportamiento $\hat \omega$ válido que respeta la estrategia
+		      $\pi_\diam$, y a partir de los prefijos de este $\hat \omega$ es que estamos
+		      definiendo las elecciones de prefijos y acciones de $\sigma_\diam$, podemos
+		      también usar este $\hat \omega$ para las decisiones desde los estados
+		      $v_{V_k}$, eligiendo como próximo vértice $s_{k+1}$ al que se eligió
+		      probabilísticamente en $\hat \omega$.
+	\end{enumerate}
+\end{boxgris}
+
+Con estas decisiones ya tomadas resulta la construcción de la $\sigma_i$ que
+queríamos, a la cual llamaremos $\derand(\pi_i)$.
 
 \subsection{Prueba de igualdad sobre los conjuntos ganadores}
 

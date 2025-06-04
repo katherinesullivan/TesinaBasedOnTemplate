@@ -64,6 +64,16 @@
   after=\vspace{0.25cm},
   #2               % Contenido del box
 }
+\newtcolorbox[auto counter, number within=section]{boxgris}[2][]{%
+  colback=white,   % Color de fondo
+  colbacktitle=gray, % Color de fondo del título
+  coltitle=black,  % Color del título
+  title=#1,        % Título del box
+  width=\textwidth-1.5em, % Ancho del box
+  before=\vspace{0.25cm}, % Espacio vertical antes del box
+  after=\vspace{0.25cm},
+  #2               % Contenido del box
+}
 
 %\renewcommand{\refname}{Referencias} % Cambiar nombre a Referencias
 %\bibliographystyle{ieeetr} % Ordenar referencias por orden de aparición
