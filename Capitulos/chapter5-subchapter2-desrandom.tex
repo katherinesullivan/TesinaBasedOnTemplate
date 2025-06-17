@@ -170,7 +170,7 @@ $$\rand(\rho) = \{(s_0, \alpha_0, s_1, \alpha_1, \dots) \in \Omega_{\Gk,s} \mid
 Estas definiciones también se extienden a prefijos finitos de comportamientos y
 caminos de manera natural.
 
-\textbf{Randomización y desrandomización de estrategias}
+\textbf{Randomización de estrategias}
 
 Supongamos que tenemos una estrategia $\sigma_i$ en $\DGk$ y queremos construir
 una estrategia $\pi_i$ en $\Gk$ que tenga un comportamiento similar. $\sigma_i$
@@ -182,10 +182,10 @@ igual manera para todos los elementos del conjunto $\rand(\rho)$.
 Solo nos va a interesar ver cómo $\sigma_i$ se comporta en los prefijos finitos
 de caminos $\rho$ que terminen en un estado $s \in \St$ \footnote{Desde los
 	prefijos finitos de caminos donde el último elemento es un vértice $v_V$, las
-	decisiones son tomadas por el jugador $\diam$, pero solo reflejan lo que sería
-	la decisión probabilística en $\Gk$.}. Para cada uno de estos $\rho$, tenemos
-que $\sigma_i(\rho) = v_{\widehat{V}}$ para algún $v_V$. Lo que haremos para la
-construcción de $\pi_i$ es para cada $\omega \in \derand(\rho)$ definir
+	decisiones son tomadas por el jugador $\diam$ en $\DGk$, pero solo reflejan lo
+	que sería la decisión probabilística en $\Gk$.}. Para cada uno de estos $\rho$,
+tenemos que $\sigma_i(\rho) = v_{\widehat{V}}$ para algún $v_V$. Lo que haremos
+para la construcción de $\pi_i$ es para cada $\omega \in \derand(\rho)$ definir
 $\pi_i(\omega)(\hat\alpha) = 1$ para algún $\hat\alpha$ particular tal que
 $\supp(\hat\alpha) = \widehat{V}$.
 
@@ -196,6 +196,10 @@ $\rand(\sigma_i)$.
 	$\sigma_i(s_0, v_{V_0}, \dots, s_k) = v_{V_k} \implies \rand(\sigma_i)(s_0, \alpha_0, \dots, s_k)(\alpha_k) = 1$ donde \\ $\forall i \ \supp(\alpha_i) = V_i$.
 	\captionof{figure}{Una forma de ver la randomización de estrategias en $\DGk$}
 \end{center}
+
+\textbf{Desrandomización de estrategias}
+
+\hl{Todavía no me convence la redacción de esto}
 
 Supongamos ahora que tenemos una estrategia $\pi_i$ en $\Gk$ y queremos
 construir una estrategia $\sigma_i$ en $\DGk$ que tenga un comportamiento
@@ -217,7 +221,7 @@ la elección de una acción a la que $\pi_i(\omega)$ le asigne una probabilidad
 positiva (por cada $\omega$ seleccionado en el paso anterior).
 
 \begin{boxgris}[¿Cómo se podrían tomar esas elecciones?]{}
-	Suponiendo que tenemos una estrategia $\pi_i$ en $\Gk$, es probable que a su vez tengamos comportamientos $\omega'_1, \omega'_2, \dots$ en $\Gk$ específicos en que estemos interesados que $\sigma_i$ replique. En ese caso, lo que podemos hacer es utilizar los prefijos finitos de los distintos $\omega'_k$ ... algo acciones a partir de esos omegas
+	Suponiendo que tenemos una estrategia $\pi_i$ en $\Gk$, es probable que a su vez tengamos comportamientos $\omega'_1, \omega'_2, \dots$ en $\Gk$ específicos en que estemos interesados que $\sigma_i$ replique. En ese caso, una manera de tomar las decisiones antes planteadas es usando los prefijos finitos de los distintos $\omega'_k$ para las decisiones de $\sigma_i$. Esto sería: si tenemos un prefijo de comportamiento $\hat \omega = (s_1, \alpha_1, \dots, s_m, \alpha_m)$ (que respeta $\pi_i$), entonces haremos que para $\hat \rho = (s_1, v_{\supp(\alpha_1)}, \dots, s_m)$, $\sigma_i(\hat \rho) = v_{\supp(\alpha_m)}$.
 \end{boxgris}
 
 Con estas decisiones tomadas, podemos definir como se comportará $\sigma_i$
@@ -267,7 +271,7 @@ queríamos, a la cual llamaremos $\derand(\pi_i)$.
 	Sea $\W \subseteq \St$ el conjunto de todos los estados desde los cuales el
 	jugador $\cuad$ gana en $\DGk$ y sea $\W^{as}$ el conjunto de vértices desde
 	los cuales el jugador $\cuad$ gana casi seguramente con estrategias de memoria
-	finita. Entonces, $\W = \W^{as}$.
+	finita en $\Gk$. Entonces, $\W = \W^{as}$.
 
 	Es más, a partir de una estrategia ganadora en $\DGk$ se puede construir
 	fácilmente una estrategia ganadora en $\Gk$, y viceversa.
@@ -419,7 +423,7 @@ queríamos, a la cual llamaremos $\derand(\pi_i)$.
 
 	Definimos $\sigma_\cuad^* = \derand(\picuad^*)$
 
-	Entonces ahora queremos ver que $\sigma_\cuad*$ es ganadora en $\DGk$ desde
+	Entonces ahora queremos ver que $\sigma_\cuad^*$ es ganadora en $\DGk$ desde
 	$s$.
 
 	Una manera de ver esto es probar que para un comportamiento cualquiera $\rho$
