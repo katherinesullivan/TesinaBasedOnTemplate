@@ -232,10 +232,11 @@ Entonces, ahora sí podemos extender el concepto de estrategia en un PSG:
 	\]
 \end{boxamarillo}
 
-Entonces, logramos interpretar un PSG como un SG pero con un conjunto infinito
-de acciones. La idea de este paper va a ser demostrar cómo se pueden probar
-ciertos resultados de esta interpretación infinita con resultado en una
-interpretación finita, que presentamos a continuación.
+Así se logra interpretar un PSG como un SG pero con un conjunto infinito de
+acciones. En \cite{Polytopal} se demuestra cómo ciertos preguntas que nos
+podemos hacer sobre esta interpretación infinita se pueden responder analizando
+en la interpretación con una cantidad finita de acciones que presentamos a
+continuación.
 
 \begin{definition}[Interpretación extrema de un PSG]
 	Dada $\Gk = (\St, (\St_\cuad, \St_\diam), \Act, \theta)$ la interepretación de un PSG $\K$, la interpretación extrema de $\K$ es el juego estocástico $\Hk = (\St, (\St_\cuad, \St_\diam), \V(\Act), \theta_{\Hk})$ donde $\theta_{\Hk}$ es la restricción de  $\theta$ a las acciones en $\V(\Act) = \{(K, \mu) \in \Act \mid \mu \in \V(K)\}$. Es decir, para todos $s, s' \in \St$ y $a \in \V(\Act)$, $\theta_{\Hk}(s, a, s') = \theta(s, a, s')$.

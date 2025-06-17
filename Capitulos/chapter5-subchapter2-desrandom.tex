@@ -196,6 +196,14 @@ $\rand(\sigma_i)$.
 	$\sigma_i(s_0, v_{V_0}, \dots, s_k) = v_{V_k} \implies \rand(\sigma_i)(s_0, \alpha_0, \dots, s_k)(\alpha_k) = 1$ donde \\ $\forall i \ \supp(\alpha_i) = V_i$.
 	\captionof{figure}{Una forma de ver la randomización de estrategias en $\DGk$}
 \end{center}
+% \begin{figure}[ht]
+% 	\centering
+% 	\begin{equation*}
+% 		\sigma_i(s_0, v_{V_0}, \dots, s_k) = v_{V_k} \implies
+% 		\rand(\sigma_i)(s_0, \alpha_0, \dots, s_k)(\alpha_k) = 1
+% 	\end{equation*}
+% 	\caption{Una forma de ver la randomización de estrategias}
+% \end{figure}
 
 \textbf{Desrandomización de estrategias}
 
@@ -256,6 +264,43 @@ equidad.
 Con estas decisiones ya tomadas resulta la construcción de la $\sigma_i$ que
 queríamos, a la cual llamaremos $\derand(\pi_i)$.
 
+\textbf{Respetar una estrategia}
+
+Al hablar de caminos o comportamientos específicos es natural pensar que estos
+fueron producto de una partida en la que los jugadores siguieron determinadas
+estrategias. Para la prueba que plantearemos a continuación querremos
+formalizar esta relación entre caminos/comportamientos y las estrategias que se
+siguieron en ellos y lo haremos a través de la idea de que un
+comportamiento/camino ``respeta" determinadas estrategias.
+
+Sea $\omega = (s_0, \alpha_0, s_1, \alpha_1, \dots)$ un comportamiento en un
+juego estocástico poliópico y sean $\picuad$ y $\pidiam$ dos estrategias en el
+mismo juego. Decimos que $\omega$ respeta las estrategias $\picuad$ y $\pidiam$
+si $\forall i \geq 0$ vale
+\begin{align*}
+	&\bigl( s_i \in \St_\cuad \wedge \picuad(s_0, \alpha_0, \dots, s_i)(\alpha_i) > 0 \wedge s_{i+1} \in \supp(\alpha_i) \bigr) \bigvee \\
+	&\left(s_i \in \St_\diam \wedge \pidiam(s_0, \alpha_0, \dots, s_i)(\alpha_i) > 0 \wedge
+	s_{i+1} \in \supp(\alpha_i) \right)
+\end{align*}
+% \begin{align*}
+% 	&\bigl( s_i \in \St_\cuad \wedge \picuad(\hat
+% 	\omega_i)(\alpha_i) > 0 \wedge s_{i+1} \in \supp(\alpha_i) \bigr) \bigvee \\
+% 	&\left(s_i \in \St_\diam \wedge \pidiam(\hat \omega_i)(\alpha_i) > 0 \wedge
+% 	s_{i+1} \in \supp(\alpha_i) \right)
+% \end{align*}
+
+Sea $\rho = (s_0, v_{V_0}, s_1, v_{V_1}, \dots)$ un camino en la
+desrandomización de un juego estocástico politópico y sean $\sigma_\cuad$ y
+$\sigma_\diam$ dos estrategias en el mismo juego. Decimos que $\rho$ respeta
+las estrategias $\sigma_\cuad$ y $\sigma_\diam$ si $\forall i \geq 0$ vale
+
+\begin{align*}
+	\sigma_\diam&(s_0, v_{V_0}, \dots, s_i, v_{V_i})=s_{i+1} \bigwedge \\
+	&\bigl( \left( s_i \in \St_\cuad \wedge \sigma_\cuad(s_0, v_{V_0}, \dots, s_i)=v_{V_i} \right) \bigvee \\
+	&\left( s_i \in \St_\diam \wedge \sigma_\diam(s_0, v_{V_0}, \dots, s_i)=v_{V_i} \right) \bigr)
+\end{align*}
+%$ \sigma_\diam(\hat \rho_{v_{V_i}})=s_{i+1} \bigwedge \left( \left( s_i \in \St_\cuad \wedge \sigma_\cuad(\hat \rho_{s_i})=v_{V_i} \right) \bigvee \left( s_i \in \St_\diam \wedge \sigma_\diam(\hat \rho_{s_i})=v_{V_i} \right) \right)$
+
 \subsection{Prueba de igualdad sobre los conjuntos ganadores}
 
 \begin{theorem}
@@ -293,122 +338,32 @@ queríamos, a la cual llamaremos $\derand(\pi_i)$.
 		\inf_{\pidiam \in \Pidiam} \Prob_{\Gk,s}^{\picuadGk, \pidiam}(\varphi) = 1
 	\end{equation}
 
-	Proponemos $\picuadGk = \rand(\sigma_\cuad^*)$.
+	Proponemos $\picuadGk = \rand(\sigma_\cuad^*)$ y veremos que vale \ref{pisirve}
+	por reducción al absurdo.
 
-	Ahora bien, ¿cómo podemos probar \ref{pisirve}?
-
-	Por definición de $\sigma_\cuad^*$ sabemos que si se está frente a una
-	estrategia $\sigma_\diam$ que respeta la condición de equidad $\varphi^l$,
-	entonces la jugada determinada por ambas estrategias cumple la especificación
-	$\varphi$.
-
-	\hl{A esto de acá abajo es que le faltaría una justificación más precisa. Capaz tampoco es la manera en la que habría que definir el varphil original.}
-
-	\textbf{Versión 2}
-	Si definimos
-	$$ \varPsi = \bigwedge_{\substack{s \in pred(v_V) \\ s' \in V}}  \left( \siempevent s \rightarrow \siempevent (s \wedge \bigcirc s' ) \right)$$
-	$$ \hat \varPsi = \bigwedge_{s' \in \cup_{\alpha \in acc(s, V)} \supp(\alpha)}  \left( \siempevent s \rightarrow \siempevent (s \wedge \bigcirc s' ) \right)$$
-
-	sabemos que $\varPsi \implies \varphi^l$ y que $\hat \varPsi$ es la adaptación
-	de $\varPsi$ a un juego estocástico politópico. Con lo que tendríamos que
+	Supongamos que no vale \ref{pisirve}, es decir,
 	\begin{equation}
-		\label{implicancia2}
-		\inf_{\pidiam \in \Pidiam} \Prob_{\Gk,s}^{\picuadGk, \pidiam}(\hat{\varPsi} \rightarrow \varphi) = 1
+		\inf_{\pidiam \in \Pidiam} \Prob_{\Gk, s}^{\picuadGk, \pidiam} (\varphi) < 1.
 	\end{equation}
 
-	Acá iría algo similar a la versión 1 ... Vemos que $\neg \hat{\varPsi}$ es 0,
-	viendo que para cada $\alpha \in acc(s, V)$ y cada $s' \in \supp(\alpha)$,
+	Esto significa que existe una estrategia $\pidiam^*$ que hace que $\Prob_{\Gk,
+			s}^{\picuadGk, \pidiam} (\varphi) < 1$. A su vez, esto significa que existe un
+	comportamiento $\omega^*$ que empieza desde $s$, respeta las estrategias
+	$\picuadGk$ y $\pidiam^*$, pero no cumple $\varphi$.
 
-	$$
-		\Prob_{\Gk, s}^{\picuadGk, \pidiam} \left( \siempevent s \wedge \eventsiemp \neg (s \wedge \bigcirc s' ) \right) = 0
-	$$
+	Pensemos, entonces, en $\sigma_\diam^*$ una desrandomización válida de
+	$\pidiam^*$ que sigue las elecciones de acciones que toman los prefijos de
+	$\omega^*$.
 
-	Como $\picuadGk$ solo le da probabilidad positiva a una $\alpha \in acc(s, V)$
-	por definición de $\rand(\sigma_\cuad)$, podemos concentrarnos en esa única
-	acción. \hl{mmm esto. Mejor vamos con}
+	Luego, $\rho^* = \derand(\omega^*)$ respeta las estrategias $\sigma_\cuad^*$ y
+	$\sigma_\diam^*$. Como $\rho^* \cap \St = \omega^* \cap \St$ y $\omega^*$ no
+	cumple $\varphi$, $\rho^*$ no cumple $\varphi$. Es decir, existe un camino que
+	empieza desde $s$, respeta $\sigma_\cuad^*$, pero no es ganador para $\varphi$.
+	Esto contradice que la estrategia $\sigma_\cuad^*$ sea ganadora desde $s$.
 
-	Sea $\alpha$ una acción y sea
-
-	\textbf{Versión 1}
-
-	Pedir que valga $\varphi^l$ en $\DGk$ es pedir que valga $\hat{\varphi}^l$ en
-	$\Gk$ para todo comportamiento en el juego y acción $\alpha$ en el
-	comportamiento, vale que:
-
-	$$
-		\hat{\varphi}^l = \bigwedge_{s' \in \supp(\alpha)} \left( \siempevent \alpha \rightarrow \siempevent (\alpha \wedge \bigcirc s' ) \right)
-	$$
-
-	\hl{Capaz es notable el que por cada soporte $V$, por cómo está definido $\rand$ de estrategias, habrá una única acción $\alpha$ que se elije (por eso se sabe la equivalencia? por eso se sabe que habrá infinitas elecciones de $\alpha$?)}.
-
-	Entonces, por cómo $\picuadGk$ está definida (a partir de $\sigma_\cuad^*$)
-	sabemos que
-
-	\begin{equation}
-		\label{implicancia}
-		\inf_{\pidiam \in \Pidiam} \Prob_{\Gk,s}^{\picuadGk, \pidiam}(\hat{\varphi}^l \rightarrow \varphi) = 1
-	\end{equation}
-
-	Veamos ahora que la ecuación \ref{pisirve} valdrá porque la probabilidad de que
-	no valga $\hat{\varphi}^l$ es 0. Veamos:
-
-	\hl{Esto no me está quedando bien con el tema de que esto es para cada $\alpha$ que aparece en el comportamiento, pero medio que entendiendo que es algo del camino capaz está bien y ni vale la pena hacerse mucha cabeza}
-
-	\begin{align*}
-		&\Prob_{\Gk, s}^{\picuadGk, \pidiam}(\neg \hat{\varphi}^l) = \\
-		&\Prob_{\Gk, s}^{\picuadGk, \pidiam}\left(\neg \left(\bigwedge_{s' \in \supp(\alpha)} \left( \siempevent \alpha \rightarrow \siempevent (\alpha \wedge \bigcirc s' ) \right)\right)\right) = \\
-		&\Prob_{\Gk, s}^{\picuadGk, \pidiam} \left(\bigvee_{s' \in \supp(\alpha)} \neg \left( \siempevent \alpha \rightarrow \siempevent (\alpha \wedge \bigcirc s' ) \right)\right) = \\
-		&\Prob_{\Gk, s}^{\picuadGk, \pidiam} \left(\bigvee_{s' \in \supp(\alpha)} \left( \siempevent \alpha \wedge \eventsiemp \neg (\alpha \wedge \bigcirc s' ) \right)\right) \leq \\
-		&\sum_{s' \in \supp(\alpha)} \Prob_{\Gk, s}^{\picuadGk, \pidiam} \left( \siempevent \alpha \wedge \eventsiemp \neg (\alpha \wedge \bigcirc s' ) \right)
-	\end{align*}
-
-	Mostramos que este último término es igual a 0, viendo que para cada $s' \in
-		\supp(\alpha)$,
-
-	$$
-		\Prob_{\Gk, s}^{\picuadGk, \pidiam} \left( \siempevent \alpha \wedge \eventsiemp \neg (\alpha \wedge \bigcirc s' ) \right) = 0
-	$$
-
-	Sea $\omega$ una jugada. Notemos con $\mu$ a la distribución asociada a la
-	acción $\alpha$. Sea $I$ el conjunto infinito de momentos donde se elije la
-	acción $\alpha$. La probabilidad de elegir $s'$ como próximo vértice en
-	cualquier momento $i \in I$ estará dada por $\mu(s')$.
-
-	Entonces, para cada momento $i$, la probabilidad de no visitar $s'$ por los
-	próximos $k$ momentos $i$, está acotada superiormente por $(1 - \mu(s'))^k$,
-	que converge a $0$ cuando $k$ tiende de a $\infty$. Por lo tanto, tenemos que
-	$\Prob_{\Gk, s}^{\picuadGk, \pidiam} \left( \siempevent \alpha \wedge
-		\eventsiemp \neg (\alpha \wedge \bigcirc s' ) \right) = 0$.
-
-	\hl{Queda raro esto porque no hay un estado $s$ de por sí.}
-
-	\hlcyan{Consideremos un $s' \in \supp(\alpha)$ arbitrario. Sea $\omega$ una jugada y sea $I$ el conjunto infinito de momentos donde se llega a $s$ y se elige una acción $(K, \mu) \in acc(s, \supp(\alpha))$. Llamemos $\mu_i$ a la distribución elegida en el momento $i \in I$. La probabilidad de elegir $s'$ como próximo vértice en el momento $i \in I$ estará dada por $\mu_i(s')$.
-
-		Como estamos trabajando con estrategias de memoria finita, habrá solo una
-		cantidad finita de distribuciones que $\pidiam$ puede elegir desde $s$, así que
-		existirá una distribución, llamémosla $\mu_{\max}$ tal que da la probabilidad
-		máxima de ir a $s'$.}
-
-	\hl{No tengo porqué hablar de acciones de memoria finita mepa. Voy a elegir infinitas veces la misma acción. Solo elijo una acción por cada soporte por la manera en la que definimos rand.}
-
-	\hlcyan{Entonces, para cada momento $i$, la probabilidad de no visitar $s'$ por los próximos $k$ momentos $i$, está acotada superiormente por $(1 - \mu_{max}(s'))^l$, que converge a $0$ cuando $l$ tiende de a $\infty$. Por lo tanto, tenemos que $\Prob_{\Gk, s}^{\picuadGk, \pidiam} \left( \siempevent \alpha \wedge \eventsiemp \neg (\alpha \wedge \bigcirc s' ) \right) = 0$}
-
-	En consecuencia, se sigue que $\sum_{s' \in \supp(\alpha)} \Prob_{\Gk,
-			s}^{\picuadGk, \pidiam} \left( \siempevent \alpha \wedge \eventsiemp \neg
-			(\alpha \wedge \bigcirc s' ) \right) = 0$, lo que a su vez establece que
-	$\Prob_{\Gk, s}^{\picuadGk, \pidiam}(\neg \hat{\varphi}^l) = 0$.
-
-	Luego vale que:
-
-	\begin{align*}
-		&\Prob_{\Gk,s}^{\picuadGk, \pidiam}(\hat{\varphi}^l \rightarrow \varphi) = \Prob_{\Gk,s}^{\picuadGk, \pidiam}(\neg \hat{\varphi}^l \vee \varphi) \leq \\
-		&\Prob_{\Gk,s}^{\picuadGk, \pidiam}(\neg \hat{\varphi}^l) + \Prob_{\Gk,s}^{\picuadGk, \pidiam}(\varphi) = 0 + \Prob_{\Gk,s}^{\picuadGk, \pidiam}(\varphi) = \\
-		&\Prob_{\Gk,s}^{\picuadGk, \pidiam}(\varphi)
-	\end{align*}
-
-	Y por \ref{implicancia} entonces vale que $\inf_{\pidiam \in \Pidiam}
-		\Prob_{\Gk,s}^{\picuadGk, \pidiam}(\varphi) = 1$ como queríamos probar.
-
+	Llegamos a esta contradicción por suponer que no vale \ref{pisirve}. Entonces
+	la ecuación sí vale y, consecuentemente, tenemos que $s \in \W^{as}$, como
+	queríamos probar.
 	% -------------------------------------------------------------------------------------------------------------------------------------------------
 
 	\textbf{Segunda contención: } $\W^{as} \subseteq \W$
@@ -434,13 +389,13 @@ queríamos, a la cual llamaremos $\derand(\pi_i)$.
 	%(Ver que quede la definición de Inf antes).
 
 	\begin{equation}
-		\label{varphi'}
+		\label{varphi}
 		\varphi' := \bigvee_{j = 1}^{k} \left((\inft(\rho) \cap R_j = \emptyset) \wedge (\inft(\rho) \cap G_j \neq \emptyset)  \right)
 	\end{equation}
 
 	Si podemos probar que $\inft(\rho)$ es un sub-PMDP alcanzable en el PMDP que se
 	forma al fijar la estrategia de memoria finita $\picuad^*$ en $\Gk$, por el
-	teorema \ref{adaptB30} podemos ver que vale la ecuación \ref{varphi'}.
+	teorema \ref{adaptB30} podemos ver que vale la ecuación \ref{varphi}.
 
 	Primero, podemos ver que $\inft(\rho)$ \hl{(entendiendo los vértices de la
 		forma $v_V$ como el conjunto resultado $V$)} es una componente final en el
@@ -470,7 +425,7 @@ queríamos, a la cual llamaremos $\derand(\pi_i)$.
 	mismos vértices que $\pidiam$ asegura visitar infinitamente. \hl{Capaz esto se
 		podría explicar mejor}.
 
-	Con lo cual hemos probado que vale \ref{varphi'} y, por lo tanto, que
+	Con lo cual hemos probado que vale \ref{varphi} y, por lo tanto, que
 	$\sigma_\cuad*$ es ganadora en $\DGk$ desde $s$, con lo que hemos probado que
 	$s \in \W$.
 
