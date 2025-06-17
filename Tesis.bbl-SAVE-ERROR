@@ -1,0 +1,254 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global}
+    \entry{BaierKatoen}{book}{}
+      \name{author}{2}{}{%
+        {{hash=7725f3db070a985fe46a5feb0bcee960}{%
+           family={Baier},
+           familyi={B\bibinitperiod},
+           given={Christel},
+           giveni={C\bibinitperiod}}}%
+        {{hash=392d5825b15ef7f81f68632c7a49fdef}{%
+           family={Katoen},
+           familyi={K\bibinitperiod},
+           given={Joost-Pieter},
+           giveni={J\bibinithyphendelim P\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {The MIT Press}%
+      }
+      \strng{namehash}{89a25b516e2b4c8733def01ee561abfe}
+      \strng{fullhash}{89a25b516e2b4c8733def01ee561abfe}
+      \strng{bibnamehash}{89a25b516e2b4c8733def01ee561abfe}
+      \strng{authorbibnamehash}{89a25b516e2b4c8733def01ee561abfe}
+      \strng{authornamehash}{89a25b516e2b4c8733def01ee561abfe}
+      \strng{authorfullhash}{89a25b516e2b4c8733def01ee561abfe}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{978-0-262-02649-9}
+      \field{title}{Principles of Model Checking}
+      \field{volume}{26202649}
+      \field{year}{2008}
+    \endentry
+    \entry{AlfaroThesis}{report}{}
+      \name{author}{1}{}{%
+        {{hash=d8a3360195b18eaefe5b3686604cd41d}{%
+           family={Alfaro},
+           familyi={A\bibinitperiod},
+           given={Luca},
+           giveni={L\bibinitperiod},
+           prefix={de},
+           prefixi={d\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Stanford, CA, USA}%
+      }
+      \list{publisher}{1}{%
+        {Stanford University}%
+      }
+      \strng{namehash}{d8a3360195b18eaefe5b3686604cd41d}
+      \strng{fullhash}{d8a3360195b18eaefe5b3686604cd41d}
+      \strng{bibnamehash}{d8a3360195b18eaefe5b3686604cd41d}
+      \strng{authorbibnamehash}{d8a3360195b18eaefe5b3686604cd41d}
+      \strng{authornamehash}{d8a3360195b18eaefe5b3686604cd41d}
+      \strng{authorfullhash}{d8a3360195b18eaefe5b3686604cd41d}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{This dissertation presents methods for the formal modeling and specification of probabilistic systems, and algorithms for the automated verification of these systems. Our system models describe the behavior of a system in terms of probability, nondeterminism, fairness and time. The formal specification languages we consider are based on extensions of branching-time temporal logics, and enable the expression of single-event and long-run average system properties. This latter class of properties, not expressible with previous formal languages, includes most of the performance properties studied in the field of performance evaluation, such as system throughput and average response time. Our choice of system models and specification languages has been guided by the goal of providing efficient verification algorithms. The algorithms rely on the theory of Markov decision processes, and exploit a connection between the graph-theoretical and probabilistic properties of these processes. This connection also leads to new results about classical problems, such as an extension to the solvable cases of the stochastic shortest path problem, an improved algorithm for the computation of reachability probabilities, and new results on the average reward problem for semi-Markov decision processes.}
+      \field{title}{Formal Verification of Probabilistic Systems}
+      \field{type}{techreport}
+      \field{year}{1998}
+    \endentry
+    \entry{Polytopal}{article}{}
+      \name{author}{2}{}{%
+        {{hash=0c154d3f18f7d175e1ab4503e251538b}{%
+           family={Castro},
+           familyi={C\bibinitperiod},
+           given={Pablo\bibnamedelima F.},
+           giveni={P\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
+        {{hash=c68f147b69c61827bed679a047a27715}{%
+           family={D'Argenio},
+           familyi={D\bibinitperiod},
+           given={Pedro\bibnamedelima R.},
+           giveni={P\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+      }
+      \strng{namehash}{62f6f41dbaa468999f44d100964cbce3}
+      \strng{fullhash}{62f6f41dbaa468999f44d100964cbce3}
+      \strng{bibnamehash}{62f6f41dbaa468999f44d100964cbce3}
+      \strng{authorbibnamehash}{62f6f41dbaa468999f44d100964cbce3}
+      \strng{authornamehash}{62f6f41dbaa468999f44d100964cbce3}
+      \strng{authorfullhash}{62f6f41dbaa468999f44d100964cbce3}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Enviado para publicación}
+      \field{title}{Polytopal Stochastic Games}
+      \field{year}{2024}
+    \endentry
+    \entry{CONDON1992}{article}{}
+      \name{author}{1}{}{%
+        {{hash=8c066f798710ece4dc0fa6384d6f49d2}{%
+           family={Condon},
+           familyi={C\bibinitperiod},
+           given={Anne},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{8c066f798710ece4dc0fa6384d6f49d2}
+      \strng{fullhash}{8c066f798710ece4dc0fa6384d6f49d2}
+      \strng{bibnamehash}{8c066f798710ece4dc0fa6384d6f49d2}
+      \strng{authorbibnamehash}{8c066f798710ece4dc0fa6384d6f49d2}
+      \strng{authornamehash}{8c066f798710ece4dc0fa6384d6f49d2}
+      \strng{authorfullhash}{8c066f798710ece4dc0fa6384d6f49d2}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{We consider the complexity of stochastic games—simple games of chance played by two players. We show that the problem of deciding which player has the greatest chance of winning the game is in the class NP ⌢ co-NP.}
+      \field{issn}{0890-5401}
+      \field{journaltitle}{Information and Computation}
+      \field{number}{2}
+      \field{title}{The complexity of stochastic games}
+      \field{volume}{96}
+      \field{year}{1992}
+      \field{pages}{203\bibrangedash 224}
+      \range{pages}{22}
+      \verb{doi}
+      \verb https://doi.org/10.1016/0890-5401(92)90048-K
+      \endverb
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/science/article/pii/089054019290048K
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/science/article/pii/089054019290048K
+      \endverb
+    \endentry
+    \entry{filar}{book}{}
+      \name{author}{2}{}{%
+        {{hash=30aa11c7f32632b5d7fa79ac5beb96fb}{%
+           family={Filar},
+           familyi={F\bibinitperiod},
+           given={J.},
+           giveni={J\bibinitperiod}}}%
+        {{hash=27cf21ba1b4af0a10a84e0f32adb7ce4}{%
+           family={Vrieze},
+           familyi={V\bibinitperiod},
+           given={K.},
+           giveni={K\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer New York}%
+      }
+      \strng{namehash}{4f18b47c827183b19a2f5542c9cb6c6e}
+      \strng{fullhash}{4f18b47c827183b19a2f5542c9cb6c6e}
+      \strng{bibnamehash}{4f18b47c827183b19a2f5542c9cb6c6e}
+      \strng{authorbibnamehash}{4f18b47c827183b19a2f5542c9cb6c6e}
+      \strng{authornamehash}{4f18b47c827183b19a2f5542c9cb6c6e}
+      \strng{authorfullhash}{4f18b47c827183b19a2f5542c9cb6c6e}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{9781461240549}
+      \field{title}{Competitive Markov Decision Processes}
+      \field{year}{2012}
+      \verb{urlraw}
+      \verb https://books.google.com.ar/books?id=uXDjBwAAQBAJ
+      \endverb
+      \verb{url}
+      \verb https://books.google.com.ar/books?id=uXDjBwAAQBAJ
+      \endverb
+    \endentry
+    \entry{Banerjee}{inproceedings}{}
+      \name{author}{5}{}{%
+        {{hash=6305e32935e678a4282045d33d227d8f}{%
+           family={Banerjee},
+           familyi={B\bibinitperiod},
+           given={Tamajit},
+           giveni={T\bibinitperiod}}}%
+        {{hash=78643650cab303170e95fbd8ac71e624}{%
+           family={Majumdar},
+           familyi={M\bibinitperiod},
+           given={Rupak},
+           giveni={R\bibinitperiod}}}%
+        {{hash=74da5c39ea5cb85ef1ff5db8fa382633}{%
+           family={Mallik},
+           familyi={M\bibinitperiod},
+           given={Kaushik},
+           giveni={K\bibinitperiod}}}%
+        {{hash=c951354d819b05dcd3b5fa13f33f6684}{%
+           family={Schmuck},
+           familyi={S\bibinitperiod},
+           given={Anne-Kathrin},
+           giveni={A\bibinithyphendelim K\bibinitperiod}}}%
+        {{hash=0c7e98ee17d411b320cc3725995b40fa}{%
+           family={Soudjani},
+           familyi={S\bibinitperiod},
+           given={Sadegh},
+           giveni={S\bibinitperiod}}}%
+      }
+      \name{editor}{2}{}{%
+        {{hash=ccc695ff0ad1ab271c4cb2c6c7178646}{%
+           family={Fisman},
+           familyi={F\bibinitperiod},
+           given={Dana},
+           giveni={D\bibinitperiod}}}%
+        {{hash=7fd7dca72da93b22748f135e2191a0fa}{%
+           family={Rosu},
+           familyi={R\bibinitperiod},
+           given={Grigore},
+           giveni={G\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Cham}%
+      }
+      \list{publisher}{1}{%
+        {Springer International Publishing}%
+      }
+      \strng{namehash}{6dcebadde2488b2b1d41e618cacf365a}
+      \strng{fullhash}{42695f8843bf75e3a9597dad0fb49207}
+      \strng{bibnamehash}{42695f8843bf75e3a9597dad0fb49207}
+      \strng{authorbibnamehash}{42695f8843bf75e3a9597dad0fb49207}
+      \strng{authornamehash}{6dcebadde2488b2b1d41e618cacf365a}
+      \strng{authorfullhash}{42695f8843bf75e3a9597dad0fb49207}
+      \strng{editorbibnamehash}{15eaf245a62dd5d0d1d4657945c3e54a}
+      \strng{editornamehash}{15eaf245a62dd5d0d1d4657945c3e54a}
+      \strng{editorfullhash}{15eaf245a62dd5d0d1d4657945c3e54a}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{We consider turn-based stochastic 2-player games on graphs with {\$}{\$}{\backslash}omega {\$}{\$}$\omega$-regular winning conditions. We provide a direct symbolic algorithm for solving such games when the winning condition is formulated as a Rabin condition. For a stochastic Rabin game with k pairs over a game graph with n vertices, our algorithm runs in {\$}{\$}O(n^{\{}k+2{\}}k!){\$}{\$}O(nk+2k!)symbolic steps, which improves the state of the art.}
+      \field{booktitle}{Tools and Algorithms for the Construction and Analysis of Systems}
+      \field{isbn}{978-3-030-99527-0}
+      \field{title}{A Direct Symbolic Algorithm for Solving Stochastic Rabin Games}
+      \field{year}{2022}
+      \field{pages}{81\bibrangedash 98}
+      \range{pages}{18}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
