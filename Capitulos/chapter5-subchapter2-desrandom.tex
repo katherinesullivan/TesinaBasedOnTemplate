@@ -16,52 +16,52 @@ objetivo de Rabin.
 
 \subsection{Juegos de adversario justo}
 
-Sea $G$ un juego de grafo de dos jugadores y sea $E^{l} \subseteq (V_1 \times
-	V) \cap E$ un conjunto dado de aristas vivas \hl{ver traducción}. Sea $V^{l} :=
-	\mathrm{dom}(E^{l})$ el conjunto de vértices del jugador $\diam$ que están en
-el dominio de $E^{l}$. Intuitivamente, las aristas en $E^{l}$ representan
-suposiciones de justicia sobre el jugador $\diam$: para cada arista $(v, v')
-	\in E^{l}$, si $v$ es visitado infinitamente a menudo en una jugada, se espera
-que la arista $(v, v')$ sea elegida también infinitamente a menudo por el
-jugador $\diam$. Es decir, si un vértice $v$ es visitado infinitamente, se
-espera también que toda arista viva saliente de $v$ sea tomada infinitamente a
-menudo.
+Sea $G$ un juego de grafo de dos jugadores y sea $E^{l} \subseteq (V_\diam \times
+	V) \cap E$ un conjunto dado de aristas que deben ser tomadas infinitamente a
+menudo si el estado del que parten es visitado infinitamente a menudo.
+Nombrearemos $V^{l} := \mathrm{dom}(E^{l})$ el conjunto de vértices del jugador
+$\diam$ que están en el dominio de $E^{l}$. Las aristas en
+$E^{l}$ representarán suposiciones de equidad sobre el jugador $\diam$: para
+cada arista $(v, v') \in E^{l}$, si $v$ es visitado infinitamente a menudo en
+una jugada, se espera que la arista $(v, v')$ sea elegida también infinitamente
+a menudo por el jugador $\diam$. Es decir, si un vértice $v$ es visitado
+infinitamente, se espera también que toda arista en $E^l$ saliente de $v$ sea
+tomada infinitamente a menudo.
 
-Denotamos por $G^{l} = \langle G, E^{l} \rangle$ a un juego de grafo de dos
-jugadores con aristas vivas, y extendemos nociones como jugadas, estrategias,
-condiciones ganadoras, regiones ganadoras, etc., de juegos de grafo a juegos de
-grafos con aristas vivas. Una jugada $\pi$ sobre $G^{l}$ es fuertemente justa
-si satisface la siguiente fórmula en lógica temporal lineal (LTL):
-
+Denotamos por $G^{l} = \langle G, E^{l} \rangle$ a un juego de adversario
+justo, y extendemos nociones como jugadas, estrategias, condiciones ganadoras,
+regiones ganadoras, etc. de juegos deterministas de manera natural. Una jugada
+$\rho$ sobre $G^{l}$ se dice fuertemente justa si satisface la siguiente
+fórmula en lógica temporal lineal (LTL):
 \[
 	\alpha := \bigwedge_{(v, v') \in E^{l}} \left( \siempevent v \rightarrow \siempevent (v \wedge \bigcirc v') \right).
 \]
-
 Dado $G^{l}$ y una condición de victoria $\varphi$, el jugador $\cuad$ gana el
 juego de adversario justo sobre $G^{l}$ con respecto a la condición de victoria
 $\varphi$ desde un vértice $v_0 \in V$ si gana el juego sobre $G^{l}$ para la
 condición de victoria $\alpha \rightarrow \varphi$ desde $v_0$.
 
-Hay dos observaciones interesantes sobre los juegos de adversario justo.
+Hay dos observaciones interesantes para hacer sobre los juegos de adversario justo:
 
-Primero, las aristas vivas permiten descartar ciertas estrategias del jugador
-$\diam$, facilitando que el jugador $\cuad$ gane en determinadas situaciones.
-Por ejemplo, consideremos un grafo de juego (figura X, parte superior) con dos
-vértices $p$ y $q$. El vértice $p$ pertenece al jugador $\diam$ y el vértice
-$q$ al jugador $\cuad$. La arista $(p, q)$ es una arista viva (representada con
-línea discontinua). Supongamos que la especificación para el jugador $\cuad$ es
-$\varphi = \siempevent q$. Si la arista $(p, q)$ no fuera viva, el jugador
-$\cuad$ no ganaría desde $p$, porque el jugador $\diam$ podría mantener el
-juego atrapado en $p$ eligiéndose a sí mismo como sucesor en cada turno. En
-contraste, el jugador $\cuad$ gana desde $p$ en el juego adversarial justo,
-porque la suposición de liveness sobre la arista $(p, q)$ fuerza al jugador
-$\diam$ a elegir infinitamente a menudo la transición hacia $q$.
+Primero, las aristas en $E^l$ permiten descartar ciertas estrategias del
+jugador $\diam$, facilitando que el jugador $\cuad$ gane en determinadas
+situaciones. Por ejemplo, consideremos un grafo de juego (figura X, parte
+superior) con dos vértices $p$ y $q$. El vértice $p$ pertenece al jugador
+$\diam$ y el vértice $q$ al jugador $\cuad$. La arista $(p, q)$ es una arista
+en $E^l$ (representada con línea discontinua). Supongamos que la especificación
+para el jugador $\cuad$ es $\varphi = \siempevent q$. Si la arista $(p, q)$ no
+estuviera en $E^l$, el jugador $\cuad$ no ganaría desde $p$, porque el jugador $\diam$
+podría mantener el juego atrapado en $p$ eligiéndose a sí mismo como sucesor en
+cada turno. En contraste, el jugador $\cuad$ gana desde $p$ en el juego
+adversarial justo, porque la suposición de equidad sobre la arista $(p, q)$
+fuerza al jugador $\diam$ a elegir infinitamente a menudo la transición hacia
+$q$.
 
-Segundo, las suposiciones de justicia modeladas por aristas vivas restringen
+Segundo, las suposiciones de equidad modeladas por aristas en $E^l$ restringen
 las elecciones de estrategias del jugador $\diam$ menos que lo que
 restringirían la suposición de que el jugador $\diam$ elige probabilísticamente
 entre estas aristas. Consideremos, por ejemplo, un juego de adversario justo
-con un único vértice del jugador $\diam$, $p$ (cuadrado) con dos aristas vivas
+con un único vértice del jugador $\diam$, $p$ con dos aristas en $E^l$
 salientes hacia los estados $q$ y $q'$, como se muestra en la Figura 1 (parte
 inferior). Si el jugador $\diam$ elige aleatoriamente entre las aristas $(p,
 	q)$ y $(p, q')$, toda secuencia finita de visitas a los estados $q$ y $q'$
@@ -135,8 +135,8 @@ Esta misma condición de equidad se puede expresar como
 
 \subsection{Relación entre un PSG y su desrandomización}
 
-Nos será útil pensar en transformaciones entre los distintos juegos para las
-pruebas que tenemos más adelante, así que veremos algunas definiciones. Antes,
+Nos será útil pensar en transformaciones entre los distintos juegos para la
+prueba que tenemos más adelante, así que veremos algunas definiciones. Antes,
 fijemos la interpretación de un juego estocástico politópico $\Gk$ y su
 desrandomización $\DGk$.
 
