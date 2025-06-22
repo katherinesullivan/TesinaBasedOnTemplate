@@ -1,15 +1,84 @@
 \chapter{Introducción}
 ~\label{cap:intro}
 
+A lo largo de la historia, la teoría de juegos ha cumplido un rol central en
+muchas áreas de las ciencias de la computación. En particular, la aparición del
+concepto de \textit{juego estocástico} ha tenido un impacto significativo en la
+modelización y estudio de sistemas reactivos, sistemas con comportamientos no
+deterministas, y sistemas con incertidumbre.
+
+El concepto de juego estocástico se contrapone al de juego determinista.
+Mientras que en el último cada acción de un jugador resulta en un único próximo
+estado del juego, en el primero cada acción de un jugador determina una
+distribución de probabilidad sobre los posibles próximos estados del juego. Es
+por esto que los juegos estocásticos han resultado una herramienta útil para
+modelar sistemas en diversas áreas como finanzas, inteligencia artificial y
+telecomunicaciones.
+
+Existen sistemas donde las posibles transiciones de un estado a otro no son
+discretas, sino que existen una cantidad continua de opciones, y estas se
+suelen poder describir a partir de un conjunto de restricciones. Ejemplos de
+estos sistemas son redes de comunicaciones, modelos financieros complejos y
+planificaciones de movimiento en robótica. Para modelar este tipo de
+situaciones surgió el concepto de juegos estocásticos politópicos. En ellos,
+los posibles siguientes estados de un juego forman diferentes politopos en el
+espacio de estados, y la decisión de un jugador lo que determinará será un
+politopo y una distribución de probabilidad sobre ese politopo, a partir de los
+cuales se verá cuál es el próximo estado del juego.
+
+Para su estudio, y en general para el estudio de juegos, la pregunta central a
+responder es si un jugador tiene una estrategia ganadora para el juego. Esto
+dependerá de cómo se define el ganar para el jugador. En juegos estocásticos,
+una manera definir el ganar es a través de \textit{objetivos} que se dan en
+forma de una \textit{propiedad $\omega$-regular} $\phi$. Como nos
+concentraremos en juegos de suma cero, el ganar para un jugador será que se
+cumpla $\phi$, mientras que su contrincante ganará si se cumple $\neg \phi$.
+
+Dentro de las propiedades $\omega$-regulares se destacan \textit{las
+	condiciones de Rabin} y su dual, \textit{las condiciones de Street}. La
+relevancia práctica de ellas viene del hecho que su forma se corresponde con
+aquella de las condiciones de equidad en sistemas de transición.
+
+\section{Fundamentos y estado del arte}
+
+Los juegos estocásticos fueron introducidos por L. Shapley en 1953
+\cite{Shapley1953} con el fin de modelar interacciones dinámicas donde el
+entorno cambia en respuesta a los comportamientos de los jugadores. Estos
+extienden el modelo de los procesos de decisión de Markov, desarrollado por
+varios investigadores en la RAND Corporation en el período de 1949 a 1952, a
+situaciones competitivas con más de un tomador de decisiones.
+
+Gracias a su aporte para la modelización en varias áreas, resultó lógica la
+división de juegos estocásticos en base a distintos tipos de funciones de pago.
+El estudio de la existencia, tipo y computabilidad de las estrategias óptimas
+suele considerarse en juegos con funciones de recompensa cuantitativas (eg.,
+funciones de recompensa media, descontada, pesada o límite) y cualitativas
+(eg., funciones de recompensas asociadas a objetivos de alcanzabilidad, de
+Büchi, de Rabin o de Müller) \cite{Chatterjee2007,Kučera2011,Chatterjee1}.
+
+Resultados para juegos estocásticos con funciones de recompensa media y
+descontada fueron reportados desde 1958 por Gillete \cite{Gillette1958},
+mientras que los primeros resultados para juegos con objetivos de
+alcanzabilidad fueron publicados por Condon en 1992 \cite{CONDON1992} y los
+juegos con objetivos de Rabin comenzaron a ser estudidados en profundidad por
+Chaterjee desde 2005 \cite{ComplexityRabin,Chatterjee2007,Chatterjee1}.
+
+Recientemente, en 2024, Castro y D'Argenio introdujeron el concepto de juegos
+estocásticos politópicos \cite{Polytopal}, los cuales expanden la noción de
+juegos estocásticos.
+%con incertidumbre sobre las probabilidades de las acciones de los jugadores. 
+En este mismo paper, se presentan resultados para juegos estocásticos
+politópicos con objetivos de alcanzabilidad, funciones de pago descontadas y
+funciones de pago promedio.
+
 \section{Contribuciones}
 ~\label{cap:intro:sec:contributions}
 
-\ldots
+La idea de este trabajo será extender el estudio de juegos estocásticos
+politópicos a juegos con objetivos de Rabin.
 
 \section{Organización del trabajo}
 ~\label{cap:intro:sec:outline}
-
-HOLA
 
 \begin{itemize}
 	\item En el \textbf{Capítulo~\ref{cap:art}}, presentaré \ldots ;

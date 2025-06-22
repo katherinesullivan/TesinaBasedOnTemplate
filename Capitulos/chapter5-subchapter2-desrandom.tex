@@ -16,17 +16,17 @@ objetivo de Rabin.
 
 \subsection{Juegos de adversario justo}
 
-Sea $G$ un juego de grafo de dos jugadores y sea $E^{l} \subseteq (V_\diam \times
-	V) \cap E$ un conjunto dado de aristas que deben ser tomadas infinitamente a
-menudo si el estado del que parten es visitado infinitamente a menudo.
-Nombrearemos $V^{l} := \mathrm{dom}(E^{l})$ el conjunto de vértices del jugador
-$\diam$ que están en el dominio de $E^{l}$. Las aristas en
-$E^{l}$ representarán suposiciones de equidad sobre el jugador $\diam$: para
-cada arista $(v, v') \in E^{l}$, si $v$ es visitado infinitamente a menudo en
-una jugada, se espera que la arista $(v, v')$ sea elegida también infinitamente
-a menudo por el jugador $\diam$. Es decir, si un vértice $v$ es visitado
-infinitamente, se espera también que toda arista en $E^l$ saliente de $v$ sea
-tomada infinitamente a menudo.
+Sea $G$ un juego de grafo de dos jugadores y sea $E^{l} \subseteq (V_\diam
+	\times V) \cap E$ un conjunto dado de aristas que deben ser tomadas
+infinitamente a menudo si el estado del que parten es visitado infinitamente a
+menudo. Nombraremos $V^{l} := \mathrm{dom}(E^{l})$ al conjunto de vértices del
+jugador $\diam$ que está en el dominio de $E^{l}$. Las aristas en $E^{l}$
+representarán suposiciones de equidad sobre el jugador $\diam$: para cada
+arista $(v, v') \in E^{l}$, si $v$ es visitado infinitamente a menudo en una
+jugada, se espera que la arista $(v, v')$ sea elegida también infinitamente a
+menudo por el jugador $\diam$. Es decir, si un vértice $v$ es visitado
+infinitas veces, se espera también que toda arista en $E^l$ saliente de $v$ sea
+tomada una cantidad infinita de veces.
 
 Denotamos por $G^{l} = \langle G, E^{l} \rangle$ a un juego de adversario
 justo, y extendemos nociones como jugadas, estrategias, condiciones ganadoras,
@@ -41,7 +41,8 @@ juego de adversario justo sobre $G^{l}$ con respecto a la condición de victoria
 $\varphi$ desde un vértice $v_0 \in V$ si gana el juego sobre $G^{l}$ para la
 condición de victoria $\alpha \rightarrow \varphi$ desde $v_0$.
 
-Hay dos observaciones interesantes para hacer sobre los juegos de adversario justo:
+Hay dos observaciones interesantes para hacer sobre los juegos de adversario
+justo:
 
 Primero, las aristas en $E^l$ permiten descartar ciertas estrategias del
 jugador $\diam$, facilitando que el jugador $\cuad$ gane en determinadas
@@ -50,12 +51,12 @@ superior) con dos vértices $p$ y $q$. El vértice $p$ pertenece al jugador
 $\diam$ y el vértice $q$ al jugador $\cuad$. La arista $(p, q)$ es una arista
 en $E^l$ (representada con línea discontinua). Supongamos que la especificación
 para el jugador $\cuad$ es $\varphi = \siempevent q$. Si la arista $(p, q)$ no
-estuviera en $E^l$, el jugador $\cuad$ no ganaría desde $p$, porque el jugador $\diam$
-podría mantener el juego atrapado en $p$ eligiéndose a sí mismo como sucesor en
-cada turno. En contraste, el jugador $\cuad$ gana desde $p$ en el juego
-adversarial justo, porque la suposición de equidad sobre la arista $(p, q)$
-fuerza al jugador $\diam$ a elegir infinitamente a menudo la transición hacia
-$q$.
+estuviera en $E^l$, el jugador $\cuad$ no ganaría desde $p$, porque el jugador
+$\diam$ podría mantener el juego atrapado en $p$ eligiéndose a sí mismo como
+sucesor en cada turno. En contraste, el jugador $\cuad$ gana desde $p$ en el
+juego adversarial justo, porque la suposición de equidad sobre la arista $(p,
+	q)$ fuerza al jugador $\diam$ a elegir infinitamente a menudo la transición
+hacia $q$.
 
 Segundo, las suposiciones de equidad modeladas por aristas en $E^l$ restringen
 las elecciones de estrategias del jugador $\diam$ menos que lo que
