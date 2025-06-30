@@ -22,24 +22,41 @@ estos sistemas son redes de comunicaciones, modelos financieros complejos y
 planificaciones de movimiento en robótica. Para modelar este tipo de
 situaciones surgió el concepto de juegos estocásticos politópicos. En ellos,
 los posibles siguientes estados de un juego forman diferentes politopos en el
-espacio de estados, y la decisión de un jugador lo que determinará será un
-politopo y una distribución de probabilidad sobre ese politopo, a partir de los
-cuales se verá cuál es el próximo estado del juego.
+espacio de estados, y la decisión de un jugador lo que implicará la elección de
+un politopo y una distribución de probabilidad sobre ese politopo, a partir de
+los cuales se verá cuál es el próximo estado del juego.
 
 Para su estudio, y en general para el estudio de juegos, la pregunta central a
-responder es si un jugador tiene una estrategia ganadora para el juego. Esto
-dependerá de cómo se define el ganar para el jugador. En juegos estocásticos,
-una manera definir el ganar es a través de \textit{objetivos} que se dan en
-forma de una \textit{propiedad $\omega$-regular} $\phi$. Como nos
-concentraremos en juegos de suma cero, el ganar para un jugador será que se
-cumpla $\phi$, mientras que su contrincante ganará si se cumple $\neg \phi$.
+responder es si un jugador tiene una estrategia ganadora. Esto dependerá de
+cómo se define el ganar para el jugador. En juegos estocásticos, una manera de
+definir el ganar es a través de \textit{objetivos} que se dan en forma de una
+\textit{propiedad $\omega$-regular} $\phi$. Como nos concentraremos en juegos
+de suma cero, el ganar para un jugador será que se cumpla $\phi$, mientras que
+su contrincante ganará si se cumple $\neg \phi$.
 
 Dentro de las propiedades $\omega$-regulares se destacan \textit{las
 	condiciones de Rabin} y su dual, \textit{las condiciones de Street}. La
-relevancia práctica de ellas viene del hecho que su forma se corresponde con
-aquella de las condiciones de equidad en sistemas de transición.
+relevancia práctica de ellas viene del hecho de que su forma se corresponde con
+aquella de las condiciones de equidad en sistemas de transición, además de que
+cualquier propiedad $\omega$-regular puede ser reescrita como una propiedad de
+Rabin \cite{AutomataLogicsInfiniteGames}.
 
-\section{Fundamentos y estado del arte}
+Una vez fijado un jugador (generalmente el jugador ``maximizador''/ el jugador
+que busca que se cumpla la propiedad $\phi$), al problema de la computación de
+los estados estados ganadores de un juego se lo suele llamar el análisis
+cualitativo del juego, mientras que el análisis cuantitativo del juego refiere
+al problema de computar, para cada estado, cuál es la probabilidad máxima que
+tiene este de ganar, aún cuando esta sea menor que 1.
+
+En el trabajo nos concentraremos en el análisis cualitativo de juegos
+estocásticos politópicos con objetivos de Rabin. Mostraremos que el conjunto de
+sus estados ganadores son iguales a los estados ganadores de un particular
+juego determinista construido a partir del juego estocástico, y presentaremos
+un algoritmo para su cómputo y analizaremos su complejidad.
+
+%Esta igualdad que mostramos también permite que cualquier avance en términos de mejoras para el cómputo de conjuntos de estados ganadores en juegos deterministas, resultará en una mejora para el cómputo de conjuntos de estados ganadores en juego estocásticos politóìcos con objetivos de Rabin.
+
+\section{Estado del arte}
 
 Los juegos estocásticos fueron introducidos por L. Shapley en 1953
 \cite{Shapley1953} con el fin de modelar interacciones dinámicas donde el
@@ -47,6 +64,8 @@ entorno cambia en respuesta a los comportamientos de los jugadores. Estos
 extienden el modelo de los procesos de decisión de Markov, desarrollado por
 varios investigadores en la RAND Corporation en el período de 1949 a 1952, a
 situaciones competitivas con más de un tomador de decisiones.
+
+% El problema de síntesis (o problema de control) para los sistemas reactivos refiere a la construcción de una estrategia ganadora en el correspondiente juego. Este problema fue planteado por primera vez por Alonzo Church \cite{28, 8} y Richard Büchi en condiciones que pueden ser reducidads a juegos deterministas con objetivos $\omega$-regulares. Estos problemas fueron resueltos por .... Ahora bien, la restricción a juegos deterministas resultaba restrictiva, pues pueden existir situaciones en las que es útil modelar comportamiento que no es estrictamente adversarial \cite{88,31}. Es por esto que el estudio con esta formulación fue prosperando en los años posteriores.
 
 Gracias a su aporte para la modelización en varias áreas, resultó lógica la
 división de juegos estocásticos en base a distintos tipos de funciones de pago.
@@ -69,30 +88,36 @@ juegos estocásticos.
 %con incertidumbre sobre las probabilidades de las acciones de los jugadores. 
 En este mismo paper, se presentan resultados para juegos estocásticos
 politópicos con objetivos de alcanzabilidad, funciones de pago descontadas y
-funciones de pago promedio.
-
-\section{Contribuciones}
-~\label{cap:intro:sec:contributions}
-
-La idea de este trabajo será extender el estudio de juegos estocásticos
-politópicos a juegos con objetivos de Rabin.
+funciones de pago promedio. Nuestro objetivo aquí será extender el estudio de
+los juegos estocásticos politópicos con objetivos de Rabin.
 
 \section{Organización del trabajo}
 ~\label{cap:intro:sec:outline}
 
 \begin{itemize}
-	\item En el \textbf{Capítulo~\ref{cap:art}}, presentaré \ldots ;
+	\item En el \textbf{Capítulo~\ref{cap:objetivos}}, presentaremos en profundidad los
+	      objetivos $\omega$-regulares haciendo especial hincapié en los objetivos de
+	      Rabin;
 
-	\item En el \textbf{Capítulo~\ref{cap:approach}}, extenderé y explicaré en detalle
-	      los métodos de esta tesina \ldots ;
+	\item En el \textbf{Capítulo~\ref{cap:modelos}}, nos adentraremos en el campo de la
+	      verificación de modelos con juegos, presentando definiciones básicas de modelos
+	      y juegos acompañadas con ejemplos que servirán de guía para el entendimiento de
+	      los mismos;
 
-	\item En el \textbf{Capítulo~\ref{cap:results}}, presentaré mis resultados y
-	      conseguidos \ldots;
+	\item En el \textbf{Capítulo~\ref{cap:psg}}, veremos definiciones formales referidas
+	      a los juegos estocásticos politópicos y los resultados obtenidos en el paper
+	      \textit{Polytopal Stochastic Games} \cite{Polytopal};
 
-	\item Finalmente, en el \textbf{Capítulo~\ref{cap:conclusions}}, concluyo con un
-	      resumen de los aportes realizados en esta tesina, menciono las implicancias de
-	      esta investigación y hallazgos realizados, y sugiero potenciales caminos para
-	      futuras investigaciones. % Quote directa de mi tesina.
+	\item En el \textbf{Capítulo~\ref{cap:results}}, desarrollaremos los resultados
+	      originales de esta tesina, presentando en la sección~\ref{sec:pmdp} a los
+	      procesos de decisión de Markov politópicos con sus teoremas asociados y
+	      mostrando en la sección~\ref{sec:prueba} cómo calcular el conjunto de estados
+	      ganadores con probabilidad 1 para el jugador maximizador en un juego
+	      estocástico politópico con objetivo de Rabin, y
+
+	\item Finalmente, en el \textbf{Capítulo~\ref{cap:conclusions}}, concluiremos con un
+	      resumen de los aportes realizados en esta tesina y nos expandiremos sobre
+	      potenciales caminos para futuras investigaciones en el tema.
 
 \end{itemize}
 
