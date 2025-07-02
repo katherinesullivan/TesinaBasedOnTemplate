@@ -1,7 +1,32 @@
 \chapter{Verificación de modelos con juegos}
 ~\label{cap:modelos}
 
+En este capítulo presentaremos la verificación de modelos con juegos. Para ello
+comenzaremos con algunas definiciones que hacen al campo de la verificación de
+modelos, luego presentaremos ciertos modelos matemáticos que sirven para la
+representación de distintos tipos de sistemas (las cadenas de Markov, los
+procesos de decisión de Markov, los juegos estocásticos y los juegos -de grafo-
+deterministas), y, por último, plantearemos cuáles son las preguntas de
+investigación que podrían ser de interés en estos casos y presentamos con mayor
+precisión cuáles son las preguntas de investigación que competen a este
+trabajo.
+
 \section{Sobre la verificación de modelos}
+
+La verificación de modelos (model checking) es una técnica prominente dentro de
+la verificación formal que sirve para evaluar las propiedades funcionales de
+los sistemas de información y comunicación de manera automatizada. Esta técnica
+requiere de un modelo del sistema en cuestión y una propiedad deseada, y
+verifica sistemáticamente si el modelo dado satisface dicha propiedad.
+
+Las propiedades típicas que se pueden comprobar son la ausencia de
+interbloqueos, los invariantes y las propiedades de solicitud-respuesta.
+
+Alternativamente, se la puede pensar como una técnica de depuración inteligente
+y eficaz.
+
+Existen distintos modelos matemáticos que permiten el análisis de
+representaciones de sistemas reales,,,
 
 blabla
 
@@ -13,11 +38,33 @@ idea de la necesidad de juegos y nuestro entendimiento de ellxs
 tenemos las preguntas que se hace Kucera, las que presenta Chatterjee y se puede investigar mas
 Capaz esto iría mas en la introducción para platear la idea de trabajo
 
+Existen estrategias óptimas para todos los juegos de una determinada clase con
+un determinado objetivo? -> mm obj
+
+Cuál es el tipo de las estrategias óptimas? // ganadoras
+
+Podemos computar las estartegias óptimas? Sintésis de estr kinda // ganadoras
+
+Podemos computar o aproximar el valor de un vértice? -> mmm vértice o estado //
+quien gana en un vértice dado
+
+Estas preguntas se suelen hacer restringidas a objetivos de algún tipo en
+particular.
+
+Notas sobre vertices vs estados + sobre caminos/comportamientos + notacion
+juegos deterministas y estocasticos
+
 \section{Cadenas de Markov}
 
+El primer modelo matemático que veremos son las cadenas de Markov. Es
+importante notar que trabajaremos con el tratamiento de las cadenas de Markov
+como sistemas de transición anotados con probabilidades. Esto en contraposición
+al enfoque que plantea a las cadenas de markov como una familia de variables
+aleatorias. Pasemos entonces a su definición.
+
 \begin{definition}[Cadena de Markov]
-	Una cadena de Markov es una tupla $M = (S, P)$ donde $S$ es un conjunto (finito ?) no vacío de estados y $P: S \times S \rightarrow [0,1]$ es una función tal que para todos los estados $s$ vale que
-	$$ \sum_{s' \in S} P(s, s') = 1$$
+	Una cadena de Markov es una tupla $M = (\St, P)$ donde $\St$ es un conjunto finito no vacío de estados y $P: \St \times \St \rightarrow [0,1]$ es una función tal que para todos los estados $s$ vale que
+	$$ \sum_{s' \in \St} P(s, s') = 1$$
 \end{definition}
 
 La función de probabilidad de transición $P$ especifica para cada estado $s$ la
@@ -26,25 +73,92 @@ restricción impuesta en $P$ asegura que la función sea una distribución.
 
 Una cadena de Markov induce un grafo subyacente, donde los estados actúan como
 vértices y hay una arista entre $s$ y $s'$ si y solo si $P(s, s') > 0$. Las
-cadenas de Markov se suelen representa por su grafo subyacente donde sus
-aristas estarán anotadas con las probabilidades en el intervalo $(0, 1]$.
+cadenas de Markov se suelen representar directamente por su grafo subyacente,
+donde sus aristas estarán anotadas con las probabilidades en el intervalo $(0,
+	1]$.
 
-Los caminos en una cadena de Markov son los caminos en el grafo subyacente. Son
-definidos como secuencias infinitas de estados $\omega = (s_0, s_1, s_2, \dots)
-	\in S^\omega$ tales que $P(s_i, s_{i+1}) > 0 $ para todo $i \geq 0$.
+Los caminos en una cadena de Markov son los caminos en el grafo subyacente. Es
+decir, son definidos como secuencias infinitas de estados $\omega = (s_0, s_1,
+	s_2, \dots) \in \St^\omega$ tales que $P(s_i, s_{i+1}) > 0 $ para todo $i \geq
+	0$. A su vez, dado un camino infinito $\omega = (s_0, s_1, \dots)$, podemos
+pensar en los prefijos finitos de ese camino, $\prefijo(\omega) = \{(s_0,
+	\dots, s_n) | n \in \mathbb{N}\}$. Notaremos con $\Paths(M)$ al conjunto de
+todos los caminos en $M$ y con $\Pathsfin(M)$ al conjunto de todos los prefijos
+finitos de caminos en $M$.
 
 Veamos un pequeño ejemplo de cómo sería una cadena de Markov.
 
-\begin{example}
-	Supongamos que queremos observar el comportamiento de un pequeño robot llamado \textit{Roborto}. \textit{Roborto} se comporta probabilísticamente de la siguiente manera: desde su posición inicial de quietud tiene una probabilidad de \dots
-\end{example}
+%% VER QUE ONDA ACA LO DEL BOX GRIS
+\begin{boxgris}[\emph{Roborto}, el robot probabilístico]{}
+	Supongamos que queremos observar el comportamiento de un pequeño robot llamado \textit{Roborto}.
 
-Para poder asociar probabilidades a eventos en cadenas de Markov, la noción
-intuitiva de probabilidades en $M$ es formalizada al asociarle un espacio de
-probabilidad (\ref{cap:pre:sec:algebra}). Los caminos infinitos de $M$ juegan
-el rol de resultados. Esto es $Outc^M = \paths(M)$. La $\sigma$-álgebra
-asociada con $M$ es generada pot los conjuntos cilindro formados por los
-fragmentos de caminos finitos en $M$.
+	\textit{Roborto} se encuentra en una grilla 2x2 y se comporta totalmente probabilísticamente siguiendo la siguiente descripción: desde su posición inicial de quietud en la esquina superior izquierda tiene una probabilidad de 0.5 de seguir allí y 0.25 de moverse tanto a la izquierda como hacia abajo. Si sucede que en algún momento se encuentra en la esquina superior o inferior derecha, como a \emph{Roborto} no le gusta quedarse del lado de la derecha, tiene probabilidad 0 de quedarse allí o de ir hacia arriba o abajo, respectivamente. Desde esas esquinas, Roborto se mueve con probabilidad 1 hacia la izquierda. Desde la esquina inferior izquierda tendrá una probabilidad de 0.3 de quedarse allí, 0.2 de ir a la derecha y 0.5 de ir hacia arriba.
+
+	El comportamiento de Roborto se puede modelar con la cadena de Markov que
+	representa el siguiente grafo:
+
+	\begin{figure}[h]
+		\centering
+		\begin{tikzpicture}[
+				>=Stealth,
+				node distance=3cm,
+				state/.style={draw, circle, minimum size=1.2cm, font=\normalsize},
+				every loop/.style={looseness=10},
+				bend angle=20
+			]
+
+			% Definición de los cuatro nodos en forma de cuadrado
+			\node[state] (SI) at (0,0)  {SI};
+			\node[state] (SD) at (4,0)  {SD};
+			\node[state] (II) at (0,-4) {II};
+			\node[state] (ID) at (4,-4) {ID};
+
+			% Lazos en cada nodo (loop)
+			\draw[->] (SI) edge[loop above]   node[above]   {0.5} ();
+			%\draw[->] (SD) edge[loop above]   node[above]   {0.5} ();
+			\draw[->] (II) edge[loop below]   node[below]   {0.3} ();
+			%\draw[->] (ID) edge[loop below]   node[below]   {0.5} ();
+
+			% Flechas entre todos los pares de nodos
+			% SI <-> SD
+			\draw[->] (SI) to[bend left]  node[midway, below] {0.25} (SD);
+			\draw[->] (SD) to[bend left]  node[midway, below] {1} (SI);
+
+			% SI <-> II
+			\draw[->] (SI) to[bend left]  node[midway, right]  {0.25} (II);
+			\draw[->] (II) to[bend left]  node[midway, right] {0.5} (SI);
+
+			% SD <-> ID
+			%\draw[->] (SD) to[bend left]  node[midway, right] {0.5} (ID);
+			%\draw[->] (ID) to[bend left]  node[midway, right]  {0.5} (SD);
+
+			% II <-> ID
+			\draw[->] (II) to[bend left]  node[midway, below] {0.2} (ID);
+			\draw[->] (ID) to[bend left]  node[midway, below] {1} (II);
+
+		\end{tikzpicture}
+		\caption{Cadena de Markov representando el comportamiento probabilístico de \emph{Roborto}.}
+		\label{fig:cm-roborto}
+	\end{figure}
+
+	Caminos posibles de esta cadena de Markov podrían ser el que mantiene a
+	\emph{Roborto} siempre en la esquina superior izquierda, $(SI, SI, SI, \dots)$,
+	el describe un movimiento en ``C" de \emph{Roborto}, $(SI, SD, SI, II, ID, II,
+		SI, SD, SI, II, ID, II, \dots)$ o algunos de los que mantienen a \emph{Roborto}
+	en la parte superior de la grilla, como $(SI, SD, SI, SD, SI, SD, \dots)$ o
+	$(SI, SD, SI, SD, SI, SI, SI, \dots)$.
+
+	Una duda natural entonces que podría surgir es ¿qué probabilidad hay de que
+	\emph{Roborto} siga alguno de esos caminos?
+\end{boxgris}
+
+Para poder asociar probabilidades a eventos en cadenas de Markov (o, tal vez
+pensar en preguntas sobre la probabilidad de que \emph{Roborto} siga algún tipo
+particular de camino), la noción intuitiva de probabilidades en $M$ es
+formalizada al asociarle un espacio de probabilidad. Los caminos infinitos de
+$M$ juegan el rol de resultados de la $\sigma$-álgebra asociada. Esto es
+$Outc^M = \paths(M)$. La $\sigma$-álgebra asociada con $M$ es generada pot los
+conjuntos cilindro formados por los fragmentos de caminos finitos en $M$.
 
 \hl{Me falta la noción de prefijo}.
 
@@ -72,7 +186,7 @@ conjunto cilindros (es decir, los eventos) están dadas por:
 
 \hl{No estoy muy segura de cómo manejar lo de estado inicial}.
 
-\textbf{Notación}: en lo que sigue, usaremos notación LTl para describir ciertos eventos en cadenas de Markov. Por ejemplo, para un conjunto $B \subseteq S$ de estados, $\alc B$ denota el evento de llegar eventualmente a (algún estado en) $B$, mientras que $siempevent B$ describe el evento en el que $B$ es visitado infinitamente a menudo. \hl{Algo más? sí}
+\textbf{Notación}: en lo que sigue, usaremos notación LTL para describir ciertos eventos en cadenas de Markov. Por ejemplo, para un conjunto $B \subseteq \St$ de estados, $\alc B$ denota el evento de llegar eventualmente a (algún estado en) $B$, mientras que $siempevent B$ describe el evento en el que $B$ es visitado infinitamente a menudo. \hl{Algo más? sí}
 
 \hl{EJEMPLO DE ROBOT y la pregunta de alcanzabilidad}.
 
@@ -84,15 +198,15 @@ es asociado a cada estado. A cada par estado-acción le corresponde una
 distribución de probabilidad en los estados, que es usada para seleccionar el
 próximo estado. A su vez, una cadena de Markov se corresponde a un MDP donde
 hay exactamente una acción asociada a cada estado. Asumiremos la existencia de
-un conjunto fijo de acciones $Act$. La definición de un proceso de decisión de
+un conjunto fijo de acciones $\Act$. La definición de un proceso de decisión de
 Markov es como sigue:
 
 \begin{definition}[Proceso de Decisión de Markov]
-	Un proceso de decisión de Markov $\M =(S, A, \theta)$ consiste de un conjunto finito de estados $S$ y de dos componentes $A$ y $\theta$ que especifican la estructura de transición:
+	Un proceso de decisión de Markov $\M =(\St, \Act, \theta)$ consiste de un conjunto finito de estados $\St$ y de dos componentes, $\Act$ y $\theta$, que especifican la estructura de transición:
 	\begin{itemize}
-		\item $A$ es un conjunto de acciones. Para cada $s \in S$, $A(s) \subseteq Acts$ es el conjunto finito no vacío de
-		      acciones disponibles en $s$. Para cada estado $s \in S$ se requiere que $A(s) \neq \emptyset$.
-		\item $\theta : S \times A \times S \rightarrow [0,1]$ es una función de transición probabilística. Para todo estado $s \in S$, si $a \in A(s)$ tenemos que $\sum_{s' \in S} \theta(s, a, s') = 1$, mientras que si $a \notin A(s)$, $\sum_{s' \in S} \theta(s, a, s') = 0$. Para cada $s, t \in S$ y $a \in A(s)$, $\theta(s, a, t)$ es la probabilidad de transicionar de $s$ a $t$ cuando la acción $a$ es seleccionada.
+		\item $\Act$ es un conjunto de acciones. Para cada $s \in \St$, $\Act(s) \subseteq \Act$ es el conjunto finito no vacío de
+		      acciones disponibles en $s$. Para cada estado $s \in \St$ se requiere que $\Act(s) \neq \emptyset$.
+		\item $\theta : \St \times \Act \times \St \rightarrow [0,1]$ es una función de transición probabilística. Para todo estado $s \in \St$, si $a \in \Act(s)$ tenemos que $\sum_{s' \in \St} \theta(s, a, s') = 1$, mientras que si $a \notin \Act(s)$, $\sum_{s' \in \St} \theta(s, a, s') = 0$. Para cada $s, t \in \St$ y $a \in \Act(s)$, $\theta(s, a, t)$ es la probabilidad de transicionar de $s$ a $t$ cuando la acción $a$ es seleccionada.
 	\end{itemize}
 \end{definition}
 
@@ -100,19 +214,19 @@ Markov es como sigue:
 
 Un comportamiento en un proceso de decisión de Markov es una secuencia
 alternante infinita de estados y acciones, construida iterativamente por un
-proceso de dos pasos. Primero, dado un estado $s$, una acción $a \in A(s)$ es
-seleccionada no-determinísticamente. Luego, el sucesor $t$ de $s$ es
+proceso de dos pasos. Primero, dado un estado $s$, una acción $a \in \Act(s)$
+es seleccionada no-determinísticamente. Luego, el sucesor $t$ de $s$ es
 seleccionado de acuerdo a la distribución asociada a la acción $a$. La
 definición formal es como sigue:
 
 \begin{definition}[Comportamiento en un MDP]
-	Un comportamiento en un MDP $\M$ es una secuencia infinita $\omega = (s_0, a_0, s_1, a_1, \dots)$ tal que $s \in S$, $a_i \in A(s_i)$ y $a_i(s_{i+1}) > 0$ para todo $i \geq 0$.
+	Un comportamiento en un MDP $\M$ es una secuencia infinita $\omega = (s_0, a_0, s_1, a_1, \dots)$ tal que $s \in \St$, $a_i \in \Act(s_i)$ y $a_i(s_{i+1}) > 0$ para todo $i \geq 0$.
 
 	Dado un estado $s$, indicaremos con $\Omega_s$ el conjunto de todos los
 	comportamientos que se originan en $s$, con $\Omega_\M$ el conjunto de todos
 	los comportamientos en $\M$ y con $\Omega^{\textit{fin}}_\M$ el conjunto de
 	todos los prefijos finitos de comportamientos en $\M$ que terminan en un estado
-	$s \in S$.
+	$s \in \St$.
 \end{definition}
 
 Para cadenas de Markov, el conjunto de caminos está equipado con una
@@ -127,7 +241,7 @@ MDP necesitamos resolver de alguna manera el no determinismo, y para ello
 introduciremos el concepto de estrategia.
 
 \begin{definition}[Estrategia en un MDP]
-	Sea $\M = (S, A, \theta)$ un MDP. Una estrategia para $\M$ es una función $\pi: \Omega^{\textit{fin}} \rightarrow \dist (A)$ que asigna una distribución de probabilidad a cada prefijo finito de comportamiento tal que $\pi(\hat \omega) (a) > 0$ solo si $a \in A(s)$.
+	Sea $\M = (\St, \Act, \theta)$ un MDP. Una estrategia para $\M$ es una función $\pi: \Omega^{\textit{fin}} \rightarrow \dist (\Act)$ que asigna una distribución de probabilidad a cada prefijo finito de comportamiento tal que $\pi(\hat \omega) (a) > 0$ solo si $a \in \Act(s)$.
 \end{definition}
 
 \hl{Comentar algo de que en la literatura se suelen bajar las acciones de la definición de estrategia? O capaz la idea sería dropear las acciones de la definición de estrategia acá?}
@@ -141,7 +255,7 @@ cadena de Markov $\M_\pi$, donde los estados son los prefijos finitos de
 comportamientos en $\M$.
 
 \begin{definition}[Cadena de Markov de un MDP inducida por una estrategia]
-	Sea $\M = (S, A, \theta)$ un MDP y $\pi$ una estrategia en $\M$. La cadena de Markov $\M_\pi$ está dada por
+	Sea $\M = (\St, \Act, \theta)$ un MDP y $\pi$ una estrategia en $\M$. La cadena de Markov $\M_\pi$ está dada por
 	$$\M_\pi = (\Omega^{\textit{fin}}_\M, P_\pi)$$
 	donde para $\hat \omega = (s_0, a_0, s_1, a_1, \dots, s_n)$:
 	$$P_\pi(\hat \omega, \hat \omega a s_{n+1}) = \pi(\hat \omega)(a) \cdot \theta(s_n, a, s_{n+1})$$
@@ -167,9 +281,9 @@ pero es cierto que este caso no es lo usual. Veamos algunos tipos particulares
 de estrategias donde esto no sucede.
 
 \begin{definition}[Estrategias sin memoria]
-	Sea $\M$ un MDP con espacio de estados $S$. Una estrategia $\pi$ en $\M$ es sin memoria sii para cada par de comportamientos $(s_0, a_0, \dots, s_n)$ y $(t_0, a'_0, \dots, t_m)$ con $s_n = t_m$ vale que:
+	Sea $\M$ un MDP con espacio de estados $\St$. Una estrategia $\pi$ en $\M$ es sin memoria sii para cada par de comportamientos $(s_0, a_0, \dots, s_n)$ y $(t_0, a'_0, \dots, t_m)$ con $s_n = t_m$ vale que:
 	$$\pi(s_0, a_0, \dots, s_n) = \pi(t_0, a'_0, \dots, t_m)$$
-	En este caso, $\pi$ puede ser vista como una función $\pi : S \rightarrow \dist(A)$.
+	En este caso, $\pi$ puede ser vista como una función $\pi : \St \rightarrow \dist(\Act)$.
 \end{definition}
 
 Coloquialmente, una estrategia es sin memoria si no recuerda nada de la
@@ -186,12 +300,12 @@ $\M$ y el estado actual del autómata (al que llamaremos modo). Veamos su
 definición:
 
 \begin{definition}[Estrategias con memoria finita]
-	Sea $\M$ un MDP con espacio de estados $S$ y conjunto de acciones $A$. Una estrategia de memoria finita para $\M$ es una tupla $\pi = (Q, f_\pi, \Gamma, start)$ donde
+	Sea $\M$ un MDP con espacio de estados $\St$ y conjunto de acciones $\Act$. Una estrategia de memoria finita para $\M$ es una tupla $\pi = (Q, f_\pi, \Gamma, start)$ donde
 	\begin{itemize}
 		\item $Q$ es un conjunto finito de modos,
-		\item $\Delta : Q \times A \times S \rightarrow Q$ es la función de transición del autómata,
-		\item $start: S \rightarrow Q$ es la función que determina el modo en el que empieza el automáta para un estado inicial $s$,
-		\item $f_\pi : Q \times S \rightarrow \dist(A)$ es la función que asigna la distribución de probabilidad en las acciones desde un estado $s$, es decir, lo que veníamos entendiendo como estrategia en sí.
+		\item $\Delta : Q \times \Act \times \St \rightarrow Q$ es la función de transición del autómata,
+		\item $start: \St \rightarrow Q$ es la función que determina el modo en el que empieza el automáta para un estado inicial $s$,
+		\item $f_\pi : Q \times \St \rightarrow \dist(\Act)$ es la función que asigna la distribución de probabilidad en las acciones desde un estado $s$, es decir, lo que veníamos entendiendo como estrategia en sí.
 	\end{itemize}
 	El funcionamiento del MDP bajo la estrategia de memoria finita sería como sigue. En principio, se inicializa el modo del DFA a $q_0 = start(s_0)$. Luego, desde cada estado $s_i$ posterior el proceso será iterativo. Primero, se seleccionará la distribución de probabilidad en las acciones a partir del modo actual $q_i$ del autómata con $f_\pi((q_i,s_i))$. Una vez tomada la decisión, se determina probabilísticamente la siguiente acción $a_{i+1}$, y, a partir de ella, se determina también probabilísticamente el siguiente estado $s_{i+1}$. Con la nueva acción y estado se selecionará el próximo modo del DFA $q_{i+1} = \Delta(q_i, a_{i+1}, s_{i+1})$ y se repetirá el proceso.
 
@@ -211,7 +325,7 @@ distribución $\delta_a$ tal que $\delta_a(a) = 1$ y $\delta_a(b) = 0$ para todo
 $b \neq a$). En la literatura (véase \cite{BaierKatoen, AlfaroThesis}) es usual
 encontrarse con el estudio de estrategias solo en su variante determinista y,
 en ese caso, se puede pensar a las estrategias como una función $\pi:
-	\Omega^{\textit{fin}}_\M \rightarrow A$.
+	\Omega^{\textit{fin}}_\M \rightarrow \Act$.
 
 \hl{Mencionar de que tipos son las estrategias vistas en el ejemplo de robot}
 
@@ -245,14 +359,14 @@ en ese caso, se puede pensar a las estrategias como una función $\pi:
 	\begin{itemize}
 		\item $\St$, un conjunto finito de estados con $\St_\cuad, \St_\diam \subseteq \St$ siendo una partición de él,
 		\item $\Act$ es un conjuno de acciones, y
-		\item $\theta : \St \times \Act \times S \rightarrow [0,1]$ es una función de transición probabilística tal que para cada $s \in \St$, $\theta(s, a, \cdot) \in \dist(\St)$ o  $\theta(s, a, \St) = 0$.
+		\item $\theta : \St \times \Act \times \St \rightarrow [0,1]$ es una función de transición probabilística tal que para cada $s \in \St$, $\theta(s, a, \cdot) \in \dist(\St)$ o  $\theta(s, a, \St) = 0$.
 	\end{itemize}
 	Notaremos con $\Act(s) = \{a \in \Act \mid \theta(s,a,\St) = 1\}$ al conjunto de acciones habilitadas en $s$, y
 \end{definition}
 
-Se puede notar que si $S_\cuad = \emptyset$ o $\S_\diam = \emptyset$, entonces
-$\G$ es un proceso de decisión de Markov, y, como vimos antes, si a la vez
-$\abs{\Act(s)} = 1$ entonces $\G$ es una cadena de Markov.
+Se puede notar que si $\St_\cuad = \emptyset$ o $\St_\diam = \emptyset$,
+entonces $\G$ es un proceso de decisión de Markov, y, como vimos antes, si a la
+vez $\abs{\Act(s)} = 1$ entonces $\G$ es una cadena de Markov.
 
 Otra manera de verlo es que podemos pensar a los juegos estocásticos como un
 procesos de decisión de Markov donde el conjunto de estados está particionado
@@ -276,7 +390,7 @@ concepto de comportamiento en un juego estocástico.
 \end{definition}
 
 \begin{definition}[Estrategia en un juego estocástico]
-	Sea $\G = (\St, (\St_\cuad, \St_\diam), \Act, \theta)$ un SG. Una estrategia $\pi_i$ para el jugador $i$ en $\G$ es una función $\pi: \Omega^{\textit{fin}}_i \rightarrow \dist (A)$ que asigna una distribución de probabilidad a cada prefijo finito de comportamiento que termina en un estado del jugador $i$ tal que $\pi(\hat \omega) (a) > 0$ solo si $a \in A(s)$.
+	Sea $\G = (\St, (\St_\cuad, \St_\diam), \Act, \theta)$ un SG. Una estrategia $\pi_i$ para el jugador $i$ en $\G$ es una función $\pi: \Omega^{\textit{fin}}_i \rightarrow \dist (\Act)$ que asigna una distribución de probabilidad a cada prefijo finito de comportamiento que termina en un estado del jugador $i$ tal que $\pi(\hat \omega) (a) > 0$ solo si $a \in \Act(s)$.
 
 	Llamaremos $\Pi_\cuad$ al conjunto de todas las estrategias del jugador $\cuad$
 	y $\Pi_\diam$ al conjunto de todas las estrategias del jugador $\diam$.

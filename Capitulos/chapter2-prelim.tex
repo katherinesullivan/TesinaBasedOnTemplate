@@ -46,33 +46,33 @@ En particular, las siguientes especificaciones de condiciones de aceptación
 definen objetivos $\omega$-regulares y son las más estudiadas:
 
 \begin{itemize}
-	\item \textbf{Objetivos de alcanzabilidad y seguridad.} Una especificación de alcanzabilidad para un juego $G$ es un conjunto $T \subseteq S$ de estados. La especificación de alcanzabilidad requiere que algún estado en $T$ sea visitado. Así, la especificación de alcanzabilidad $T$ define el conjunto $Reach(T) = \{(s_0, s_1, s_2, \dots) \in Paths(G) | \exists k \geq 0, s_k \in T\}$ de caminos ganadores; este conjunto es llamado un objetivo de alcanzabilidad.
+	\item \textbf{Objetivos de alcanzabilidad y seguridad.} Una especificación de alcanzabilidad para un juego $G$ es un conjunto $T \subseteq S$ de estados. La especificación de alcanzabilidad requiere que algún estado en $T$ sea visitado. Así, la especificación de alcanzabilidad $T$ define el conjunto $\Reach(T) = \{(s_0, s_1, s_2, \dots) \in \Paths(G) | \exists k \geq 0, s_k \in T\}$ de caminos ganadores; este conjunto es llamado un objetivo de alcanzabilidad.
 
 	      Una especificación de seguridad para $G$ es también un conjunto $U \subseteq S$
 	      de estados, llamados estados seguros. La especificación de seguridad $U$
 	      requiere que solo estados en $U$ sean visitados. Formalmente, el objetivo de
-	      seguridad definido por $U$ es el conjunto $Safe(U) = \{(s_0, s_1, \dots) \in
-		      Paths(G) | \forall k \geq 0, s_k \in U\}$ de caminos ganadores. Nótese que
-	      alcanzabilidad y seguridad son objetivos duales: $Safe(U) = Paths(G) \setminus
-		      (Reach(S \setminus U))$.
+	      seguridad definido por $U$ es el conjunto $\Safe(U) = \{(s_0, s_1, \dots) \in
+		      \Paths(G) | \forall k \geq 0, s_k \in U\}$ de caminos ganadores. Nótese que
+	      alcanzabilidad y seguridad son objetivos duales: $\Safe(U) = \Paths(G)
+		      \setminus (\Reach(S \setminus U))$.
 
-	\item \textbf{Objetivos de Büchi y co-Büchi}. Una especificación de Büchi para $G$ es un conjunto $B \subseteq S$ de estados, que son llamados estados de Büchi. La especificación de Büchi requiere que algún estado en $B$ sea visitado infinitamente a menudo. Para un camino $\omega = (s_0, s_1, s_2, \dots)$, escribimos $Inf(\omega) = \{s \in S | s_k = s \text{para infinitos} k \geq 0\}$ para el conjunto de estados que ocurren infinitamente a menudo en $\omega$. Entonces, el objetivo de Büchi definido por $B$ es el conjunto $Büchi(B) = \{\omega \in Paths(G) | Inf(\omega) \cap B \neq \emptyset\}$ de caminos ganadores.
+	\item \textbf{Objetivos de Büchi y co-Büchi}. Una especificación de Büchi para $G$ es un conjunto $B \subseteq S$ de estados, que son llamados estados de Büchi. La especificación de Büchi requiere que algún estado en $B$ sea visitado infinitamente a menudo. Para un camino $\omega = (s_0, s_1, s_2, \dots)$, escribimos $\Inf(\omega) = \{s \in S | s_k = s \text{para infinitos} k \geq 0\}$ para el conjunto de estados que ocurren infinitamente a menudo en $\omega$. Entonces, el objetivo de Büchi definido por $B$ es el conjunto $\Buchi(B) = \{\omega \in \Paths(G) | \Inf(\omega) \cap B \neq \emptyset\}$ de caminos ganadores.
 
 	      El dual de una especificación de Büchi es una especificación de co-Büchi $C
 		      \subseteq S$, que especifica un conjunto de estados llamados co-Büchi. Esta
 	      especificación requiere que los estados fuera de $C$ sean visitados solo una
 	      cantidad finita de veces. Formalmente, el objetivo de co-Büchi definido por $C$
-	      es el conjunto $co-Büchi(C) = \{\omega \in Paths(G) | Inf(\omega) \subseteq
+	      es el conjunto $\coBuchi(C) = \{\omega \in \Paths(G) | \Inf (\omega) \subseteq
 		      C\}$ de caminos ganadores.
 
 	      Cabe destacar también que los objetivos de alcanzabilidad y seguridad pueden
 	      ser transformados a objetivos de Büchi y co-Büchi, respectivamente, modificando
 	      un poco el juego $G$. Por ejemplo, si el juego $G'$ resulta de $G$ al
 	      transformar cada estado $s \in T$ en un estado absorvente, entonces un juego
-	      jugado en $G$ con el objetivo de alcanzabilidad $Reach(T)$ es equivalente a un
-	      juego jugado en $G'$ con el objetivo de Büchi, $Büchi(T)$.
+	      jugado en $G$ con el objetivo de alcanzabilidad $\Reach(T)$ es equivalente a un
+	      juego jugado en $G'$ con el objetivo de Büchi, $\Buchi(T)$.
 
-	\item \textbf{Objetivos de Rabin y Streett}. Ahora pasamos a combinaciones booleanas de objetivos de Büchi y co-Büchi. Una especificación de Rabin para el juego $G$ es un conjunto finito $R = \{(E_1,F_1) \dots (E_d, F_d)\}$ de pares de conjuntos de estados, esto es, $E_j \subseteq S$ y $F_j \subseteq S$ para todo $ 1 \leq j \leq d$. Los pares en $R$ son llamados pares de Rabin. Asumimos, sin pérdida de generalidad, que $\bigcup_{1 \leq j \leq d} (E_j \cup F_j) = S$. La especificación de Rabin $R$ requiere que para algun par de Rabin $1 \leq j \leq d$, todos los estados en el conjunto de la izquierda $E_j$ sean visitados solo una cantidad finita de veces, y que algún estado en el conjunto de la derecha $F_j$ sea visitado infinitamente a menudo. Con eso, el objetivo de Rabin definido por $R$ es el conjunto $Rabin(R) = \{\omega \in Paths(G) | \exists j \in [1, d], Inf(\omega) \cap E_j = \emptyset \wedge Inf(\omega) \cap F_j \neq \emptyset \}$ de conjuntos ganadores. Nótese que el objetivo co-Büchi $co-Büchi(C)$ es igual al objetivo de Rabin con un único par $Rabin(\{(C,S)\})$ y que el objetivo de Büchi $Büchi(B)$ es igual al objetivo de Rabin con dos pares $Rabin(\{(\emptyset, B), (S,S)\})$ (por la asumpción que hicimos sobre la unión de los conjuntos de los pares).
+	\item \textbf{Objetivos de Rabin y Streett}. Ahora pasamos a combinaciones booleanas de objetivos de Büchi y co-Büchi. Una especificación de Rabin para el juego $G$ es un conjunto finito $R = \{(E_1,F_1) \dots (E_d, F_d)\}$ de pares de conjuntos de estados, esto es, $E_j \subseteq S$ y $F_j \subseteq S$ para todo $ 1 \leq j \leq d$. Los pares en $R$ son llamados pares de Rabin. Asumimos, sin pérdida de generalidad, que $\bigcup_{1 \leq j \leq d} (E_j \cup F_j) = S$. La especificación de Rabin $R$ requiere que para algun par de Rabin $1 \leq j \leq d$, todos los estados en el conjunto de la izquierda $E_j$ sean visitados solo una cantidad finita de veces, y que algún estado en el conjunto de la derecha $F_j$ sea visitado infinitamente a menudo. Con eso, el objetivo de Rabin definido por $R$ es el conjunto $\Rabin(R) = \{\omega \in \Paths(G) | \exists j \in [1, d], \Inf(\omega) \cap E_j = \emptyset \wedge \Inf(\omega) \cap F_j \neq \emptyset \}$ de conjuntos ganadores. Nótese que el objetivo co-Büchi $\coBuchi(C)$ es igual al objetivo de Rabin con un único par $\Rabin(\{(C,S)\})$ y que el objetivo de Büchi $\Buchi(B)$ es igual al objetivo de Rabin con dos pares $\Rabin(\{(\emptyset, B), (S,S)\})$ (por la asumpción que hicimos sobre la unión de los conjuntos de los pares).
 
 	      Los complementos de los objetivos de Rabin son los objetivos de Streett. Una
 	      especificación de Streett para $G$ es también un conjunto $W = \{(E_1, F_1),
@@ -82,32 +82,32 @@ definen objetivos $\omega$-regulares y son las más estudiadas:
 	      que para cada par de Streett $1 \leq j \leq d$, si algún estado en el conjunto
 	      de la derecha $F_j$ es visitado infinitamente a menudo, entonces algún estado
 	      en el conjunto de la izquierda $E_j$ es visitado infinitamente a menudo.
-	      Formalmente, el objetivo de Streett definido por $W$ es el conjunto $Streett(W)
-		      = \{\omega \in Paths(G) | \forall j \in [1,d], Inf(\omega) \cap E_j \neq
-		      \emptyset \vee Inf(\omega) \cap F_j = \emptyset\}$ de caminos ganadores. Nótese
-	      que $Streett(W) = Paths(G) \setminus Rabin(W)$.
+	      Formalmente, el objetivo de Streett definido por $W$ es el conjunto
+	      $\Streett(W) = \{\omega \in \Paths(G) | \forall j \in [1,d], \Inf(\omega) \cap
+		      E_j \neq \emptyset \vee \Inf(\omega) \cap F_j = \emptyset\}$ de caminos
+	      ganadores. Nótese que $\Streett(W) = \Paths(G) \setminus \Rabin(W)$.
 
-	\item \textbf{Objetivos de paridad}.Una especificación de paridad para \(G\) consiste en un entero no negativo \(d\) y una función \(p\colon S\to\{0,1,2,\dots,2d\}\), que asigna a cada estado de \(G\) un entero entre \(0\) y \(2d\). Para un estado \(s\in S\), el valor \(p(s)\) se denomina \emph{prioridad} de \(s\). Sin pérdida de generalidad asumimos que \(p^{-1}(j)\neq\emptyset\) para todo \(0<j\le2d\); esto implica que la especificación queda totalmente determinada por la función \(p\) (no es necesario indicar \(d\) explícitamente). El número \(2d+1\) es el número de prioridades de \(p\). La especificación exige que la prioridad mínima de todos los estados visitados infinitamente a menudo sea par. Formalmente, el objetivo de paridad definido por \(p\) es el conjunto \(Parity(p)=\{\omega\in Paths(G) | \min\{p(s)\mid s\in Inf(\omega)\}\text{ es par}\}\) de caminos ganadores. Nótese que su complemento es también un objetivo de paridad, pues \(Paths(G)\setminus Parity(p)= Parity(p+1)\), donde \((p+1)(s)=p(s)+1\) para todo \(s\in S\) (si \(p^{-1}(0)=\emptyset\) se usa \(p-1\) en lugar de \(p+1\)). Esta autodualidad de los objetivos de paridad resulta muy conveniente al resolver juegos. Es también interesante notar que los objetivos de Büchi son objetivos de paridad con dos prioridades (siendo \(p^{-1}(0)=B\) y \(p^{-1}(1)=S\setminus B\)) y los objetivos de co-Büchi son objetivos de paridad con tres prioridades (siendo \(p^{-1}(0)=\emptyset\), \(p^{-1}(1)=S\setminus C\) y \(p^{-1}(2)=C\)).
+	\item \textbf{Objetivos de paridad}.Una especificación de paridad para \(G\) consiste en un entero no negativo \(d\) y una función \(p\colon S\to\{0,1,2,\dots,2d\}\), que asigna a cada estado de \(G\) un entero entre \(0\) y \(2d\). Para un estado \(s\in S\), el valor \(p(s)\) se denomina \emph{prioridad} de \(s\). Sin pérdida de generalidad asumimos que \(p^{-1}(j)\neq\emptyset\) para todo \(0<j\le2d\); esto implica que la especificación queda totalmente determinada por la función \(p\) (no es necesario indicar \(d\) explícitamente). El número \(2d+1\) es el número de prioridades de \(p\). La especificación exige que la prioridad mínima de todos los estados visitados infinitamente a menudo sea par. Formalmente, el objetivo de paridad definido por \(p\) es el conjunto \( \Parity(p)=\{\omega\in \Paths(G) | \min\{p(s)\mid s\in \Inf(\omega)\}\text{ es par}\}\) de caminos ganadores. Nótese que su complemento es también un objetivo de paridad, pues \(\Paths(G)\setminus \Parity(p)= Parity(p+1)\), donde \((p+1)(s)=p(s)+1\) para todo \(s\in S\) (si \(p^{-1}(0)=\emptyset\) se usa \(p-1\) en lugar de \(p+1\)). Esta autodualidad de los objetivos de paridad resulta muy conveniente al resolver juegos. Es también interesante notar que los objetivos de Büchi son objetivos de paridad con dos prioridades (siendo \(p^{-1}(0)=B\) y \(p^{-1}(1)=S\setminus B\)) y los objetivos de co-Büchi son objetivos de paridad con tres prioridades (siendo \(p^{-1}(0)=\emptyset\), \(p^{-1}(1)=S\setminus C\) y \(p^{-1}(2)=C\)).
 
 	      Los objetivos de paridad también se llaman objetivos Rabin-chain, pues son un
 	      caso especial de objetivos de Rabin: si los conjuntos de una especificación
-	      Rabin \(R = \{(E_1,F_1),\dots,(E_d,F_d)\}\) forman una cadena \(E_1\subsetneq
+	      Rabin $R = \{(E_1,F_1),\dots,(E_d,F_d)\}$ forman una cadena \(E_1\subsetneq
 	      F_1\subsetneq E_2\subsetneq F_2\subsetneq\cdots\subsetneq E_d\subsetneq F_d\),
-	      entonces \(Rabin(R)=Parity(p)\) para la función de prioridades \(p\colon
-	      S\to\{0,1,\dots,2d\}\) que asigna a cada estado en \(E_j\setminus F_{j-1}\) la
+	      entonces $\Rabin(R) = \Parity(p)$ para la función de prioridades $p : S \to
+		      \{0,1,\dots,2d\}$ que asigna a cada estado en \(E_j\setminus F_{j-1}\) la
 	      prioridad \(2j-1\), y a cada estado en \(F_j\setminus E_j\) la prioridad
 	      \(2j\), donde \(F_0=\emptyset\). Recíprocamente, dada una función de
-	      prioridades \(p\colon S\to\{0,1,\dots,2d\}\), podemos construir una cadena
+	      prioridades $ p : S \to \{0,1,\dots,2d\}$, podemos construir una cadena
 	      \(E_1\subsetneq F_1\subsetneq\cdots\subsetneq E_{d+1}\subsetneq F_{d+1}\) de
-	      \(d+1\) pares de Rabin tal que
-	      \(Parity(p)=Rabin(\{(E_1,F_1),\dots,(E_{d+1},F_{d+1})\})\) de la siguiente
-	      manera: sea \(E_1=\emptyset\) y \(F_1=p^{-1}(0)\), y para todo \(1\le j\le
-	      d+1\) sea \(E_j=F_{j-1}\cup p^{-1}(2j-3)\) y \(F_j=E_j\cup p^{-1}(2j-2)\). Por
-	      tanto, los objetivos de paridad son una subclase de los objetivos de Rabin que
-	      está cerrada bajo complementación; de ello se sigue que todo objetivo de
-	      paridad es a la vez un objetivo de Rabin y un objetivo de Streett. % Su interés radica en que cualquier objetivo \(\omega\)-regular puede convertirse en uno de paridad tomando el producto síncrono del grafo de juego con un autómata de paridad determinista que acepte dicho objetivo.
+	      \(d+1\) pares de Rabin tal que \( \Parity(p) =
+	      \Rabin(\{(E_1,F_1),\dots,(E_{d+1},F_{d+1})\})\) de la siguiente manera: sea
+	      \(E_1=\emptyset\) y \(F_1=p^{-1}(0)\), y para todo \(1\le j\le d+1\) sea
+	      \(E_j=F_{j-1}\cup p^{-1}(2j-3)\) y \(F_j=E_j\cup p^{-1}(2j-2)\). Por tanto, los
+	      objetivos de paridad son una subclase de los objetivos de Rabin que está
+	      cerrada bajo complementación; de ello se sigue que todo objetivo de paridad es
+	      a la vez un objetivo de Rabin y un objetivo de Streett. % Su interés radica en que cualquier objetivo \(\omega\)-regular puede convertirse en uno de paridad tomando el producto síncrono del grafo de juego con un autómata de paridad determinista que acepte dicho objetivo.
 
-	\item \textbf{Objetivos de Müller}. Una especificación de Müller para \(G\) es un conjunto \(M\subseteq2^S\) cuyos elementos se llaman \emph{conjuntos de Müller}. La especificación exige que el conjunto de estados visitados infinitamente a lo largo de una trayectoria pertenezca a \(M\); formalmente, el objetivo de Müller definido por \(M\) es \(Müller(M)=\{\omega\in Paths(G) \mid Inf(\omega)\in M\}\). Es fácil notar que un objetivo de Rabin es un caso especial de un objetivo de Müller, pero es también cierto que un objetivo de Müller puede ser transformado en un objetivo de Rabin. Se puede encontrar una prueba de esta afirmación que sigue la técnica de \emph{latest appearence record} en la sección 1.4.2 de \cite{AutomataLogicsInfiniteGames}.
+	\item \textbf{Objetivos de Müller}. Una especificación de Müller para \(G\) es un conjunto \(M\subseteq2^S\) cuyos elementos se llaman \emph{conjuntos de Müller}. La especificación exige que el conjunto de estados visitados infinitamente a lo largo de una trayectoria pertenezca a \(M\); formalmente, el objetivo de Müller definido por \(M\) es $\Muller(M)=\{\omega\in \Paths(G) \mid \Inf(\omega)\in M\}$. Es fácil notar que un objetivo de Rabin es un caso especial de un objetivo de Müller, pero es también cierto que un objetivo de Müller puede ser transformado en un objetivo de Rabin. Se puede encontrar una prueba de esta afirmación que sigue la técnica de \emph{latest appearence record} en la sección 1.4.2 de \cite{AutomataLogicsInfiniteGames}.
 
 	      Capaz agg tal ejemplo en tal juego es un objetivo de X
 \end{itemize}
@@ -150,6 +150,5 @@ Por otro lado, resulta de particular interés el estudio de juegos con objetivos
 de Rabin cuando equidad --- ver cosas de maxi --- ver de donde sque lo que
 equidad --- hay algo en strategy improvement for stochastic rabin and streett
 games --- capaz hay algo en banerjee o chaterjee
-
 
 CAMBIAR TODO LO DE ECUACIONES POR COSAS CON COMANDOS
