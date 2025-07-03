@@ -89,90 +89,90 @@ finitos de caminos en $M$.
 Veamos un pequeño ejemplo de cómo sería una cadena de Markov.
 
 %% VER QUE ONDA ACA LO DEL BOX GRIS
-\begin{boxgris}[\emph{Roborto}, el robot probabilístico]{}
-	Supongamos que queremos observar el comportamiento de un pequeño robot llamado \textit{Roborto}.
+\textbf{Randomito, el peuqeño robot probabilístico}
+Supongamos que queremos observar el comportamiento de un pequeño robot llamado \textit{Randomito}.
 
-	\textit{Roborto} se encuentra en una grilla 2x2 y se comporta totalmente probabilísticamente siguiendo la siguiente descripción: desde su posición inicial de quietud en la esquina superior izquierda tiene una probabilidad de 0.5 de seguir allí y 0.25 de moverse tanto a la izquierda como hacia abajo. Si sucede que en algún momento se encuentra en la esquina superior o inferior derecha, como a \emph{Roborto} no le gusta quedarse del lado de la derecha, tiene probabilidad 0 de quedarse allí o de ir hacia arriba o abajo, respectivamente. Desde esas esquinas, Roborto se mueve con probabilidad 1 hacia la izquierda. Desde la esquina inferior izquierda tendrá una probabilidad de 0.3 de quedarse allí, 0.2 de ir a la derecha y 0.5 de ir hacia arriba.
+\textit{Randomito} se encuentra en una grilla 2x2 y se comporta totalmente probabilísticamente siguiendo la siguiente descripción: desde su posición inicial de quietud en la esquina superior izquierda tiene una probabilidad de 0.5 de seguir allí y 0.25 de moverse tanto a la izquierda como hacia abajo. Si sucede que en algún momento se encuentra en la esquina superior o inferior derecha, como a \emph{Randomito} no le gusta quedarse del lado de la derecha, tiene probabilidad 0 de quedarse allí o de ir hacia arriba o abajo, respectivamente. Desde esas esquinas, \emph{Randomito} se mueve con probabilidad 1 hacia la izquierda. Desde la esquina inferior izquierda tendrá una probabilidad de 0.3 de quedarse allí, 0.2 de ir a la derecha y 0.5 de ir hacia arriba.
 
-	El comportamiento de Roborto se puede modelar con la cadena de Markov que
-	representa el siguiente grafo:
+El comportamiento de \emph{Randomito} se puede modelar con la cadena de Markov
+que representa el siguiente grafo:
 
-	\begin{figure}[h]
-		\centering
-		\begin{tikzpicture}[
-				>=Stealth,
-				node distance=3cm,
-				state/.style={draw, circle, minimum size=1.2cm, font=\normalsize},
-				every loop/.style={looseness=10},
-				bend angle=20
-			]
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}[
+			>=Stealth,
+			node distance=3cm,
+			state/.style={draw, circle, minimum size=1.2cm, font=\normalsize},
+			every loop/.style={looseness=10},
+			bend angle=20
+		]
 
-			% Definición de los cuatro nodos en forma de cuadrado
-			\node[state] (SI) at (0,0)  {SI};
-			\node[state] (SD) at (4,0)  {SD};
-			\node[state] (II) at (0,-4) {II};
-			\node[state] (ID) at (4,-4) {ID};
+		% Definición de los cuatro nodos en forma de cuadrado
+		\node[state] (SI) at (0,0)  {SI};
+		\node[state] (SD) at (4,0)  {SD};
+		\node[state] (II) at (0,-4) {II};
+		\node[state] (ID) at (4,-4) {ID};
 
-			% Lazos en cada nodo (loop)
-			\draw[->] (SI) edge[loop above]   node[above]   {0.5} ();
-			%\draw[->] (SD) edge[loop above]   node[above]   {0.5} ();
-			\draw[->] (II) edge[loop below]   node[below]   {0.3} ();
-			%\draw[->] (ID) edge[loop below]   node[below]   {0.5} ();
+		% Lazos en cada nodo (loop)
+		\draw[->] (SI) edge[loop above]   node[above]   {0.5} ();
+		%\draw[->] (SD) edge[loop above]   node[above]   {0.5} ();
+		\draw[->] (II) edge[loop below]   node[below]   {0.3} ();
+		%\draw[->] (ID) edge[loop below]   node[below]   {0.5} ();
 
-			% Flechas entre todos los pares de nodos
-			% SI <-> SD
-			\draw[->] (SI) to[bend left]  node[midway, below] {0.25} (SD);
-			\draw[->] (SD) to[bend left]  node[midway, below] {1} (SI);
+		% Flechas entre todos los pares de nodos
+		% SI <-> SD
+		\draw[->] (SI) to[bend left]  node[midway, below] {0.25} (SD);
+		\draw[->] (SD) to[bend left]  node[midway, below] {1} (SI);
 
-			% SI <-> II
-			\draw[->] (SI) to[bend left]  node[midway, right]  {0.25} (II);
-			\draw[->] (II) to[bend left]  node[midway, right] {0.5} (SI);
+		% SI <-> II
+		\draw[->] (SI) to[bend left]  node[midway, right]  {0.25} (II);
+		\draw[->] (II) to[bend left]  node[midway, right] {0.5} (SI);
 
-			% SD <-> ID
-			%\draw[->] (SD) to[bend left]  node[midway, right] {0.5} (ID);
-			%\draw[->] (ID) to[bend left]  node[midway, right]  {0.5} (SD);
+		% SD <-> ID
+		%\draw[->] (SD) to[bend left]  node[midway, right] {0.5} (ID);
+		%\draw[->] (ID) to[bend left]  node[midway, right]  {0.5} (SD);
 
-			% II <-> ID
-			\draw[->] (II) to[bend left]  node[midway, below] {0.2} (ID);
-			\draw[->] (ID) to[bend left]  node[midway, below] {1} (II);
+		% II <-> ID
+		\draw[->] (II) to[bend left]  node[midway, below] {0.2} (ID);
+		\draw[->] (ID) to[bend left]  node[midway, below] {1} (II);
 
-		\end{tikzpicture}
-		\caption{Cadena de Markov representando el comportamiento probabilístico de \emph{Roborto}.}
-		\label{fig:cm-roborto}
-	\end{figure}
+	\end{tikzpicture}
+	\caption{Cadena de Markov representando el comportamiento probabilístico de \emph{Randomito}.}
+	\label{fig:cm-randomito}
+\end{figure}
 
-	Caminos posibles de esta cadena de Markov podrían ser el que mantiene a
-	\emph{Roborto} siempre en la esquina superior izquierda, $(SI, SI, SI, \dots)$,
-	el describe un movimiento en ``C" de \emph{Roborto}, $(SI, SD, SI, II, ID, II,
-		SI, SD, SI, II, ID, II, \dots)$ o algunos de los que mantienen a \emph{Roborto}
-	en la parte superior de la grilla, como $(SI, SD, SI, SD, SI, SD, \dots)$ o
-	$(SI, SD, SI, SD, SI, SI, SI, \dots)$.
+Caminos posibles de esta cadena de Markov podrían ser:
+\begin{itemize}
+	\item el que mantiene a \emph{Randomito} siempre en la esquina superior izquierda,
+	      $(SI, SI, SI, \dots)$, o
+	\item el describe un primer movimiento en ``C" de \emph{Randomito} y luego se
+	      comporta de cualquier manera, $(SI, SD, SI, II, ID, II, SI, \dots)$.
+	      %\item  o algunos de los que mantienen a \emph{Randomito} en la parte superior de la grilla, como $(SI, SD, SI, SD, SI, SD, \dots)$ o $(SI, SD, SI, SD, SI, SI, SI, \dots)$.
+\end{itemize}
 
-	Una duda natural entonces que podría surgir es ¿qué probabilidad hay de que
-	\emph{Roborto} siga alguno de esos caminos?
-\end{boxgris}
+Una duda natural entonces que podría surgir es ¿qué probabilidad hay de que
+\emph{Randomito} siga alguno de esos caminos?
 
 Para poder asociar probabilidades a eventos en cadenas de Markov (o, tal vez
-pensar en preguntas sobre la probabilidad de que \emph{Roborto} siga algún tipo
-particular de camino), la noción intuitiva de probabilidades en $M$ es
-formalizada al asociarle un espacio de probabilidad. Los caminos infinitos de
-$M$ juegan el rol de resultados de la $\sigma$-álgebra asociada. Esto es
-$Outc^M = \paths(M)$. La $\sigma$-álgebra asociada con $M$ es generada pot los
-conjuntos cilindro formados por los fragmentos de caminos finitos en $M$.
-
-\hl{Me falta la noción de prefijo}.
+pensar en preguntas sobre la probabilidad de que \emph{Randomito} siga algún
+tipo particular de camino), la noción intuitiva de probabilidades en $M$ debe
+ser formalizada. Lograremos esto asociándole un espacio de probabilidad a $M$.
+Los caminos infinitos de $M$ juegarán el rol de resultados de la
+$\sigma$-álgebra asociada. Esto es $Outc^M = \Paths(M)$. Y la $\sigma$-álgebra
+asociada a $M$ será la generada por los conjuntos cilindro formados por los
+fragmentos de caminos finitos en $M$.
 
 \begin{definition}[Conjunto cilindro]
-	El conjunto cilindro de $\hat \omega = (s_0, \dots, s_n) \in \pathsfin(M)$ está definido como
-	$$Cyl(\hat \omega) = \{\omega \in \paths(M) \mid \hat \omega \in pref(\omega)\}$$
+	El conjunto cilindro de $\hat \omega = (s_0, \dots, s_n) \in \Pathsfin(M)$ está definido como
+	$$\Cyl(\hat \omega) = \{\omega \in \Paths(M) \mid \hat \omega \in \prefijo(\omega)\}$$
 \end{definition}
 
 \begin{definition}[$\sigma$-álegra de una cadena de Markov]
-	La $\sigma$-álgebra $\eventE^M$ asociada a la cadena de Markov $M$ es la $\sigma$-álgebra más pequeña que contiene todos los conjuntos cilindro $Cyl(\hat \omega)$ donde $\hat \omega \in \pathsfin(M)$.
+	La $\sigma$-álgebra $\eventE^M$ asociada a la cadena de Markov $M$ es la $\sigma$-álgebra más pequeña que contiene todos los conjuntos cilindro $\Cyl(\hat \omega)$ donde $\hat \omega \in \Pathsfin(M)$.
 \end{definition}
 
-De conceptos clásicos de teoría de probabilidad se sigue que por cada estado
-$s$ existe una única medida de probabilidad $\Prob^M_{s}$ en la
+De conceptos clásicos de teoría de probabilidad se sigue entonces que para cada
+estado $s$ existe una única medida de probabilidad $\Prob^M_{s}$ en la
 $\sigma$-álgebra $\eventE^M$ asociada a $M$, donde las probabilidades para los
 conjunto cilindros (es decir, los eventos) están dadas por:
 \begin{equation}
@@ -184,22 +184,41 @@ conjunto cilindros (es decir, los eventos) están dadas por:
 	\end{cases}
 \end{equation}
 
-\hl{No estoy muy segura de cómo manejar lo de estado inicial}.
+\textbf{¿Qué probabilidad hay de que Randomito siga este camino?}
+
+Ahora, con las definiciones vistas, podemos pensar en la probabilidad que tiene
+\emph{Randomito} de tomar algunos caminos en específico. Por ejemplo,
+
+\begin{itemize}
+	\item la probabilidad de que \emph{Randomito} se quede siempre en la esquina superior
+	      izquierda, aún empezando desde allí, resulta 0 porque $\Prob^M_{SI}((SI, SI,
+		      SI, \dots)) = \lim_{n\to \infty} (0.5)^n = 0$.
+	\item la probabilidad de que \emph{Randomito} haga un primer movimiento en ``C'' y
+	      luego se comporte de cualquier manera será $\Prob^M_{SI}(\Cyl(SI, SD, SI, II,
+		      ID, II, SI)) = 0.25 \cdot 1 \cdot 0.25 \cdot 0.2 \cdot 1 \cdot 0.5 = 0.00625$.
+\end{itemize}
 
 \textbf{Notación}: en lo que sigue, usaremos notación LTL para describir ciertos eventos en cadenas de Markov. Por ejemplo, para un conjunto $B \subseteq \St$ de estados, $\alc B$ denota el evento de llegar eventualmente a (algún estado en) $B$, mientras que $siempevent B$ describe el evento en el que $B$ es visitado infinitamente a menudo. \hl{Algo más? sí}
 
-\hl{EJEMPLO DE ROBOT y la pregunta de alcanzabilidad}.
+Decir algo mas de notacion LTL? Algo más de cadenas de markov?
 
 \section{Procesos de Decisión de Markov}
+
+Las cadenas de Markov resultan útiles cuando queremos modelar sistemas en donde
+existen decisiones probabilistas, pero existen situaciones en donde además de
+decisiones probabilistas, necesitamos modelar elecciones, es decir, decisiones
+no-deterministas. Para ello, existen los llamados procesos de decisión de
+Markov.
 
 Un proceso de decisión de Markov (MDP, por sus siglas en inglés) es una
 generalización de una cadena de Markov donde un conjunto de acciones posibles
 es asociado a cada estado. A cada par estado-acción le corresponde una
 distribución de probabilidad en los estados, que es usada para seleccionar el
 próximo estado. A su vez, una cadena de Markov se corresponde a un MDP donde
-hay exactamente una acción asociada a cada estado. Asumiremos la existencia de
-un conjunto fijo de acciones $\Act$. La definición de un proceso de decisión de
-Markov es como sigue:
+hay exactamente una acción asociada a cada estado.
+
+Asumiremos la existencia de un conjunto fijo de acciones $\Act$ y a
+continuación presentaremos la definición de un proceso de decisión de Markov:
 
 \begin{definition}[Proceso de Decisión de Markov]
 	Un proceso de decisión de Markov $\M =(\St, \Act, \theta)$ consiste de un conjunto finito de estados $\St$ y de dos componentes, $\Act$ y $\theta$, que especifican la estructura de transición:
@@ -210,14 +229,13 @@ Markov es como sigue:
 	\end{itemize}
 \end{definition}
 
-\hl{Agregar ejemplo de robot}
-
-Un comportamiento en un proceso de decisión de Markov es una secuencia
-alternante infinita de estados y acciones, construida iterativamente por un
-proceso de dos pasos. Primero, dado un estado $s$, una acción $a \in \Act(s)$
-es seleccionada no-determinísticamente. Luego, el sucesor $t$ de $s$ es
-seleccionado de acuerdo a la distribución asociada a la acción $a$. La
-definición formal es como sigue:
+El análisis de eventos en los procesos de decisión de Markov se hará en base a
+comportamientos en vez de caminos. Un comportamiento en un proceso de decisión
+de Markov es una secuencia alternante infinita de estados y acciones,
+construida iterativamente por un proceso de dos pasos. Primero, dado un estado
+$s$, una acción $a \in \Act(s)$ es seleccionada no-determinísticamente. Luego,
+el sucesor $t$ de $s$ es seleccionado de acuerdo a la distribución asociada a
+la acción $a$. La definición formal es como sigue:
 
 \begin{definition}[Comportamiento en un MDP]
 	Un comportamiento en un MDP $\M$ es una secuencia infinita $\omega = (s_0, a_0, s_1, a_1, \dots)$ tal que $s \in \St$, $a_i \in \Act(s_i)$ y $a_i(s_{i+1}) > 0$ para todo $i \geq 0$.
@@ -228,6 +246,92 @@ definición formal es como sigue:
 	todos los prefijos finitos de comportamientos en $\M$ que terminan en un estado
 	$s \in \St$.
 \end{definition}
+
+Veamos un ejemplo de un proceso de decisión de Markov.
+
+\textbf{Roborto, el robot controlable}
+
+Ahora supongamos que tenemos un robot en una grilla 2x2, \emph{Roborto}, al que
+podemos manejar a través de un control remoto. Con este control, podemos
+decidir si se mueve a la izquierda, derecha, arriba o abajo (dependiendo de lo
+que permita su posición en la grilla). Sin embargo, por irregularidades que
+puede haber en la grilla cuando seleccionamos una acción habrá una probabilidad
+de que la acción no tenga el resultado deseado. Es decir, si estando en la
+esquina superior izquierda, elijo que \emph{Roborto} se mueva a la derecha,
+esto sucederá con una probabilidad $p$, pero por las irregularidades del
+terreno, también puede suceder que se mueva hacia abajo con una probabilidad $1
+	- p$.
+
+Situaremos a \emph{Roborto} en una grilla particular con las siguientes
+características:
+
+\begin{itemize}
+	\item desde la esquina superior izquierda, si se elije ir a la derecha, habrá una
+	      probabilidad de $0.9$ de efectivamente ir a la esquina superior derecha y habrá
+	      una probabilidad de $0.1$ de ir a la esquina inferior izquierda; mientras que
+	      si se elije ir hacia abajo, con una probabilidad
+\end{itemize}
+
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}[
+			>=Stealth,
+			node distance=3cm,
+			state/.style={draw, circle, minimum size=1.2cm, font=\normalsize},
+			every loop/.style={looseness=10},
+			bend angle=20
+		]
+
+		% Definición de los cuatro nodos en forma de cuadrado
+		\node[state] (SI) at (0,0)  {SI};
+		\node[state] (SD) at (4,0)  {SD};
+		\node[state] (II) at (0,-4) {II};
+		\node[state] (ID) at (4,-4) {ID};
+
+		% Lazos en cada nodo (loop)
+		%\draw[->] (SI) edge[loop above]   node[above]   {0.5} ();
+		%\draw[->] (SD) edge[loop above]   node[above]   {0.5} ();
+		%\draw[->] (II) edge[loop below]   node[below]   {0.3} ();
+		%\draw[->] (ID) edge[loop below]   node[below]   {0.5} ();
+
+		% Flechas entre todos los pares de nodos
+		% SI <-> SD
+		\draw[->] (SI) to  node[midway, below] {0.25} (SD);
+		\draw[->] (SD) to  node[midway, below] {1} (SI);
+
+		% SI <-> II
+		\draw[->] (SI) to  node[midway, right]  {0.25} (II);
+		\draw[->] (II) to  node[midway, right] {0.5} (SI);
+
+		% SD <-> ID
+		\draw[->] (SD) to  node[midway, right] {0.5} (ID);
+		\draw[->] (ID) to  node[midway, right]  {0.5} (SD);
+
+		% II <-> ID
+		\draw[->] (II) to  node[midway, below] {0.2} (ID);
+		\draw[->] (ID) to  node[midway, below] {1} (II);
+
+		% SI <-> ID
+		% \draw[->, draw=blue] (SI) to node[midway, above] {0.15} (ID);
+		% \draw[->, draw=green] (SI) to node[midway, above] {0.2} (ID);
+		% \draw[->, draw=blue] (ID) to node[midway, above] {0.15} (SI);
+		% \draw[->, draw=green] (ID) to node[midway, above] {0.35} (SI);
+
+		\draw[->, draw=blue]  (SI) to[bend left=40]  node[above] {0.15} (ID);
+		\draw[->, draw=green] (SI) to[bend left=20]  node[above] {0.2}  (ID);
+		\draw[->, draw=blue]  (ID) to[bend right=40] node[below] {0.15} (SI);
+		\draw[->, draw=green] (ID) to[bend right=20] node[below] {0.35} (SI);
+
+		% SD <-> II
+		\draw[->, draw=blue] (SD) to node[pos=0.1, above] {0.15} (II);
+		\draw[->, draw=green] (SD) to node[pos=0.1, above] {0.2} (II);
+		\draw[->, draw=blue] (II) to node[midway, above] {0.07} (SD);
+		\draw[->, draw=green] (II) to node[midway, above] {0.05} (SD);
+
+	\end{tikzpicture}
+	\caption{Cadena de Markov representando el comportamiento probabilístico de \emph{Randomito}.}
+	\label{fig:mdp-roborto}
+\end{figure}
 
 Para cadenas de Markov, el conjunto de caminos está equipado con una
 $\sigma$-álgebra y una medida de probabilidad que refleja la noción intuitiva
