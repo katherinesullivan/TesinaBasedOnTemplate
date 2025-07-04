@@ -229,22 +229,23 @@ continuación presentaremos la definición de un proceso de decisión de Markov:
 	\end{itemize}
 \end{definition}
 
-El análisis de eventos en los procesos de decisión de Markov se hará en base a
-comportamientos en vez de caminos. Un comportamiento en un proceso de decisión
-de Markov es una secuencia alternante infinita de estados y acciones,
-construida iterativamente por un proceso de dos pasos. Primero, dado un estado
-$s$, una acción $a \in \Act(s)$ es seleccionada no-determinísticamente. Luego,
-el sucesor $t$ de $s$ es seleccionado de acuerdo a la distribución asociada a
-la acción $a$. La definición formal es como sigue:
+El concepto de caminos en MDPs que mostraremos en este trabajo difiere del
+concepto de camino que se puede encontrar en alguna literatura y el que
+presentamos para cadenas de Markov, donde estos eran solo secuencias de
+estados. Un camino en un proceso de decisión de Markov es una secuencia
+alternante infinita de estados y acciones, construida iterativamente por un
+proceso de dos pasos. Primero, dado un estado $s$, una acción $a \in \Act(s)$
+es seleccionada no-determinísticamente. Luego, el sucesor $t$ de $s$ es
+seleccionado de acuerdo a la distribución asociada a la acción $a$. La
+definición formal es como sigue:
 
-\begin{definition}[Comportamiento en un MDP]
-	Un comportamiento en un MDP $\M$ es una secuencia infinita $\omega = (s_0, a_0, s_1, a_1, \dots)$ tal que $s \in \St$, $a_i \in \Act(s_i)$ y $a_i(s_{i+1}) > 0$ para todo $i \geq 0$.
+\begin{definition}[Camino en un MDP]
+	Un camino en un MDP $\M$ es una secuencia infinita $\omega = (s_0, a_0, s_1, a_1, \dots)$ tal que $s \in \St$, $a_i \in \Act(s_i)$ y $a_i(s_{i+1}) > 0$ para todo $i \geq 0$.
 
-	Dado un estado $s$, indicaremos con $\Omega_s$ el conjunto de todos los
-	comportamientos que se originan en $s$, con $\Omega_\M$ el conjunto de todos
-	los comportamientos en $\M$ y con $\Omega^{\textit{fin}}_\M$ el conjunto de
-	todos los prefijos finitos de comportamientos en $\M$ que terminan en un estado
-	$s \in \St$.
+	Dado un estado $s$, indicaremos con $\Paths_s$ el conjunto de todos los caminos
+	que se originan en $s$, con $\Paths$ el conjunto de todos los caminos en $\M$ y
+	con $\Pathsfin$ el conjunto de todos los prefijos finitos de caminos en $\M$
+	que terminan en un estado $s \in \St$.
 \end{definition}
 
 Veamos un ejemplo de un proceso de decisión de Markov.
@@ -310,23 +311,22 @@ características:
 		\draw[->, draw=olive] (SD) to[bend right=60]  node[midway, below, text=olive] {$\leftarrow$,1} (SI);
 		\draw[->, draw=orange] (SD) to[bend left=60]  node[midway, right, text=orange] {$\downarrow$,0.5} (ID);
 	\end{tikzpicture}
-	\caption{Proceso de decisiòn de Markov representando el comportamiento de \emph{Roborto}.}
+	\caption{Proceso de decisión de Markov representando el comportamiento de \emph{Roborto}.}
 	\label{fig:mdp-roborto}
 \end{figure}
 
 Para cadenas de Markov, el conjunto de caminos está equipado con una
 $\sigma$-álgebra y una medida de probabilidad que refleja la noción intuitiva
-de probabilidad para conjuntos (medibles) de caminos. Para los MDPs, esto es
-levemente distinto. Como no hay restricciones en la resolución de las
-elecciones no determinista, no hay una única medida de probabilidad asociada.
-(\hl{capaz acá podría ir algo tipo un ejemplo como el de la página 841})
+de probabilidad para conjuntos de caminos. Para los MDPs, esto es levemente
+distinto. Como no hay restricciones en la resolución de las elecciones no
+deterministas, no hay una única medida de probabilidad asociada a cada estado.
 
-Para poder razonar sobre probabilidades de conjuntos de comportamientos en un
-MDP necesitamos resolver de alguna manera el no determinismo, y para ello
+Para poder razonar sobre probabilidades de conjuntos de caminos en un MDP
+necesitamos resolver de alguna manera el no determinismo, y para ello
 introduciremos el concepto de estrategia.
 
 \begin{definition}[Estrategia en un MDP]
-	Sea $\M = (\St, \Act, \theta)$ un MDP. Una estrategia para $\M$ es una función $\pi: \Omega^{\textit{fin}} \rightarrow \dist (\Act)$ que asigna una distribución de probabilidad a cada prefijo finito de comportamiento tal que $\pi(\hat \omega) (a) > 0$ solo si $a \in \Act(s)$.
+	Sea $\M = (\St, \Act, \theta)$ un MDP. Una estrategia para $\M$ es una función $\pi: \Pathsfin \rightarrow \dist (\Act)$ que asigna una distribución de probabilidad a cada prefijo finito de camino tal que $\pi(\hat \omega) (a) > 0$ solo si $a \in \Act(s)$.
 \end{definition}
 
 \hl{Comentar algo de que en la literatura se suelen bajar las acciones de la definición de estrategia? O capaz la idea sería dropear las acciones de la definición de estrategia acá?}
@@ -337,17 +337,17 @@ Como una estrategia resuelve todas las elecciones no deterministas en un MDP,
 induce una cadena de Markov. Esto es, el funcionamiento de un MDP $\M$
 siguiendo las decisiones de una estrategia $\pi$ puede ser formalizado por una
 cadena de Markov $\M_\pi$, donde los estados son los prefijos finitos de
-comportamientos en $\M$.
+caminos en $\M$.
 
 \begin{definition}[Cadena de Markov de un MDP inducida por una estrategia]
 	Sea $\M = (\St, \Act, \theta)$ un MDP y $\pi$ una estrategia en $\M$. La cadena de Markov $\M_\pi$ está dada por
-	$$\M_\pi = (\Omega^{\textit{fin}}_\M, P_\pi)$$
+	$$\M_\pi = (\Pathsfin, P_\pi)$$
 	donde para $\hat \omega = (s_0, a_0, s_1, a_1, \dots, s_n)$:
 	$$P_\pi(\hat \omega, \hat \omega a s_{n+1}) = \pi(\hat \omega)(a) \cdot \theta(s_n, a, s_{n+1})$$
 \end{definition}
 
-Nótese que $\M_\pi$ cuenta con un espacio de estados infinito aun, aun cuando
-el MDP $\M$ es finito. \hl{Entonces cuenta como una MC?}.
+Nótese que $\M_\pi$ cuenta con un espacio de estados infinito, aun cuando el
+MDP $\M$ es finito. \hl{Entonces cuenta como una MC?}.
 
 Como $\M_\pi$ es una cadena de Markov, uno ahora puede razonar sobre las
 probabilidades de los conjuntos medibles de caminos que siguen la estrategia
@@ -366,7 +366,7 @@ pero es cierto que este caso no es lo usual. Veamos algunos tipos particulares
 de estrategias donde esto no sucede.
 
 \begin{definition}[Estrategias sin memoria]
-	Sea $\M$ un MDP con espacio de estados $\St$. Una estrategia $\pi$ en $\M$ es sin memoria sii para cada par de comportamientos $(s_0, a_0, \dots, s_n)$ y $(t_0, a'_0, \dots, t_m)$ con $s_n = t_m$ vale que:
+	Sea $\M$ un MDP con espacio de estados $\St$. Una estrategia $\pi$ en $\M$ es sin memoria sii para cada par de caminos $(s_0, a_0, \dots, s_n)$ y $(t_0, a'_0, \dots, t_m)$ con $s_n = t_m$ vale que:
 	$$\pi(s_0, a_0, \dots, s_n) = \pi(t_0, a'_0, \dots, t_m)$$
 	En este caso, $\pi$ puede ser vista como una función $\pi : \St \rightarrow \dist(\Act)$.
 \end{definition}
@@ -378,11 +378,10 @@ variante que busca reflejar la idea de finitud sin ser tan restrictiva: las
 estrategias de memoria finita. Una estrategia de memoria finita puede ser
 pensada intuitivamente como que solo puede guardar hasta una cantidad finita
 fija de información de la historia, por lo que no podrá ser distinta para
-\textbf{todo} prefijo finito de comportamiento. Formalmente, la definiremos a
-través de una autómata determinista finito (DFA). La distribución de
-probabilidad de las acciones será seleecionada a partir del estado actual en
-$\M$ y el estado actual del autómata (al que llamaremos modo). Veamos su
-definición:
+\textbf{todo} prefijo finito de camino. Formalmente, la definiremos a través de
+una autómata determinista finito (DFA). La distribución de probabilidad de las
+acciones será seleecionada a partir del estado actual en $\M$ y el estado
+actual del autómata (al que llamaremos modo). Veamos su definición:
 
 \begin{definition}[Estrategias con memoria finita]
 	Sea $\M$ un MDP con espacio de estados $\St$ y conjunto de acciones $\Act$. Una estrategia de memoria finita para $\M$ es una tupla $\pi = (Q, f_\pi, \Gamma, start)$ donde
@@ -394,23 +393,22 @@ definición:
 	\end{itemize}
 	El funcionamiento del MDP bajo la estrategia de memoria finita sería como sigue. En principio, se inicializa el modo del DFA a $q_0 = start(s_0)$. Luego, desde cada estado $s_i$ posterior el proceso será iterativo. Primero, se seleccionará la distribución de probabilidad en las acciones a partir del modo actual $q_i$ del autómata con $f_\pi((q_i,s_i))$. Una vez tomada la decisión, se determina probabilísticamente la siguiente acción $a_{i+1}$, y, a partir de ella, se determina también probabilísticamente el siguiente estado $s_{i+1}$. Con la nueva acción y estado se selecionará el próximo modo del DFA $q_{i+1} = \Delta(q_i, a_{i+1}, s_{i+1})$ y se repetirá el proceso.
 
-	Para $\hat \omega \in \Omega^{\textit{fin}}_\M$, notaremos con $\pi(\hat
-		\omega)$ a la distribución obtenida al realizar el proceso explicado
-	anteriormente con $\hat \omega$ \hl{pero qué pasa con la elección
-		probabilística de las acciones? No habría que tenerlo? Y que hay de sin
-		memoria? Ahi en realidad entonces no tendria que ser ultimo estado y penultima
-		accion?}.
+	Para $\hat \omega \in \Pathsfin$, notaremos con $\pi(\hat \omega)$ a la
+	distribución obtenida al realizar el proceso explicado anteriormente con $\hat
+		\omega$ \hl{pero qué pasa con la elección probabilística de las acciones? No
+		habría que tenerlo? Y que hay de sin memoria? Ahi en realidad entonces no
+		tendria que ser ultimo estado y penultima accion?}.
 \end{definition}
 
 Además de su categorización en base a qué tanto dependen de su historia, existe
 otro tipo notable de estrategias: las estrategias deterministas. Una estrategia
-es determinista cuando para cada $\hat \omega \in \Omega^{\textit{fin}}_\M$ la
-distribución $\pi(\hat \omega)$ es una distribución de Dirac (es decir, una
-distribución $\delta_a$ tal que $\delta_a(a) = 1$ y $\delta_a(b) = 0$ para todo
-$b \neq a$). En la literatura (véase \cite{BaierKatoen, AlfaroThesis}) es usual
-encontrarse con el estudio de estrategias solo en su variante determinista y,
-en ese caso, se puede pensar a las estrategias como una función $\pi:
-	\Omega^{\textit{fin}}_\M \rightarrow \Act$.
+es determinista cuando para cada $\hat \omega \in \Pathsfin$ la distribución
+$\pi(\hat \omega)$ es una distribución de Dirac (es decir, una distribución
+$\delta_a$ tal que $\delta_a(a) = 1$ y $\delta_a(b) = 0$ para todo $b \neq a$).
+En la literatura (véase \cite{BaierKatoen, AlfaroThesis}) es usual encontrarse
+con el estudio de estrategias solo en su variante determinista y, en ese caso,
+se puede pensar a las estrategias como una función $\pi: \Pathsfin \rightarrow
+	\Act$.
 
 \hl{Mencionar de que tipos son las estrategias vistas en el ejemplo de robot}
 
@@ -436,9 +434,12 @@ en ese caso, se puede pensar a las estrategias como una función $\pi:
 
 \section{Juegos estocásticos}
 
-¿textito de conexión con MDPs?
+Además de elecciones podemos querer también modelar comportamiento adversarial.
+Este comportamiento adversarial, donde surgen distintos agentes con distintos
+objetivos, se ha modelado históricamente a través de juegos. Si estos juegos
+exhiben también comportamiento probabilístico son llamados juegos estocásticos.
 
-\hl{Definir cómo queda con lo de acciones habilitadas esto o MDP}
+\hl{Definir cómo queda con lo de acciones habilitadas esto o MDP} ¿qué?
 \begin{definition}[Juego estocástico]
 	Un juego estocástico (SG) es una tupla $\G = (\St, (\St_\cuad, \St_\diam), \Act, \theta)$ donde:
 	\begin{itemize}
@@ -462,20 +463,23 @@ un ente que tome las decisiones no deterministas, sino dos. Esto quiere decir
 que tendremos dos tipos de estrategias, una por cada tipo de jugador.
 
 Al igual que con los MDPs, antes de definir las estrategias, presentamos el
-concepto de comportamiento en un juego estocástico.
+concepto de camino en un juego estocástico, el cual seguirá la misma idea del
+definido para MDPs: además de estados, posee acciones.
 
-\begin{definition}[Comportamiento en un SG]
-	Un comportamiento en un SG $\G$ es una secuencia infinita $\omega = (s_0, a_0, s_1, a_1, \dots)$ tal que $s_i \in \St$, $a_i \in \Act(s_i)$ y $a_i(s_{i+1}) > 0$ para todo $i \geq 0$.
+\begin{definition}[Camino en un SG]
+	Un camino en un SG $\G$ es una secuencia infinita $\omega = (s_0, a_0, s_1, a_1, \dots)$ tal que $s_i \in \St$, $a_i \in \Act(s_i)$ y $a_i(s_{i+1}) > 0$ para todo $i \geq 0$.
 
-	Dado un estado $s$, indicaremos con $\Omega_s$ el conjunto de todos los
-	comportamientos que se originan en $s$, con $\Omega_\G$ el conjunto de todos
-	los comportamientos en $\G$ y con $\Omega^{\textit{fin}}_{\G, i}$ el conjunto
-	de todos los prefijos finitos de comportamientos en $\G$ que terminan en un
-	estado $s \in \St_i$, con $i \in \{\cuad, \diam\}$.
+	Dado un estado $s$, indicaremos con $\Paths_s$ el conjunto de todos los caminos
+	que se originan en $s$, con $\Paths$ el conjunto de todos los caminos en $\G$ y
+	con $\Pathsfin^i$ el conjunto de todos los prefijos finitos de caminos en $\G$
+	que terminan en un estado $s \in \St_i$, con $i \in \{\cuad, \diam\}$.
 \end{definition}
 
+Ahora sí, podemos definir las dos clases de estrategias que tendremos en un
+juego estocástico.
+
 \begin{definition}[Estrategia en un juego estocástico]
-	Sea $\G = (\St, (\St_\cuad, \St_\diam), \Act, \theta)$ un SG. Una estrategia $\pi_i$ para el jugador $i$ en $\G$ es una función $\pi: \Omega^{\textit{fin}}_i \rightarrow \dist (\Act)$ que asigna una distribución de probabilidad a cada prefijo finito de comportamiento que termina en un estado del jugador $i$ tal que $\pi(\hat \omega) (a) > 0$ solo si $a \in \Act(s)$.
+	Sea $\G = (\St, (\St_\cuad, \St_\diam), \Act, \theta)$ un SG. Una estrategia $\pi_i$ para el jugador $i$ en $\G$ es una función $\pi: \Pathsfin^i \rightarrow \dist (\Act)$ que asigna una distribución de probabilidad a cada prefijo finito de camino que termina en un estado del jugador $i$ tal que $\pi(\hat \omega) (a) > 0$ solo si $a \in \Act(s)$.
 
 	Llamaremos $\Pi_\cuad$ al conjunto de todas las estrategias del jugador $\cuad$
 	y $\Pi_\diam$ al conjunto de todas las estrategias del jugador $\diam$.
@@ -484,98 +488,116 @@ concepto de comportamiento en un juego estocástico.
 Podemos ver que las estrategias en un juego estocástico se definen igual a cómo
 se las definen para procesos de decisión de Markov con la salvedad de que
 pertenecerán a un jugador específico. Los distintos tipos de estrategias
-presentadas en la sección anterior se extienden naturalemente a SG. \hl{Ver
-	redacción}. Llamaremos $\Pi^{M}_i$ al conjunto de las estrategias sin memoria
-del jugador $i$, $\Pi^{F}_i$ al conjunto de las estrategias de memoria finita
-del jugador $i$, $\Pi^{D}_i$ al conjunto de las estrategias deterministas del
-jugador $i$, $\Pi^{MD}_i$ al conjunto de las estrategias deterministas sin
-memoria del jugador $i$ y $\Pi^{FD}_i$ al conjunto de las estrategias
-deterministas con memoria finita del jugador $i$.
+presentadas en la sección anterior se extienden naturalemente a SG. Llamaremos
+$\Pi^{M}_i$ al conjunto de las estrategias sin memoria del jugador $i$,
+$\Pi^{F}_i$ al conjunto de las estrategias de memoria finita del jugador $i$,
+$\Pi^{D}_i$ al conjunto de las estrategias deterministas del jugador $i$,
+$\Pi^{MD}_i$ al conjunto de las estrategias deterministas sin memoria del
+jugador $i$ y $\Pi^{FD}_i$ al conjunto de las estrategias deterministas con
+memoria finita del jugador $i$.
 
 De manera similar a como lo razonamos para procesos de decisión de Markov, si
 fijamos dos estrategias $\pi_\cuad \in \Pi_\cuad$ y $\pi_\diam \in \Pi_\diam$
 en un juego estocástico $\G$ obtenemos una cadena de Markov a la que
 denotaremos $\G^{\picuad, \pidiam}$. Esta cadena de Markov, para cada $s \in
 	\St$ definirá una medida de probabilidad $\ProbG$ en la $\sigma$-álgebra de
-Borel del conjunto de comportamientos en $\G$. \hl{¿Es comportamientos?}. Si
-$\varepsilon$ es un conjunto medible en la $\sigma$-álgebra de Borel,
-$\ProbG(\varepsilon)$ será la probabilidad de que las estrategias $\picuad$ y
-$\pidiam$ sigan un comportamiento en $\varepsilon$ empezando desde el estado
-$s$.
+Borel del conjunto de caminos en $\G$. Si $\varepsilon$ es un conjunto medible
+en la $\sigma$-álgebra de Borel, $\ProbG(\varepsilon)$ será la probabilidad de
+que las estrategias $\picuad$ y $\pidiam$ sigan un comportamiento en
+$\varepsilon$ empezando desde el estado $s$.
 
-Tal como fue aclarado en las dos secciones anteriores, usaremos notación LTL
-para representar conjunto específicos de comportamientos. Sin embargo, estando
-en el análisis de juegos nos interesan hacernos preguntas sobre probabilidades
-de ganar. Para poder hablar de ellas necesitamos formalizar ciertos conceptos
-que presentamos a continuación.
+% Tal como fue aclarado en las dos secciones anteriores, usaremos notación LTL
+% para representar conjunto específicos de comportamientos. Sin embargo, estando
+% en el análisis de juegos nos interesan hacernos preguntas sobre probabilidades
+% de ganar. Para poder hablar de ellas necesitamos formalizar ciertos conceptos
+% que presentamos a continuación.
 
-\subsubsection{Valor en un juego y maneras de ganar}
+% \subsubsection{Valor en un juego y maneras de ganar}
 
-\subsubsection{Determinismo}
+% \subsubsection{Determinismo}
 
-\subsubsection{Objetivos en juegos estocásticos}
+% \subsubsection{Objetivos en juegos estocásticos}
 
-Lo primero que será importante notar es que vamos a trabajar con juegos de suma
-cero.
+% Lo primero que será importante notar es que vamos a trabajar con juegos de suma
+% cero.
 
-\subsubsection{Recompensas cualitativas}
+% \subsubsection{Recompensas cualitativas}
 
-Sea \(C = \{c_1, \ldots, c_n\}\) un conjunto finito de colores, y \(\nu : V
-\rightarrow 2^C\) una valuación. Una clase importante y bien estudiada de
-recompensas cualitativas son las \textbf{funciones características de
-	subconjuntos \(\omega\)-regulares de \textit{Run}(G)}.
+% Sea \(C = \{c_1, \ldots, c_n\}\) un conjunto finito de colores, y \(\nu : V
+% \rightarrow 2^C\) una valuación. Una clase importante y bien estudiada de
+% recompensas cualitativas son las \textbf{funciones características de
+% 	subconjuntos \(\omega\)-regulares de \textit{Run}(G)}.
 
-La pertenencia a un conjunto \(\omega\)-regular de ejecuciones se determina por
-una de las \textbf{condiciones de aceptación} listadas a continuación. Estas
-condiciones corresponden a criterios de aceptación de autómatas de estado
-finito sobre palabras infinitas (ver Sección 5.2.2 para más detalles).
+% La pertenencia a un conjunto \(\omega\)-regular de ejecuciones se determina por
+% una de las \textbf{condiciones de aceptación} listadas a continuación. Estas
+% condiciones corresponden a criterios de aceptación de autómatas de estado
+% finito sobre palabras infinitas (ver Sección 5.2.2 para más detalles).
 
-\begin{itemize}
-	\item \textbf{Alcanzabilidad y seguridad (Reachability and safety).} Una ejecución \(w \in \textit{Run}(G)\) satisface la condición de \textbf{alcanzabilidad} determinada por un color \(c \in C\) si \(c \in \nu(w(i))\) para algún \(i \geq 0\). La condición de \textbf{seguridad} determinada por \(c\) es dual, es decir, \(c \notin \nu(w(i))\) para todo \(i \geq 0\).
+% \begin{itemize}
+% 	\item \textbf{Alcanzabilidad y seguridad (Reachability and safety).} Una ejecución \(w \in \textit{Run}(G)\) satisface la condición de \textbf{alcanzabilidad} determinada por un color \(c \in C\) si \(c \in \nu(w(i))\) para algún \(i \geq 0\). La condición de \textbf{seguridad} determinada por \(c\) es dual, es decir, \(c \notin \nu(w(i))\) para todo \(i \geq 0\).
 
-	\item \textbf{Büchi y co-Büchi.} Una ejecución \(w \in \textit{Run}(G)\) satisface la condición de \textbf{Büchi} determinada por un color \(c \in C\) si \(c \in \nu(w(i))\) para infinitos \(i \geq 0\). La condición de \textbf{co-Büchi} es dual, es decir, solo hay un número finito de \(i \geq 0\) tal que \(c \in \nu(w(i))\).
+% 	\item \textbf{Büchi y co-Büchi.} Una ejecución \(w \in \textit{Run}(G)\) satisface la condición de \textbf{Büchi} determinada por un color \(c \in C\) si \(c \in \nu(w(i))\) para infinitos \(i \geq 0\). La condición de \textbf{co-Büchi} es dual, es decir, solo hay un número finito de \(i \geq 0\) tal que \(c \in \nu(w(i))\).
 
-	\item \textbf{Rabin, Rabin-chain y Street.} Sea \textit{Pairs} un conjunto finito de pares de colores \newline \(\{(c_1, d_1), \ldots, (c_m, d_m)\}\). Una ejecución \(w \in \textit{Run}(G)\) satisface la condición de \textbf{Rabin} determinada por \textit{Pairs} si existe \((c, d) \in \textit{Pairs}\) tal que \(w\) satisface la condición de Büchi determinada por \(d\) y la condición de co-Büchi determinada por \(c\).
+% 	\item \textbf{Rabin, Rabin-chain y Street.} Sea \textit{Pairs} un conjunto finito de pares de colores \newline \(\{(c_1, d_1), \ldots, (c_m, d_m)\}\). Una ejecución \(w \in \textit{Run}(G)\) satisface la condición de \textbf{Rabin} determinada por \textit{Pairs} si existe \((c, d) \in \textit{Pairs}\) tal que \(w\) satisface la condición de Büchi determinada por \(d\) y la condición de co-Büchi determinada por \(c\).
 
-	      La condición de \textbf{Street} determinada por \textit{Pairs} es dual a Rabin,
-	      es decir, para cada \((c, d) \in \textit{Pairs}\) tenemos que \(w\) satisface
-	      la condición de co-Büchi determinada por \(d\) ó la condición de Büchi
-	      determinada por \(c\).
+% 	      La condición de \textbf{Street} determinada por \textit{Pairs} es dual a Rabin,
+% 	      es decir, para cada \((c, d) \in \textit{Pairs}\) tenemos que \(w\) satisface
+% 	      la condición de co-Büchi determinada por \(d\) ó la condición de Büchi
+% 	      determinada por \(c\).
 
-	      Para un color dado \(c\), sea \(V(c)\) el conjunto de todos los \(v \in V\)
-	      tales que \(c \in \nu(v)\). La condición de \textbf{Rabin-chain} (o paridad) es
-	      un caso especial de la condición de Rabin donde \textit{Pairs} y \(\nu\)
-	      satisfacen \(V(c_1) \subset V(d_1) \subset \cdots \subset V(c_m) \subset
-	      V(d_m)\).
+% 	      Para un color dado \(c\), sea \(V(c)\) el conjunto de todos los \(v \in V\)
+% 	      tales que \(c \in \nu(v)\). La condición de \textbf{Rabin-chain} (o paridad) es
+% 	      un caso especial de la condición de Rabin donde \textit{Pairs} y \(\nu\)
+% 	      satisfacen \(V(c_1) \subset V(d_1) \subset \cdots \subset V(c_m) \subset
+% 	      V(d_m)\).
 
-	\item \textbf{Muller.} Sea \(M \subseteq 2^C\) un conjunto de subconjuntos de colores. Una ejecución \(w \in \textit{Run}(G)\) satisface la condición de \textbf{Muller} determinada por \(M\) si el conjunto de todos los \(c \in C\) tales que \(w\) satisface la condición de Büchi determinada por \(c\) es un elemento de \(M\). (En criollo, ``los conjuntos de colores que w visita infinitas veces están en M")
-\end{itemize}
+% 	\item \textbf{Muller.} Sea \(M \subseteq 2^C\) un conjunto de subconjuntos de colores. Una ejecución \(w \in \textit{Run}(G)\) satisface la condición de \textbf{Muller} determinada por \(M\) si el conjunto de todos los \(c \in C\) tales que \(w\) satisface la condición de Büchi determinada por \(c\) es un elemento de \(M\). (En criollo, ``los conjuntos de colores que w visita infinitas veces están en M")
+% \end{itemize}
 
-Nótese que los conjuntos \(\omega\)-regulares de ejecuciones son relativamente
-simples en el sentido de que están contenidos en los dos primeros niveles de la
-jerarquía de Borel (los conjuntos de ejecuciones que satisfacen las condiciones
-de alcanzabilidad y seguridad están en el primer nivel).
+% Nótese que los conjuntos \(\omega\)-regulares de ejecuciones son relativamente
+% simples en el sentido de que están contenidos en los dos primeros niveles de la
+% jerarquía de Borel (los conjuntos de ejecuciones que satisfacen las condiciones
+% de alcanzabilidad y seguridad están en el primer nivel).
 
-distintos tipos y organizacion / ver de que manera presentarlos
+% distintos tipos y organizacion / ver de que manera presentarlos
 
-Kucera, omega reg, Chatterjee
+% Kucera, omega reg, Chatterjee
 
-\subsection{Una breve historia sobre los juegos estocásticos}
+% \subsection{Una breve historia sobre los juegos estocásticos}
 
-Enfoque mc -> mdp -> sg -> psg
+% Enfoque mc -> mdp -> sg -> psg
 
-Enfoque juegos deterministas -> juegos estocasticos (Shapley etc)
+% Enfoque juegos deterministas -> juegos estocasticos (Shapley etc)
 
 \section{Juegos deterministas}
 
-Agg transiciones de texto escrito entre definiciones
+Ahora bien, dijimos que cuando queremos modelar tanto comportamiento
+adversarial como probabilístico es cuando necesitamos de juegos estocásticos,
+pero resulta que también es muy común querer modelar simplemente comportamiento
+adversarial. Para esto, existen muchas modelizaciones matemáticas del concepto
+de juego (al que podemos considerar ``determinista'', por no ser estocástico).
+Para las definiciones que presentaremos a continuación nos basaremos en lo que
+se suele conocer en la literatura como juegos de grafo de dos jugadores. Dentro
+del estudio de juegos de grafos se presentan varias categorías que se pueden
+paralelizar con las definiciones que vimos: un juego de grafo de un jugador
+sería simplemente un sistema de transición, un juego de grafo de 1 jugador y
+medio sería lo que se entiende por proceso de decisión de Markov y un juego de
+grafo de 2 jugadores y medio sería lo que presentamos como juegos estocásticos.
+
+Procedemos entonces con la definición de juego de grafo de dos jugadores:
 
 \begin{definition}[juego de grafo de 2 jugadores]
-	Definimos a un juego de grafo de dos jugadores (2G) como una tupla $G = (V, V_\cuad,V_\diam, E)$ donde $V = V_\cuad \biguplus V_\diam$ es un conjunto de vértices (o estados) particionado en $V_\cuad$ y $V_\diam$, y $E \subseteq (V\times V)$ es una relación que denota el conjunto de aristas (dirigidas) que representan transiciones de un estado a otro del juego.
+	Definimos a un juego de grafo de dos jugadores como una tupla $G = (V, V_\cuad,V_\diam, E)$ donde $V = V_\cuad \biguplus V_\diam$ es un conjunto de vértices (o estados) particionado en $V_\cuad$ y $V_\diam$, y $E \subseteq (V\times V)$ es una relación que denota el conjunto de aristas (dirigidas) que representan transiciones de un estado a otro del juego.
 
 	Los 2 jugadores son llamados $\cuad$ y $\diam$ y controlan los vértices
 	$V_\cuad$ y $V_\diam$, respectivamente.
 \end{definition}
+
+Puede ser de interés notar que en el contexto de juegos de grafo hablamos de
+vértices y no de estados. ...
+
+No necesitamos las estrategias para definir una medida de probabilidad pero si
+para analizar el comportamiento adversarial -> algo capaz de preguntas acá?
 
 \begin{definition}[estrategia sobre un 2G]
 	Una estrategia para un jugador $i$ con $i \in \{\cuad, \diam\}$ es una función $\sigma_i: V^*V_i \rightarrow V$ con la restricción de que $\sigma_i(wv) \in E(v)$ para todo $wv \in V^*V_i$.
@@ -602,11 +624,11 @@ Agg transiciones de texto escrito entre definiciones
 
 Agg ejemplo
 
-\section{Comparación de los distintos juegos}
+% \section{Comparación de los distintos juegos}
 
-Incluir cuadros comparativos entre juegos // ejemplos para todas las nociones
-nuevas explicadas
+% Incluir cuadros comparativos entre juegos // ejemplos para todas las nociones
+% nuevas explicadas
 
-(Capaz agregar un apéndice con cuadritos de esto ?)
+% (Capaz agregar un apéndice con cuadritos de esto ?)
 
-(estaría bueno ver problemas y agregar un apéndice con ejemplos?)
+% (estaría bueno ver problemas y agregar un apéndice con ejemplos?)
