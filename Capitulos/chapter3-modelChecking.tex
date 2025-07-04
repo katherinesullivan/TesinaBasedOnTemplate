@@ -288,48 +288,29 @@ características:
 		\node[state] (II) at (0,-4) {II};
 		\node[state] (ID) at (4,-4) {ID};
 
-		% Lazos en cada nodo (loop)
-		%\draw[->] (SI) edge[loop above]   node[above]   {0.5} ();
-		%\draw[->] (SD) edge[loop above]   node[above]   {0.5} ();
-		%\draw[->] (II) edge[loop below]   node[below]   {0.3} ();
-		%\draw[->] (ID) edge[loop below]   node[below]   {0.5} ();
+		% FLECHAS
 
-		% Flechas entre todos los pares de nodos
-		% SI <-> SD
-		\draw[->] (SI) to  node[midway, below] {0.25} (SD);
-		\draw[->] (SD) to  node[midway, below] {1} (SI);
+		% Desde SI
+		\draw[->, draw=violet] (SI) to  node[midway, above, text=violet] {$\rightarrow$,0.85} (SD);
+		\draw[->, draw=violet]  (SI) to[bend left=40]  node[above, text=violet] {$\rightarrow$,0.15} (ID);
+		\draw[->, draw=orange] (SI) to[bend left=20]  node[text=orange] {$\downarrow$, 0.2}  (ID);
+		\draw[->, draw=orange] (SI) to  node[midway, left, text=orange]  {$\downarrow$, 0.8} (II);
 
-		% SI <-> II
-		\draw[->] (SI) to  node[midway, right]  {0.25} (II);
-		\draw[->] (II) to  node[midway, right] {0.5} (SI);
+		% Desde ID
+		\draw[->, draw=teal] (ID) to  node[midway, right, text=teal]  {$\uparrow$,0.95} (SD);
+		\draw[->, draw=teal] (ID) to[bend left=20] node[above, text=teal] {$\uparrow$,0.05} (SI);
+		\draw[->, draw=olive]  (ID) to[bend left=40] node[below, text=olive] {$\leftarrow$,0.15} (SI);
+		\draw[->, draw=olive] (ID) to  node[midway, below, text=olive] {$\leftarrow$,0.85} (II);
 
-		% SD <-> ID
-		\draw[->] (SD) to  node[midway, right] {0.5} (ID);
-		\draw[->] (ID) to  node[midway, right]  {0.5} (SD);
+		% Desde II
+		\draw[->, draw=teal] (II) to[bend left=60]  node[midway, left, text=teal] {$\uparrow$, 1} (SI);
+		\draw[->, draw=violet] (II) to[bend right=60]  node[midway, below, text=violet] {$\rightarrow$,1} (ID);
 
-		% II <-> ID
-		\draw[->] (II) to  node[midway, below] {0.2} (ID);
-		\draw[->] (ID) to  node[midway, below] {1} (II);
-
-		% SI <-> ID
-		% \draw[->, draw=blue] (SI) to node[midway, above] {0.15} (ID);
-		% \draw[->, draw=green] (SI) to node[midway, above] {0.2} (ID);
-		% \draw[->, draw=blue] (ID) to node[midway, above] {0.15} (SI);
-		% \draw[->, draw=green] (ID) to node[midway, above] {0.35} (SI);
-
-		\draw[->, draw=blue]  (SI) to[bend left=40]  node[above] {0.15} (ID);
-		\draw[->, draw=green] (SI) to[bend left=20]  node[above] {0.2}  (ID);
-		\draw[->, draw=blue]  (ID) to[bend right=40] node[below] {0.15} (SI);
-		\draw[->, draw=green] (ID) to[bend right=20] node[below] {0.35} (SI);
-
-		% SD <-> II
-		\draw[->, draw=blue] (SD) to node[pos=0.1, above] {0.15} (II);
-		\draw[->, draw=green] (SD) to node[pos=0.1, above] {0.2} (II);
-		\draw[->, draw=blue] (II) to node[midway, above] {0.07} (SD);
-		\draw[->, draw=green] (II) to node[midway, above] {0.05} (SD);
-
+		% Desde SD
+		\draw[->, draw=olive] (SD) to[bend right=60]  node[midway, below, text=olive] {$\leftarrow$,1} (SI);
+		\draw[->, draw=orange] (SD) to[bend left=60]  node[midway, right, text=orange] {$\downarrow$,0.5} (ID);
 	\end{tikzpicture}
-	\caption{Cadena de Markov representando el comportamiento probabilístico de \emph{Randomito}.}
+	\caption{Proceso de decisiòn de Markov representando el comportamiento de \emph{Roborto}.}
 	\label{fig:mdp-roborto}
 \end{figure}
 
