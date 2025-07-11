@@ -11,15 +11,20 @@ mismo.
 El paper, publicado en 2025, es el primero en presentar el concepto de
 \textit{juego estocástico politópico}, respondiendo a la necesidad de juegos
 estocásticos que puedan capturar mayor incertidumbre sobre las distribuciones
-de probabilidad, haciendo esto a través de inecuaciones lineales cuyas
-soluciones forman un politopo.
+de probabilidad que determinan las acciones, haciendo esto a través de
+inecuaciones lineales cuyas soluciones forman un politopo.
+
+% respondiendo a la necesidad de juegos
+% estocásticos que puedan capturar mayor incertidumbre sobre las distribuciones
+% de probabilidad, haciendo esto a través de inecuaciones lineales cuyas
+% soluciones forman un politopo.
 
 %Discutiremos más sobre la necesidad de creación de este tipo de juegos y qué ventajas proveen y qué motiva su estudio ?) y dividiremos ...
 Dividiremos el capítulo en dos secciones: definiciones y resultados.
 
 \section{Definiciones}
 
-\subsection{Politopos}
+\subsection*{Politopos}
 
 Un \textbf{politopo convexo} en $\mathbb{R}^n$ es un conjunto acotado $K = \{ x
 	\in \mathbb{R}^n | Ax \leq b\}$ con $A \in \mathbb{R}^{m\times n}$ y $ b \in
@@ -45,77 +50,77 @@ su conjunto de desigualdades característico \( Ax \leq b \) ya codifica las
 desigualdades \( \sum_{s \in S} x_s = 1 \) y \( x_s \geq 0 \) para todo \( s
 \in S \).
 
-\subsection{Juegos estocásticos}
+% \subsection{Juegos estocásticos}
 
-\hl{Esto mepa que no va pq ya está en el capítulo 3}
+% \hl{Esto mepa que no va pq ya está en el capítulo 3}
 
-Un juego estocástico es una tupla \( \G = (\St, (\St_\square,
-\St_\diamondsuit), \Act, \theta) \), donde \( \St \) es un conjunto finito de
-estados, con \( \St_\square, \St_\diamondsuit \subseteq \St \) siendo una
-partición de \( \St \), y \( \theta : \St \times \Act \times \St \to [0, 1] \)
-es una función de transición probabilística tal que para todo \( s \in \St \) y
-\( a \in \Act \), \( \theta(s, a, \cdot) \in \text{Dist}(\St) \) o \( \theta(s,
-a, \St) = 0 \) (dados un estado $s$ y una acción $a$, $\theta$ define una
-distribución en $s$ o no hay estados alcanzables por $a$ desde $s$).
+% Un juego estocástico es una tupla \( \G = (\St, (\St_\square,
+% \St_\diamondsuit), \Act, \theta) \), donde \( \St \) es un conjunto finito de
+% estados, con \( \St_\square, \St_\diamondsuit \subseteq \St \) siendo una
+% partición de \( \St \), y \( \theta : \St \times \Act \times \St \to [0, 1] \)
+% es una función de transición probabilística tal que para todo \( s \in \St \) y
+% \( a \in \Act \), \( \theta(s, a, \cdot) \in \text{Dist}(\St) \) o \( \theta(s,
+% a, \St) = 0 \) (dados un estado $s$ y una acción $a$, $\theta$ define una
+% distribución en $s$ o no hay estados alcanzables por $a$ desde $s$).
 
-Sea \( \Act(s) = \{ a \in \Act \mid \theta(s, a, \St) = 1 \} \) el conjunto de
-acciones habilitadas en el estado \( s \). Si \( \St_\square = \emptyset \) o
-\( \St_\diamondsuit = \emptyset \), entonces \( \G \) es un proceso de decisión
-de Markov (o MDP). Si, además, \( |\Act(s)| = 1 \) para todo \( s \in \St \),
-\( \G \) es una cadena de Markov (o MC).
+% Sea \( \Act(s) = \{ a \in \Act \mid \theta(s, a, \St) = 1 \} \) el conjunto de
+% acciones habilitadas en el estado \( s \). Si \( \St_\square = \emptyset \) o
+% \( \St_\diamondsuit = \emptyset \), entonces \( \G \) es un proceso de decisión
+% de Markov (o MDP). Si, además, \( |\Act(s)| = 1 \) para todo \( s \in \St \),
+% \( \G \) es una cadena de Markov (o MC).
 
-Un camino en el juego \( \G \) es una secuencia infinita de estados \( \rho =
-s_0 s_1 \dots \) tal que \( \theta(s_k, a, s_{k+1}) > 0 \) para alguna \( a \in
-\Act \) y para todo \( k \in \mathbb{N} \). Para \( i \geq 0 \), \( \rho_i \)
-indica el \( i \)-ésimo estado en el camino \( \rho \) (nótese que \( \rho_0 \)
-es el primer estado en \( \rho \)). Denotamos por \( \text{Paths}_\G \) el
-conjunto de todos los caminos, y por \( \text{FPaths}_\G \) el conjunto de los
-prefijos finitos de caminos. De manera similar, \( \text{Paths}_{\G,s} \) y \(
-\text{FPaths}_{\G,s} \) denotan el conjunto de caminos y el conjunto de caminos
-finitos que comienzan en el estado \( s \).
+% Un camino en el juego \( \G \) es una secuencia infinita de estados \( \rho =
+% s_0 s_1 \dots \) tal que \( \theta(s_k, a, s_{k+1}) > 0 \) para alguna \( a \in
+% \Act \) y para todo \( k \in \mathbb{N} \). Para \( i \geq 0 \), \( \rho_i \)
+% indica el \( i \)-ésimo estado en el camino \( \rho \) (nótese que \( \rho_0 \)
+% es el primer estado en \( \rho \)). Denotamos por \( \text{Paths}_\G \) el
+% conjunto de todos los caminos, y por \( \text{FPaths}_\G \) el conjunto de los
+% prefijos finitos de caminos. De manera similar, \( \text{Paths}_{\G,s} \) y \(
+% \text{FPaths}_{\G,s} \) denotan el conjunto de caminos y el conjunto de caminos
+% finitos que comienzan en el estado \( s \).
 
-Una estrategia para el jugador \( i \) (para \( i \in \{\square, \diamondsuit\}
-\)) en un juego \( G \) es una función \( \pi_i : \St^\ast \St_i \to
-\text{Dist}(\Act) \) que asigna una distribución probabilística a cada
-secuencia finita de estados, tal que \( \pi_i(\hat{\rho}s)(a) > 0 \) solo si \(
-a \in \Act(s) \). El conjunto de todas las estrategias para el jugador \( i \)
-se denomina \( \Pi_i \). Cuando sea conveniente, indicamos que el conjunto de
-estrategias \( \Pi_i \) pertenece al juego \( \G \) escribiendo \( \Pi_{\G,i}
-\).
+% Una estrategia para el jugador \( i \) (para \( i \in \{\square, \diamondsuit\}
+% \)) en un juego \( G \) es una función \( \pi_i : \St^\ast \St_i \to
+% \text{Dist}(\Act) \) que asigna una distribución probabilística a cada
+% secuencia finita de estados, tal que \( \pi_i(\hat{\rho}s)(a) > 0 \) solo si \(
+% a \in \Act(s) \). El conjunto de todas las estrategias para el jugador \( i \)
+% se denomina \( \Pi_i \). Cuando sea conveniente, indicamos que el conjunto de
+% estrategias \( \Pi_i \) pertenece al juego \( \G \) escribiendo \( \Pi_{\G,i}
+% \).
 
-Una estrategia \( \pi_i \) se dice pura o determinista si, para todo \(
-\hat{\rho}s \in \St^\ast \St_i \), \( \pi_i(\hat{\rho}s) \) es una distribución
-de Dirac (es decir, una distribución \( \delta_a \) tal que \( \delta_a(a) = 1
-\) y \( \delta_a(b) = 0 \) para todo \( b \neq a \)), y se llama sin memoria si
-\( \pi_i(\hat{\rho}s) = \pi_i(s) \), para todo \( \hat{\rho} \in \St^\ast \).
-Sea \( \Pi^M_i \) el conjunto de todas las estrategias sin memoria para el
-jugador \( i \), y \( \Pi^{MD}_i \) el conjunto de todas sus estrategias
-deterministas y sin memoria.
+% Una estrategia \( \pi_i \) se dice pura o determinista si, para todo \(
+% \hat{\rho}s \in \St^\ast \St_i \), \( \pi_i(\hat{\rho}s) \) es una distribución
+% de Dirac (es decir, una distribución \( \delta_a \) tal que \( \delta_a(a) = 1
+% \) y \( \delta_a(b) = 0 \) para todo \( b \neq a \)), y se llama sin memoria si
+% \( \pi_i(\hat{\rho}s) = \pi_i(s) \), para todo \( \hat{\rho} \in \St^\ast \).
+% Sea \( \Pi^M_i \) el conjunto de todas las estrategias sin memoria para el
+% jugador \( i \), y \( \Pi^{MD}_i \) el conjunto de todas sus estrategias
+% deterministas y sin memoria.
 
-Dadas las estrategias \( \pi_\square \in \Pi_\square \) y \( \pi_\diamondsuit
-\in \Pi_\diamondsuit \), y un estado inicial \( s \), el resultado del juego es
-una cadena de Markov denotada \( \G^{\pi_\square, \pi_\diamondsuit}_s \).
+% Dadas las estrategias \( \pi_\square \in \Pi_\square \) y \( \pi_\diamondsuit
+% \in \Pi_\diamondsuit \), y un estado inicial \( s \), el resultado del juego es
+% una cadena de Markov denotada \( \G^{\pi_\square, \pi_\diamondsuit}_s \).
 
-La cadena de Markov \( \G^{\pi_\square, \pi_\diamondsuit}_s \) define
-una\textbf{ medida de probabilidad} \( \Prob^{\pi_\square,
-	\pi_\diamondsuit}_{\G,s} \) sobre la \( \sigma \)-álgebra de Borel generada por
-los cilindros de \( \text{Paths}_{\G,s} \). Si \( \xi \) es un conjunto medible
-en dicha \( \sigma \)-álgebra de Borel, \( \Prob^{\pi_\square,
-	\pi_\diamondsuit}_{\G,s}(\xi) \) es la probabilidad de que las estrategias \(
-\pi_\square \) y \( \pi_\diamondsuit \) sigan un camino en \( \xi \) partiendo
-del estado \( s \).
+% La cadena de Markov \( \G^{\pi_\square, \pi_\diamondsuit}_s \) define
+% una\textbf{ medida de probabilidad} \( \Prob^{\pi_\square,
+% 	\pi_\diamondsuit}_{\G,s} \) sobre la \( \sigma \)-álgebra de Borel generada por
+% los cilindros de \( \text{Paths}_{\G,s} \). Si \( \xi \) es un conjunto medible
+% en dicha \( \sigma \)-álgebra de Borel, \( \Prob^{\pi_\square,
+% 	\pi_\diamondsuit}_{\G,s}(\xi) \) es la probabilidad de que las estrategias \(
+% \pi_\square \) y \( \pi_\diamondsuit \) sigan un camino en \( \xi \) partiendo
+% del estado \( s \).
 
-Usamos la notación LTL para representar conjuntos específicos de caminos, en
-particular: \( D U^n C = \{ \rho \in \St^\omega \mid \rho_n \in C \text{ y }
-\forall j < n : \rho_j \in D \} = D^n \times C \times \St^\omega \) es el
-conjunto de caminos que alcanzan \( C \subseteq \St \) en exactamente \( n \geq
-0 \) pasos, recorriendo antes solo estados en \( D \subseteq \St \); \(
-\diamondsuit^n C = \St U^n C \) es el conjunto de todos los caminos que
-alcanzan los estados en \( C \) en exactamente \( n \) pasos; \( \diamondsuit C
-= \bigcup_{n \geq 0} (\St \setminus C) U^n C \) es el conjunto de todos los
-caminos que alcanzan un estado en \( C \).
+% Usamos la notación LTL para representar conjuntos específicos de caminos, en
+% particular: \( D U^n C = \{ \rho \in \St^\omega \mid \rho_n \in C \text{ y }
+% \forall j < n : \rho_j \in D \} = D^n \times C \times \St^\omega \) es el
+% conjunto de caminos que alcanzan \( C \subseteq \St \) en exactamente \( n \geq
+% 0 \) pasos, recorriendo antes solo estados en \( D \subseteq \St \); \(
+% \diamondsuit^n C = \St U^n C \) es el conjunto de todos los caminos que
+% alcanzan los estados en \( C \) en exactamente \( n \) pasos; \( \diamondsuit C
+% = \bigcup_{n \geq 0} (\St \setminus C) U^n C \) es el conjunto de todos los
+% caminos que alcanzan un estado en \( C \).
 
-\subsection{PSGs}
+\subsection*{PSGs}
 
 % Los juegos estocásticos politópicos fueron presentados en 2024 por Castro y
 % D'Argenio \cite{Polytopal}. La idea de su creción ...
@@ -134,7 +139,7 @@ Un juego estocástico politópico se diferencia de un juego estocástico
 tradicional por el hecho de que desde un estado \( s \in \St_i \) (para \( i
 \in \{ \square, \diamondsuit \} \)), el jugador \( i \) elige jugar un politopo
 \( K \in \Theta(s) \) y una distribución \( \mu \in K \), en vez de elegir
-directamente una acción de entre un conjunto finito. Al igual que en otro juego
+directamente una acción de entre un conjunto finito. Al igual que en un juego
 estocástico, el siguiente estado \( s' \) se selecciona de acuerdo con la
 distribución \( \mu \) correspondiente a la acción seleccionada, y el juego
 continuará desde \( s' \) repitiendo el mismo proceso.
@@ -176,46 +181,50 @@ y que la función \( \theta(s, \cdot, s') \) es medible (es decir, \( \{a \in
 \Act \mid \theta(s, a, s') \leq p\} \in \Sigma_\Act \) para todo \( p \in [0,
 	1] \)).
 
-Ahora bien, para definir formalmente las estrategias, introduciremos el
-\hl{concepto de comportamiento en PSGs}. Esto difiere de la formulación
-original hecha para PSGs en \cite{Polytopal}, pero se adapta con la manera en
-la que presentaremos la medida de probabilidad. \hl{Revisar la redacción de
-	esto}
+Como lo hicimos para MDPs y juegos estocásticos a la definición de camino la
+daremos como una secuencia de estados y acciones. Esto difiere de la
+formulación original hecha para PSGs en \cite{Polytopal}, pero cambiaremos
+acordemente las definiciones que se asocian a ello para mantener la formalidad
+de los resultados.
 
-\begin{definition}[Comportamiento en un PSG]
-	Un comportamiento en un PSG es una secuencia infinita que alterna entre estados y conjuntos resultado. Formalmente un comportamiento es un $\omega = (s_0, (K_0, \mu_0), s_1, (K_1, \mu_1), \dots)$ tal que $s_i \in \St$, $(K_i, \mu_i) \in \Act(s_i)$ y $\mu_i(s_{i+1}) > 0$ para todo $i \geq 0$.
+\begin{definition}[Camino en un PSG]
+	Un camino en un PSG es una secuencia infinita que alterna entre estados y conjuntos resultado. Formalmente un camino es un $\omega = (s_0, (K_0, \mu_0), s_1, (K_1, \mu_1), \dots)$ tal que $s_i \in \St$, $(K_i, \mu_i) \in \Act(s_i)$ y $\mu_i(s_{i+1}) > 0$ para todo $i \geq 0$.
 
-	Notaremos al conjunto de todos los comportamientos de un PSG como $\Omega$.
-	Dado un estado $s$, indicaremos con $\Omega_s$ el conjunto de los
-	comportamientos que se originan en $s$, y con $\Omega_s^n$ al conjunto de los
-	comportamientos que se originan en $s$ y tiene un total de $n$ estados.
+	Al igual que para juegos estocásticos, notaremos al conjunto de todos los
+	caminos de un PSG como $\Paths$. Dado un estado $s$, indicaremos con $\Paths_s$
+	el conjunto de los caminos que se originan en $s$, y con $\Paths_s^n$ al
+	conjunto de los caminos que se originan en $s$ y tiene un total de $n$ estados.
 \end{definition}
 
 \begin{definition}[Conjuntos soporte y acciones]
 	Dada una acción $(K, \mu)$ definiremos su conjunto soporte, $supp((K, \mu))$ como el conjunto formado por los estados a los cuales $(K, \mu)$ les asigna una probabilidad positiva. Es decir,
+	\vspace{-1.5cm}
 	\begin{center}
 		$supp((K, \mu)) = \{s \in \St \mid \mu(s) > 0\}$
 	\end{center}
+	\vspace{-1.5cm}
 	Dado un estado $s$ y un conjunto de estados $V$, definiremos como $acc(s, V)$ a
 	las acciones que parten desde $s$ y tienen como conjunto soporte $V$. Es decir,
+	\vspace{-1.5cm}
 	\begin{center}
 		$acc(s, V) = \{\alpha \in \Act(s) \mid supp(\alpha) = V\} = \{(K, \mu) \in \Act(s) \mid \mu(V) = 1 \wedge \forall v \in V, \ \mu(v) > 0\}$
 	\end{center}
+	\vspace{-1.5cm}
 	Por último, dado un estado $s$, definiremos como $V_s$ al conjunto de todos los
 	soportes que pueden tener las distintas acciones desde $s$. Es decir,
+	\vspace{-1.5cm}
 	\begin{align*}~\label{definicionVs}
 		V_s &= \{supp(\mu) \mid \exists K \in \Theta(s): \mu \in K\} = \\
 		&= \{V' \subseteq \St | \exists \mu \in K, K \in \Theta(s) \text{ tal que } \mu(V') = 1 \text{ y } \forall s' \in V', \mu(s') > 0\}
 	\end{align*}
+	\vspace{-1.5cm}
 \end{definition}
 
 Entonces, ahora sí podemos extender el concepto de estrategia en un PSG:
 
 \begin{definition}[Estrategia en un PSG]
-	Una estrategia $\pi_i$ para el jugador $i$ ($i \in \{\cuad, \diam\}$) en un PSG será una función $\pi_i : (\St \times \Act) \St_i \rightarrow \textsf{PMeas}(\Act)$ que asigna una medida de probabilidad a cada $\omega s$ tal que $\pi_i(\omega s)(\Act(s)) = 1$.
+	Una estrategia $\pi_i$ para el jugador $i$ ($i \in \{\cuad, \diam\}$) en un PSG será una función $\pi_i : (\St \times \Act)^* \St_i \rightarrow \textsf{PMeas}(\Act)$ que asigna una medida de probabilidad a cada $\omega s$ tal que $\pi_i(\omega s)(\Act(s)) = 1$.
 \end{definition}
-
-\hl{Habría que agregar alguna justificación de esta idea de comportamientos?}
 
 \begin{boxamarillo}[Medida de probabilidad que no va a ir probablemente]{}
 	Con la formalización del concepto de estrategia ahora podemos presentar
@@ -223,8 +232,8 @@ Entonces, ahora sí podemos extender el concepto de estrategia en un PSG:
 	la cadena de Markov dada por $\Gk$ y las estrategias $\picuad$ y $\pidiam$.
 
 	Para eso, primero para cada $n \geq 0$ y $s \in \St$ definimos $\Prob^{\picuad,
-			\pidiam, n}_{\Gk, s} : \Omega^{n+1} \rightarrow [0, 1]$ para todo $s' \in \St$
-	y $\hat{\omega} \in \Omega_s^{n+1}$ inductivamente como sigue:
+			\pidiam, n}_{\Gk, s} : \Paths^{n+1} \rightarrow [0, 1]$ para todo $s' \in \St$
+	y $\hat{\omega} \in \Paths_s^{n+1}$ inductivamente como sigue:
 
 	\begin{align*}
 		&\Prob^{\picuad, \pidiam, 0}_{\Gk, s}(s') = \delta_s(s') \\
@@ -236,19 +245,19 @@ Entonces, ahora sí podemos extender el concepto de estrategia en un PSG:
 	(capaz restringirse sobre las acciones con soporte V'? No sé bien cómo va a quedar esto)
 
 	y extendemos \( \Prob^{\pi_\square, \pi_\diamondsuit, n}_{\Gk, s} :
-	\mathcal{P}(\Omega^{n+1}) \to [0, 1] \) a conjuntos como la suma de la medida
+	\mathcal{P}(\Paths^{n+1}) \to [0, 1] \) a conjuntos como la suma de la medida
 	sobre los elementos del conjunto.
 
-	Sea \( \Sigma_\Omega \) la \( \sigma \)-álgebra discreta sobre \( \Omega \)
+	Sea \( \Sigma_\Paths \) la \( \sigma \)-álgebra discreta sobre \( \Paths \)
 	(pues tanto $\St$ como los conjuntos soportes serán conjuntos finitos) y \(
-	\Sigma_{\Omega^\omega} \) la \( \sigma \)-álgebra producto usual sobre \(
-	\Omega^\omega \). Por el teorema de extensión de Carathéodory, \(
-	\Prob^{\picuad, \pidiam}_{\Gk, s} : \Sigma_{\Omega^\omega} \to [0, 1] \) se
+	\Sigma_{\Paths^\omega} \) la \( \sigma \)-álgebra producto usual sobre \(
+	\Paths^\omega \). Por el teorema de extensión de Carathéodory, \(
+	\Prob^{\picuad, \pidiam}_{\Gk, s} : \Sigma_{\Paths^\omega} \to [0, 1] \) se
 	define como la única medida de probabilidad tal que para todo \( n \geq 0 \), y
-	\( SV_i \in \Sigma_\Omega \), \( 0 \leq i \leq n \),
+	\( SV_i \in \Sigma_\Paths \), \( 0 \leq i \leq n \),
 
 	\[
-		\Prob^{\picuad, \pidiam}_{\Gk, s}(SV_0 \times \dots \times SV_n \times \Omega^\omega) = \Prob^{\picuad, \pidiam, n}_{\Gk, s}(SV_0 \times \dots \times SV_n).
+		\Prob^{\picuad, \pidiam}_{\Gk, s}(SV_0 \times \dots \times SV_n \times \Paths^\omega) = \Prob^{\picuad, \pidiam, n}_{\Gk, s}(SV_0 \times \dots \times SV_n).
 	\]
 \end{boxamarillo}
 
@@ -293,19 +302,23 @@ calcular siguiendo algoritmos conocidos \cite{CONDON1992,filar}. Por lo tanto,
 este teorema también proporciona inmediatamente una solución algorítmica para
 los PSGs.
 
-El segundo resultado, se deriva fácilmente del primero y será el que nos
-permitirá hablar de la complejidad en juegos estocástico politópico.
+El segundo resultado, se deriva del primero y presenta la complejidad del
+estudio cuantitativo de los juegos estocásticos politópicos. Enunciado sobre lo
+que nos interesa y notando como $\val_{\Gk,s}(\alc G)$ al valor del estado $s$
+(es decir, la probabilidad máxima de que $\cuad$ gane desde $s$) en el juego
+$\Gk$ con un objetivo de alcanzabilidad sobre un conjunto $G$, el teorema
+sería:
 
 \begin{theorem}[Complejidad en un PSG]
 	Para todo PSG $\K$, $q \in \mathbb{Q}$, $G \subseteq \St$ y $s \in \St$, el problema de decidir si $\val_{\Gk, s}(\alc G) \geq q$ está en $NP \cap coNP$.
 \end{theorem}
 
-\hl{¿Agregar algo en prelim o apéndice de clases de complejidad?}
+% \hl{¿Agregar algo en prelim o apéndice de clases de complejidad?}
 
 % El número de vértices de un politopo crece exponencialmente en la dimensión del
 % politopo [16]. Más precisamente, si \( d \) es la dimensión de un politopo \( K
 % \) y \( m \) es el número de desigualdades que lo definen, entonces \( V(K)
-% \sim \Omega(m^{\lfloor d/2 \rfloor}) \). Esto implica que la interpretación
+% \sim \Paths(m^{\lfloor d/2 \rfloor}) \). Esto implica que la interpretación
 % extrema \( \gameH_\gameK \) crece exponencialmente con el tamaño más grande de
 % los conjuntos de soporte de las distribuciones involucradas en el PSG original
 % \( \gameK \), lo cual esperamos que no sea demasiado grande. (En nuestro

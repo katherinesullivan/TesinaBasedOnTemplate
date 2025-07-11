@@ -309,7 +309,7 @@ características:
 
 		% Desde SD
 		\draw[->, draw=olive] (SD) to[bend right=60]  node[midway, below, text=olive] {$\leftarrow$,1} (SI);
-		\draw[->, draw=orange] (SD) to[bend left=60]  node[midway, right, text=orange] {$\downarrow$,0.5} (ID);
+		\draw[->, draw=orange] (SD) to[bend left=60]  node[midway, right, text=orange] {$\downarrow$,1} (ID);
 	\end{tikzpicture}
 	\caption{Proceso de decisión de Markov representando el comportamiento de \emph{Roborto}.}
 	\label{fig:mdp-roborto}
@@ -575,7 +575,7 @@ Ahora bien, dijimos que cuando queremos modelar tanto comportamiento
 adversarial como probabilístico es cuando necesitamos de juegos estocásticos,
 pero resulta que también es muy común querer modelar simplemente comportamiento
 adversarial. Para esto, existen muchas modelizaciones matemáticas del concepto
-de juego (al que podemos considerar ``determinista'', por no ser estocástico).
+de juego (al que podemos considerar ``determinista'' por no ser estocástico).
 Para las definiciones que presentaremos a continuación nos basaremos en lo que
 se suele conocer en la literatura como juegos de grafo de dos jugadores. Dentro
 del estudio de juegos de grafos se presentan varias categorías que se pueden
@@ -587,40 +587,55 @@ grafo de 2 jugadores y medio sería lo que presentamos como juegos estocásticos
 Procedemos entonces con la definición de juego de grafo de dos jugadores:
 
 \begin{definition}[juego de grafo de 2 jugadores]
-	Definimos a un juego de grafo de dos jugadores como una tupla $G = (V, V_\cuad,V_\diam, E)$ donde $V = V_\cuad \biguplus V_\diam$ es un conjunto de vértices (o estados) particionado en $V_\cuad$ y $V_\diam$, y $E \subseteq (V\times V)$ es una relación que denota el conjunto de aristas (dirigidas) que representan transiciones de un estado a otro del juego.
+	Definimos a un juego de grafo de dos jugadores (2G) como una tupla $G = (V, V_\cuad,V_\diam, E)$ donde $V = V_\cuad \biguplus V_\diam$ es un conjunto de vértices (o estados) particionado en $V_\cuad$ y $V_\diam$, y $E \subseteq (V\times V)$ es una relación que denota el conjunto de aristas (dirigidas) que representan transiciones de un estado a otro del juego.
 
 	Los 2 jugadores son llamados $\cuad$ y $\diam$ y controlan los vértices
 	$V_\cuad$ y $V_\diam$, respectivamente.
 \end{definition}
 
 Puede ser de interés notar que en el contexto de juegos de grafo hablamos de
-vértices y no de estados. ...
+vértices y no de estados como en los juegos estocásticos. Además, para los
+juegos deterministas volveremos a la noción de camino como secuencia de
+vertices solamente, a los cuales notaremos generalmente con $\rho$ en
+contraposición a los caminos siendo notados con $\pi$ para juegos estocásticos.
 
-No necesitamos las estrategias para definir una medida de probabilidad pero si
-para analizar el comportamiento adversarial -> algo capaz de preguntas acá?
+\begin{definition}[jugada sobre un 2G]
+	Una jugada en un juego de grafo de dos jugadores es una secuencia infinita de vértices $\rho = v_0v_1v_2 \dots \in V^\omega$, donde para todo $i \in \N_0$ tenemos que $v^i \in V$ y $(v^i, v^{i+1}) \in E$.
+
+	% Esta definición de respeta la damos con 
+	% Sean $\sigma_\cuad$ y $\sigma_\diam$ un par de estrategias y sea $v_0$ un
+	% vértice inicial, la jugada que cumple con $\sigma_\cuad$ y $\sigma_\diam$ es la
+	% única jugada $\rho = v_0 v_1 v_2 \dots$ para la cual cada $i \in \N_0$, si $v_i
+	% 	\in V_\cuad$ entonces $v_{i+1} = \sigma_\cuad(v_0 \dots v_i)$, y si $v_i \in
+	% 	V_\diam$ entonces $v_{i+1} = \sigma_\diam(v_0 \dots v_i)$.
+\end{definition}
+
+También para el análisis de juegos deterministas introduciremos el concepto de
+estrategia. Esta vez no para poder definir una medida de probabilidad ya que no
+necesitaremos una, sino para poder estudiar clases de comportamiento
+adversarial y poder formular y responder preguntas de investigación que se
+hacen en el contexto del estudio de juegos, las que precisaremos con más
+detalle en el capítulo siguiente.
+
+% No necesitamos las estrategias para definir una medida de probabilidad pero si
+% para analizar el comportamiento adversarial -> algo capaz de preguntas acá?
 
 \begin{definition}[estrategia sobre un 2G]
 	Una estrategia para un jugador $i$ con $i \in \{\cuad, \diam\}$ es una función $\sigma_i: V^*V_i \rightarrow V$ con la restricción de que $\sigma_i(wv) \in E(v)$ para todo $wv \in V^*V_i$.
 \end{definition}
 
-\begin{definition}[jugada sobre un 2G]
-	Una jugada en un juego de grafo de dos jugadores es una secuencia infinita de vértices $\rho = v_0v_1v_2 \dots \in V^\omega$, donde para todo $i \in \N_0$ tenemos que $v^i \in V$ y $(v^i, v^{i+1}) \in E$.
+Otra vez, podemos presentar dos clases distintas de estrategias: estrategias
+sin memoria y con memoria finita, cuyas definiciones serán como las
+esperaríamos.
 
-	Sean $\sigma_\cuad$ y $\sigma_\diam$ un par de estrategias y sea $v_0$ un
-	vértice inicial, la jugada que cumple con $\sigma_\cuad$ y $\sigma_\diam$ es la
-	única jugada $\rho = v_0 v_1 v_2 \dots$ para la cual cada $i \in \N_0$, si $v_i
-		\in V_\cuad$ entonces $v_{i+1} = \sigma_\cuad(v_0 \dots v_i)$, y si $v_i \in
-		V_\diam$ entonces $v_{i+1} = \sigma_\diam(v_0 \dots v_i)$.
+\begin{definition}[estrategia sin memoria en un 2G]
+
 \end{definition}
 
-\begin{definition}[condición ganadora]
-	Una condición ganadora $\varphi$ en un juego de grafo de dos jugadores es un conjunto de jugadas sobre el juego, i.e., $\varphi \subseteq V^\omega$. Usaremos notación LTL para describir conjuntos de jugadas específicos.
-\end{definition}
+\begin{definition}[estrategia con memoria finita en un 2G]
 
-\begin{definition}[regiones ganadoras]
-	El jugador $\cuad$ gana el juego de grafo de dos jugadores $G$ para una condición ganadora $\varphi$ desde un vértice $v_0$ so existe una estrategia $\picuad$ tal que para cada $\pidiam$, la jugada $\rho$ que sigue $\picuad$ y $\pidiam$ satisface $\varphi$, i.e., $\rho \in \varphi$.
-	La región ganadora $\W \subseteq V$ para el jugador $\cuad$ es el conjunto de vértices desde donde el jugador $\cuad$ gana el juego.
 \end{definition}
+% algo de randomizadas y deterministas?
 
 Agg ejemplo
 

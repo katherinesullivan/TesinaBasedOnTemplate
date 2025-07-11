@@ -1,8 +1,6 @@
 \section{Procesos de Decisión de Markov Politópicos - PMDPs}
 \label{sec:pmdp}
 
-\subsection{Draft}
-
 \hl{Acá se está dando directamente la interpretación de un PMDP}
 
 Lo podría definir directamente como PSGs con un solo jugador.
@@ -11,31 +9,34 @@ Lo podría definir directamente como PSGs con un solo jugador.
 	Un \textit{proceso de decisión de Markov politópico} (PMDP por sus siglas en inglés) es una tupla $\M = (\St, Act, \theta')$ donde $S$ es un conjunto finito de estados, $Act$ es un conjunto de pares (politopo, distribución) y $\theta': \St \times Act \times \St \rightarrow [0, 1]$ es la función de transición entre estados. También podemos definir a un PDMP como un PSG donde $\St_\cuad = \emptyset$ o $\St_\diam = \emptyset$.
 \end{definition}
 
-También introducimos el concepto de \textit{comportamiento} en un PMDP. Un
-comportamiento será una secuencia alternante de estados y conjuntos de próximos
-estados posibles, que refleja un proceso de selección de dos pasos. Desde un
-estado s, primero, el jugador selecciona un politopo y una distribución cuyo
-conjunto soporte será un $V \in V_s$, y luego el próximo estado $s'$ será
-elegido probabilísticamente en base a la distribución seleccionada. Presentamos
-la definición formal de la siguiente manera:
+% También introducimos el concepto de \textit{comportamiento} en un PMDP. Un
+% comportamiento será una secuencia alternante de estados y conjuntos de próximos
+% estados posibles, que refleja un proceso de selección de dos pasos. Desde un
+% estado s, primero, el jugador selecciona un politopo y una distribución cuyo
+% conjunto soporte será un $V \in V_s$, y luego el próximo estado $s'$ será
+% elegido probabilísticamente en base a la distribución seleccionada. Presentamos
+% la definición formal de la siguiente manera:
 
-Los comportamientos, las estrategias, y la medida de probabilidad en los PMDPs
-se definen tomando las mismas definiciones de los juegos estocásticos
-politópicos, mientras que las definiciones de conjuntos estado-acción, sub-MDPs
-y componentes finales de los procesos de decisión de Markov tradicionales se
-extienden a los PMDPs de la siguiente manera:
+Los caminos, las estrategias, y la medida de probabilidad en los PMDPs se
+definen tomando las mismas definiciones de los juegos estocásticos politópicos.
 
-\begin{definition}[conjuntos estado-resultado y sub-PMDPs]
+A continuación presentaremos las definiciones de conjuntos estado-resultado,
+sub-PMDPs y componentes finales que en cierta forma extienden a los conceptos
+de conjuntos estado-acción, sub-MDPs y componentes finales que se suelen
+encontrar en la literatura de procesos de decisión de Markov
+\cite{AlfaroThesis,BaierKatoen}.
+
+\begin{definition}[Conjuntos estado-resultado y sub-PMDPs]
 	Dado un PMDP $\M = (S, Act, \theta')$ un conjunto estado-resultado es un subconjunto $\chi \subseteq \{(s, V') \mid s \in S \wedge V' \in V_s\}$. Un sub-PMDP es un par $(C, D)$, donde $C \subseteq S$ y $D$ es una función que asocia a cada $s \in C$ un conjunto $D(s) \subseteq V_s$ de subconjuntos de estados próximos posibles. Hay una relación uno-a-uno entre sub-PMDPs y conjuntos de estado-acción:
 
 	\begin{itemize}
-		\item dado un conjunto estado-resultado $\chi$, denotamos $sub(\chi) = (C, D)$ al
+		\item dado un conjunto estado-resultado $\chi$, denotamos $\sub(\chi) = (C, D)$ al
 		      sub-PMDP definido por:
 		      \[
 			      C = \{s \mid \exists V' . (s, V') \in \chi\} \quad D(s) = \{V' \mid (s, V') \in \chi\}
 		      \]
 
-		\item dado un sub-PMDP $(C, D)$, denotamos por $er(C,D) = \{(s,V') \mid s \in C
+		\item dado un sub-PMDP $(C, D)$, denotamos por $\er(C,D) = \{(s,V') \mid s \in C
 			      \wedge V' \in D(s)\}$ al conjunto estado-resultado correspondiente a $(C, D)$.
 	\end{itemize}
 \end{definition}
@@ -47,14 +48,14 @@ de $(v_{V'}, t)$ de $v_{V'}$ con $V' \in D(s)$ a $t \in \St$ sii es posible ir
 de $s$ a $t$ en un paso con probabilidad positiva utilizando una acción cuyo
 conjunto resultado sea $V'$. La definición formal es como sigue:
 
-\begin{definition}[relación de aristas $\rho$]
+\begin{definition}[Relación de aristas $\rho$]
 	Para un sub-PMDP, definimos la relación $\rho_{(C,D)}$ como
 	\[
 		\rho_{(C,D)} = \{(s, v_{V'}) \mid \exists V' \in D(s)\} \cup \{(v_{V'}, t) \mid t \in V' \}
 	\]
 \end{definition}
 
-\begin{definition}[componente final] \label{defEC}
+\begin{definition}[Componente final] \label{defEC}
 	Un sub-PMDP es una componente final si:
 
 	\begin{itemize}
@@ -65,22 +66,20 @@ conjunto resultado sea $V'$. La definición formal es como sigue:
 	\end{itemize}
 
 	%Decimos que una componente final está contenida en un sub-PMDP $(C', D')$ si $er(C, D) \subseteq er(C', D')$; decimos que una componente final $(C, D)$ es maximal en un sub-PMDP $(C', D')$ si no hay ninguna otra componente final $(C'', D'')$ tal que $er(C,D) \subset er(C'', D'') \subseteq (C,D)$.
-	Llamaremos $EC(\M)$ al conjunto de todas las componentes finales en un PMDP
+	Llamaremos $\EC(\M)$ al conjunto de todas las componentes finales en un PMDP
 	$\M$.
 \end{definition}
 
 Intuitivamente, una componente final representa un conjunto de pares
-estado-resultado que, una vez en ellos, es posible quedase allí si la
-estrategia escoge las acciones de manera apropiada. Esta intuición se hará
+estado-resultado que, una vez en ellos, es posible quedase allí para siempre si
+la estrategia escoge las acciones de manera apropiada. Esta intuición se hará
 precisa con los siguientes teoremas.
 
 Antes de enunciar estos teoremas, introducimos una abreviatura para el conjunto
-de estados-resultados que ocurren infinitamente a menudo en un comportamiento
-dado y una notación para el conjunto (infinito) de acciones con el mismo
-conjunto resultado.
+de estados-resultados que ocurren infinitamente a menudo en un camino dado. %y una notación para el conjunto (infinito) de acciones con el mismo conjunto resultado.
 
 \begin{definition}[$\inft$]
-	Dado un comportamiento $\omega = (s_0, \alpha_0, s_1, \alpha_1, \dots)$ indicamos por
+	Dado un camino $\omega = (s_0, \alpha_0, s_1, \alpha_1, \dots)$ indicamos por
 	\[
 		\inft (\omega) = \{(s, V') \mid s_k = s \wedge supp(\alpha_k) = V' \text{ para infinitos } k \in \mathbb{N}_0\}
 	\]
@@ -89,11 +88,11 @@ conjunto resultado.
 
 Ahora sí, podemos pasar a presentar las primeras demostraciones:
 
-\begin{theorem}[estabilidad de componentes finales]
+\begin{theorem}[Estabilidad de componentes finales]
 	\label{teoEstabilidadEC}
 	Sea $(C, D)$ una componente final. Entonces, para cada estrategia $\pi$ existe una estrategia $\pi'$, que difiere de $\pi$ solo en $C$, tal que:
 	\begin{equation} \label{estabEC}
-		\Prob^\pi_s(\diam C) = \Prob^{\pi'}_s(\diam C) = \Prob^{\pi'}_s(inft(\omega) = er(C,D))
+		\Prob^\pi_s(\diam C) = \Prob^{\pi'}_s(\diam C) = \Prob^{\pi'}_s(\inft(\omega) = \er(C,D))
 	\end{equation}
 	para todo $s \in S$.
 \end{theorem}
@@ -126,59 +125,58 @@ Ahora sí, podemos pasar a presentar las primeras demostraciones:
 	y $\pi'$ coinciden fuera de $C$.
 
 	Para la segunda igualdad, basta con ver que bajo la estrategia $\pi'$ una vez
-	que un comportamiento entra a $C$, nunca sale de $C$ ni se elige una acción que
-	no esté en $D$. Es más, una vez en $C$ un comportamiento visitará todos los
-	estados de $C$ infinitamente a menudo con probabilidad 1.
+	que un camino entra a $C$, nunca sale de $C$ ni se elige una acción que no esté
+	en $D$. Es más, una vez en $C$ un camino visitará todos los estados de $C$
+	infinitamente a menudo con probabilidad 1.
 \end{proof}
 
 El próximo resultado establece que, para cualquier estado inicial y cualquier
-estrategia (de memoria finita), un comportamiento terminará con probabilidad 1
-en una componente final. Esta es la razón detrás del nombre ``componente
-final".
+estrategia (de memoria finita), un camino terminará con probabilidad 1 en una
+componente final. Esta es la razón detrás del nombre ``componente final".
 
 \begin{theorem}[teorema fundamental de las componentes finales] \label{teoFundEC}
 	Sea $\M$ un PMDP. Para todo $s \in S$, toda estrategia $\pi$ de memoria finita,
-	$$\Prob^\pi_{\M, s}(\{ \omega \in \paths(s) \mid sub(inft(\omega)) \text{ es una componente final}\}) = 1$$
+	$$\Prob^\pi_{\M, s}(\{ \omega \in \paths(s) \mid \sub(\inft(\omega)) \text{ es una componente final}\}) = 1$$
 \end{theorem}
 
 \begin{proof}
-	Consideremos un sub-PMDP $(C,D)$ que no sea una componente final y sea $\Omega_s^{(C,D)} = \{\hat{\omega} \in \Omega_s \mid inft(\hat{\omega}) = er(C, D)\}$ el conjunto de comportamientos cuyo conjunto de pares estado-resultado que se repiten infinitas veces en él forman el sub-PMDP $(C,D)$.
-	%(otra forma de decirlo capaz podría ser: conjunto de comportamientos que se estabilizan en el sub-PMDP $(C,D)$).
+	Consideremos un sub-PMDP $(C,D)$ que no sea una componente final y sea $\Paths_s^{(C,D)} = \{\hat{\omega} \in \Paths_s \mid \inft(\hat{\omega}) = \er(C, D)\}$ el conjunto de caminos cuyo conjunto de pares estado-resultado que se repiten infinitas veces en él forman el sub-PMDP $(C,D)$.
+	%(otra forma de decirlo capaz podría ser: conjunto de caminos que se estabilizan en el sub-PMDP $(C,D)$).
 
 	Si podemos mostrar que
 	\begin{equation}\label{omegaEnOmega0}
-		\Prob^\pi_{\M, s}(\{ \omega \in \paths(s) \mid \omega \in \Omega_s^{(C,D)}\}) = 0
+		\Prob^\pi_{\M, s}(\{ \omega \in \paths(s) \mid \omega \in \Paths_s^{(C,D)}\}) = 0
 	\end{equation}
 	como $(C,D)$ es un sub-PMDP cualquiera y como hay una cantidad finita de sub-PMDPs en $\M$, esto es lo mismo que mostrar que
-	$$\Prob^\pi_{\M, s}(\{ \omega \in \paths(s) \mid sub(inft(\omega)) \text{ es una componente final}\}) = 1$$.
+	$$\Prob^\pi_{\M, s}(\{ \omega \in \paths(s) \mid \sub(\inft(\omega)) \text{ es una componente final}\}) = 1$$.
 	Veamos que vale \ref{omegaEnOmega0}, dividiendo en casos según cuál es la
 	condición de la definición \ref{defEC} que no se cumple para $(C,D)$:
 
 	\begin{itemize}
-		\item Primero, asumamos que existe un $(t, V') \in er(C,D)$ tal que $V' \nsubseteq
+		\item Primero, asumamos que existe un $(t, V') \in \er(C,D)$ tal que $V' \nsubseteq
 			      C$.
 
 		      %Vamos a usar un argumento similar al de la prueba de la primera contención en el intento anterior.
 
 		      %Para cada $(K, \mu) \in A(t, V')$ podemos definir $r_{(K, \mu)} = \sum_{u \in C} \mu(u)$, la probabilidad de quedarnos en $C$ eligiendo la acción $(K, \mu)$, y sabemos que $r_{(K, \mu)} < 1$. 
 
-		      Sabemos que cada comportamiento en $\Omega_s^{(C,D)}$ toma el par
-		      estado-resultado $(t, V')$ infinitas veces. Llamemos $I$ al conjunto de índices
-		      infinito que representa los momentos en los que se visita $(t, V')$. Indiquemos
-		      con $\mu_i$ a la distribución elegida en el momento $i \in I$ y definamos como
-		      $r_i = \sum_{u \in C} \mu_i(u)$ a la probabilidad de quedarnos en $C$ en el
-		      momento $i \in I$ (que en cada caso será menor a 1 porque $V' \nsubseteq C$). %y cada $\mu$ tal que existe un par $(K, \mu)$ en $A(t, V')$ $\mu$ asigna probabilidad positiva a cada $v \in V'$). %y llamemos al evento de q
+		      Sabemos que cada camino en $\Paths_s^{(C,D)}$ toma el par estado-resultado $(t,
+			      V')$ infinitas veces. Llamemos $I$ al conjunto de índices infinito que
+		      representa los momentos en los que se visita $(t, V')$. Indiquemos con $\mu_i$
+		      a la distribución elegida en el momento $i \in I$ y definamos como $r_i =
+			      \sum_{u \in C} \mu_i(u)$ a la probabilidad de quedarnos en $C$ en el momento $i
+			      \in I$ (que en cada caso será menor a 1 porque $V' \nsubseteq C$). %y cada $\mu$ tal que existe un par $(K, \mu)$ en $A(t, V')$ $\mu$ asigna probabilidad positiva a cada $v \in V'$). %y llamemos al evento de q
 
 		      Como $\pi$ es de memoria finita sucederá que $\pi$ solo puede elegir una
 		      cantidad finita de acciones (y, por lo tanto, distribuciones) distintas desde
 		      $t$. Esto hace que el conjunto $R = \{r_i \mid i \in I\}$ tenga un máximo,
 		      llamémoslo $r$.
 
-		      Para que valga que $\omega$ esté en $\Omega_s^{(C,D)}$ tiene que valer que en
+		      Para que valga que $\omega$ esté en $\Paths_s^{(C,D)}$ tiene que valer que en
 		      infinitos momentos $i$ nos quedemos en $C$. Entonces que vale que $\Prob_s^\pi
-			      (\omega \in \Omega_s^{(C,D)}) < r^k$ para todo $k > 0$ natural. Como sabemos
+			      (\omega \in \Paths_s^{(C,D)}) < r^k$ para todo $k > 0$ natural. Como sabemos
 		      que $r < 1$, tenemos que $\Prob^\pi_{\M, s}(\{ \omega \in \paths(s) \mid \omega
-			      \in \Omega_s^{(C,D)}\}) = 0$.
+			      \in \Paths_s^{(C,D)}\}) = 0$.
 
 		      %Es decir para un subconjunto infinito $J \subseteq I$, vale que: $$\Prob_{s}^{\pi}(\omega \in \Omega_s^{(C,D)}) \leq \prod_{i \in J} r_i$$
 
@@ -191,7 +189,7 @@ final".
 
 		      %$DistInf \subseteq A(t, V')$ al conjunto de pares $(K, \mu)$ que se toman en los infinitos momentos que se visita $(t, V')$. Entonces, tenemos que         $$\Prob_s^{\pi}(\omega \in \Omega_s^{C,D}) < \Pi_{(K, \mu) \in DistInf} r_{(K, \mu)}$$ Como $\pi$ es de memoria finita, existirá un conjunto infinito $Ig \subseteq DistInf$
 
-		      %Como cada comportamiento en $\Omega_s^{(C,D)}$ toma el par estado-resultado $(t, V')$ infinitas veces, tenemos que $\Prob_s^{\pi}(\omega \in \Omega_s^{C,D}) < \Pi_{(K, \mu) \in A(t, V')} r_{(K, \mu)}$ para todo $k \in \mathbb{N}$ y como $r < 1$, tenemos que 
+		      %Como cada camino en $\Omega_s^{(C,D)}$ toma el par estado-resultado $(t, V')$ infinitas veces, tenemos que $\Prob_s^{\pi}(\omega \in \Omega_s^{C,D}) < \Pi_{(K, \mu) \in A(t, V')} r_{(K, \mu)}$ para todo $k \in \mathbb{N}$ y como $r < 1$, tenemos que 
 
 		      %(No podemos decir que existe un máximo $r_{(K, \mu)}$ porque $A(s, V')$ no es un conjunto finito (ni tampoco que existe una cota superior) así que no sabría si está bien / si lo puedo formalizar más / si puedo definir algún $r$)
 
@@ -199,23 +197,23 @@ final".
 		      $t_2$ en $(C \cup \{v_V' \mid \exists s \in C : V' \in D(s)\}, \rho(C,D))$.
 
 		      La falta de camino de $t_1$ a $t_2$ en $(C, \rho_{(C,D)})$ implica que para
-		      cada subsecuencia $s_m V_m s_{m+1} ... s_n$ de comportamiento en
-		      $\Omega_s^{(C,D)}$ que vaya de $s_m=t_1$ a $s_n=t_2$, hay 2 opciones:
+		      cada subsecuencia $s_m V_m s_{m+1} ... s_n$ de camino en $\Paths_s^{(C,D)}$ que
+		      vaya de $s_m=t_1$ a $s_n=t_2$, hay 2 opciones:
 
 		      \begin{enumerate}
-			      \item existe un $j \in [m+1, n-1]$ tal que $s_j \notin C$. Como cada comportamiento
-			            en $\Omega_s^{(C,D)}$ contiene infinitas subsecuencias de $t_1$ a $t_2$ y
-			            tenemos una cantidad finita de estados, sabemos que habrá una cantidad infinita
-			            de $s_j$ iguales. Pero si infinitas veces se toma un estado $s_j$ entonces,
-			            $s_j \in C$, lo que contradice la hipótesis anterior. Absurdo.
+			      \item existe un $j \in [m+1, n-1]$ tal que $s_j \notin C$. Como cada camino en
+			            $\Paths_s^{(C,D)}$ contiene infinitas subsecuencias de $t_1$ a $t_2$ y tenemos
+			            una cantidad finita de estados, sabemos que habrá una cantidad infinita de
+			            $s_j$ iguales. Pero si infinitas veces se toma un estado $s_j$ entonces, $s_j
+				            \in C$, lo que contradice la hipótesis anterior. Absurdo.
 
-			      \item existe un $j \in [m, n-1]$ tal que $V_j \notin D(j)$. Como cada comportamiento
-			            en $\Omega_s^{(C,D)}$ contiene infinitas subsecuencias de $t_1$ a $t_2$ y
-			            tenemos una cantidad finita de conjuntos resultado, sabemos que habrá una
-			            cantidad infinita de $V_j$ iguales, con lo que $V_j \in D(j)$, lo que
-			            contradice la hipótesis anterior. Absurdo
+			      \item existe un $j \in [m, n-1]$ tal que $V_j \notin D(j)$. Como cada camino en
+			            $\Paths_s^{(C,D)}$ contiene infinitas subsecuencias de $t_1$ a $t_2$ y tenemos
+			            una cantidad finita de conjuntos resultado, sabemos que habrá una cantidad
+			            infinita de $V_j$ iguales, con lo que $V_j \in D(j)$, lo que contradice la
+			            hipótesis anterior. Absurdo
 		      \end{enumerate}
-		      Con lo que arribamos a que $\Prob^\pi_{\M, s}(\{ \omega \in \paths(s) \mid \omega \in \Omega_s^{(C,D)}\}) = 0  $
+		      Con lo que arribamos a que $\Prob^\pi_{\M, s}(\{ \omega \in \paths(s) \mid \omega \in \Paths_s^{(C,D)}\}) = 0  $
 	\end{itemize}
 
 \end{proof}
@@ -231,42 +229,49 @@ condiciones de Rabin:
 Ahora bien, una pregunta muy natural que surge es "¿por qué nos restringimos a
 estrategias de memoria finita en este último teorema?"
 
-\textbf{Nota sobre la limitación a estrategias finitas del Teorema \ref{teoFundEC}}
+\textbf{Nota sobre la limitación a estrategias finitas del Teorema~\ref{teoFundEC}}
 
-La prueba del teorema \ref{teoFundEC} está inspirada en las pruebas realizadas
-para MDPs (véase \cite{BaierKatoen} \cite{AlfaroThesis}). En ellas, la prueba
-consiste en proponer un sub-PMDP $(C, D)$ arbitrario que no cumple la
-definición \ref{defEC}, dividir el análisis por casos de cómo no se cumple la
-definición de componente final y mostrar que en cada caso la probabilidad de
-que un comportamiento que siga la estrategia del enunciado genere un sub-PMDP
-como el propuesto es 0.
+Claro, en un principio la idea fue poder probar ambos teoremas en su caso
+general, sin tener que limitarnos en la clase de las estrategias utilizadas. La
+idea para probar esto esencialmente fue intentar seguir como modelo las pruebas
+realizadas para MDPs en \cite{AlfaroThesis,BaierKatoen}. Esto en el caso del
+teorema~\ref{teoEstabilidadEC} vino sin complicaciones, pero en el caso del
+teorema~\ref{teoFundEC} devino en problemas, puesto que la finitud de acciones
+salientes de un estado probó ser una hipótesis fundamental.
 
-Si nos remitimos a la prueba que mostramos en \ref{teoFundEC}, vemos que el
-método de prueba se ajusta bien a nuestro caso hasta llegar al primer ítem
-donde el argumento está explícitamente respaldado en el hecho de que $\pi$ es
-de memoria finita. De esta manera, se puede decir que el conjunto de las
-distintas probabilidades de quedarse en $C$ en los momentos $i$ tiene un
-máximo, $r$, lo que permite acotar la productoria $\Pi_{i \in I} \ r_i$ por
-$\lim_{k \to \infty} r^k$, que sabemos que converge a 0, puesto que $r < 1$.
+La idea de prueba consiste en proponer un sub-PMDP $(C, D)$ arbitrario que no
+cumple la definición~\ref{defEC} de componente final, dividir el análisis por
+casos de cómo no se cumple la definición y mostrar que, en cada caso, la
+probabilidad de que un camino genere un sub-PMDP como el propuesto es 0.
+
+Remitiéndonos a nuestra prueba, vemos que en el primer ítem el argumento está explicítamente respaldado en el hecho de que $\pi$ es de memoria finita. De esta manera, se puede decir que el conjunto de las distintas probabilidades de quedarse en $C$ en los momentos $i$ es finito, por lo que tiene un máximo $r$, lo que permite acotar la productoria $\Pi_{i \in I} \ r_i$ por $\lim_{k \to \infty} r^k$, que sabemos que converge a 0 puesto que $r < 1$.
 
 Si no nos restringimos a estrategias de memoria finita no podemos garantizar
 esto. Sabemos que la productoria va a estar acotada inferiormente por 0 y
-superiormente por 1, pero bien podría no converger a 0, sino a algún otro
-número. Por ejemplo, veamos lo siguiente:
+superiormente por 1, pero si tengo una cantidad infinita de $r_i$'s distintos, aún cuando cada uno de ellos es menor a $1$, la productoria bien podría no converger a $0$, como se puede ver en el siguiente caso.
 
-Consideremos un juego estocástico politópico donde tenemos un vértice $t$ y un
-vértice $s$. Desde $t$, existen acciones $\mu$ de la forma $\mu(s) =
+Consideremos un PMDP en donde tenemos dos estados $t$ y $s$. Desde $t$, existen acciones $\mu$ de la forma $\mu(s) =
 	\frac{1}{k^2}$, $\mu(t) = 1 - \frac{1}{k^2}$, por lo que se puede definir una
 estrategia de memoria infinita $\pi$ a partir de la cantidad de $t$ que se
-encuentran en el comportamiento de la siguiente manera:
+encuentran en el camino de la siguiente manera:
 
 \begin{align*}
 	&\pi(\omega t)(s) = \frac{1}{(\#_t(\omega))^2} \\
 	&\pi(\omega t)(t) = 1- \frac{1}{(\#_t(\omega))^2}
 \end{align*}
 
-donde $\#_t$ se define inductivamente sobre comportamientos de la siguiente
-manera:
+donde $\#_t$ se define inductivamente sobre caminos de la siguiente manera:
+
+\begin{align*}
+	&\#_t(\emptyset) = 0 \\
+	&\#_t(\omega V' t) = \#_t(\omega) + 1 \\
+	&\#_t(\omega V' s) = \#_t(\omega)
+\end{align*}
+
+siendo $\omega$ un camino, $\emptyset$ el camino vacío y $s \neq t$.
+
+Si suponemos que $s$ no forma parte de $C$, tenemos que la probabilidad de quedarnos en $C$ sería
+$\Pi_{i \geq 0} 1-(\frac{1}{i^2})$, que sabemos que converge a $\frac{1}{2}$.
 
 \begin{figure}[h]
 	\centering
@@ -280,31 +285,100 @@ manera:
 		}
 
 		% Nodes
-		\node[square state] (t) at (0,0) {$t$};
-		\node[diamond state] (s) at (4,0) {$s$};
+		\node[state] (t) at (0,0) {$t$};
+		\node[state] (s) at (4,0) {$s$};
 
 		% Transitions
 		\draw[->] (t) to[bend left=20] node[above] {$1 - \frac{1}{i^2}$} (s);
 		\draw[->] (t) edge[loop left] node[left] {$\frac{1}{i^2}$} (t);
 	\end{tikzpicture}
-	\caption{Interpretación del juego estocástico con la estrategia $\pi$ fijada.}
-	\label{fig:mi-figura}
+	\caption{Interpretación del PDMDP con la estrategia $\pi$ fijada.}
+	\label{fig:pmdpcontraej}
 \end{figure}
 
-\begin{align*}
-	&\#_t(\emptyset) = 0 \\
-	&\#_t(\omega V' t) = \#_t(\omega) + 1 \\
-	&\#_t(\omega V' s) = \#_t(\omega)
-\end{align*}
+% ES PMDP CHE
+% Consideremos un juego estocástico politópico donde tenemos un vértice $t$ y un
+% vértice $s$. Desde $t$, existen acciones $\mu$ de la forma $\mu(s) =
+% 	\frac{1}{k^2}$, $\mu(t) = 1 - \frac{1}{k^2}$, por lo que se puede definir una
+% estrategia de memoria infinita $\pi$ a partir de la cantidad de $t$ que se
+% encuentran en el camino de la siguiente manera:
 
-donde $\omega$ es un comportamiento, $\emptyset$ representa el comportamiento
-vacío (no sé qué tan bien estaría esto) y $s \neq t$.
+% \begin{align*}
+% 	&\pi(\omega t)(s) = \frac{1}{(\#_t(\omega))^2} \\
+% 	&\pi(\omega t)(t) = 1- \frac{1}{(\#_t(\omega))^2}
+% \end{align*}
 
-Si, remitiéndonos otra vez a la estrategia de prueba, suponemos que $s$ no
-forma parte de $C$, tenemos que la probabilidad de quedarnos en $C$ sería
-$\Pi_{i \geq 0} 1-(\frac{1}{i^2})$, que sabemos que converge a $\frac{1}{2}$.
+% donde $\#_t$ se define inductivamente sobre caminos de la siguiente manera:
 
-\hl{No me gustan mucho estos siguientes párrafos, pero no sé muy bien cómo decir lo que quiero, y siento que vos habías dicho algo más interesante sobre esto.}
+% \begin{figure}[h]
+% 	\centering
+% 	\begin{tikzpicture}[>=Stealth, node distance=3.5cm, font=\scriptsize]
+
+% 		% Styles for different shapes
+% 		\tikzset{
+% 			state/.style={draw, circle, minimum size=1.2cm, font=\normalsize},
+% 			square state/.style={draw, rectangle, minimum size=1.2cm, font=\normalsize},
+% 			diamond state/.style={draw, diamond, aspect=1.5, minimum size=1.5cm, font=\normalsize}
+% 		}
+
+% 		% Nodes
+% 		\node[square state] (t) at (0,0) {$t$};
+% 		\node[diamond state] (s) at (4,0) {$s$};
+
+% 		% Transitions
+% 		\draw[->] (t) to[bend left=20] node[above] {$1 - \frac{1}{i^2}$} (s);
+% 		\draw[->] (t) edge[loop left] node[left] {$\frac{1}{i^2}$} (t);
+% 	\end{tikzpicture}
+% 	\caption{Interpretación del juego estocástico con la estrategia $\pi$ fijada.}
+% 	\label{fig:mi-figura}
+% \end{figure}
+
+% \begin{align*}
+% 	&\#_t(\emptyset) = 0 \\
+% 	&\#_t(\omega V' t) = \#_t(\omega) + 1 \\
+% 	&\#_t(\omega V' s) = \#_t(\omega)
+% \end{align*}
+
+% donde $\omega$ es un camino, $\emptyset$ representa el camino vacío y $s \neq t$.
+
+% Si suponemos que $s$ no forma parte de $C$, tenemos que la probabilidad de quedarnos en $C$ sería
+% $\Pi_{i \geq 0} 1-(\frac{1}{i^2})$, que sabemos que converge a $\frac{1}{2}$.
+
+% \hl{No me gustan mucho estos siguientes párrafos, pero no sé muy bien cómo decir lo que quiero, y siento que vos habías dicho algo más interesante sobre esto.}
+
+
+
+% sólo se garantiza para estrategias de memoria finita, debido a la dependencia
+% de la prueba en la existencia de una cota superior para la probabilidad de
+% permanecer en $C$ (el valor $r$), que sólo puede asegurarse cuando el número de
+% distribuciones posibles es finito. En el caso de estrategias de memoria
+% infinita, la secuencia de probabilidades podría no estar acotada uniformemente
+% por debajo de 1, y la productoria correspondiente podría no converger a 0, como
+% se ilustra en el ejemplo anterior. Por lo tanto, la generalización del
+% resultado a estrategias de memoria infinita requeriría técnicas de prueba
+% diferentes o condiciones adicionales sobre la estructura del PMDP o las
+% estrategias consideradas.
+
+% La prueba del teorema \ref{teoFundEC} está inspirada en las pruebas realizadas
+% para MDPs (véase \cite{BaierKatoen} \cite{AlfaroThesis}). En ellas, la prueba
+% consiste en proponer un sub-PMDP $(C, D)$ arbitrario que no cumple la
+% definición \ref{defEC}, dividir el análisis por casos de cómo no se cumple la
+% definición de componente final y mostrar que en cada caso la probabilidad de
+% que un camino que siga la estrategia del enunciado genere un sub-PMDP como el
+% propuesto es 0.
+
+% Si nos remitimos a la prueba que mostramos en \ref{teoFundEC}, vemos que el
+% método de prueba se ajusta bien a nuestro caso hasta llegar al primer ítem
+% donde el argumento está explícitamente respaldado en el hecho de que $\pi$ es
+% de memoria finita. De esta manera, se puede decir que el conjunto de las
+% distintas probabilidades de quedarse en $C$ en los momentos $i$ tiene un
+% máximo, $r$, lo que permite acotar la productoria $\Pi_{i \in I} \ r_i$ por
+% $\lim_{k \to \infty} r^k$, que sabemos que converge a 0, puesto que $r < 1$.
+
+% Si no nos restringimos a estrategias de memoria finita no podemos garantizar
+% esto. Sabemos que la productoria va a estar acotada inferiormente por 0 y
+% superiormente por 1, pero bien podría no converger a 0, sino a algún otro
+% número. Por ejemplo, veamos lo siguiente:
 
 Ahora bien, es importante aclarar que esto no constituye de ninguna manera un
 contraejemplo, además de que faltaría formalidad en su presentación, resulta
@@ -315,5 +389,5 @@ En cualquier caso, podría ser una muestra de que la aplicación de este fórmul
 de prueba no es útil \textit{directamente} para probar el teorema para
 estrategias de memoria infinita. Pero resaltamos el directamente porque la
 productoria constituye una cota a la probabilidad de que $\omega \in
-	\Omega_s^{(C,D)}$, no es directamente el valor de la probabilidad.
+	\Paths_s^{(C,D)}$, no es directamente el valor de la probabilidad.
 

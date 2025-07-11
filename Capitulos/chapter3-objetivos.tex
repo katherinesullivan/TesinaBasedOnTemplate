@@ -5,14 +5,15 @@ Resulta practico estudiar a los juegos en relacion a algun tipo de objetivo en
 particular (¿por que? agg algo aca - capaz citas van) Como mencionamos antes
 nosotros nos enfocamos en el estudio de juegos estoc polito con objetivos de
 rabin, pero la pregunta es por que? ... kinda that mejor redactado
+%puede borrarse sino directamente este parrafo
 
-En este capítulo presentaremos la formalización de los objetivos
-$\omega$-regulares, hablaremos un poco sobre cómo surgen, veremos una
-clasificación típica de los objetivos $\omega$-regulares viendo ejemplos de
-cada uno y desarrollaremos sobre la importancia de los objetivos de Rabin y
-nuestro interés en su estudio.
+En este capítulo presentaremos la formalización de los objetivos en juegos,
+hablaremos un poco sobre las preguntas que nos planteamos cuando estudiamos
+juegos, veremos una clasificación típica de los objetivos $\omega$-regulares
+(viendo ejemplos de cada uno) y desarrollaremos sobre la importancia de los
+objetivos de Rabin y nuestro interés en su estudio.
 
-\section{Objetivos en juegos}
+\section{Objetivos en juegos y preguntas de investigación}
 
 Un objetivo $\phi$ para un juego es un conjunto de caminos. Un objetivo para el
 jugador $\cuad$ especifica un conjunto de caminos que son ganadores para el
@@ -20,7 +21,47 @@ jugador $\cuad$, y un objetivo para el jugador $\diam$ especifica un conjunto
 de caminos ganadores para el jugador $\diam$. En el caso de juegos de suma cero
 (que son con los que trabajaremos), los objetivos de los dos jugadores son
 estrictamente competitivos, es decir, uno es el complemento del otro, por eso
-nos basta con asociarle un objetivo al juego.
+nos basta con asociarle un objetivo al juego, que será el asociado al jugador
+$\cuad$ y se puede deducir que el objetivo para el jugador $\diam$ será su
+complemento.
+
+% El hablar de objetivos nos permitirá también hablar de regiones ganadoras. Una
+% región ganadora para un objetivo $\phi$ será el conjunto de estados (o
+% vértices) desde donde se puede asegurar que el jugador $\cuad$ ganará, es
+% decir, estados desde donde existe una estrategia del jugador $\cuad$ tal que
+% frente a cada estrategia del jugador $\diam$ genera un camino dentro del
+% conjunto $\phi$.
+
+Definir la noción de objetivos nos permitirá hacernos la pregunta que uno
+primero asocia con juegos: ``¿quién gana''. Para que esta pregunta pueda ser
+respondida en un contexto académico la deberíamos formalizar, y cuando lo
+hacemos, en realidad son muchas las preguntas que se pueden pensar sobre
+``¿quién gana?''.
+
+Podemos, por ejemplo, preguntarnos ¿desde qué estados podemos asgurarnos que
+gana un jugador? Es decir, fijado un estado $s$ nos podemos preguntar si existe
+una estrategia para algún jugador tal que frente a cualquier estrategia del
+otro jugador puede asegurar que se produce un camino dentro del conjunto
+$\phi$. Esta pregunta en la literatura de juegos estocásticos es conocida como
+la pregunta cualitativa (y es esta pregunta sobre la cual enfocaremos nuestro
+estudio). Se la llama así porque en los juegos estocásticos también nos podemos
+hacer una pregunta cuantitativa: para un estado $s$, ¿cuál es la probabilidad
+de que desde $s$ gane algún jugador?. Esta pregunta puede ser respondida para
+todos los estados, aún cuando no existe una estrategia que asegure un
+comportamiento ganador frente a todas las estrtategias del otro jugador. La
+respuesta a esta pregunta es conocida como el valor del estado.
+
+El conjunto de estados desde donde el jugador $\cuad$ gana para algún objetivo
+$\phi$ será llamado la región ganadora del juego. El aporte más importante de
+este trabajo presentará cómo calcular la región ganadora de un juego
+estocástico politópico con un tipo particular de objetivo $\omega$-regular: un
+objetivo de Rabin.
+
+% \begin{definition}[regiones ganadoras]
+% 	El jugador $\cuad$ gana el juego de grafo de dos jugadores $G$ para una condición ganadora $\varphi$ desde un vértice $v_0$ si existe una estrategia $\picuad$ tal que para cada $\pidiam$, la jugada $\rho$ que sigue $\picuad$ y $\pidiam$ satisface $\varphi$, i.e., $\rho \in \varphi$.
+% 	La región ganadora $\W \subseteq V$ para el jugador $\cuad$ es el conjunto de vértices desde donde el jugador $\cuad$ gana el juego.
+% \end{definition} 
+% O ver definicion de respetar estrategias en desrandomización
 
 Una importante subclase de objetivos son los objetivos $\omega$-regulares. Los
 objetivos $\omega$-regulares nacen de la extensión de la teoría de lenguajes
@@ -151,4 +192,4 @@ de Rabin cuando equidad --- ver cosas de maxi --- ver de donde sque lo que
 equidad --- hay algo en strategy improvement for stochastic rabin and streett
 games --- capaz hay algo en banerjee o chaterjee
 
-CAMBIAR TODO LO DE ECUACIONES POR COSAS CON COMANDOS
+% PREGUNTAS DE INVESTIGACIÓN?
