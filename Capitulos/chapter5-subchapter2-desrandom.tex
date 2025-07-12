@@ -1,21 +1,22 @@
-\section{Juegos justos: la respuesta a la pregunta cualitativa}
+\section{Juegos justos y desrandomización de un PSG}
 \label{sec:prueba}
 
-A fin de responder la pregunta ``¿desde qué estados existe probabilidad uno de
-ganar?", presentaremos un tipo nuevo de juegos deterministas: los juegos
-justos. Probaremos que el conjunto de vértices casi seguramente ganadores en un
-juego estocástico politópico con un objetivo de Rabin es igual al conjunto de
-vértices ganadores de un juego justo construido a partir del PSG.
+A fin de responder la pregunta cualitativa en el estudio de los juegos
+estocásticos politópicos con objetivos de Rabin, presentaremos un tipo nuevo de
+juegos deterministas: los juegos justos. Probaremos que el conjunto de vértices
+ganadores con probabilidad 1 en un juego estocástico politópico con un objetivo
+de Rabin es igual al conjunto de vértices ganadores de un juego justo
+construido a partir del PSG.
 
 Para eso primero presentaremos el concepto de juego justo y la construcción del
 juego justo a partir del PSG. Luego, explicitaremos un poco más la relación
 entre el PSG y el juego justo construido, al cual llamaremos su
 desrandomización. Seguido de eso, expondremos la prueba formal de la igualdad
-entre los conjuntos. Y, por último, mostraremos un algoritmo para la sintésis
-de estrategias de memoria finita casi seguramente ganadoras para un PSG con un
-objetivo de Rabin.
+entre los conjuntos. Y, por último, mostraremos un algoritmo para el cálculo de
+los estados ganadores y la sintésis de estrategias ganadoras para un PSG con un
+objetivo de Rabin. % VER ESTO EN DEPENDENCIA DE LO QUE TERMINEMOS ESCRIBIENDO AL FINAL
 
-\subsection{Juegos de adversario justo}
+\subsection*{Juegos de adversario justo}
 
 Sea $G$ un juego de grafo de dos jugadores y sea $E^{l} \subseteq (V_\diam
 	\times V) \cap E$ un conjunto dado de aristas que deben ser tomadas
@@ -107,7 +108,7 @@ siempre que ambos sean visitados infinitamente a menudo.
 	\label{fig:juego-justo}
 \end{figure}
 
-\subsection{Desrandomización de PSGs}
+\subsection*{Desrandomización de PSGs}
 
 Dada la interpretación de un juego estocástico politópico $\Gk = (\St,
 	(\St_\cuad, \St_\diam), \Act, \theta)$, se define la \textit{desrandomización
@@ -135,7 +136,7 @@ Esta misma condición de equidad se puede expresar como
 	$ \varphi^V := \bigwedge_{s' \in V} (\siempevent v_{V'} \rightarrow \siempevent (v_{V'} \wedge \bigcirc s' ))$
 \end{center}
 
-\subsection{Relación entre un PSG y su desrandomización}
+\subsection*{Relación entre un PSG y su desrandomización}
 
 Nos será útil pensar en transformaciones entre los distintos juegos para la
 prueba que tenemos más adelante, así que veremos algunas definiciones. Antes,
@@ -157,29 +158,28 @@ politópico de la siguiente forma:
 	$
 \end{center}
 
-\textbf{Comportamientos y caminos}
+\textbf{Transformación de caminos}
 
-Dado un comportamiento $\omega = (s_0, \alpha_0, s_1, \alpha_1, \dots)$ en
-$\Gk$, podemos obtener un único camino en $\DGk$ al que llamaremos
-$\derand(\omega)$ y tendrá la siguiente forma: $$\derand(\omega) = (s_0,
-	v_{\supp(\alpha_0)}, s_1, v_{\supp(\alpha_1), \dots})$$ Por otro lado, si
-tenemos un camino $\rho = (s_0, v_{V_0}, s_1, v_{V_1}, \dots)$ en $\DGk$,
-existen varios comportamientos en $\Gk$ que se corresponderían con él.
-Llamaremos a este conjunto de comportamientos $\rand(\rho)$. Es decir,
-$$\rand(\rho) = \{(s_0, \alpha_0, s_1, \alpha_1, \dots) \in \Omega_{\Gk,s} \mid
-	\forall i \geq 0, \ \supp(\alpha_i) = V_i\}$$
+Dado un camino $\omega = (s_0, \alpha_0, s_1, \alpha_1, \dots)$ en $\Gk$,
+podemos obtener un único camino en $\DGk$ al que llamaremos $\derand(\omega)$ y
+tendrá la siguiente forma: $$\derand(\omega) = (s_0, v_{\supp(\alpha_0)}, s_1,
+	v_{\supp(\alpha_1), \dots})$$ Por otro lado, si tenemos un camino $\rho = (s_0,
+	v_{V_0}, s_1, v_{V_1}, \dots)$ en $\DGk$, existen varios caminos en $\Gk$ que
+se corresponderían con él. Llamaremos a este conjunto de caminos $\rand(\rho)$.
+Es decir, $$\rand(\rho) = \{(s_0, \alpha_0, s_1, \alpha_1, \dots) \in
+	\Omega_{\Gk,s} \mid \forall i \geq 0, \ \supp(\alpha_i) = V_i\}$$
 
-Estas definiciones también se extienden a prefijos finitos de comportamientos y
-caminos de manera natural.
+Estas definiciones también se extienden a prefijos finitos de caminos de manera
+natural.
 
 \textbf{Randomización de estrategias}
 
 Supongamos que tenemos una estrategia $\sigma_i$ en $\DGk$ y queremos construir
 una estrategia $\pi_i$ en $\Gk$ que tenga un comportamiento similar. $\sigma_i$
 está definida para todos los prefijos finitos de caminos $\rho$ en $\DGk$ y
-nuestra idea es definir $\pi_i$ para todos los prefijos finitos de
-comportamiento $\omega$ en $\Gk$. La idea, entonces, será definir $\pi_i$ de
-igual manera para todos los elementos del conjunto $\rand(\rho)$.
+nuestra idea es definir $\pi_i$ para todos los prefijos finitos de camino
+$\omega$ en $\Gk$. La idea, entonces, será definir $\pi_i$ de igual manera para
+todos los elementos del conjunto $\rand(\rho)$.
 
 Solo nos va a interesar ver cómo $\sigma_i$ se comporta en los prefijos finitos
 de caminos $\rho$ que terminen en un estado $s \in \St$ \footnote{Desde los
@@ -209,8 +209,6 @@ $\rand(\sigma_i)$.
 
 \textbf{Desrandomización de estrategias}
 
-\hl{Todavía no me convence la redacción de esto}
-
 Supongamos ahora que tenemos una estrategia $\pi_i$ en $\Gk$ y queremos
 construir una estrategia $\sigma_i$ en $\DGk$ que tenga un comportamiento
 similar.
@@ -220,10 +218,10 @@ que elija $\sigma_i(\rho)$. La idea será que elegiremos un vértice $v_V$ que s
 corresponde al soporte de una acción a la que $\pi_i(\omega)$ (siendo $\omega$
 tal que $\derand(\omega) = \rho$) le asigne una probabilidad positiva.
 
-Como existen varios prefijos de comportamiento que podrían cumplir con la
-condición de $\omega$, la definición de $\derand(\pi_i)$ dependerá de la
-elección de un prefijo de comportamiento $\omega$ para cada prefijo de camino
-$\rho$ tal que $\derand(\omega) = \rho$.
+Como existen varios prefijos de camino que podrían cumplir con la condición de
+$\omega$, la definición de $\derand(\pi_i)$ dependerá de la elección de un
+prefijo de camino $\omega$ para cada prefijo de camino $\rho$ tal que
+$\derand(\omega) = \rho$.
 
 Además, como cada acción le puede dar probabilidad positiva a varias acciones
 con distintos soportes, la definición de $\derand(\pi_i)$ también dependerá de
@@ -231,7 +229,7 @@ la elección de una acción a la que $\pi_i(\omega)$ le asigne una probabilidad
 positiva (por cada $\omega$ seleccionado en el paso anterior).
 
 \begin{boxgris}[¿Cómo se podrían tomar esas elecciones?]{}
-	Suponiendo que tenemos una estrategia $\pi_i$ en $\Gk$, es probable que a su vez tengamos comportamientos $\omega'_1, \omega'_2, \dots$ en $\Gk$ específicos en que estemos interesados que $\sigma_i$ replique. En ese caso, una manera de tomar las decisiones antes planteadas es usando los prefijos finitos de los distintos $\omega'_k$ para las decisiones de $\sigma_i$. Esto sería: si tenemos un prefijo de comportamiento $\hat \omega = (s_1, \alpha_1, \dots, s_m, \alpha_m)$ (que respeta $\pi_i$), entonces haremos que para $\hat \rho = (s_1, v_{\supp(\alpha_1)}, \dots, s_m)$, $\sigma_i(\hat \rho) = v_{\supp(\alpha_m)}$.
+	Suponiendo que tenemos una estrategia $\pi_i$ en $\Gk$, es probable que a su vez tengamos caminos $\omega'_1, \omega'_2, \dots$ en $\Gk$ específicos en que estemos interesados que $\sigma_i$ replique. En ese caso, una manera de tomar las decisiones antes planteadas es usando los prefijos finitos de los distintos $\omega'_k$ para las decisiones de $\sigma_i$. Esto sería: si tenemos un prefijo de camino $\hat \omega = (s_1, \alpha_1, \dots, s_m, \alpha_m)$ (que respeta $\pi_i$), entonces haremos que para $\hat \rho = (s_1, v_{\supp(\alpha_1)}, \dots, s_m)$, $\sigma_i(\hat \rho) = v_{\supp(\alpha_m)}$.
 \end{boxgris}
 
 Con estas decisiones tomadas, podemos definir como se comportará $\sigma_i$
@@ -254,7 +252,7 @@ equidad.
 		      en base a la cantidad de veces que se visitó $v_{V_k}$. Si $n$ fueron las veces
 		      que se visitó $v_{V_k}$ en el prefijo finito de camino $\rho '$, entonces
 		      podemos definir $\sigma_\diam(\rho ' v_{V_k}) = s_n^{V_k}$.
-		\item si tenemos un comportamiento $\hat \omega$ válido que respeta la estrategia
+		\item si tenemos un camino $\hat \omega$ válido que respeta la estrategia
 		      $\pi_\diam$, y a partir de los prefijos de este $\hat \omega$ es que estamos
 		      definiendo las elecciones de prefijos y acciones de $\sigma_\diam$, podemos
 		      también usar este $\hat \omega$ para las decisiones desde los estados
@@ -268,17 +266,16 @@ queríamos, a la cual llamaremos $\derand(\pi_i)$.
 
 \textbf{Respetar una estrategia}
 
-Al hablar de caminos o comportamientos específicos es natural pensar que estos
-fueron producto de una partida en la que los jugadores siguieron determinadas
-estrategias. Para la prueba que plantearemos a continuación querremos
-formalizar esta relación entre caminos/comportamientos y las estrategias que se
-siguieron en ellos y lo haremos a través de la idea de que un
-comportamiento/camino ``respeta" determinadas estrategias.
+Al hablar de caminos específicos es natural pensar que estos fueron producto de
+una partida en la que los jugadores siguieron determinadas estrategias. Para la
+prueba que plantearemos a continuación querremos formalizar esta relación entre
+caminos y las estrategias que se siguieron en ellos y lo haremos a través de la
+idea de que un camino ``respeta" determinadas estrategias.
 
-Sea $\omega = (s_0, \alpha_0, s_1, \alpha_1, \dots)$ un comportamiento en un
-juego estocástico poliópico y sean $\picuad$ y $\pidiam$ dos estrategias en el
-mismo juego. Decimos que $\omega$ respeta las estrategias $\picuad$ y $\pidiam$
-si $\forall i \geq 0$ vale
+Sea $\omega = (s_0, \alpha_0, s_1, \alpha_1, \dots)$ un camino en un juego
+estocástico poliópico y sean $\picuad$ y $\pidiam$ dos estrategias en el mismo
+juego. Decimos que $\omega$ respeta las estrategias $\picuad$ y $\pidiam$ si
+$\forall i \geq 0$ vale
 \begin{align*}
 	&\bigl( s_i \in \St_\cuad \wedge \picuad(s_0, \alpha_0, \dots, s_i)(\alpha_i) > 0 \wedge s_{i+1} \in \supp(\alpha_i) \bigr) \bigvee \\
 	&\left(s_i \in \St_\diam \wedge \pidiam(s_0, \alpha_0, \dots, s_i)(\alpha_i) > 0 \wedge
@@ -303,22 +300,22 @@ las estrategias $\sigma_\cuad$ y $\sigma_\diam$ si $\forall i \geq 0$ vale
 \end{align*}
 %$ \sigma_\diam(\hat \rho_{v_{V_i}})=s_{i+1} \bigwedge \left( \left( s_i \in \St_\cuad \wedge \sigma_\cuad(\hat \rho_{s_i})=v_{V_i} \right) \bigvee \left( s_i \in \St_\diam \wedge \sigma_\diam(\hat \rho_{s_i})=v_{V_i} \right) \right)$
 
-\subsection{Prueba de igualdad sobre los conjuntos ganadores}
+\section{Prueba de igualdad sobre los conjuntos ganadores}
 
 \begin{theorem}
 	\label{teocuali}
-	Sea $\Gk = (\St, (\St_\cuad, \St_\diam), \Act, \theta)$ la interpretación de un juego estocástico politópico, $\widetilde{\mathcal{R}} = \{ \langle G_1, R_1 \rangle, ..., \langle G_k, R_k \rangle \}$ una condición de Rabin sobre $\St$, con su especificación LTL $\varphi$,
+	Sea $\Gk = (\St, (\St_\cuad, \St_\diam), \Act, \theta)$ la interpretación de un juego estocástico politópico, $R = \{(E_1, F_1), \dots, (E_d, F_d)\}$ una condición de Rabin sobre $\St$, con su especificación LTL $\varphi$,
 
 	$$
-		\varphi := \bigvee_{j \in [1, k]} \left( \eventsiemp \overline{R_j} \wedge \eventsiemp G_j \right)
+		\varphi := \bigvee_{j \in [1, k]} \left( \eventsiemp \overline{E_j} \wedge \eventsiemp F_j \right)
 	$$
 
 	y sea $\DGk$ su desrandomización.
 
 	Sea $\W \subseteq \St$ el conjunto de todos los estados desde los cuales el
 	jugador $\cuad$ gana en $\DGk$ y sea $\W^{as}$ el conjunto de vértices desde
-	los cuales el jugador $\cuad$ gana casi seguramente con estrategias de memoria
-	finita en $\Gk$. Entonces, $\W = \W^{as}$.
+	los cuales el jugador $\cuad$ gana con probabilidad 1 en $\Gk$. Entonces, $\W =
+		\W^{as}$.
 
 	Es más, a partir de una estrategia ganadora en $\DGk$ se puede construir
 	fácilmente una estrategia ganadora en $\Gk$, y viceversa.
@@ -350,8 +347,8 @@ las estrategias $\sigma_\cuad$ y $\sigma_\diam$ si $\forall i \geq 0$ vale
 
 	Esto significa que existe una estrategia $\pidiam^*$ que hace que $\Prob_{\Gk,
 			s}^{\picuadGk, \pidiam} (\varphi) < 1$. A su vez, esto significa que existe un
-	comportamiento $\omega^*$ que empieza desde $s$, respeta las estrategias
-	$\picuadGk$ y $\pidiam^*$, pero no cumple $\varphi$.
+	camino $\omega^*$ que empieza desde $s$, respeta las estrategias $\picuadGk$ y
+	$\pidiam^*$, pero no cumple $\varphi$.
 
 	Pensemos, entonces, en $\sigma_\diam^*$ una desrandomización válida de
 	$\pidiam^*$ que sigue las elecciones de acciones que toman los prefijos de
@@ -383,71 +380,95 @@ las estrategias $\sigma_\cuad$ y $\sigma_\diam$ si $\forall i \geq 0$ vale
 	Entonces ahora queremos ver que $\sigma_\cuad^*$ es ganadora en $\DGk$ desde
 	$s$.
 
-	Una manera de ver esto es probar que para un comportamiento cualquiera $\rho$
-	generado por $\sigma_\cuad^*$ y una estrategia válida $\pidiam \in \Pidiam$
-	arbitraria, $\inft(\rho)$ cumple con la especificación $\varphi$. Es decir, que
-	vale la siguiente fórmula:
-
-	%(Ver que quede la definición de Inf antes).
+	Una manera de ver esto es probar que para un camino cualquiera $\rho$ generado
+	por $\sigma_\cuad^*$ y una estrategia válida $\sigma_\diam$ arbitraria en
+	$\DGk$, $\Inf(\rho)_C = \Inf(\rho) \cap \St$ cumple con la especificación
+	$\varphi$. Es decir, que vale la siguiente fórmula:
 
 	\begin{equation}
 		\label{varphi}
-		\varphi' := \bigvee_{j = 1}^{k} \left((\inft(\rho) \cap R_j = \emptyset) \wedge (\inft(\rho) \cap G_j \neq \emptyset)  \right)
+		\varphi' := \bigvee_{j = 1}^{k} \left((\Inf(\rho)_C \cap R_j = \emptyset) \wedge (\Inf(\rho)_C \cap G_j \neq \emptyset)  \right)
 	\end{equation}
 
-	Si podemos probar que $\inft(\rho)$ es un sub-PMDP alcanzable en el PMDP que se
-	forma al fijar la estrategia de memoria finita $\picuad^*$ en $\Gk$, por el
-	teorema \ref{adaptB30} podemos ver que vale la ecuación \ref{varphi}.
+	Como $\picuad^*$ es una estrategia ganadora frente a cualquier estrategia
+	$\pidiam$, siempre se cumple la condición de Rabin con probabilidad 1 en el
+	PMDP $\M'$ que se forma al fijar la estrategia $\picuad^*$ en $\Gk$. Por
+	teorema~\ref{adaptB30}, entonces vale que para cada componente final $(C,D)$
+	alcanzable desde $s$ en el PMDP $\M^*$ vale que existe algún $j \in [1,d]$ tal
+	que $C \cap E_j = \emptyset$ y $C \cap F_j \neq \emptyset$.
 
-	Primero, podemos ver que $\inft(\rho)$ \hl{(entendiendo los vértices de la
-		forma $v_V$ como el conjunto resultado $V$)} es una componente final en el
-	polytopal markov decision process que se forma al fijar la estrategia
-	$\picuad^*$ en $\Gk$, llamémoslo $(C,D)$, viendo que cumple las dos
-	propiedades:
+	Si denotamos como $\Inf(\rho)_D$ a la función que le asocia a cada $s_i$ en
+	$\Inf(\rho)_C$ el conjunto formado solo por el $V_i$ correspondiente al vértice
+	$v_{V_i}$ en $\rho$, esto que presentamos anteriormente quiere decir que si
+	podemos probar que $(\Inf(\rho)_C, \Inf(\rho)_D)$ es una componente final
+	alcanzable desde $s$ en el PMDP $\M^*$, entonces vale la ecuación~\ref{varphi}.
+
+	% probar que es subPMDP no hace falta pq es solo una cuestion de tipado
+
+	Veamos entonces primero que $(\Inf(\rho)_C, \Inf(\rho)_D)$ cumple las dos
+	condiciones para ser componente final en $\M^*$:
+
+	% Si podemos probar que $\Inf(\rho)'$ es un sub-PMDP alcanzable en el PMDP que se
+	% forma al fijar la estrategia de memoria finita $\picuad^*$ en $\Gk$, por el
+	% teorema \ref{adaptB30} podemos ver que vale la ecuación \ref{varphi}.
+
+	% Primero, podemos ver que $\inft(\rho)$ \hl{(entendiendo los vértices de la
+	% 	forma $v_V$ como el conjunto resultado $V$)} es una componente final en el
+	% polytopal markov decision process que se forma al fijar la estrategia
+	% $\picuad^*$ en $\Gk$, llamémoslo $(C,D)$, viendo que cumple las dos
+	% propiedades:
 
 	\begin{itemize}
 		\item Para cada $V^i$ que aparece como subíndice de vértices \textit{especiales} en
-		      $\inft(\rho)$, vale que $V^i \subseteq C$. En el caso de que existiese algún
+		      $\Inf(\rho)$, vale que $V^i \subseteq C$. En el caso de que existiese algún
 		      $s_x \in V^i$ tal que $s_x \notin C$, se estaría contradiciendo que $\pidiam$
 		      sea una estrategia válida en $\DGk$, puesto que visitaría infinitas veces
 		      $v_{V^i}$ y solo finitas veces $s_x$, uno de sus sucesores.
-		\item El grafo dirigido inducido por $\inft(\rho)$ es fuertemente conexo. Si fuese de
-		      otra manera habría dos vértices $u, v \in \inft(\rho)$ tales que $v$ no sería
+		\item El grafo dirigido inducido por $\Inf(\rho)$ es fuertemente conexo. Si fuese de
+		      otra manera habría dos vértices $u, v \in \Inf(\rho)$ tales que $v$ no sería
 		      alcanzable desde $u$, contradiciendo así que $u$ y $v$ son visitados infinitas
 		      veces por $\sigma$.
 	\end{itemize}
 
-	Luego, podemos ver que $\inft(\rho)$ es alcanzable en $\Gk$ viendo que existe
+	Luego, podemos ver que $\Inf(\rho)_C$ es alcanzable en $\Gk$ viendo que existe
 	una estrategia $\pidiam^*$ en $\Gk$ que lo posibilita.
 
 	Definamos $\pidiam^* = \rand(\sigma_\diam)$.
 
-	Esta estrategia permite llegar con probabilidad positiva a $\inft(\rho)$,
-	puesto que tanto $\pidiam^*$ como $\picuad^*$ le da probabilidad positiva a los
-	mismos vértices que $\pidiam$ asegura visitar infinitamente. \hl{Capaz esto se
-		podría explicar mejor}.
+	Esta estrategia permite llegar con probabilidad positiva a $\Inf(\rho)_C$,
+	puesto que tanto $\pidiam^*$ como $\picuad^*$ les dan probabilidad positiva a
+	los mismos vértices en $\St$ que $\sigma_\diam$ asegura visitar infinitamente.
 
-	Con lo cual hemos probado que vale \ref{varphi} y, por lo tanto, que
+	Con lo cual hemos probado que vale l ecuación~\ref{varphi} y, por lo tanto, que
 	$\sigma_\cuad*$ es ganadora en $\DGk$ desde $s$, con lo que hemos probado que
 	$s \in \W$.
 
 \end{proof}
 
+\subsection*{Complejidad del cálculo de estados ganadores en un PSG con objetivo de Rabin}
+
 Haber podido probar esta igualdad nos permite calcular el conjunto de estados
 casi seguramente ganadores para $\cuad$ en $\Gk$ mediante el algoritmo que se
 propone en \cite{Banerjee} para calcular el conjunto de vértices ganadores en
-un juego de adversario justo $G$ con un objetivo de Rabin $R$. Este algoritmo
-tiene una complejidad de $O(n^2 k!)$ donde $n$ es la cantidad de vértices en
-$G$ y $k$ la cantidad de pares en $R$.
+un juego de adversario justo $G$ con un objetivo de Rabin $R$.
+
+Este algoritmo tiene una complejidad de $O(n^2 d!)$ donde $n$ es la cantidad de
+vértices en $G$ y $d$ la cantidad de pares en $R$.
 
 Esto quiere decir que podemos calcular el conjunto de estados casi seguramente
 ganadores para $\cuad$ en un PSG $\K$ con un objetivo de Rabin $R$ con una
-complejidad de $O((n l)^2 k! )$ donde $n$ es la cantidad de estados en $\K$,
-$k$ es la cantidad de pares en $R$ y $l = \max \{\abs{V_s} \mid s \in \St \}$
+complejidad de $O((n l)^2 d! )$ donde $n$ es la cantidad de estados en $\K$,
+$d$ es la cantidad de pares en $R$ y $l = \max \{\abs{V_s} \mid s \in \St \}$
 es la cantidad máxima de conjuntos soporte para las acciones que puede haber
 desde un estado $s$ en $\K$.
 
-\hl{¿Agregar algo sobre cómo es el algoritmo? ¿Sobre el teorema en sí? ¿Dejar el segundo párrafo como teorema? ¿Qué vamos a hablar de complejidad en PSG Rabin?}
+\subsection*{Sintésis de estrategias ganadoras en un PSG con objetivo de Rabin}
+
+El cálculo de desde qué estados gana el jugador $\cuad$ responde parcialmente a
+la pregunta de ``¿quién gana?'', pero resulta no de menor importancia el
+plantearse ``¿cómo se gana?''. Esta pregunta abarca tanto con qué clase de
+estrategias se puede ganar como también podría enfocarse en describir paso a
+paso cómo se deberían ver esas estrategias.
 
 El desarrollo de esta prueba en cierto punto nos permitió abordar la pregunta
 que planteamos como de nuestro interés en el capítulo~\ref{cap:objetivos} sobre
@@ -458,3 +479,5 @@ that pq no hay aca una verdadera sintesis de estrategias sino que hay algoritmo
 para el calculo de esos estados en el juego desrandomizado. se puede hablar un
 poco de sintesis de estrategia al ver que se crean estrategias md a partir de
 estrategias md
+
+El algortimo de banerjee dice que se puede extraer una estrategia MD desde el

@@ -61,7 +61,7 @@ conjunto resultado sea $V'$. La definición formal es como sigue:
 	\begin{itemize}
 		\item $V' \subseteq C$ para todo $V'$ tal que existe un $s \in C$ donde $V' \in D(s)$
 
-		\item el grafo $(C \cup \{v_V' \mid \exists s \in C : V' \in D(s)\}, \rho_{(C,D)})$
+		\item el grafo $(C \cup \{v_{V'} \mid \exists s \in C : V' \in D(s)\}, \rho_{(C,D)})$
 		      es fuertemente conexo.
 	\end{itemize}
 
@@ -130,13 +130,40 @@ Ahora sí, podemos pasar a presentar las primeras demostraciones:
 	infinitamente a menudo con probabilidad 1.
 \end{proof}
 
+Este teorema nos permite presentar un corolario que nos será útil al momento de
+probar el teorema principal de esta tesina.
+
+\begin{corollary}
+	\label{adaptB30}
+	Sea $\M$ un PMDP y sea $s$ un estado ganador en él para una condición de Rabin $R = \{(E_1, F_1), \dots, (E_d, F_d)\}$.%, cuya especificación LTL es $\varphi$ (es decir, para toda estrategia $\pi$, $\ProbPMDP(\varphi) = 1$). 
+	Entonces, para toda componente final $(C,D)$ alcanzable desde $s$, vale que existe algún $j \in [1, d]$ tal que $C \cap E_j= \emptyset$ y $C \cap F_j \neq \emptyset$.
+\end{corollary}
+
+\begin{proof}
+	Supongamos que existe una componente final $(C', D')$ alcanzable desde $s$ tal que esta no cumple que existe algún $j \in [1, d]$ tal que $C' \cap E_j= \emptyset$ y $C' \cap F_j \neq \emptyset$.
+
+	Por teorema~\ref{estabEC}, sabemos que existe una estrategia válida $\pi'$ tal
+	que permite llegar a $C'$ desde $s$ y quedarse allí para siempre. Podemos
+	plantear un camino que sigue esa estrategia $\pi'$, llamemóslo $\omega'$. Ahora
+	bien, entonces también por como presentamos que será esa estrategia $\pi'$ en
+	el teorema~\ref{estabEC}, sabemos que $\Inf(\omega') = C$. Pero, a su vez
+	sabemos que ese camino debe cumplir con la condición de Rabin, es decir,
+	sabemos que existe algún $j \in [1, d]$ tal que $\Inf(\omega') \cap E_j =
+		\emptyset$ y $\Inf(\omega') \cap F_j \neq \emptyset$, lo que quiere decir que
+	existe algún $j \in [1, d]$ tal que $C' \cap E_j= \emptyset$ y $C' \cap F_j
+		\neq \emptyset$ y tendríamos una contradicción.
+
+	Esta contradicción viene de suponer que existe tal comopnente final. Con lo que
+	probamos lo que queríamos.
+\end{proof}
+
 El próximo resultado establece que, para cualquier estado inicial y cualquier
 estrategia (de memoria finita), un camino terminará con probabilidad 1 en una
 componente final. Esta es la razón detrás del nombre ``componente final".
 
 \begin{theorem}[teorema fundamental de las componentes finales] \label{teoFundEC}
 	Sea $\M$ un PMDP. Para todo $s \in S$, toda estrategia $\pi$ de memoria finita,
-	$$\Prob^\pi_{\M, s}(\{ \omega \in \paths(s) \mid \sub(\inft(\omega)) \text{ es una componente final}\}) = 1$$
+	$$\Prob^\pi_{\M, s}(\{ \omega \in \Paths(s) \mid \sub(\inft(\omega)) \text{ es una componente final}\}) = 1$$
 \end{theorem}
 
 \begin{proof}
@@ -145,10 +172,10 @@ componente final. Esta es la razón detrás del nombre ``componente final".
 
 	Si podemos mostrar que
 	\begin{equation}\label{omegaEnOmega0}
-		\Prob^\pi_{\M, s}(\{ \omega \in \paths(s) \mid \omega \in \Paths_s^{(C,D)}\}) = 0
+		\Prob^\pi_{\M, s}(\{ \omega \in \Paths(s) \mid \omega \in \Paths_s^{(C,D)}\}) = 0
 	\end{equation}
 	como $(C,D)$ es un sub-PMDP cualquiera y como hay una cantidad finita de sub-PMDPs en $\M$, esto es lo mismo que mostrar que
-	$$\Prob^\pi_{\M, s}(\{ \omega \in \paths(s) \mid \sub(\inft(\omega)) \text{ es una componente final}\}) = 1$$.
+	$$\Prob^\pi_{\M, s}(\{ \omega \in \Paths(s) \mid \sub(\inft(\omega)) \text{ es una componente final}\}) = 1$$.
 	Veamos que vale \ref{omegaEnOmega0}, dividiendo en casos según cuál es la
 	condición de la definición \ref{defEC} que no se cumple para $(C,D)$:
 
@@ -175,7 +202,7 @@ componente final. Esta es la razón detrás del nombre ``componente final".
 		      Para que valga que $\omega$ esté en $\Paths_s^{(C,D)}$ tiene que valer que en
 		      infinitos momentos $i$ nos quedemos en $C$. Entonces que vale que $\Prob_s^\pi
 			      (\omega \in \Paths_s^{(C,D)}) < r^k$ para todo $k > 0$ natural. Como sabemos
-		      que $r < 1$, tenemos que $\Prob^\pi_{\M, s}(\{ \omega \in \paths(s) \mid \omega
+		      que $r < 1$, tenemos que $\Prob^\pi_{\M, s}(\{ \omega \in \Paths(s) \mid \omega
 			      \in \Paths_s^{(C,D)}\}) = 0$.
 
 		      %Es decir para un subconjunto infinito $J \subseteq I$, vale que: $$\Prob_{s}^{\pi}(\omega \in \Omega_s^{(C,D)}) \leq \prod_{i \in J} r_i$$
@@ -213,17 +240,16 @@ componente final. Esta es la razón detrás del nombre ``componente final".
 			            infinita de $V_j$ iguales, con lo que $V_j \in D(j)$, lo que contradice la
 			            hipótesis anterior. Absurdo
 		      \end{enumerate}
-		      Con lo que arribamos a que $\Prob^\pi_{\M, s}(\{ \omega \in \paths(s) \mid \omega \in \Paths_s^{(C,D)}\}) = 0  $
+		      Con lo que arribamos a que $\Prob^\pi_{\M, s}(\{ \omega \in \Paths(s) \mid \omega \in \Paths_s^{(C,D)}\}) = 0  $
 	\end{itemize}
 
 \end{proof}
 
-Esto nos permite definir el siguiente corolario útil para el análisis de
-condiciones de Rabin:
+Esto nos permite definir el siguiente corolario útil y clásico de los MDPs para
+el análisis de condiciones de Rabin.
 
 \begin{corollary}
-	\label{adaptB30}
-	Sea $\M$ un PMDP, $s$ un estado en él y sea $\pi$ una estrategia (lo hacemos con estrategias o planificadores?) en él. Una condición de Rabin $\widetilde{R} = \{ \langle G_1, R_1 \rangle, ...,  \langle G_k, R_k \rangle \}$ se satisface desde $s$, siguiendo la estrategia $\pi$ con probabilidad 1 si y solo si para cada componente final $U$ alcanzable desde $s$, existe un $j \in \{ 1, 2, ..., k\}$ tal que $U \cap R_j = \emptyset$ y $U \cap G_j \neq \emptyset$.
+	Sea $\M$ un PMDP, $s$ un estado en él y sea $\pi$ una estrategia de memoria finita en él. Una condición de Rabin $R = \{ (E_1, F_1), \dots, (E_d, F_d)\}$ se satisface desde $s$, siguiendo la estrategia $\pi$ con probabilidad 1 si y solo si para cada componente final $U$ alcanzable desde $s$, existe un $j \in \{ 1, \dots, d\}$ tal que $U \cap E_j = \emptyset$ y $U \cap F_j \neq \emptyset$.
 \end{corollary}
 
 Ahora bien, una pregunta muy natural que surge es "¿por qué nos restringimos a
@@ -244,16 +270,24 @@ cumple la definición~\ref{defEC} de componente final, dividir el análisis por
 casos de cómo no se cumple la definición y mostrar que, en cada caso, la
 probabilidad de que un camino genere un sub-PMDP como el propuesto es 0.
 
-Remitiéndonos a nuestra prueba, vemos que en el primer ítem el argumento está explicítamente respaldado en el hecho de que $\pi$ es de memoria finita. De esta manera, se puede decir que el conjunto de las distintas probabilidades de quedarse en $C$ en los momentos $i$ es finito, por lo que tiene un máximo $r$, lo que permite acotar la productoria $\Pi_{i \in I} \ r_i$ por $\lim_{k \to \infty} r^k$, que sabemos que converge a 0 puesto que $r < 1$.
+Remitiéndonos a nuestra prueba, vemos que en el primer ítem el argumento está
+explicítamente respaldado en el hecho de que $\pi$ es de memoria finita. De
+esta manera, se puede decir que el conjunto de las distintas probabilidades de
+quedarse en $C$ en los momentos $i$ es finito, por lo que tiene un máximo $r$,
+lo que permite acotar la productoria $\Pi_{i \in I} \ r_i$ por $\lim_{k \to
+		\infty} r^k$, que sabemos que converge a 0 puesto que $r < 1$.
 
 Si no nos restringimos a estrategias de memoria finita no podemos garantizar
 esto. Sabemos que la productoria va a estar acotada inferiormente por 0 y
-superiormente por 1, pero si tengo una cantidad infinita de $r_i$'s distintos, aún cuando cada uno de ellos es menor a $1$, la productoria bien podría no converger a $0$, como se puede ver en el siguiente caso.
+superiormente por 1, pero si tengo una cantidad infinita de $r_i$'s distintos,
+aún cuando cada uno de ellos es menor a $1$, la productoria bien podría no
+converger a $0$, como se puede ver en el siguiente caso.
 
-Consideremos un PMDP en donde tenemos dos estados $t$ y $s$. Desde $t$, existen acciones $\mu$ de la forma $\mu(s) =
-	\frac{1}{k^2}$, $\mu(t) = 1 - \frac{1}{k^2}$, por lo que se puede definir una
-estrategia de memoria infinita $\pi$ a partir de la cantidad de $t$ que se
-encuentran en el camino de la siguiente manera:
+Consideremos un PMDP en donde tenemos dos estados $t$ y $s$. Desde $t$, existen
+acciones $\mu$ de la forma $\mu(s) = \frac{1}{k^2}$, $\mu(t) = 1 -
+	\frac{1}{k^2}$, por lo que se puede definir una estrategia de memoria infinita
+$\pi$ a partir de la cantidad de $t$ que se encuentran en el camino de la
+siguiente manera:
 
 \begin{align*}
 	&\pi(\omega t)(s) = \frac{1}{(\#_t(\omega))^2} \\
@@ -270,8 +304,9 @@ donde $\#_t$ se define inductivamente sobre caminos de la siguiente manera:
 
 siendo $\omega$ un camino, $\emptyset$ el camino vacío y $s \neq t$.
 
-Si suponemos que $s$ no forma parte de $C$, tenemos que la probabilidad de quedarnos en $C$ sería
-$\Pi_{i \geq 0} 1-(\frac{1}{i^2})$, que sabemos que converge a $\frac{1}{2}$.
+Si suponemos que $s$ no forma parte de $C$, tenemos que la probabilidad de
+quedarnos en $C$ sería $\Pi_{i \geq 0} 1-(\frac{1}{i^2})$, que sabemos que
+converge a $\frac{1}{2}$.
 
 \begin{figure}[h]
 	\centering
@@ -295,6 +330,12 @@ $\Pi_{i \geq 0} 1-(\frac{1}{i^2})$, que sabemos que converge a $\frac{1}{2}$.
 	\caption{Interpretación del PDMDP con la estrategia $\pi$ fijada.}
 	\label{fig:pmdpcontraej}
 \end{figure}
+
+Ahora bien, es cierto que esta premisa se basa en el hecho de que $s$ no esté
+en $C$, que no es algo que podamos afirmar a priori, y que esto que mostramos
+solo implica que este método de prueba no es útil para probar el
+teorema~\ref{teoFundEC} para cualquier tipo de estrategias; no significa que no
+sea válido.
 
 % ES PMDP CHE
 % Consideremos un juego estocástico politópico donde tenemos un vértice $t$ y un
@@ -346,8 +387,6 @@ $\Pi_{i \geq 0} 1-(\frac{1}{i^2})$, que sabemos que converge a $\frac{1}{2}$.
 
 % \hl{No me gustan mucho estos siguientes párrafos, pero no sé muy bien cómo decir lo que quiero, y siento que vos habías dicho algo más interesante sobre esto.}
 
-
-
 % sólo se garantiza para estrategias de memoria finita, debido a la dependencia
 % de la prueba en la existencia de una cota superior para la probabilidad de
 % permanecer en $C$ (el valor $r$), que sólo puede asegurarse cuando el número de
@@ -380,14 +419,14 @@ $\Pi_{i \geq 0} 1-(\frac{1}{i^2})$, que sabemos que converge a $\frac{1}{2}$.
 % superiormente por 1, pero bien podría no converger a 0, sino a algún otro
 % número. Por ejemplo, veamos lo siguiente:
 
-Ahora bien, es importante aclarar que esto no constituye de ninguna manera un
-contraejemplo, además de que faltaría formalidad en su presentación, resulta
-que plantear $s \notin C$ siendo que tengo probabilidad positiva de visitarlo
-cada vez no tiene mucho sentido. (Esto no sé que tanto es así).
+% Ahora bien, es importante aclarar que esto no constituye de ninguna manera un
+% contraejemplo, además de que faltaría formalidad en su presentación, resulta
+% que plantear $s \notin C$ siendo que tengo probabilidad positiva de visitarlo
+% cada vez no tiene mucho sentido. (Esto no sé que tanto es así).
 
-En cualquier caso, podría ser una muestra de que la aplicación de este fórmula
-de prueba no es útil \textit{directamente} para probar el teorema para
-estrategias de memoria infinita. Pero resaltamos el directamente porque la
-productoria constituye una cota a la probabilidad de que $\omega \in
-	\Paths_s^{(C,D)}$, no es directamente el valor de la probabilidad.
+% En cualquier caso, podría ser una muestra de que la aplicación de este fórmula
+% de prueba no es útil \textit{directamente} para probar el teorema para
+% estrategias de memoria infinita. Pero resaltamos el directamente porque la
+% productoria constituye una cota a la probabilidad de que $\omega \in
+% 	\Paths_s^{(C,D)}$, no es directamente el valor de la probabilidad.
 
