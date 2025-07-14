@@ -1,58 +1,74 @@
 \chapter{Verificación de modelos con juegos}
 ~\label{cap:modelos}
 
-En este capítulo presentaremos la verificación de modelos con juegos. Para ello
-comenzaremos con algunas definiciones que hacen al campo de la verificación de
-modelos, luego presentaremos ciertos modelos matemáticos que sirven para la
-representación de distintos tipos de sistemas (las cadenas de Markov, los
-procesos de decisión de Markov, los juegos estocásticos y los juegos -de grafo-
-deterministas), y, por último, plantearemos cuáles son las preguntas de
-investigación que podrían ser de interés en estos casos y presentamos con mayor
-precisión cuáles son las preguntas de investigación que competen a este
-trabajo.
+En este capítulo presentaremos brevemente la verificación de modelos con
+juegos. Para ello comenzaremos dando un contexto sobre el campo de estudio de
+la verificación de modelos y luego presentaremos unos modelos matemáticos que
+sirven para la representación de distintos tipos de sistemas (las cadenas de
+Markov, los procesos de decisión de Markov, los juegos estocásticos y los
+juegos -de grafo- deterministas).
+
+% En este capítulo presentaremos brevemente la verificación de modelos con juegos. Para ello
+% comenzaremos dando un contexto sobre el campo de estudio de la verificación de
+% modelos, luego presentaremos ciertos modelos matemáticos que sirven para la
+% representación de distintos tipos de sistemas (las cadenas de Markov, los
+% procesos de decisión de Markov, los juegos estocásticos y los juegos -de grafo-
+% deterministas), y, por último, plantearemos cuáles son las preguntas de
+% investigación que podrían ser de interés en estos casos y presentamos con mayor
+% precisión cuáles son las preguntas de investigación que competen a este
+% trabajo.
 
 \section{Sobre la verificación de modelos}
 
-La verificación de modelos (model checking) es una técnica prominente dentro de
-la verificación formal que sirve para evaluar las propiedades funcionales de
-los sistemas de información y comunicación de manera automatizada. Esta técnica
-requiere de un modelo del sistema en cuestión y una propiedad deseada, y
-verifica sistemáticamente si el modelo dado satisface dicha propiedad.
+La verificación de modelos (\textit{model checking} en inglés) es una técnica
+prominente dentro de la verificación formal que sirve para evaluar las
+propiedades funcionales de los sistemas de información y comunicación de manera
+automatizada. Esta técnica requiere de un modelo del sistema en cuestión y una
+propiedad deseada, y verifica sistemáticamente si el modelo dado satisface
+dicha propiedad.
 
-Las propiedades típicas que se pueden comprobar son la ausencia de
-interbloqueos, los invariantes y las propiedades de solicitud-respuesta.
+Existen numerosas propiedades de interés para comprobar (a destacar podrían ser
+la ausencia de interbloqueos o propiedades de solicitud-respuesta) y, a su vez,
+existen muchos modelos matemáticos que permiten distintas representaciones de
+sistemas reales, cada uno con sus particularidades. La idea de las próximas
+subsecciones será presentar varios de estos modelos, ver ciertas propiedades de
+los mismos y ver, como motivación, un ejemplo de sistema representable con
+ellos.
 
-Alternativamente, se la puede pensar como una técnica de depuración inteligente
-y eficaz.
+% Las propiedades típicas que se pueden comprobar son la ausencia de
+% interbloqueos, los invariantes y las propiedades de solicitud-respuesta.
 
-Existen distintos modelos matemáticos que permiten el análisis de
-representaciones de sistemas reales,,,
+% Alternativamente, se la puede pensar como una técnica de depuración inteligente
+% y eficaz.
 
-blabla
+% Existen distintos modelos matemáticos que permiten el análisis de
+% representaciones de sistemas reales,,,
 
-problema de sintesis de church
+% blabla
 
-idea de la necesidad de juegos y nuestro entendimiento de ellxs
+% problema de sintesis de church
 
-¿Que preguntas nos hacemos cuando trabajamos con juegos? Mas que nada con juegos estocasticos
-tenemos las preguntas que se hace Kucera, las que presenta Chatterjee y se puede investigar mas
-Capaz esto iría mas en la introducción para platear la idea de trabajo
+% idea de la necesidad de juegos y nuestro entendimiento de ellxs
 
-Existen estrategias óptimas para todos los juegos de una determinada clase con
-un determinado objetivo? -> mm obj
+% ¿Que preguntas nos hacemos cuando trabajamos con juegos? Mas que nada con juegos estocasticos
+% tenemos las preguntas que se hace Kucera, las que presenta Chatterjee y se puede investigar mas
+% Capaz esto iría mas en la introducción para platear la idea de trabajo
 
-Cuál es el tipo de las estrategias óptimas? // ganadoras
+% Existen estrategias óptimas para todos los juegos de una determinada clase con
+% un determinado objetivo? -> mm obj
 
-Podemos computar las estartegias óptimas? Sintésis de estr kinda // ganadoras
+% Cuál es el tipo de las estrategias óptimas? // ganadoras
 
-Podemos computar o aproximar el valor de un vértice? -> mmm vértice o estado //
-quien gana en un vértice dado
+% Podemos computar las estartegias óptimas? Sintésis de estr kinda // ganadoras
 
-Estas preguntas se suelen hacer restringidas a objetivos de algún tipo en
-particular.
+% Podemos computar o aproximar el valor de un vértice? -> mmm vértice o estado //
+% quien gana en un vértice dado
 
-Notas sobre vertices vs estados + sobre caminos/comportamientos + notacion
-juegos deterministas y estocasticos
+% Estas preguntas se suelen hacer restringidas a objetivos de algún tipo en
+% particular.
+
+% Notas sobre vertices vs estados + sobre caminos/comportamientos + notacion
+% juegos deterministas y estocasticos
 
 \section{Cadenas de Markov}
 
@@ -198,9 +214,9 @@ Ahora, con las definiciones vistas, podemos pensar en la probabilidad que tiene
 		      ID, II, SI)) = 0.25 \cdot 1 \cdot 0.25 \cdot 0.2 \cdot 1 \cdot 0.5 = 0.00625$.
 \end{itemize}
 
-\textbf{Notación}: en lo que sigue, usaremos notación LTL para describir ciertos eventos en cadenas de Markov. Por ejemplo, para un conjunto $B \subseteq \St$ de estados, $\alc B$ denota el evento de llegar eventualmente a (algún estado en) $B$, mientras que $siempevent B$ describe el evento en el que $B$ es visitado infinitamente a menudo. \hl{Algo más? sí}
+% \textbf{Notación}: en lo que sigue, usaremos notación LTL para describir ciertos eventos en cadenas de Markov. Por ejemplo, para un conjunto $B \subseteq \St$ de estados, $\alc B$ denota el evento de llegar eventualmente a (algún estado en) $B$, mientras que $siempevent B$ describe el evento en el que $B$ es visitado infinitamente a menudo. \hl{Algo más? sí}
 
-Decir algo mas de notacion LTL? Algo más de cadenas de markov?
+% Decir algo mas de notacion LTL? Algo más de cadenas de markov?
 
 \section{Procesos de Decisión de Markov}
 

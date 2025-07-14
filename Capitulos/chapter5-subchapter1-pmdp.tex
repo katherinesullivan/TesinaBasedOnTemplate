@@ -245,8 +245,8 @@ componente final. Esta es la razón detrás del nombre ``componente final".
 
 \end{proof}
 
-Esto nos permite definir el siguiente corolario útil y clásico de los MDPs para
-el análisis de condiciones de Rabin.
+Esto nos permite definir el siguiente corolario útil y clásico en los procesos
+de decisión de Markov para el análisis de condiciones de Rabin.
 
 \begin{corollary}
 	Sea $\M$ un PMDP, $s$ un estado en él y sea $\pi$ una estrategia de memoria finita en él. Una condición de Rabin $R = \{ (E_1, F_1), \dots, (E_d, F_d)\}$ se satisface desde $s$, siguiendo la estrategia $\pi$ con probabilidad 1 si y solo si para cada componente final $U$ alcanzable desde $s$, existe un $j \in \{ 1, \dots, d\}$ tal que $U \cap E_j = \emptyset$ y $U \cap F_j \neq \emptyset$.
@@ -336,6 +336,11 @@ en $C$, que no es algo que podamos afirmar a priori, y que esto que mostramos
 solo implica que este método de prueba no es útil para probar el
 teorema~\ref{teoFundEC} para cualquier tipo de estrategias; no significa que no
 sea válido.
+
+Esta limitación a la que nos tuvimos que atener aquí, sin embargo, no
+constituyó una limitación a la prueba del teorema principal sobre regiones
+ganadoras que mostramos más adelante, porque pudimos reducir lo que
+necesitabamos para su prueba al corolario~\ref{adaptB30}.
 
 % ES PMDP CHE
 % Consideremos un juego estocástico politópico donde tenemos un vértice $t$ y un
