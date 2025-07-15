@@ -1,5 +1,6 @@
 \chapter{Conclusiones}
 ~\label{cap:conclusions}
+\vspace{-1cm}
 
 La motivación de este trabajo fue estudiar en profundidad los juegos
 estocásticos politópicos (PSG) con objetivos de Rabin, y ver qué preguntas de
@@ -53,10 +54,43 @@ se podría pensar a futuro como extensión de este trabajo.
 \section{Trabajo Futuro}
 ~\label{cap:conclusions:sec:future}
 
-Los resultados que pudimos lograr en el estudio de PSGs con objetivos de Rabin se limitaron al contexto de análisis de lo que definimos como la pregunta cualitativa en el capítulo~\ref{cap:objetivos}. Sin embargo, nuestra idea hubiese sido también poder demostrar algo relacionado a la pregunta cuantitativa. Reiterando brevemente, en el estudio de la pregunta cualitativa es de nuestro interés saber si un estado es ganador, mientras que en el caso de la pregunta cuantitativa nos interesamos por la probabilidad de ganar desde un estado. Para abordar la pregunta cuantitativa se nos ocurrieron dos métodos.
+Los resultados que pudimos lograr en el estudio de PSGs con objetivos de Rabin
+se limitaron al contexto de análisis de lo que definimos como la pregunta
+cualitativa en el capítulo~\ref{cap:objetivos}. Sin embargo, nuestra idea
+hubiese sido también poder demostrar algo relacionado a la pregunta
+cuantitativa. Reiterando brevemente, en el estudio de la pregunta cualitativa
+es de nuestro interés saber si un estado es ganador, mientras que en el caso de
+la pregunta cuantitativa nos interesamos por la probabilidad de ganar desde un
+estado. Para abordar la pregunta cuantitativa se nos ocurrieron dos métodos.
 
-En primer lugar, Chatterjee no pudimos capaz tiene que ver lo de MDP acá
+En primer lugar, pensamos en intentar derivar un resultado como el segundo
+propuesto por Chatterjee para juegos estocásticos en \cite{ComplexityRabin}:
+mostrar que si una familia de estrategias es suficiente para el cálculo de
+regiones ganadoras entonces también es suficiente para el cálculo de valores de
+los estados. Según las pruebas realizadas en \cite{ComplexityRabin}, parece que
+podría ser útil primero intentar probar el teorema fundamental de las
+componentes finales para PMDPs en su caso general y no limitado a estrategias
+de memoria finita (véase teorema~\ref{teoFundEC}), antes de adentrarse en
+querer probar lo propuesto en este párrafo.
 
-En segundo lugar, pensamos que se podría intentar probar algo al estilo del primer teorema en \cite{Polytopal} y ver que el encontrar el valor en un estado de un PSG para un objetivo de Rabin puede ser equivalente a buscar el valor de un estado en la interpretación extrema del juego. Si bien no pudimos llegar a una conclusión fuerte sobre si esto es posible en general, creemos que es verdad que podemos transformar una estrategia determinista sin memoria en dos estrategias randomizadas extremas. Si pensamos en estrategias extremas podemos pensar directamente en la resolución del valor la interpretación extrema del juego, que es un juego estocástico no politópico. Una tarea futura muy concreta podría bien ser ver si se puede formalizar esta idea de transformación de estrategias MD en pares de estrategias RX y luego ver si para el cálculo del valor en el PSG podríamos limitar nuestra búsqueda a las estrategias MD. \kathy{Era MRX igual, no?} En caso de poder hacer esto y valiéndonos de trabajo existente en la literatura, podríamos dar algoritmos concretos para el cálculo del valor de un estado en un PSG con objetivo de Rabin y mostraríamos la determinación de los mismos. % mmm esto ´ultimo
+En segundo lugar, pensamos que se podría intentar probar algo al estilo del
+primer teorema en \cite{Polytopal} y ver que el encontrar el valor en un estado
+de un PSG para un objetivo de Rabin puede ser equivalente a buscar el valor de
+un estado en la interpretación extrema del juego. Si bien no pudimos llegar a
+una conclusión fuerte sobre si esto es posible en general, creemos que es
+verdad que podemos transformar una estrategia determinista sin memoria en dos
+estrategias extremas, randomizadas y sin memoria. Si pensamos en estrategias extremas podemos
+pensar directamente en la resolución del valor la interpretación extrema del
+juego, que es un juego estocástico no politópico. Una tarea futura muy concreta
+podría bien ser ver si se puede formalizar esta idea de transformación de
+estrategias MD en pares de estrategias MRX y luego ver si para el cálculo del
+valor en el PSG podríamos limitar nuestra búsqueda a las estrategias MD.
+En caso de poder hacer esto y valiéndonos de trabajo
+existente en la literatura, podríamos dar algoritmos concretos para el cálculo
+del valor de un estado en un PSG con objetivo de Rabin y mostraríamos la
+determinación de los mismos. % mmm esto ´ultimo
 
-Sin importar cuál abordaje se tome, el estudio de la pregunta cuantitativa para PSGs con objetivos de Rabin sería el próximo paso natural para dar y sería muy interesante ver qué es lo que se puede lograr y qué nuevas puertas para la modelización y verificación eso puede abrir.
+Sin importar cuál abordaje se tome, el estudio de la pregunta cuantitativa para
+PSGs con objetivos de Rabin sería el próximo paso natural para dar y sería muy
+interesante ver qué es lo que se puede lograr y qué nuevas puertas para la
+modelización y verificación eso puede abrir.

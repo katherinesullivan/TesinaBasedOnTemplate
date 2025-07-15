@@ -1,5 +1,6 @@
 \chapter{Juegos Estocásticos Politópicos - PSGs}
 ~\label{cap:psg}
+\vspace{-1cm}
 
 El propósito de este capítulo es presentar las definiciones y los hallazgos que
 nos son más relevantes del paper \textit{Polytopal Stochastic Games}
@@ -24,6 +25,10 @@ Dividiremos el capítulo en dos secciones: definiciones y resultados.
 
 \section{Definiciones}
 
+Siendo $S$ un conjunto, en lo siguiente, $\mathscr{P}(S)$ representará el
+conjunto partes de $S$ y $\mathscr{P}_f(S)$ denotará el conjunto de los
+subconjuntos finitos de $S$.
+
 \subsection*{Politopos}
 
 Un \textbf{politopo convexo} en $\mathbb{R}^n$ es un conjunto acotado $K = \{ x
@@ -43,12 +48,19 @@ en \( S \) forma el politopo convexo
 \( \text{Dist}(S) = \{ \mu \in \mathbb{R}^S \mid \sum_{s \in S} \mu(s) = 1 \text{ y } \forall s \in S : \mu(s) \geq 0 \} \)
 
 Definimos \( \textbf{DPoly}(S) = \{ K \cap \text{Dist}(S) \mid K \in
-\text{Poly}(S) \} \) (el conjunto de los politopos formados por distribuciones
-de probabilidad sobre $S$?). Cada \( K \in \text{DPoly}(S) \) es un politopo
-convexo cuyos elementos son también funciones de probabilidad sobre \( S \), y
-su conjunto de desigualdades característico \( Ax \leq b \) ya codifica las
+\text{Poly}(S) \} \). Cada \( K \in \text{DPoly}(S) \) es un politopo convexo
+cuyos elementos son también funciones de probabilidad sobre \( S \), y su
+conjunto de desigualdades característico \( Ax \leq b \) ya codifica las
 desigualdades \( \sum_{s \in S} x_s = 1 \) y \( x_s \geq 0 \) para todo \( s
 \in S \).
+
+Cualquier politopo convexo \( K \in \text{Poly}(S) \) puede caracterizarse
+alternativamente como la envolvente convexa de su conjunto finito de vértices.
+Sea \( \mathbb{V}(K) \) el conjunto de todos los vértices del politopo \( K \).
+Si \( \mathbb{V}(K) = \{v^1, \dots, v^k\} \), entonces todo \( x \in K \) es
+una combinación convexa de \( \{v^1, \dots, v^k\} \), es decir, \( x =
+\sum_{i=1}^{k} \lambda_i v_i \) con \( \lambda_i \geq 0 \), para \( i \in
+[1..k] \), y \( \sum_{i=1}^{k} \lambda_i = 1 \).
 
 % \subsection{Juegos estocásticos}
 
@@ -132,7 +144,7 @@ conjunto finito de politopos convexos de distribuciones de probabilidad sobre
 los estados. La definición formal es como sigue:
 
 \begin{definition}[PSG]
-	Un juego estocástico politópico (abreviado PSG, por sus siglas en inglés) es una estructura \( \K = (\St, (\St_\square, \St_\diamondsuit), \Theta) \) tal que \( \St \) es un conjunto finito de estados particionado en \( \St = \St_\square \biguplus \St_\diamondsuit \) y \( \Theta : \St \to \mathcal{P}_f(\textsf{DPoly}(\St)) \).
+	Un juego estocástico politópico (abreviado PSG, por sus siglas en inglés) es una estructura \( \K = (\St, (\St_\square, \St_\diamondsuit), \Theta) \) tal que \( \St \) es un conjunto finito de estados particionado en \( \St = \St_\square \biguplus \St_\diamondsuit \) y \( \Theta : \St \to \mathscr{P}_f(\textsf{DPoly}(\St)) \).
 \end{definition}
 
 Un juego estocástico politópico se diferencia de un juego estocástico
@@ -181,6 +193,9 @@ y que la función \( \theta(s, \cdot, s') \) es medible (es decir, \( \{a \in
 \Act \mid \theta(s, a, s') \leq p\} \in \Sigma_\Act \) para todo \( p \in [0,
 	1] \)).
 
+Ahora bien, para dar la medida de probabilidad $\Prob^{\picuad, \pidiam}$
+debemos primero presentar las nociones de camino y estrategia en un PSG.
+
 Como lo hicimos para MDPs y juegos estocásticos a la definición de camino la
 daremos como una secuencia de estados y acciones. Esto difiere de la
 formulación original hecha para PSGs en \cite{Polytopal}, pero cambiaremos
@@ -197,27 +212,17 @@ de los resultados.
 \end{definition}
 
 \begin{definition}[Conjuntos soporte y acciones]
-	Dada una acción $(K, \mu)$ definiremos su conjunto soporte, $supp((K, \mu))$ como el conjunto formado por los estados a los cuales $(K, \mu)$ les asigna una probabilidad positiva. Es decir,
-	\vspace{-1.5cm}
-	\begin{center}
-		$supp((K, \mu)) = \{s \in \St \mid \mu(s) > 0\}$
-	\end{center}
-	\vspace{-1.5cm}
+	Dada una acción $(K, \mu)$ definiremos su conjunto soporte, $\supp((K, \mu))$ como el conjunto formado por los estados a los cuales $(K, \mu)$ les asigna una probabilidad positiva. Es decir,
+	$$supp((K, \mu)) = \{s \in \St \mid \mu(s) > 0\}$$.
 	Dado un estado $s$ y un conjunto de estados $V$, definiremos como $acc(s, V)$ a
 	las acciones que parten desde $s$ y tienen como conjunto soporte $V$. Es decir,
-	\vspace{-1.5cm}
-	\begin{center}
-		$acc(s, V) = \{\alpha \in \Act(s) \mid supp(\alpha) = V\} = \{(K, \mu) \in \Act(s) \mid \mu(V) = 1 \wedge \forall v \in V, \ \mu(v) > 0\}$
-	\end{center}
-	\vspace{-1.5cm}
+	$$acc(s, V) = \{\alpha \in \Act(s) \mid supp(\alpha) = V\} = \{(K, \mu) \in \Act(s) \mid \mu(V) = 1 \wedge \forall v \in V, \ \mu(v) > 0\}$$.
 	Por último, dado un estado $s$, definiremos como $V_s$ al conjunto de todos los
 	soportes que pueden tener las distintas acciones desde $s$. Es decir,
-	\vspace{-1.5cm}
 	\begin{align*}~\label{definicionVs}
 		V_s &= \{supp(\mu) \mid \exists K \in \Theta(s): \mu \in K\} = \\
-		&= \{V' \subseteq \St | \exists \mu \in K, K \in \Theta(s) \text{ tal que } \mu(V') = 1 \text{ y } \forall s' \in V', \mu(s') > 0\}
+		&= \{V' \subseteq \St | \exists \mu \in K, K \in \Theta(s) \text{ tal que } \mu(V') = 1 \text{ y } \forall s' \in V', \mu(s') > 0\}.
 	\end{align*}
-	\vspace{-1.5cm}
 \end{definition}
 
 Entonces, ahora sí podemos extender el concepto de estrategia en un PSG:
@@ -226,18 +231,30 @@ Entonces, ahora sí podemos extender el concepto de estrategia en un PSG:
 	Una estrategia $\pi_i$ para el jugador $i$ ($i \in \{\cuad, \diam\}$) en un PSG será una función $\pi_i : (\St \times \Act)^* \St_i \rightarrow \textsf{PMeas}(\Act)$ que asigna una medida de probabilidad a cada $\omega s$ tal que $\pi_i(\omega s)(\Act(s)) = 1$.
 \end{definition}
 
-En este caso también tendremos dos clasificaciones distintas que se pueden dar
-de las estrategias. En primer lugar, se puede ver si una estrategia es
-determinista o randomizada:
+Los distintos tipos de estrategias que presentamos en el
+capítulo~\ref{cap:modelos} se extienden naturalmente a este tipo de
+estrategias, y los conjuntos de estrategias de ese tipo se denotarán de la
+misma manera en la que se presentaron con juegos estocásticos. A estos tipos de
+estrategias agregamos una particular de los juegos estocásticos politópicos:
+las estrategias extremas.
 
-\kathy{Tengo que agregar definiciones}
+\begin{definition}[Estrategia extrema en un PSG]
+	Una estrategia $\pi_i$ para el jugador $i$ ($i \in \{\cuad, \diam\}$) en un PSG se dirá \textbf{extrema} si para todo $\omega \in \Paths$, $\pi_i(\omega s)\{(K, \mu) \in \Act(s)| \mu \in \mathbb(V)(K)\} = 1$. Es decir, diremos que una estrategia es extrema si solo asigna probabilidades positivas a distribuciones en los vértices del politopo.
 
-Y, en segundo lugar, se puede ver si una estrategia es sin memoria, con memoria
-finita. 
+	Notaremos con $\Pi_i^X$ a la familia de estrategias extremas para el jugador
+	$i$ y podremos combinar esta notación con las presentadas para otras familias
+	de estrategias, por ejemplo, notando a la familia de estrategias extremas,
+	puras y sin memoria del jugador $i$ como $\Pi_i^{XMD}$.
+\end{definition}
 
-Extrema solo puede elegir en los vértices del politopo
+% En este caso también tendremos dos clasificaciones distintas que se pueden dar
+% de las estrategias. En primer lugar, se puede ver si una estrategia es
+% determinista o randomizada:
 
-\kathy{Tengo que agregar definiciones}
+% \kathy{Tengo que agregar definiciones}
+
+% Y, en segundo lugar, se puede ver si una estrategia es sin memoria, con memoria
+% finita.
 %Hemos visto el concepto de las estrategias sin memoria y con memoria finita y la extensión de las mimsas a este contexto se da de manera natural
 
 \begin{boxamarillo}[Medida de probabilidad que no va a ir probablemente]{}
@@ -251,10 +268,10 @@ Extrema solo puede elegir en los vértices del politopo
 
 	\begin{align*}
 		&\Prob^{\picuad, \pidiam, 0}_{\Gk, s}(s') = \delta_s(s') \\
-		&\Prob^{\picuad, \pidiam, n+1}_{\Gk, s}(\hat{\omega}s_nV's') = \Prob^{\picuad, \pidiam, n}_{\Gk, s}(\hat{\omega} s_n) \int_{\{ a \in A(s_n) \mid \text{sop}(a) = V'\}} \theta(s_n, a, s') \, d(\pi_i(\hat{\omega}s_n)(a)) \\ & \qquad \qquad \qquad \qquad \qquad \text{si } s_n \in \St_i \text{ con } i \in \{\square, \diamondsuit\}
+		&\Prob^{\picuad, \pidiam, n+1}_{\Gk, s}(\hat{\omega}s_nV's') = \Prob^{\picuad, \pidiam, n}_{\Gk, s}(\hat{\omega} s_n) \int_{\{ a \in A(s_n) \mid \supp(a) = V'\}} \theta(s_n, a, s') \, d(\pi_i(\hat{\omega}s_n)(a)) \\ & \qquad \qquad \qquad \qquad \qquad \text{si } s_n \in \St_i \text{ con } i \in \{\square, \diamondsuit\}
 	\end{align*}
 
-	(sop(a) = V' significa que el soporte de a es V')
+	(supp(a) = V' significa que el soporte de a es V')
 
 	(capaz restringirse sobre las acciones con soporte V'? No sé bien cómo va a quedar esto)
 
@@ -276,9 +293,10 @@ Extrema solo puede elegir en los vértices del politopo
 \end{boxamarillo}
 
 Así se logra interpretar un PSG como un SG pero con un conjunto infinito de
-acciones. En \cite{Polytopal} se demuestra cómo ciertos preguntas que nos
-podemos hacer sobre esta interpretación infinita se pueden responder analizando
-en la interpretación con una cantidad finita de acciones que presentamos a
+acciones. \kathy{Pedro prometió hacer esto que está en el box amarillo bien :)}
+En \cite{Polytopal} se demuestra cómo ciertos preguntas que nos podemos hacer
+sobre esta interpretación infinita se pueden responder analizando en la
+interpretación con una cantidad finita de acciones que presentamos a
 continuación.
 
 \begin{definition}[Interpretación extrema de un PSG]
