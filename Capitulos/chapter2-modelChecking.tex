@@ -277,8 +277,8 @@ puede haber en la grilla cuando seleccionamos una acción habrá una probabilida
 de que la acción no tenga el resultado deseado. Es decir, si estando en la
 esquina superior izquierda, elijo que \emph{Roborto} se mueva a la derecha,
 esto sucederá con una probabilidad $p$, pero por las irregularidades del
-terreno, también puede suceder que se mueva hacia abajo con una probabilidad $1
-	- p$.
+terreno, también puede suceder que se mueva hacia abajo a la derecha con una
+probabilidad $1 - p$.
 
 Situaremos a \emph{Roborto} en una grilla particular con las siguientes
 características:
@@ -298,6 +298,11 @@ características:
 	\item Desde las esquinas inferior izquierda y superior derecha, el terreno no influye
 	      y se irá con probabilidad 1 en la dirección seleccionada.
 \end{itemize}
+
+Tomando el conjunto de acciones, $\Act = \{\rightarrow, \leftarrow, \uparrow,
+	\downarrow\}$ que representan, respectivamente, el moverse a la derecha, a la
+izquierda, arriba y abajo, podemos ver el proceso dibujado en la
+figura~\ref{fig:mdp-roborto}.
 
 Otra vez, tendremos la duda de con que probabilidades se surgirán ciertos
 comportamientos de nuestro Robot, y para eso, otra vez, deberemos formalizar
@@ -452,11 +457,31 @@ pensar a las estrategias como una función $\pi: \Pathsfin \rightarrow \Act$.
 
 \textbf{Controlando a Roborto}
 
-Podemos pensar en distintas estrategias para controlar a Roborto. Veamos
-algunas de ellas y analicemos en qué categorías entrarían:
+Podemos pensar distintas estrategias para controlar a Roborto. Veamos algunas
+de ellas y analicemos en qué categorías entrarían:
 
 \begin{itemize}
-	\item
+	\item Una estrategia pura y sin memoria podría ser la que siempre decide moverse
+	      lateralmente. Es decir, dada cualquier historia elegirá desde $SI$ o $II$ con
+	      probabilidad 1 tomar la acción $\rightarrow$ y desde $SD$ o $ID$, la acción
+	      $\leftarrow$.
+	\item Una estrategia randomizada podría ser una que desde cada estado, asigne iguales
+	      probabilidades de tomar alguna de las dos acciones disponibles. Es decir, por
+	      ejemplo tendríamos, $\forall \hat \omega \in \Pathsfin$ tal que $\hat \omega$
+	      termina en $SI$, $\pi(\hat \omega)(\rightarrow) = 0.5$ y $\pi(\hat
+		      \omega)(\downarrow) = 0.5$.
+	      %, siendo $\alpha$ una acción habilitada desde el último estado de $\hat \omega$ que da una probabilidad positiva
+	      En este caso, la estrategia también resulta sin memoria. Veamos ahora un
+	      ejemplo en el que esto no sucede.
+	\item Una estrategia con memoria finita podría ser una $\pi$ tal que dado un $\hat
+		      \omega \in \Pathsfin$ que termina en un estado $s$, si la cantidad de veces que
+	      se visitó $s$ en $\hat \omega$ es par, entonces $\pi$ con probabilidad uno
+	      elegirá la acción de moverse lateralmente, mientras que si la cantidad de veces
+	      que se visitó $s$ en $\hat \omega$ es impar, entonces $\pi$ con probabilidad
+	      uno elegirá la acción de moverse verticalmente. Un ejemplo de esto sería que
+	      para el prefijo de camino $\hat \omega' = (SI, II, SI)$ tendremos que $\pi(\hat
+		      \omega')(\rightarrow) = 1$ y para el prefijo de camino $\hat \omega''=(SI, II,
+		      SI, SD, ID, SD, SI)$ tendremos que $\pi(\hat \omega'')(\downarrow) = 1$.
 \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -481,33 +506,34 @@ algunas de ellas y analicemos en qué categorías entrarían:
 
 \section{Juegos estocásticos}
 
-Además de elecciones podemos querer también modelar comportamiento adversarial.
-Este comportamiento adversarial, donde surgen distintos agentes con distintos
-objetivos, se ha modelado históricamente a través de juegos. Si estos juegos
-exhiben también comportamiento probabilístico son llamados juegos estocásticos.
+Además de elecciones podríamos también querer modelar comportamiento
+adversarial. Este comportamiento adversarial, donde surgen distintos agentes
+con distintos objetivos, se ha modelado históricamente a través de juegos. Si
+estos juegos exhiben también comportamiento probabilístico los modelos que se
+suele usar son los llamados juegos estocásticos.
 
 % \hl{Definir cómo queda con lo de acciones habilitadas esto o MDP} ¿qué?
 \begin{definition}[Juego estocástico]
 	Un juego estocástico (SG) es una tupla $\G = (\St, (\St_\cuad, \St_\diam), \Act, \theta)$ donde:
 	\begin{itemize}
 		\item $\St$, un conjunto finito de estados con $\St_\cuad, \St_\diam \subseteq \St$ siendo una partición de él,
-		\item $\Act$ es un conjuno de acciones, y
+		\item $\Act$ es un conjuno finito de acciones, y
 		\item $\theta : \St \times \Act \times \St \rightarrow [0,1]$ es una función de transición probabilística tal que para cada $s \in \St$, $\theta(s, a, \cdot) \in \dist(\St)$ o  $\theta(s, a, \St) = 0$.
 	\end{itemize}
-	Notaremos con $\Act(s) = \{a \in \Act \mid \theta(s,a,\St) = 1\}$ al conjunto de acciones habilitadas en $s$, y
+	Notaremos con $\Act(s) = \{a \in \Act \mid \theta(s,a,\St) = 1\}$ al conjunto de acciones habilitadas en $s$.
 \end{definition}
 
 Se puede notar que si $\St_\cuad = \emptyset$ o $\St_\diam = \emptyset$,
 entonces $\G$ es un proceso de decisión de Markov, y, como vimos antes, si a la
 vez $\abs{\Act(s)} = 1$ entonces $\G$ es una cadena de Markov.
 
-Otra manera de verlo es que podemos pensar a los juegos estocásticos como un
-procesos de decisión de Markov donde el conjunto de estados está particionado
-en dos: los estados correspondientes al jugador $\cuad$ y los estados
-correspondientes al jugador $\diam$. La idea de esta anotación de a quién
-pertence los estados es lo que introduce esta idea adversarial: no solo habrá
-un ente que tome las decisiones no deterministas, sino dos. Esto quiere decir
-que tendremos dos tipos de estrategias, una por cada tipo de jugador.
+Otra manera de verlo es pensar a los juegos estocásticos como un procesos de
+decisión de Markov donde el conjunto de estados está particionado en dos: los
+estados correspondientes al jugador $\cuad$ y los estados correspondientes al
+jugador $\diam$. La idea de esta anotación de a quién pertence los estados es
+lo que introduce esta idea adversarial: no solo habrá un ente que tome las
+decisiones no deterministas, sino dos. Esto quiere decir que tendremos dos
+tipos de estrategias, una por cada tipo de jugador.
 
 Al igual que con los MDPs, antes de definir las estrategias, presentamos el
 concepto de camino en un juego estocástico, el cual seguirá la misma idea del
@@ -552,23 +578,119 @@ en la $\sigma$-álgebra de Borel, $\ProbG(\varepsilon)$ será la probabilidad de
 que las estrategias $\picuad$ y $\pidiam$ sigan un comportamiento en
 $\varepsilon$ empezando desde el estado $s$.
 
-\textbf{Un ejemplo de juego estocástico: Roborto vs Rigoberta}
+\textbf{Un ejemplo de juego estocástico: Roborta vs Rigoborto}
 
 La idea ahora será presentar un juego estocástico. Para eso pensaremos que
-mientras que nosotros tenemos a Roborto, un amigue nuestro tiene un controlador
-que le permite decidir los movimientos de Rigoberta, una robota de
-características similares a las de Roborto.
+mientras que nosotros tenemos a Roborta, la robot hermana de Roborto, un amigo
+nuestro tiene un controlador que le permite decidir los movimientos de
+Rigoborto, una robota de también características similares a las de Roborto.
 
-Ambos vamos a tener a nuestros robots en el terreno sobre el que antes estaba
-Roborto, uno con ciertas inclinaciones que pueden hacer que nuestros comandos
-no se ejecuten de manera certera. Y nuestra idea va a ser modelizar esta
-situación a través de un juego estocástico.
+Ambos vamos a tener a nuestros robots en un terreno como sobre el que antes
+estaba Roborto, con ciertas inclinaciones que pueden hacer que nuestros
+comandos no se ejecuten de manera certera. Y nuestra idea va a ser modelizar
+esta situación a través de un juego estocástico.
 
 Lo que tenemos que tener en cuenta aquí es que al estar modelizando un juego,
 en donde tenemos dos actores, no podremos simplemente tener como estado algo al
 estilo ``esquina superior izquierda'' por el hecho de que nuestro estado tiene
 que codificar donde se encuentran dos robots (que es posible que sean lugares
-distintos), además de representar de quién es el turno.
+distintos), además de representar de quién es el turno (que lo indicaremos con
+la pertenencia del estado a $\St_\cuad$ o $\St_diam$).
+
+Entonces, una manera de modelar esta situación en la que tenemos a Roborta y
+Rigoborto es hacer que el estado sea un reflejo de las posiciones donde se
+encuentran los dos robots con dos pares de coordenadas. Si suponemos que la
+grilla 2x2 tiene coordenadas $(0,0)$ para representar la esquina superior
+izquierda, $(0,1)$ para la esquina superior derecha, $(1,0)$ para la esquina
+inferior izquierda y $(1,1)$ para la inferior derecha, entonces podemos pensar
+al estado que representa que Roborta se encuentra en la esquina superior
+izquierda y Rigoborto se encuentra en la esquina inferior izquierda como el par
+$(0,0) \\ (1,0)$.
+
+Si considerasemos en todas las posiciones que se podrían encontrar Roborta y
+Rigoborto tendríamos $16$ ($2^4$) estados. Sin embargo, como dijimos, el estado
+debería representar de quién es el turno (es decir, quién elije desde ahí la
+próxima acción), por eso en realidad si pensamos que desde todas las posiciones
+pueden elegir ambos jugadores tendríamos en realidad $32$ ($16 \cdot 2$)
+estados (por cada configuración en donde pueden estar los robots hay una copia
+de ese estado que pertenece a $\St_\cuad$ y otra que pertence a $\St_\diam$).
+
+Ahora, si decidimos con nuestro amigo hacer que los turnos sean intercalados,
+es decir, nosotros movemos a Roborta, él mueve a Rigoborto, nosotros otra vez,
+él devuelta y así, y definimos que nosotros seamos el jugador $\cuad$ y él el
+$\diam$, en la siguiente figura podemos ver cómo sería un fragmento de este
+juego estocástico en donde ambos robots empiezan del lado izquierdo de la
+grilla, Roborta en la esquina superior y Rigoborto en la esquina inferior. Las
+probabilidades de que las transiciones fallen seguirán la misma caracterización
+que dimos para el ejemplo de Roborto.
+
+\begin{figure}[ht]
+	\centering
+	\begin{tikzpicture}[->]
+		\tikzset{
+			state/.style={draw, circle, minimum size=1.2cm, font=\normalsize},
+			square state/.style={draw, rectangle, minimum size=1.4cm, font=\normalsize, align=center},
+			diamond state/.style={draw, diamond, aspect=1.5, minimum size=1.5cm, font=\normalsize, align=center},
+			every node/.style={inner sep=4pt}
+		}
+
+		% Nodo raíz a la izquierda
+		\node[square state] (left) at (0, 0) {$(0,0)$\\$(1,0)$};
+
+		% Nivel intermedio (rombos) centrados horizontalmente, espaciados verticalmente
+		\node[diamond state] (d1) at (3, 4) {$(0,1)$\\$(1,0)$};
+		\node[diamond state] (d2) at (3, 0) {$(1,1)$\\$(1,0)$};
+		\node[diamond state] (d3) at (3, -4) {$(1,0)$\\$(1,0)$};
+
+		% Nodos hojas (cuadrados), suficientemente separados
+		\node[square state] (s1) at (6, 5) {$(0,1)$\\$(0,0)$};
+		\node[square state] (s2) at (6, 3) {$(0,1)$\\$(1,1)$};
+
+		\node[square state] (s3) at (6, 1.0) {$(1,1)$\\$(0,0)$};
+		\node[square state] (s4) at (6, -1.0) {$(1,1)$\\$(1,1)$};
+
+		\node[square state] (s5) at (6, -3) {$(1,0)$\\$(0,0)$};
+		\node[square state] (s6) at (6, -5) {$(1,0)$\\$(1,1)$};
+
+		% Aristas desde left a cada rombo
+		\draw[->, draw=violet] (left) to  node[midway, left, text=violet] {$\rightarrow$,0.85} (d1);
+		\draw[->, draw=violet]  (left) to[bend left=20]  node[above, text=violet] {$\rightarrow$,0.15} (d2);
+		\draw[->, draw=orange] (left) to[bend right=20]  node[below, text=orange] {$\downarrow$, 0.2}  (d2);
+		\draw[->, draw=orange] (left) to  node[midway, left, text=orange]  {$\downarrow$, 0.8} (d3);
+		% \draw (left) -- (d1);
+		% \draw (left) -- (d2);
+		% \draw (left) -- (d3);
+
+		% Aristas desde cada rombo a dos cuadrados
+		% Desde II
+		\draw[->, draw=teal] (d1) to  node[midway, above, text=teal] {$\uparrow$, 1} (s1);
+		\draw[->, draw=violet] (d1) to  node[midway, below, text=violet] {$\rightarrow$,1} (s2);
+		% \draw (d1) -- (s1);
+		% \draw (d1) -- (s2);
+
+		\draw[->, draw=teal] (d2) to  node[midway, above, text=teal] {$\uparrow$, 1} (s3);
+		\draw[->, draw=violet] (d2) to  node[midway, below, text=violet] {$\rightarrow$,1} (s4);
+		% \draw (d2) -- (s3);
+		% \draw (d2) -- (s4);
+
+		\draw[->, draw=teal] (d3) to  node[midway, above, text=teal] {$\uparrow$, 1} (s5);
+		\draw[->, draw=violet] (d3) to  node[midway, below, text=violet] {$\rightarrow$,1} (s6);
+		% \draw (d3) -- (s5);
+		% \draw (d3) -- (s6);
+
+		% Puntos suspensivos para indicar que continúa
+		\node at (7,5) {$\cdots$};
+		\node at (7,3) {$\cdots$};
+
+		\node at (7,1) {$\cdots$};
+		\node at (7,-1) {$\cdots$};
+
+		\node at (7, -3) {$\cdots$};
+		\node at (7, -5) {$\cdots$};
+	\end{tikzpicture}
+	\caption{Fragmento de juego estocástico Roborta vs Rigoborto.}
+	\label{fig:sg}
+\end{figure}
 
 % Tal como fue aclarado en las dos secciones anteriores, usaremos notación LTL
 % para representar conjunto específicos de comportamientos. Sin embargo, estando
@@ -688,12 +810,10 @@ detalle en el capítulo siguiente.
 	Una estrategia para un jugador $i$ con $i \in \{\cuad, \diam\}$ es una función $\sigma_i: V^*V_i \rightarrow V$ con la restricción de que $\sigma_i(wv) \in E(v)$ para todo $wv \in V^*V_i$.
 \end{definition}
 
-Otra vez, podemos presentar dos clases distintas de estrategias: estrategias
-sin memoria y con memoria finita, cuyas definiciones serán como las
-esperaríamos.
-
-\hl{Cambiar esto a algo tipo: observar que siempre son puras acá, pero podemos
-	tener lo misma de sin memoria o con memoria finita}
+Si otra vez queremos pensar en cómo se podrían categorizar las estrategias,
+podemos facilmente ver que acá las nociones de con memoria finita o sin memoria
+se peuden extender de manera intuitiva pero que todas las estrategias serían
+puras (o deterministas).
 
 % \begin{definition}[estrategia sin memoria en un 2G]
 
@@ -704,7 +824,85 @@ esperaríamos.
 % \end{definition}
 % % algo de randomizadas y deterministas?
 
-Agg ejemplo
+\textbf{Roborta y Rigoborto llegan a mejor terreno}
+
+Supongamos que en vez de estar en el mismo terreno que Roborto, ahora con
+nuestro amigo, movemos a Roborta y Rigoborto a un terreno súper llano, que nos
+asegura que las indicaciones que enviamos a nuestros robots se realizarán de
+manera certera. Entonces, ahora podemos modelar nuestra situación simplemente
+como un juego determinista.
+
+Podemos modelar los estados de igual manera, plantear los turnos de igual
+manera y ver ya cómo se simplifica el fragmento de juego que antes habíamos
+propuesto en la figura~\ref{fig:juego-determinista}.
+
+\begin{figure}[ht]
+	\centering
+	\begin{tikzpicture}[->]
+		\tikzset{
+			state/.style={draw, circle, minimum size=1.2cm, font=\normalsize},
+			square state/.style={draw, rectangle, minimum size=1.4cm, font=\normalsize, align=center},
+			diamond state/.style={draw, diamond, aspect=1.5, minimum size=1.5cm, font=\normalsize, align=center},
+			every node/.style={inner sep=4pt}
+		}
+
+		% Nodo raíz a la izquierda
+		\node[square state] (left) at (0, 0) {$(0,0)$\\$(1,0)$};
+
+		% Nivel intermedio (rombos) centrados horizontalmente, espaciados verticalmente
+		\node[diamond state] (d1) at (3, 2) {$(0,1)$\\$(1,0)$};
+		%\node[diamond state] (d2) at (3, 0) {$(1,1)$\\$(1,0)$};
+		\node[diamond state] (d3) at (3, -2) {$(1,0)$\\$(1,0)$};
+
+		% Nodos hojas (cuadrados), suficientemente separados
+		\node[square state] (s1) at (6, 3) {$(0,1)$\\$(0,0)$};
+		\node[square state] (s2) at (6, 1) {$(0,1)$\\$(1,1)$};
+
+		% \node[square state] (s3) at (6, 1.0) {$(1,1)$\\$(0,0)$};
+		% \node[square state] (s4) at (6, -1.0) {$(1,1)$\\$(1,1)$};
+
+		\node[square state] (s5) at (6, -1) {$(1,0)$\\$(0,0)$};
+		\node[square state] (s6) at (6, -3) {$(1,0)$\\$(1,1)$};
+
+		% Aristas desde left a cada rombo
+		\draw (left) -- (d1);
+		%\draw (left) -- (d2);
+		\draw (left) -- (d3);
+
+		% Aristas desde cada rombo a dos cuadrados
+		\draw (d1) -- (s1);
+		\draw (d1) -- (s2);
+
+		% \draw (d2) -- (s3);
+		% \draw (d2) -- (s4);
+
+		\draw (d3) -- (s5);
+		\draw (d3) -- (s6);
+
+		% Puntos suspensivos para indicar que continúa
+		\node at (7,3) {$\cdots$};
+		\node at (7,1) {$\cdots$};
+
+		% \node at (7,1) {$\cdots$};
+		% \node at (7,-1) {$\cdots$};
+
+		\node at (7, -1) {$\cdots$};
+		\node at (7, -3) {$\cdots$};
+
+	\end{tikzpicture}
+	\caption{Fragmento de juego determinista: Roborta vs Rigoborto}
+	\label{fig:juego-determinista}
+\end{figure}
+
+Ahora bien, una pregunta que podría surgir con este modelado es, ¿para qué lo
+hacemos?, si aquí no tendremos la oportunidad de preguntarnos por la
+probabilidad de tomar ciertos caminos. Bueno, la realidad es que los juegos
+(tanto estocásticos como deterministas) suelen venir equipado con lo que se
+llaman objetivos. A partir de estos objetivos es que podremos pensar en la
+pregunta típica, ``¿quién gana?''. Profundimaos sobre estas nociones en el
+próximo capítulo.
+
+% capaz cambiar medidas por los nodos que se van
 
 % \section{Comparación de los distintos juegos}
 
