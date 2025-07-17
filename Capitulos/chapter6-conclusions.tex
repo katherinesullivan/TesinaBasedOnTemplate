@@ -38,8 +38,8 @@ un problema completamente determinista, permitiendo reutilizar herramientas
 estándares para juegos de dos jugadores deterministas.
 
 Así, respondemos satisfactoriamente a las dos preguntas centrales:
-\textit{“quién gana”}, al caracterizar los estados ganadores casi seguros en un
-PSG mediante la construcción de $\DGk$, y \textit{“cómo se gana”}, al
+\textit{“quién gana”}, al caracterizar los estados ganadores con probabilidad 1
+en un PSG mediante la construcción de $\DGk$, y \textit{“cómo se gana”}, al
 proporcionar un esquema sistemático para sintetizar estrategias ganadoras a
 través de la transformación entre estrategias en $\Gk$ y estrategias en $\DGk$.
 
@@ -59,9 +59,10 @@ se limitaron al contexto de análisis de lo que definimos como la pregunta
 cualitativa en el capítulo~\ref{cap:objetivos}. Sin embargo, nuestra idea
 hubiese sido también poder demostrar algo relacionado a la pregunta
 cuantitativa. Reiterando brevemente, en el estudio de la pregunta cualitativa
-es de nuestro interés saber si un estado es ganador, mientras que en el caso de
-la pregunta cuantitativa nos interesamos por la probabilidad de ganar desde un
-estado. Para abordar la pregunta cuantitativa se nos ocurrieron dos métodos.
+es de nuestro interés saber si un estado es ganador con probabilidad uno,
+mientras que en el caso de la pregunta cuantitativa nos interesamos por la
+probabilidad máxima de ganar desde un estado. Para abordar la pregunta
+cuantitativa se nos ocurrieron dos métodos.
 
 En primer lugar, pensamos en intentar derivar un resultado como el segundo
 propuesto por Chatterjee para juegos estocásticos en \cite{ComplexityRabin}:
@@ -71,7 +72,10 @@ los estados. Según las pruebas realizadas en \cite{ComplexityRabin}, parece que
 podría ser útil primero intentar probar el teorema fundamental de las
 componentes finales para PMDPs en su caso general y no limitado a estrategias
 de memoria finita (véase teorema~\ref{teoFundEC}), antes de adentrarse en
-querer probar lo propuesto en este párrafo.
+querer probar lo propuesto en este párrafo. En caso de tener éxito probando
+esto, por lo que presentamos en esta tesina podríamos decir que para el cálculo
+de valores de estados en un PSG con objetivos de Rabin bastará solo con buscar
+entre las estrategias puras y sin memoria.
 
 En segundo lugar, pensamos que se podría intentar probar algo al estilo del
 primer teorema en \cite{Polytopal} y ver que el encontrar el valor en un estado
@@ -79,16 +83,15 @@ de un PSG para un objetivo de Rabin puede ser equivalente a buscar el valor de
 un estado en la interpretación extrema del juego. Si bien no pudimos llegar a
 una conclusión fuerte sobre si esto es posible en general, creemos que es
 verdad que podemos transformar una estrategia determinista sin memoria en dos
-estrategias extremas, randomizadas y sin memoria. Si pensamos en estrategias extremas podemos
-pensar directamente en la resolución del valor la interpretación extrema del
-juego, que es un juego estocástico no politópico. Una tarea futura muy concreta
-podría bien ser ver si se puede formalizar esta idea de transformación de
-estrategias MD en pares de estrategias MRX y luego ver si para el cálculo del
-valor en el PSG podríamos limitar nuestra búsqueda a las estrategias MD.
-En caso de poder hacer esto y valiéndonos de trabajo
+estrategias extremas, randomizadas y sin memoria. Si pensamos en estrategias
+extremas podemos pensar directamente en la resolución del valor la
+interpretación extrema del juego, que es un juego estocástico no politópico.
+Una tarea futura muy concreta podría bien ser ver si se puede formalizar esta
+idea de transformación de estrategias MD en pares de estrategias MRX y luego
+ver si para el cálculo del valor en el PSG podríamos limitar nuestra búsqueda a
+las estrategias MD. En caso de poder hacer esto y valiéndonos de trabajo
 existente en la literatura, podríamos dar algoritmos concretos para el cálculo
-del valor de un estado en un PSG con objetivo de Rabin y mostraríamos la
-determinación de los mismos. % mmm esto ´ultimo
+del valor de un estado en un PSG con objetivo de Rabin.
 
 Sin importar cuál abordaje se tome, el estudio de la pregunta cuantitativa para
 PSGs con objetivos de Rabin sería el próximo paso natural para dar y sería muy
