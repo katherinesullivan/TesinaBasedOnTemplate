@@ -21,7 +21,7 @@ inecuaciones lineales cuyas soluciones forman un politopo.
 % soluciones forman un politopo.
 
 %Discutiremos más sobre la necesidad de creación de este tipo de juegos y qué ventajas proveen y qué motiva su estudio ?) y dividiremos ...
-Dividiremos el capítulo en dos secciones: definiciones y resultados.
+Dividiremos el capítulo en dos secciones: definiciones y teoremas.
 
 \section{Definiciones}
 
@@ -41,20 +41,19 @@ finito, como las funciones en $\mathbb{R}^S$ pueden ser vistas como vectores en
 $\mathbb{R}^{|S|}$, generalmente, nos referiremos a politopos en
 $\mathbb{R}^S$.
 
-Sea \( \textbf{Poly}(S) \) el conjunto de todos los politopos convexos en \(
+Sea \( \Poly(S) \) el conjunto de todos los politopos convexos en \(
 \mathbb{R}^S \). Nótese que el conjunto de todas las funciones de probabilidad
 en \( S \) forma el politopo convexo
 
-\( \text{Dist}(S) = \{ \mu \in \mathbb{R}^S \mid \sum_{s \in S} \mu(s) = 1 \text{ y } \forall s \in S : \mu(s) \geq 0 \} \)
+\( \Dist(S) = \{ \mu \in \mathbb{R}^S \mid \sum_{s \in S} \mu(s) = 1 \text{ y } \forall s \in S : \mu(s) \geq 0 \} \)
 
-Definimos \( \textbf{DPoly}(S) = \{ K \cap \text{Dist}(S) \mid K \in
-\text{Poly}(S) \} \). Cada \( K \in \text{DPoly}(S) \) es un politopo convexo
-cuyos elementos son también funciones de probabilidad sobre \( S \), y su
-conjunto de desigualdades característico \( Ax \leq b \) ya codifica las
-desigualdades \( \sum_{s \in S} x_s = 1 \) y \( x_s \geq 0 \) para todo \( s
-\in S \).
+Definimos \( \DPoly(S) = \{ K \cap \Dist(S) \mid K \in \Poly(S) \} \). Cada \(
+K \in \DPoly(S) \) es un politopo convexo cuyos elementos son también funciones
+de probabilidad sobre \( S \), y su conjunto de desigualdades característico \(
+Ax \leq b \) ya codifica las desigualdades \( \sum_{s \in S} x_s = 1 \) y \(
+x_s \geq 0 \) para todo \( s \in S \).
 
-Cualquier politopo convexo \( K \in \text{Poly}(S) \) puede caracterizarse
+Cualquier politopo convexo \( K \in \Poly(S) \) puede caracterizarse
 alternativamente como la envolvente convexa de su conjunto finito de vértices.
 Sea \( \mathbb{V}(K) \) el conjunto de todos los vértices del politopo \( K \).
 Si \( \mathbb{V}(K) = \{v^1, \dots, v^k\} \), entonces todo \( x \in K \) es
@@ -185,13 +184,12 @@ se define como la \( \sigma \)-álgebra más pequeña que contiene los conjuntos
 \( \{\mu \in \textsf{Dist}(S) \mid \mu(S) \geq p\} \) para todo \( S \subseteq
 S \) y \( p \in [0, 1] \). Ahora, dotamos a \( \Act \) con la \( \sigma
 \)-álgebra producto \( \Sigma_\Act = \mathscr{P} \left(\bigcup_{s \in S}
-\Theta(s)\right) \otimes \Sigma_{\text{Dist}(S)} \), y llamamos \(
-\textsf{PMeas}(A) \) al conjunto de todas las medidas de probabilidad sobre \(
-\Sigma_\Act \). No es difícil comprobar que cada conjunto de acciones
-habilitadas \( \Act(s) \) es medible (es decir, \( \Act(s) \in \Sigma_\Act \))
-y que la función \( \theta(s, \cdot, s') \) es medible (es decir, \( \{a \in
-\Act \mid \theta(s, a, s') \leq p\} \in \Sigma_\Act \) para todo \( p \in [0,
-	1] \)).
+\Theta(s)\right) \otimes \Sigma_{\Dist(S)} \), y llamamos \( \textsf{PMeas}(A)
+\) al conjunto de todas las medidas de probabilidad sobre \( \Sigma_\Act \). No
+es difícil comprobar que cada conjunto de acciones habilitadas \( \Act(s) \) es
+medible (es decir, \( \Act(s) \in \Sigma_\Act \)) y que la función \( \theta(s,
+\cdot, s') \) es medible (es decir, \( \{a \in \Act \mid \theta(s, a, s') \leq
+p\} \in \Sigma_\Act \) para todo \( p \in [0, 1] \)).
 
 Ahora bien, para dar la medida de probabilidad $\Prob^{\picuad, \pidiam}$
 debemos primero presentar las nociones de camino y estrategia en un PSG.
@@ -203,12 +201,15 @@ acordemente las definiciones que se asocian a ello para mantener la formalidad
 de los resultados.
 
 \begin{definition}[Camino en un PSG]
-	Un camino en un PSG es una secuencia infinita que alterna entre estados y conjuntos resultado. Formalmente un camino es un $\omega = (s_0, (K_0, \mu_0), s_1, (K_1, \mu_1), \dots)$ tal que $s_i \in \St$, $(K_i, \mu_i) \in \Act(s_i)$ y $\mu_i(s_{i+1}) > 0$ para todo $i \geq 0$.
+	Un camino en un PSG es una secuencia infinita que alterna entre estados y acciones. Formalmente un camino es un $\omega = (s_0, (K_0, \mu_0), s_1, (K_1, \mu_1), \dots)$ tal que $s_i \in \St$, $(K_i, \mu_i) \in \Act(s_i)$ y $\mu_i(s_{i+1}) > 0$ para todo $i \geq 0$.
 
 	Al igual que para juegos estocásticos, notaremos al conjunto de todos los
-	caminos de un PSG como $\Paths$. Dado un estado $s$, indicaremos con $\Paths_s$
-	el conjunto de los caminos que se originan en $s$, y con $\Paths_s^n$ al
-	conjunto de los caminos que se originan en $s$ y tiene un total de $n$ estados.
+	caminos de un PSG como $\Paths$, con $\Pathsfin$ al conjunto de los prefijos de
+	caminos finitos y con $\Pathsfin^i$ al conjunto de los prefijos de camino
+	finitos que terminan en un estado $s \in \St_i$. Dado un estado $s$,
+	indicaremos con $\Paths_s$ el conjunto de los caminos que se originan en $s$, y
+	con $\Paths_s^n$ al conjunto de los caminos que se originan en $s$ y tiene un
+	total de $n$ estados.
 \end{definition}
 
 \begin{definition}[Conjuntos soporte y acciones]
@@ -228,7 +229,7 @@ de los resultados.
 Entonces, ahora sí podemos extender el concepto de estrategia en un PSG:
 
 \begin{definition}[Estrategia en un PSG]
-	Una estrategia $\pi_i$ para el jugador $i$ ($i \in \{\cuad, \diam\}$) en un PSG será una función $\pi_i : (\St \times \Act)^* \St_i \rightarrow \textsf{PMeas}(\Act)$ que asigna una medida de probabilidad a cada $\omega s$ tal que $\pi_i(\omega s)(\Act(s)) = 1$.
+	Una estrategia $\pi_i$ para el jugador $i$ ($i \in \{\cuad, \diam\}$) en un PSG será una función $\pi_i : \Pathsfin^i \rightarrow \textsf{PMeas}(\Act)$ que asigna una medida de probabilidad a cada $\omega s$ tal que $\pi_i(\omega s)(\Act(s)) = 1$.
 \end{definition}
 
 Los distintos tipos de estrategias que presentamos en el
@@ -239,7 +240,7 @@ estrategias agregamos una particular de los juegos estocásticos politópicos:
 las estrategias extremas.
 
 \begin{definition}[Estrategia extrema en un PSG]
-	Una estrategia $\pi_i$ para el jugador $i$ ($i \in \{\cuad, \diam\}$) en un PSG se dirá \textbf{extrema} si para todo $\omega \in \Paths$, $\pi_i(\omega s)\{(K, \mu) \in \Act(s)| \mu \in \mathbb(V)(K)\} = 1$. Es decir, diremos que una estrategia es extrema si solo asigna probabilidades positivas a distribuciones en los vértices del politopo.
+	Una estrategia $\pi_i$ para el jugador $i$ ($i \in \{\cuad, \diam\}$) en un PSG se dirá \textbf{extrema} si para todo $\hat \omega \in \Pathsfin$, $\pi_i(\hat \omega s)\{(K, \mu) \in \Act(s)| \mu \in \mathbb{V}(K)\} = 1$. Es decir, diremos que una estrategia es extrema si solo asigna probabilidades positivas a distribuciones en los vértices del politopo.
 
 	Notaremos con $\Pi_i^X$ a la familia de estrategias extremas para el jugador
 	$i$ y podremos combinar esta notación con las presentadas para otras familias
@@ -260,7 +261,7 @@ las estrategias extremas.
 \begin{boxamarillo}[Medida de probabilidad que no va a ir probablemente]{}
 	Con la formalización del concepto de estrategia ahora podemos presentar
 	formalmente la definición de $\ProbG$, la medida de probabilidad definida por
-	la cadena de Markov dada por $\Gk$ y las estrategias $\picuad$ y $\pidiam$.
+	la cadena de Markov dada por $\Gk$ y las estrategias $\picuad$ y $\pidiam$ en el estado $s$.
 
 	Para eso, primero para cada $n \geq 0$ y $s \in \St$ definimos $\Prob^{\picuad,
 			\pidiam, n}_{\Gk, s} : \Paths^{n+1} \rightarrow [0, 1]$ para todo $s' \in \St$
@@ -294,10 +295,10 @@ las estrategias extremas.
 
 Así se logra interpretar un PSG como un SG pero con un conjunto infinito de
 acciones. \kathy{Pedro prometió hacer esto que está en el box amarillo bien :)}
-En \cite{Polytopal} se demuestra cómo ciertos preguntas que nos podemos hacer
-sobre esta interpretación infinita se pueden responder analizando en la
-interpretación con una cantidad finita de acciones que presentamos a
-continuación.
+En \cite{Polytopal} se demuestra cómo ciertas preguntas que nos podemos hacer
+sobre esta interpretación infinita se pueden responder analizando una
+interpretación distinta con una cantidad finita de acciones, la cual
+presentamos a continuación.
 
 \begin{definition}[Interpretación extrema de un PSG]
 	Dada $\Gk = (\St, (\St_\cuad, \St_\diam), \Act, \theta)$ la interepretación de un PSG $\K$, la interpretación extrema de $\K$ es el juego estocástico $\Hk = (\St, (\St_\cuad, \St_\diam), \V(\Act), \theta_{\Hk})$ donde $\theta_{\Hk}$ es la restricción de  $\theta$ a las acciones en $\V(\Act) = \{(K, \mu) \in \Act \mid \mu \in \V(K)\}$. Es decir, para todos $s, s' \in \St$ y $a \in \V(\Act)$, $\theta_{\Hk}(s, a, s') = \theta(s, a, s')$.

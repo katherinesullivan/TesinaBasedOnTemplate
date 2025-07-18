@@ -22,12 +22,12 @@ acciones posibles a tomar desde un estado puede ser no numerable.
 % la definición formal de la siguiente manera:
 
 Los caminos, las estrategias, y la medida de probabilidad en los PMDPs se
-definen tomando las mismas definiciones de los juegos estocásticos politópicos,
-pero presentaremos formalmente a continuación las definiciones de conjuntos
-estado-resultado, sub-PMDPs y componentes finales que en cierta forma extienden
-a los conceptos de conjuntos estado-acción, sub-MDPs y componentes finales que
-se suelen encontrar en la literatura de procesos de decisión de Markov
-\cite{AlfaroThesis,BaierKatoen}.
+definen tomando las mismas definiciones de los juegos estocásticos politópicos.
+Lo que presentaremos formalmente a continuación será las definiciones de
+conjuntos estado-resultado, sub-PMDPs y componentes finales que en cierta forma
+extienden a los conceptos de conjuntos estado-acción, sub-MDPs y componentes
+finales que se suelen encontrar en la literatura de procesos de decisión de
+Markov \cite{AlfaroThesis,BaierKatoen}.
 
 \begin{definition}[Conjuntos estado-resultado y sub-PMDPs]
 	Dado un PMDP $\M = (S, Act, \theta')$ un conjunto estado-resultado es un subconjunto $\chi \subseteq \{(s, V') \mid s \in S \wedge V' \in V_s\}$. Un sub-PMDP es un par $(C, D)$, donde $C \subseteq S$ y $D$ es una función que asocia a cada $s \in C$ un conjunto $D(s) \subseteq V_s$ de subconjuntos de estados próximos posibles. Hay una relación uno-a-uno entre sub-PMDPs y conjuntos de estado-acción:
@@ -138,7 +138,7 @@ probar el teorema principal de esta tesina.
 
 \begin{corollary}
 	\label{adaptB30}
-	Sea $\M$ un PMDP y sea $s$ un estado ganador en él para una condición de Rabin $R = \{(E_1, F_1), \dots, (E_d, F_d)\}$.%, cuya especificación LTL es $\varphi$ (es decir, para toda estrategia $\pi$, $\ProbPMDP(\varphi) = 1$). 
+	Sea $\M$ un PMDP y sea $s$ un estado ganador en él para una condición de Rabin $R = \{(E_1, F_1), \dots, (E_d, F_d)\}$. %, cuya especificación LTL es $\varphi$ (es decir, para toda estrategia $\pi$, $\ProbPMDP(\varphi) = 1$). 
 	Entonces, para toda componente final $(C,D)$ alcanzable desde $s$, vale que existe algún $j \in [1, d]$ tal que $C \cap E_j= \emptyset$ y $C \cap F_j \neq \emptyset$.
 \end{corollary}
 
@@ -161,7 +161,7 @@ probar el teorema principal de esta tesina.
 \end{proof}
 
 El próximo resultado establece que, para cualquier estado inicial y cualquier
-estrategia (de memoria finita), un camino terminará con probabilidad 1 en una
+estrategia de memoria finita, un camino terminará con probabilidad 1 en una
 componente final. Esta es la razón detrás del nombre ``componente final".
 
 \begin{theorem}[teorema fundamental de las componentes finales] \label{teoFundEC}

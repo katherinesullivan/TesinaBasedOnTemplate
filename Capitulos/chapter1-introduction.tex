@@ -16,18 +16,16 @@ por esto que los juegos estocásticos han resultado una herramienta útil para
 modelar sistemas en diversas áreas como finanzas, inteligencia artificial y
 telecomunicaciones.
 
-%Rechequear este parrafo
 Existen sistemas en donde las probabilidades de transición de un estado a otro
 no son conocidas con exactitud, sino que se sabe un conjunto de restricciones
 sobre las mismas, y en ese caso podríamos tener una cantidad infinita de
 posibilidades que cumplan esas restricciones. Ejemplos de estos sistemas son
 redes de comunicaciones, modelos financieros complejos y planificaciones de
 movimiento en robótica. Para modelar este tipo de situaciones surgió el
-concepto de juegos estocásticos politópicos. En ellos, los posibles siguientes
-estados de un juego forman diferentes politopos en el espacio de estados, y la
-decisión de un jugador lo que implicará la elección de un politopo y una
-distribución de probabilidad sobre ese politopo, a partir de los cuales se verá
-cuál es el próximo estado del juego.
+concepto de juegos estocásticos politópicos. En ellos, la decisión de un
+jugador implicará la elección de un politopo y una distribución de probabilidad
+sobre ese politopo, a partir de los cuales se verá cuál es el próximo estado
+del juego.
 
 Para su estudio, y en general para el estudio de juegos, la pregunta central a
 responder es si un jugador tiene una estrategia ganadora. Esto dependerá de
@@ -44,18 +42,18 @@ aquella de las condiciones de equidad en sistemas de transición, además de que
 cualquier propiedad $\omega$-regular puede ser reescrita como una propiedad de
 Rabin \cite{AutomataLogicsInfiniteGames}.
 
-Una vez fijado un jugador (generalmente el jugador ``maximizador''/ el jugador
-que busca que se cumpla la propiedad $\phi$), al problema de la computación de
-los estados estados ganadores de un juego se lo suele llamar el análisis
-cualitativo del juego, mientras que el análisis cuantitativo del juego refiere
-al problema de computar, para cada estado, cuál es la probabilidad máxima que
-tiene este de ganar, aún cuando esta sea menor que 1.
+Una vez fijado un jugador (generalmente el jugador ``maximizador'', es decir,
+el jugador que busca que se cumpla la propiedad $\phi$), al problema de la
+computación de los estados estados ganadores de un juego se lo suele llamar el
+análisis cualitativo del juego, mientras que el análisis cuantitativo del juego
+refiere al problema de computar, para cada estado, cuál es la probabilidad
+máxima que tiene este de ganar, aún cuando esta sea menor que 1.
 
 En el trabajo nos concentraremos en el análisis cualitativo de juegos
 estocásticos politópicos con objetivos de Rabin. Mostraremos que el conjunto de
 sus estados ganadores son iguales a los estados ganadores de un particular
-juego determinista construido a partir del juego estocástico, y presentaremos
-un algoritmo para su cómputo y analizaremos su complejidad.
+juego determinista construido a partir del juego estocástico politópico,
+presentaremos un algoritmo para su cómputo y analizaremos su complejidad.
 
 %Esta igualdad que mostramos también permite que cualquier avance en términos de mejoras para el cómputo de conjuntos de estados ganadores en juegos deterministas, resultará en una mejora para el cómputo de conjuntos de estados ganadores en juego estocásticos politóìcos con objetivos de Rabin.
 
@@ -85,8 +83,8 @@ alcanzabilidad fueron publicados por Condon en 1992 \cite{CONDON1992} y los
 juegos con objetivos de Rabin comenzaron a ser estudidados en profundidad por
 Chaterjee desde 2005 \cite{ComplexityRabin,Chatterjee2007,Chatterjee1}.
 
-Recientemente, en 2024, Castro y D'Argenio introdujeron el concepto de juegos
-estocásticos politópicos \cite{Polytopal}, los cuales expanden la noción de
+Recientemente, en 2025, Castro y D'Argenio introdujeron el concepto de juegos
+estocásticos politópicos en \cite{Polytopal}, los cuales expanden la noción de
 juegos estocásticos.
 %con incertidumbre sobre las probabilidades de las acciones de los jugadores. 
 En este mismo paper, se presentan resultados para juegos estocásticos
@@ -100,22 +98,22 @@ los juegos estocásticos politópicos con objetivos de Rabin.
 	\item En el \textbf{Capítulo~\ref{cap:modelos}}, nos adentraremos en el campo de la
 	      verificación de modelos con juegos, presentando definiciones básicas de modelos
 	      y juegos acompañadas con ejemplos que servirán de guía para el entendimiento de
-	      los mismos;
+	      los mismos.
 
 	\item En el \textbf{Capítulo~\ref{cap:objetivos}}, presentaremos en profundidad los
 	      objetivos $\omega$-regulares haciendo especial hincapié en los objetivos de
-	      Rabin;
+	      Rabin.
 
 	\item En el \textbf{Capítulo~\ref{cap:psg}}, veremos definiciones formales referidas
 	      a los juegos estocásticos politópicos y los resultados obtenidos en el paper
-	      \textit{Polytopal Stochastic Games} \cite{Polytopal};
+	      \textit{Polytopal Stochastic Games} \cite{Polytopal}.
 
 	\item En el \textbf{Capítulo~\ref{cap:results}}, desarrollaremos los resultados
-	      originales de esta tesina, presentando en la sección~\ref{sec:pmdp} a los
-	      procesos de decisión de Markov politópicos con sus teoremas asociados y
-	      mostrando en la sección~\ref{sec:prueba} cómo calcular el conjunto de estados
-	      ganadores con probabilidad 1 para el jugador maximizador en un juego
-	      estocástico politópico con objetivo de Rabin, y
+	      originales de esta tesina, introduciendo los procesos de decisión de Markov
+	      politópicos con sus teoremas asociados, mostrando una reducción determinista
+	      para PSGs y mostrando cómo calcular el conjunto de estados ganadores con
+	      probabilidad 1 para el jugador maximizador en un juego estocástico politópico
+	      con objetivo de Rabin.
 
 	\item Finalmente, en el \textbf{Capítulo~\ref{cap:conclusions}}, concluiremos con un
 	      resumen de los aportes realizados en esta tesina y nos expandiremos sobre

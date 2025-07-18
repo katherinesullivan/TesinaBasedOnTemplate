@@ -3,8 +3,8 @@
 \vspace{-1cm}
 
 En este capítulo presentaremos brevemente la verificación de modelos con
-juegos. Para ello comenzaremos dando un contexto sobre el campo de estudio de
-la verificación de modelos y luego presentaremos unos modelos matemáticos que
+juegos. Para ello comenzaremos dando un contexto sobre el campo de la
+verificación de modelos y luego presentaremos unos modelos matemáticos que
 sirven para la representación de distintos tipos de sistemas (las cadenas de
 Markov, los procesos de decisión de Markov, los juegos estocásticos y los
 juegos -de grafo- deterministas).
@@ -107,7 +107,9 @@ Veamos un pequeño ejemplo de cómo sería una cadena de Markov.
 
 %% VER QUE ONDA ACA LO DEL BOX GRIS
 \textbf{Randomito, el pequeño robot probabilístico}
-Supongamos que queremos observar el comportamiento de un pequeño robot llamado \textit{Randomito}.
+
+Supongamos que queremos observar el comportamiento de un pequeño robot llamado
+\textit{Randomito}.
 
 \textit{Randomito} se encuentra en una grilla 2x2 y se comporta totalmente probabilísticamente siguiendo la siguiente descripción: desde su posición inicial de quietud en la esquina superior izquierda tiene una probabilidad de 0.5 de seguir allí y 0.25 de moverse tanto a la izquierda como hacia abajo. Si sucede que en algún momento se encuentra en la esquina superior o inferior derecha, como a \emph{Randomito} no le gusta quedarse del lado de la derecha, tiene probabilidad 0 de quedarse allí o de ir hacia arriba o abajo, respectivamente. Desde esas esquinas, \emph{Randomito} se mueve con probabilidad 1 hacia la izquierda. Desde la esquina inferior izquierda tendrá una probabilidad de 0.3 de quedarse allí, 0.2 de ir a la derecha y 0.5 de ir hacia arriba.
 
@@ -162,20 +164,20 @@ Caminos posibles de esta cadena de Markov podrían ser:
 \begin{itemize}
 	\item el que mantiene a \emph{Randomito} siempre en la esquina superior izquierda,
 	      $(SI, SI, SI, \dots)$, o
-	\item el describe un primer movimiento en ``C" de \emph{Randomito} y luego se
+	\item el describe un primer movimiento en ``C'' de \emph{Randomito} y luego se
 	      comporta de cualquier manera, $(SI, SD, SI, II, ID, II, SI, \dots)$.
 	      %\item  o algunos de los que mantienen a \emph{Randomito} en la parte superior de la grilla, como $(SI, SD, SI, SD, SI, SD, \dots)$ o $(SI, SD, SI, SD, SI, SI, SI, \dots)$.
 \end{itemize}
 
 Una duda natural entonces que podría surgir es ``¿qué probabilidad hay de que
-\emph{Randomito} siga alguno de esos caminos?"
+\emph{Randomito} siga alguno de esos caminos?''.
 
 Para poder asociar probabilidades a eventos en cadenas de Markov (o, lo que es
 lo mismo, pensar en preguntas sobre la probabilidad de que \emph{Randomito}
 siga algún tipo particular de camino), la noción intuitiva de probabilidades en
 $M$ debe ser formalizada. Lograremos esto asociándole un espacio de
 probabilidad a $M$. Los caminos infinitos de $M$ jugarán el rol de resultados
-de la $\sigma$-álgebra asociada. Esto es $Outc^M = \Paths(M)$. Y la
+de la $\sigma$-álgebra asociada, esto es $Outc^M = \Paths(M)$, y la
 $\sigma$-álgebra asociada a $M$ será la generada por los conjuntos cilindro
 formados por los fragmentos de caminos finitos en $M$.
 
@@ -230,17 +232,17 @@ Markov.
 Un proceso de decisión de Markov (MDP, por sus siglas en inglés) es una
 generalización de una cadena de Markov donde un conjunto de acciones posibles
 es asociado a cada estado. A cada par estado-acción le corresponde una
-distribución de probabilidad en los estados, que es usada para seleccionar el
-próximo estado. A su vez, una cadena de Markov se corresponde a un MDP donde
-hay exactamente una acción asociada a cada estado.
+distribución de probabilidad que es usada para seleccionar el próximo estado. A
+su vez, una cadena de Markov se corresponde a un MDP donde hay exactamente una
+acción asociada a cada estado.
 
 Asumiremos la existencia de un conjunto fijo de acciones $\Act$ y a
 continuación presentaremos la definición de un proceso de decisión de Markov:
 
 \begin{definition}[Proceso de Decisión de Markov]
-	Un proceso de decisión de Markov $\M =(\St, \Act, \theta)$ consiste de un conjunto finito de estados $\St$ y de dos componentes, $\Act$ y $\theta$, que especifican la estructura de transición:
+	Un proceso de decisión de Markov $\M =(\St, \Act, \theta)$ consiste de un conjunto finito de estados $\St$ y de dos componentes, $\Act$ y $\theta$, que especifican la estructura de transición entre los estados:
 	\begin{itemize}
-		\item $\Act$ es un conjunto de acciones. Para cada $s \in \St$, $\Act(s) \subseteq \Act$ es el conjunto finito no vacío de
+		\item $\Act$ es un conjunto de acciones. Para cada $s \in \St$, $\Act(s) \subseteq \Act$ es el conjunto finito de
 		      acciones disponibles en $s$. Para cada estado $s \in \St$ se requiere que $\Act(s) \neq \emptyset$.
 		\item $\theta : \St \times \Act \times \St \rightarrow [0,1]$ es una función de transición probabilística. Para todo estado $s \in \St$, si $a \in \Act(s)$ tenemos que $\sum_{s' \in \St} \theta(s, a, s') = 1$, mientras que si $a \notin \Act(s)$, $\sum_{s' \in \St} \theta(s, a, s') = 0$. Para cada $s, t \in \St$ y $a \in \Act(s)$, $\theta(s, a, t)$ es la probabilidad de transicionar de $s$ a $t$ cuando la acción $a$ es seleccionada.
 	\end{itemize}
@@ -259,9 +261,9 @@ definición formal es como sigue:
 \begin{definition}[Camino en un MDP]
 	Un camino en un MDP $\M$ es una secuencia infinita $\omega = (s_0, a_0, s_1, a_1, \dots)$ tal que $s \in \St$, $a_i \in \Act(s_i)$ y $a_i(s_{i+1}) > 0$ para todo $i \geq 0$.
 
-	Dado un estado $s$, indicaremos con $\Paths_s$ el conjunto de todos los caminos
-	que se originan en $s$, con $\Paths$ el conjunto de todos los caminos en $\M$ y
-	con $\Pathsfin$ el conjunto de todos los prefijos finitos de caminos en $\M$
+	Dado un estado $s$, indicaremos con $\Paths_s$ al conjunto de todos los caminos
+	que se originan en $s$, con $\Paths$ al conjunto de todos los caminos en $\M$ y
+	con $\Pathsfin$ al conjunto de todos los prefijos finitos de caminos en $\M$
 	que terminan en un estado $s \in \St$.
 \end{definition}
 
@@ -370,10 +372,9 @@ Como una estrategia resuelve todas las elecciones no deterministas en un MDP,
 induce una cadena de Markov. Esto es, el funcionamiento de un MDP $\M$
 siguiendo las decisiones de una estrategia $\pi$ puede ser formalizado por una
 cadena de Markov $\M_\pi$, donde los estados son los prefijos finitos de
-caminos en $\M$. \kathy{Lo que está a continuación me hace un poco de ruido por
-	la parte de la definición de la cadena de Markov. Es como lo presentan en el
-	libro de Baier y Katoen. La otra opción es ir poco más con el enfoque de de
-	Alfaro y presentar la $\sigma$-álgebra sin mencionar nada de MCs}.
+caminos en $\M$. \kathy{Me hace un poco de ruido por la parte de la def de la
+	MC con infinitos estados. La otra opción es ir más con el enfoque de de Alfaro
+	y presentar la $\sigma$-álgebra sin mencionar nada de MCs}.
 
 \begin{definition}[Cadena de Markov de un MDP inducida por una estrategia]
 	Sea $\M = (\St, \Act, \theta)$ un MDP y $\pi$ una estrategia en $\M$. La cadena de Markov $\M_\pi$ está dada por
@@ -383,8 +384,7 @@ caminos en $\M$. \kathy{Lo que está a continuación me hace un poco de ruido po
 \end{definition}
 
 Nótese que $\M_\pi$ cuenta con un espacio de estados infinito, aun cuando el
-MDP $\M$ es finito. \kathy{Entonces, ¿cuenta como una MC? Habría que bajar de
-	la def de MC lo de cjto de estado finito en ese caso.}.
+MDP $\M$ es finito.
 
 Como $\M_\pi$ es una cadena de Markov, uno ahora puede razonar sobre las
 probabilidades de los conjuntos medibles de caminos que siguen la estrategia
@@ -412,15 +412,15 @@ historia y solo elige probabilidades para las acciones basándose en el estado
 actual. Esto puede ser bastante extremo en ciertos casos, por eso existe una
 variante que busca reflejar la idea de finitud sin ser tan restrictiva: las
 estrategias de memoria finita. Una estrategia de memoria finita puede ser
-pensada intuitivamente como que solo puede guardar hasta una cantidad finita
-fija de información de la historia, por lo que no podrá ser distinta para
-\textbf{todo} prefijo finito de camino. Formalmente, la definiremos a través de
-una autómata determinista finito (DFA). La distribución de probabilidad de las
-acciones será seleecionada a partir del estado actual en $\M$ y el estado
-actual del autómata (al que llamaremos modo). Veamos su definición:
+pensada intuitivamente como que solo puede guardar hasta una cantidad finita de
+información de la historia, por lo que no podrá ser distinta para \textbf{todo}
+prefijo finito de camino. Formalmente, la definiremos a través de una autómata
+determinista finito (DFA). La distribución de probabilidad de las acciones será
+seleecionada a partir del estado actual en $\M$ y el estado actual del autómata
+(al que llamaremos modo). Veamos su definición:
 
 \begin{definition}[Estrategias con memoria finita]
-	Sea $\M$ un MDP con espacio de estados $\St$ y conjunto de acciones $\Act$. Una estrategia de memoria finita para $\M$ es una tupla $\pi = (Q, f_\pi, \Gamma, start)$ donde
+	Sea $\M$ un MDP con espacio de estados $\St$ y conjunto de acciones $\Act$. Una estrategia de memoria finita para $\M$ es una tupla $\pi = (Q, f_\pi, \Delta, start)$ donde
 	\begin{itemize}
 		\item $Q$ es un conjunto finito de modos,
 		\item $\Delta : Q \times \Act \times \St \rightarrow Q$ es la función de transición del autómata,
@@ -458,7 +458,7 @@ pensar a las estrategias como una función $\pi: \Pathsfin \rightarrow \Act$.
 \textbf{Controlando a Roborto}
 
 Podemos pensar distintas estrategias para controlar a Roborto. Veamos algunas
-de ellas y analicemos en qué categorías entrarían:
+de ellas:
 
 \begin{itemize}
 	\item Una estrategia pura y sin memoria podría ser la que siempre decide moverse
@@ -506,7 +506,7 @@ de ellas y analicemos en qué categorías entrarían:
 
 \section{Juegos estocásticos}
 
-Además de elecciones podríamos también querer modelar comportamiento
+Además de elecciones, podríamos también querer modelar comportamiento
 adversarial. Este comportamiento adversarial, donde surgen distintos agentes
 con distintos objetivos, se ha modelado históricamente a través de juegos. Si
 estos juegos exhiben también comportamiento probabilístico los modelos que se
@@ -525,7 +525,8 @@ suele usar son los llamados juegos estocásticos.
 
 Se puede notar que si $\St_\cuad = \emptyset$ o $\St_\diam = \emptyset$,
 entonces $\G$ es un proceso de decisión de Markov, y, como vimos antes, si a la
-vez $\abs{\Act(s)} = 1$ entonces $\G$ es una cadena de Markov.
+vez $\forall s \in \St$, $\abs{\Act(s)} = 1$ entonces $\G$ es una cadena de
+Markov.
 
 Otra manera de verlo es pensar a los juegos estocásticos como un procesos de
 decisión de Markov donde el conjunto de estados está particionado en dos: los
@@ -564,9 +565,11 @@ pertenecerán a un jugador específico. Los distintos tipos de estrategias
 presentadas en la sección anterior se extienden naturalemente a SG. Llamaremos
 $\Pi^{M}_i$ al conjunto de las estrategias sin memoria del jugador $i$,
 $\Pi^{F}_i$ al conjunto de las estrategias de memoria finita del jugador $i$,
-$\Pi^{D}_i$ al conjunto de las estrategias puras del jugador $i$, $\Pi^{MD}_i$
-al conjunto de las estrategias puras sin memoria del jugador $i$ y $\Pi^{FD}_i$
-al conjunto de las estrategias puras con memoria finita del jugador $i$.
+$\Pi^{D}_i$ al conjunto de las estrategias puras del jugador $i$, $\Pi^{R}_i$
+al conjunto de las estrategias randomizadas del jugador $i$ y las podremos
+combinar diciendo por ejemplo que $\Pi^{MD}_i$ es el conjunto de las
+estrategias puras sin memoria del jugador $i$ y $\Pi^{FR}_i$ al conjunto de las
+estrategias randomizadas con memoria finita del jugador $i$.
 
 De manera similar a como lo razonamos para procesos de decisión de Markov, si
 fijamos dos estrategias $\pi_\cuad \in \Pi_\cuad$ y $\pi_\diam \in \Pi_\diam$
@@ -581,21 +584,21 @@ $\varepsilon$ empezando desde el estado $s$.
 \textbf{Un ejemplo de juego estocástico: Roborta vs Rigoborto}
 
 La idea ahora será presentar un juego estocástico. Para eso pensaremos que
-mientras que nosotros tenemos a Roborta, la robot hermana de Roborto, un amigo
+mientras que nosotros tenemos a Roborta, la robota hermana de Roborto, un amigo
 nuestro tiene un controlador que le permite decidir los movimientos de
-Rigoborto, una robota de también características similares a las de Roborto.
+Rigoborto, un robot también de características similares a las de Roborto.
 
 Ambos vamos a tener a nuestros robots en un terreno como sobre el que antes
 estaba Roborto, con ciertas inclinaciones que pueden hacer que nuestros
-comandos no se ejecuten de manera certera. Y nuestra idea va a ser modelizar
-esta situación a través de un juego estocástico.
+comandos no se ejecuten de manera certera. Nuestra idea va a ser modelizar esta
+situación a través de un juego estocástico.
 
-Lo que tenemos que tener en cuenta aquí es que al estar modelizando un juego,
+Lo que tenemos que tener en cuenta aquí es que, al estar modelizando un juego
 en donde tenemos dos actores, no podremos simplemente tener como estado algo al
 estilo ``esquina superior izquierda'' por el hecho de que nuestro estado tiene
 que codificar donde se encuentran dos robots (que es posible que sean lugares
 distintos), además de representar de quién es el turno (que lo indicaremos con
-la pertenencia del estado a $\St_\cuad$ o $\St_diam$).
+la pertenencia del estado a $\St_\cuad$ o $\St_\diam$).
 
 Entonces, una manera de modelar esta situación en la que tenemos a Roborta y
 Rigoborto es hacer que el estado sea un reflejo de las posiciones donde se
@@ -610,10 +613,10 @@ $(0,0) \\ (1,0)$.
 Si considerasemos en todas las posiciones que se podrían encontrar Roborta y
 Rigoborto tendríamos $16$ ($2^4$) estados. Sin embargo, como dijimos, el estado
 debería representar de quién es el turno (es decir, quién elije desde ahí la
-próxima acción), por eso en realidad si pensamos que desde todas las posiciones
-pueden elegir ambos jugadores tendríamos en realidad $32$ ($16 \cdot 2$)
-estados (por cada configuración en donde pueden estar los robots hay una copia
-de ese estado que pertenece a $\St_\cuad$ y otra que pertence a $\St_\diam$).
+próxima acción), por eso, en realidad, si pensamos que desde todas las
+posiciones pueden elegir ambos jugadores tendríamos $32$ ($16 \cdot 2$) estados
+(por cada configuración en donde pueden estar los robots hay una copia de ese
+estado que pertenece a $\St_\cuad$ y otra que pertence a $\St_\diam$).
 
 Ahora, si decidimos con nuestro amigo hacer que los turnos sean intercalados,
 es decir, nosotros movemos a Roborta, él mueve a Rigoborto, nosotros otra vez,
@@ -783,10 +786,11 @@ Puede ser de interés notar que en el contexto de juegos de grafo hablamos de
 vértices y no de estados como en los juegos estocásticos. Además, para los
 juegos deterministas volveremos a la noción de camino como secuencia de
 vertices solamente, a los cuales notaremos generalmente con $\rho$ en
-contraposición a los caminos siendo notados con $\pi$ para juegos estocásticos.
+contraposición a los caminos siendo notados con $\omega$ para juegos
+estocásticos.
 
-\begin{definition}[jugada sobre un 2G]
-	Una jugada en un juego de grafo de dos jugadores es una secuencia infinita de vértices $\rho = v_0v_1v_2 \dots \in V^\omega$, donde para todo $i \in \N_0$ tenemos que $v^i \in V$ y $(v^i, v^{i+1}) \in E$.
+\begin{definition}[camino sobre un 2G]
+	Un camino (o jugada) en un juego de grafo de dos jugadores es una secuencia infinita de vértices $\rho = v_0v_1v_2 \dots \in V^\omega$, donde para todo $i \in \N_0$ tenemos que $v^i \in V$ y $(v^i, v^{i+1}) \in E$.
 
 	% Esta definición de respeta la damos con 
 	% Sean $\sigma_\cuad$ y $\sigma_\diam$ un par de estrategias y sea $v_0$ un
@@ -812,7 +816,7 @@ detalle en el capítulo siguiente.
 
 Si otra vez queremos pensar en cómo se podrían categorizar las estrategias,
 podemos facilmente ver que acá las nociones de con memoria finita o sin memoria
-se peuden extender de manera intuitiva pero que todas las estrategias serían
+se peuden extender de manera intuitiva, pero que todas las estrategias serían
 puras (o deterministas).
 
 % \begin{definition}[estrategia sin memoria en un 2G]
@@ -899,8 +903,8 @@ hacemos?, si aquí no tendremos la oportunidad de preguntarnos por la
 probabilidad de tomar ciertos caminos. Bueno, la realidad es que los juegos
 (tanto estocásticos como deterministas) suelen venir equipado con lo que se
 llaman objetivos. A partir de estos objetivos es que podremos pensar en la
-pregunta típica, ``¿quién gana?''. Profundimaos sobre estas nociones en el
-próximo capítulo.
+pregunta típica adversarial, ``¿quién gana?''. Profundizaremos sobre estas
+nociones en el próximo capítulo.
 
 % capaz cambiar medidas por los nodos que se van
 

@@ -19,17 +19,17 @@ interés en su estudio.
 En la literatura, un objetivo $\phi$ para un juego es definido como un conjunto
 de caminos. Para los juegos deterministas nosotros mantendremos esta
 definición, pero como para los juegos estocásticos definimos a los caminos como
-secuencias alternantes de estados y acciones (lo cual no es muy usual en la
-literatura), debemos remarcar que un objetivo en ellos será un conjunto de
-secuencias infinitas de estados que se corresponderían a un camino, es decir,
-siendo $\G$ un juego estocástico y $\Paths(\G)$ el conjunto de caminos en él,
-un objetivo será algún $\phi \subseteq \{\omega' | \exists \omega = (s_1,
-	\alpha_1, s_2, \alpha_2, \dots) \in \Paths(\G) \text{ tal que } \omega' = (s_1,
-	s_2, \dots)\} = \{(s_1, s_2, \dots) | \forall i \geq 0, \exists \alpha \in
-	\Act(s_i) \text{ tal que } \alpha(s_{i+1}) > 0\}$. A lo largo de esta sección
-nos seguiremos refiriendo a objetivos como conjuntos de caminos para evitar
-tener que ir diferenciando, pero pensamos que es importante recalcar que los
-objetivos se plantean sobre conjuntos de secuencias de estados y no son
+secuencias alternantes de estados y acciones (lo cual puede no ser el caso en
+alguna literatura), debemos remarcar que un objetivo en ellos será un conjunto
+de secuencias infinitas de estados que se corresponderían a un camino, es
+decir, siendo $\G$ un juego estocástico y $\Paths(\G)$ el conjunto de caminos
+en él, un objetivo será algún $\phi \subseteq \{\omega' | \exists \omega =
+	(s_1, \alpha_1, s_2, \alpha_2, \dots) \in \Paths(\G) \text{ tal que } \omega' =
+	(s_1, s_2, \dots)\} = \{(s_1, s_2, \dots) | \forall i \geq 0, \exists \alpha
+	\in \Act(s_i) \text{ tal que } \alpha(s_{i+1}) > 0\}$. A lo largo de esta
+sección nos seguiremos refiriendo a objetivos como conjuntos de caminos para
+evitar tener que ir diferenciando, pero pensamos que es importante recalcar que
+los objetivos se plantean sobre conjuntos de secuencias de estados y no son
 planteados como dependientes de las acciones tomadas.
 
 Con eso aclarado, un objetivo para el jugador $\cuad$ especifica un conjunto de
@@ -56,22 +56,22 @@ hacemos, en realidad son muchas las preguntas que se pueden pensar sobre
 
 Podemos, por ejemplo, preguntarnos ¿desde qué estados podemos asgurarnos que
 gana un jugador? Es decir, fijado un estado $s$ nos podemos preguntar si existe
-una estrategia para algún jugador tal que frente a cualquier estrategia del
-otro jugador puede asegurar que se produce un camino dentro del conjunto
+una estrategia para algún jugador tal que, frente a cualquier estrategia del
+otro jugador, puede asegurar que se produce un camino dentro del conjunto
 $\phi$. Esta pregunta en la literatura de juegos estocásticos es conocida como
 la pregunta cualitativa (y es esta pregunta sobre la cual enfocaremos nuestro
-estudio). Se la llama así en contraposición a la otra pregunta interesante que
+estudio). Se la llama así en contraposición a otra pregunta interesante que
 también nos podemos hacer en los juegos estocásticos, la pregunta cuantitativa:
 para un estado $s$, ¿cuál es la probabilidad de que desde $s$ gane algún
-jugador?. Esta última pregunta puede ser respondida para todos los estados, aún
+jugador? Esta última pregunta puede ser respondida para todos los estados, aún
 cuando no existe una estrategia que asegure un comportamiento ganador frente a
 todas las estrtategias del otro jugador. La respuesta a esta pregunta es
-conocida como el valor del estado y comentaremos brevemente sobre ella en el
-Capítulo~\ref{cap:conclusions}.
+conocida como el valor del estado y comentaremos brevemente sobre ella en los
+capítulos~\ref{cap:psg} y \ref{cap:conclusions}.
 
 El conjunto de estados desde donde el jugador $\cuad$ gana para algún objetivo
 $\phi$ será llamado la región ganadora del juego. El aporte más importante de
-este trabajo presentará cómo calcular la región ganadora de un juego
+este trabajo será presentar cómo calcular la región ganadora de un juego
 estocástico politópico con un tipo particular de objetivo $\omega$-regular: un
 objetivo de Rabin.
 
@@ -195,8 +195,8 @@ mencionamos que los objetivos de paridad y de Müller pueden ser transformados a
 objetivos de Rabin. Con esto, podemos empezar a deducir lo que se prueba
 formalmente con la prueba de Safra en \cite{Safra}: cada objetivo
 $\omega$-regular puede ser transformado a un objetivo de Rabin. (Safra lo que
-prueba en realidad es que cada automata no determinista de Büchi -de los cuales
-se sabe que pueden reconocer todos los lenguajes $\omega$-regular- se puede
+prueba en realidad es que cada autómata no determinista de Büchi -de los cuales
+se sabe que pueden reconocer todos los lenguajes $\omega$-regulares- se puede
 trasnformar en un autómata determinista de Rabin).
 
 Esta es la razón principal por la cual decidimos enfocarnos en objetivos de
@@ -211,7 +211,7 @@ con la de las condiciones de equidad (\textit{fairness} en inlglés). Estas
 propiedades, que son un tipo un particular de propiedades de vitalidad
 (\textit{liveness} en inglés), son de las más clásicas que se solicitan que
 tengan los sistemas reactivos, por lo que su estudio tiene implicancias
-prácticas concretas directas.
+prácticas directas.
 
 % Por otro lado, resulta de particular interés el estudio de juegos con objetivos
 % de Rabin cuando equidad --- ver cosas de maxi --- ver de donde sque lo que
