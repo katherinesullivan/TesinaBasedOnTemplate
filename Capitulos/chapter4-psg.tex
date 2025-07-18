@@ -305,10 +305,195 @@ continuación.
 	Como $\V(\Act)$ es finito, $\Hk$ es un juego estocástico finito.
 \end{definition}
 
-\textbf{Roborta vs Rigoborto en un terreno no tan estudiado}
+\textbf{Roborta vs Rigoborto en un terreno muy variable}
 
-Existen muchas razones por las cuales podríamos no saber las probabilidades
-exactas de cómo es que podrían fallar nuestras indicaciones a
+Hablamos con nuestro amigo y ahora llevaremos a nuestros robots, Roborta y
+Rigoborto a un terreno muy particular. En él, las probabiliadedes de fallo
+están asociadas a unas restricciones que resolverán su valor dependiendo desde
+dónde exactamente en el cuadrante actual decidimos que se mueva nuestro robot.
+
+En este nuevo terreno, cada vez que un jugador elige mover a su robot, lo que
+en realidad está eligiendo no es solo una acción concreta (como ``moverse a la
+derecha'' o ``bajar''), sino también una distribución de posibles resultados
+estocásticos de entre una cantidad continua de posibilidades, que pueden
+incluir desvíos normales o fallos críticos.
+
+La idea es que otra vez estamos en una grilla 2x2, con lo que los estados los
+podemos seguir representando de igual manera, lo que cambiará en este juego,
+con respecto al juego estocástico que planteamos para Roborta y Rigoborto, es
+que desde los estados en los que les toca elegir a robots que se encuentran en
+$(0,0)$ o $(1,1)$ tendremos una cantidad continua de opciones determinada por
+un politopo.
+
+Este politopo estará definido por tres variables que representan la
+probabilidad de que el comando se ejecute correctamente $p_1$, la probabilidad
+de que el comando sufra un fallo normal y el robot se dirija hacia la esquina
+opuesta, $p_2$, y la probabilidad de que el comando sufra un fallo crítico y el
+robot se dirija de manera opuesta a como fue propuesto por el comando (es
+decir, si eligió desde $(0,0)$ ir a la derecha, ir hacia abajo y viceversa, y
+si se eligió ir a la izquierda desde $(1,1)$ ir hacia arriba y viceversa),
+$p_3$. Estas tres variables repetarán algunas restricciones formando así el
+politopo $P$ de soluciones a las ecuaciones que mostramos a continuación.
+
+\[
+	P = \left\{ (p_1, p_2, p_3) \in \mathbb{R}^3 \;\middle|\;
+	\begin{aligned}
+		p_1 + p_2 + p_3 &= 1 \\
+		0.05 \leq p_2 &\leq 0.3 \\
+		0.0 \leq p_3 &\leq 0.2 \\
+		p_1 &\geq 0
+	\end{aligned}
+	\right\}
+\]
+
+Por otro lado, en los otros estados tendremos politopos pero que representan un
+punto en el espacio que definen $p1$, $p_2$ y $p_3$, haciendo simplemente que
+$p_1 = 1$ y $p_2 = p_3 = 0$.
+
+Luego, con todo esto definido, podríamos ver cómo se adaptaría el fragmento de
+juego que estuvimos viendo para juegos estocásticos y deterministas, en donde
+asumimos que partimos desde el estado en donde nos toca mover a Roborta, ella
+se encuentra en la posición $(0,0)$ y Rigoborto se encuentra en la posición
+$(1,0)$. Desde ese estado nosotros elegiremos si enviaremos a Roborta a la
+derecha o abajo, pero cuando hacemos eso también debemos elegir qué
+distribución dentro del único politopo que tenemos usaremos para movernos (esto
+podría pensarse como elegir el punto exacto desde nuestro cuadrante sobre el
+que ejecutamos la acción). Es decir, decidimos entre $\rightarrow$ y
+$\downarrow$, y también fijamos los valores de $p_1$, $p_2$ y $p_3$ siguiendo
+las restricciones impuestas. En la figura~\ref{fig:psg} podemos ver la
+representación gráfica de esto.
+
+\begin{figure}[ht]
+	\centering
+	\begin{tikzpicture}[->]
+		\tikzset{
+			state/.style={draw, circle, minimum size=1.2cm, font=\normalsize},
+			square state/.style={draw, rectangle, minimum size=1.4cm, font=\normalsize, align=center},
+			diamond state/.style={draw, diamond, aspect=1.5, minimum size=1.5cm, font=\normalsize, align=center},
+			every node/.style={inner sep=4pt}
+		}
+
+		% Nodo raíz a la izquierda
+		\node[square state] (left) at (0, 0) {$(0,0)$\\$(1,0)$};
+
+		% Nivel intermedio (rombos) centrados horizontalmente, espaciados verticalmente
+		\node[diamond state] (d1) at (3, 4) {$(0,1)$\\$(1,0)$};
+		\node[diamond state] (d2) at (3, 0) {$(1,1)$\\$(1,0)$};
+		\node[diamond state] (d3) at (3, -4) {$(1,0)$\\$(1,0)$};
+
+		% Nodos hojas (cuadrados), suficientemente separados
+		\node[square state] (s1) at (6, 5) {$(0,1)$\\$(0,0)$};
+		\node[square state] (s2) at (6, 3) {$(0,1)$\\$(1,1)$};
+
+		\node[square state] (s3) at (6, 1.0) {$(1,1)$\\$(0,0)$};
+		\node[square state] (s4) at (6, -1.0) {$(1,1)$\\$(1,1)$};
+
+		\node[square state] (s5) at (6, -3) {$(1,0)$\\$(0,0)$};
+		\node[square state] (s6) at (6, -5) {$(1,0)$\\$(1,1)$};
+
+		% Aristas desde left a cada rombo
+		\draw[->, draw=violet] (left) to[bend left=10]  node[midway, left, text=violet] {$\rightarrow$,$p_1$} (d1);
+		\draw[->, draw=violet]  (left) to[bend left=20]  node[above, text=violet] {$\rightarrow$,$p_2$} (d2);
+		\draw[->, draw=violet] (left) to[bend left=10] node[midway, right, text=violet] {$\rightarrow$, $p_3$} (d3);
+
+		\draw[->, draw=orange] (left) to[bend right=10] node[midway, right, text=orange] {$\downarrow$, $p_3$} (d1);
+		\draw[->, draw=orange] (left) to[bend right=20]  node[below, text=orange] {$\downarrow$, $p_2$}  (d2);
+		\draw[->, draw=orange] (left) to[bend right=10]  node[midway, left, text=orange]  {$\downarrow$, $p_1$} (d3);
+
+		% Aristas desde cada rombo a dos cuadrados
+		\draw[->, draw=teal] (d1) to  node[midway, above, text=teal] {$\uparrow$, 1} (s1);
+		\draw[->, draw=violet] (d1) to  node[midway, below, text=violet] {$\rightarrow$,1} (s2);
+
+		\draw[->, draw=teal] (d2) to  node[midway, above, text=teal] {$\uparrow$, 1} (s3);
+		\draw[->, draw=violet] (d2) to  node[midway, below, text=violet] {$\rightarrow$,1} (s4);
+
+		\draw[->, draw=teal] (d3) to  node[midway, above, text=teal] {$\uparrow$, 1} (s5);
+		\draw[->, draw=violet] (d3) to  node[midway, below, text=violet] {$\rightarrow$,1} (s6);
+
+		% Puntos suspensivos para indicar que continúa
+		\node at (7,5) {$\cdots$};
+		\node at (7,3) {$\cdots$};
+
+		\node at (7,1) {$\cdots$};
+		\node at (7,-1) {$\cdots$};
+
+		\node at (7, -3) {$\cdots$};
+		\node at (7, -5) {$\cdots$};
+
+		\node[align=left, anchor=west] at (8.2, -4.8) {
+			\small Restricciones:\\
+			\textcolor{violet}{$p_1 + p_2 + p_3 = 1$}\\
+			\textcolor{violet}{$0.05 \leq p_2 \leq 0.3$}\\
+			\textcolor{violet}{$0 \leq p_3 \leq 0.2$}\\
+			\textcolor{violet}{$p_1 \geq 0$} \\
+			\textcolor{orange}{$p_1 + p_2 + p_3 = 1$}\\
+			\textcolor{orange}{$0.05 \leq p_2 \leq 0.3$}\\
+			\textcolor{orange}{$0 \leq p_3 \leq 0.2$}\\
+			\textcolor{orange}{$p_1 \geq 0$}
+		};
+	\end{tikzpicture}
+	\caption{Fragmento de juego estocástico politópico Roborta vs Rigoborto.}
+	\label{fig:psg}
+\end{figure}
+
+Resulta también interesante ver algún ejemplo de una estrategia extremas aquí.
+Estas son las que solo basan sus elecciones en acciones cuya distribución de
+probabilidad se corresponde con alguno de los vértices del politopo. Para eso,
+consideremos cuáles son los vértices para los politopos definidos. Estos serán
+los valores extremos que pueden tomar las variables $p_1$, $p_2$ y $p_3$. Es
+decir, nuestro conjunto de vértices pensando en triplas $(p_1, p_2, p_3)$ va a
+ser $\{(0.95, 0.05, 0), (0.75, 0.05, 0.2), (0.7, 0.3, 0), (0.5, 0.3, 0.2)\}$.
+Luego, un ejemplo de una estrategia sin memoria extrema en nuestro juego podría
+ser la que siempre que se encuentra en un estado desde el que puede tomar una
+decisión politópica, elige con $0.6$ de probabilidad hacer el movimiento
+lateral con la distribución $(0.95, 0.05, 0)$ y con un $0.4$ de probabilidad
+hacer el movimiento vertical con la distribución $(0.75, 0.05, 0.2)$.
+
+Además, con lo que vimos en el capítulo anterior, sería interesante pensar en
+algún objetivo asociado a este jeugo. En particular, resultaría de interés
+presentar un objetivo de Rabin, así que eso es lo que haremos. Podríamos
+definir el siguiente objetivo de Rabin con dos pares $R={(E_1,F_1),(E_2,F_2)}$
+con los siguientes significados de los conjuntos:
+
+\begin{itemize}
+	\item $E_1$: todos los estados donde Roborta y Rigoborto están en la misma celda.
+	\item $F_1$: estados donde Roborta está a la izquierda en la grilla.
+	\item $E_2$: estados donde Roborta está en la parte inferior de la grilla.
+	\item $F_2$: estados donde Rigoborto está en la parte superior de la grilla.
+\end{itemize}
+
+Entonces, con este objetivo, el jugador $\cuad$ gana si:
+\begin{enumerate}
+	\item Eventualmente se dejan de visitar colisiones, y Roborta se mantiene regresando
+	      a la izquierda, o
+	\item Eventualmente se dejan de visitar estados donde Roborta está en la parte
+	      inferior, y Rigoborto se mantiene regresando arriba
+\end{enumerate}
+
+Este ejemplo de objetivo resulta interesante porque combina condiciones de
+seguridad (evitar colisiones o estados indeseados) y condiciones de liveness
+(garantizar que los robots regresen repetidamente a ciertas posiciones), lo que
+refleja requisitos típicos en sistemas multiagente y robótica y la expresividad
+de los objetivos de Rabin.
+
+Con esto visto, antes de proceder, creemos que es importante remarcar que el
+juego estocástico politópico que definimos es bastante simple para lo que
+podría ser. En primer lugar, solo en los estados en los que les toca elegir a
+robots que se encuentran en $(0,0)$ o $(1,1)$ tendremos una cantidad infinita
+de distribuciones de las cuales elegir, en el resto la elección de la acción
+determinará directamente un comportamiento certero. En segundo lugar, para los
+estados que tenemos una cantidad infinita de soluciones, igual estas solo se
+corresponden a un politopo (recordemos que según la definición que dimos, desde
+un estado podemos tener una cantidad finita de politopos desde los cuales
+elegir). Y, en tercer lugar, los politopos que presentamos no son
+particularmente complejos. Es valioso recordar que los politopos pueden tener
+mayor dimensión y las variables pueden estar más correlacionadas entre sí.
+Tomamos la decisión de simplificar lo más posible el ejemplo a fin de que quede
+una imagen clara y entendible de los que es un PSG antes de proceder con los
+teoremas mostrados en el paper.
+
+% Existen muchas razones por las cuales podríamos no saber las probabilidades
+% exactas de cómo es que podrían fallar nuestras indicaciones a los robots. Podría suceder, por ejemplo, que estemos en un terreno un poco desconocido,
 
 \section{Teoremas}
 
