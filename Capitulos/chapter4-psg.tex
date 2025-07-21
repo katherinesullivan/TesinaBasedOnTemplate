@@ -214,10 +214,10 @@ de los resultados.
 
 \begin{definition}[Conjuntos soporte y acciones]
 	Dada una acción $(K, \mu)$ definiremos su conjunto soporte, $\supp((K, \mu))$ como el conjunto formado por los estados a los cuales $(K, \mu)$ les asigna una probabilidad positiva. Es decir,
-	$$supp((K, \mu)) = \{s \in \St \mid \mu(s) > 0\}$$.
+	$$supp((K, \mu)) = \{s \in \St \mid \mu(s) > 0\}.$$
 	Dado un estado $s$ y un conjunto de estados $V$, definiremos como $acc(s, V)$ a
 	las acciones que parten desde $s$ y tienen como conjunto soporte $V$. Es decir,
-	$$acc(s, V) = \{\alpha \in \Act(s) \mid supp(\alpha) = V\} = \{(K, \mu) \in \Act(s) \mid \mu(V) = 1 \wedge \forall v \in V, \ \mu(v) > 0\}$$.
+	$$acc(s, V) = \{\alpha \in \Act(s) \mid supp(\alpha) = V\} = \{(K, \mu) \in \Act(s) \mid \mu(V) = 1 \wedge \forall v \in V, \ \mu(v) > 0\}.$$
 	Por último, dado un estado $s$, definiremos como $V_s$ al conjunto de todos los
 	soportes que pueden tener las distintas acciones desde $s$. Es decir,
 	\begin{align*}~\label{definicionVs}
@@ -306,7 +306,8 @@ presentamos a continuación.
 	Como $\V(\Act)$ es finito, $\Hk$ es un juego estocástico finito.
 \end{definition}
 
-\textbf{Roborta vs Rigoborto en un terreno muy variable}
+\subsection*{Roborta vs Rigoborto en un terreno muy variable}
+\label{sec:ejpsg}
 
 Hablamos con nuestro amigo y ahora llevaremos a nuestros robots, Roborta y
 Rigoborto a un terreno muy particular. En él, las probabiliadedes de fallo

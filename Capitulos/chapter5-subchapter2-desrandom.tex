@@ -98,8 +98,8 @@ siempre que ambos sean visitados infinitamente a menudo.
 		\node[square state] (q2p) [below right=0.5cm and 1cm of p2]  {$q'$};
 
 		% Transiciones:
-		\draw[->, dashed] (p2) to[left] (q2);
-		\draw[->, dashed] (p2) edge[left] (q2p);
+		\draw[->, dashed] (p2) to[bend left=20] (q2);
+		\draw[->, dashed] (p2) edge[bend left=20] (q2p);
 		\draw[->] (q2) edge[bend left=20] (p2);
 		\draw[->] (q2p) edge[bend left=20] (p2);
 
@@ -136,6 +136,118 @@ Esta misma condición de equidad se puede expresar como
 	$ \varphi^V := \bigwedge_{s' \in V} (\siempevent v_{V'} \rightarrow \siempevent (v_{V'} \wedge \bigcirc s' ))$
 \end{center}
 
+\textbf{Roborta vs Rigoborto desrandomizado}
+
+Con lo definido en la subsección anterior, podemos ver cómo quedaría el PSG que
+presentamos como ejemplo en \ref{sec:ejpsg}.
+
+Para ello, primero deberíamos pensar cuáles son los conjuntos $V_s$ para cada
+$s \in \St$. Notaremos a los estados por las coordenadas en las que se
+encuentra Roborta arriba y Rigoborto abajo, al igual que hicimos para
+graficarlos, y con una $c$ para indicar que pertenecen al jugador $\cuad$ y una
+$d$ para indicar que pertenecen al jugador $\diam$. Entonces estos serían
+algunos de los conjuntos soportes de diferentes estados que nos son de interés:
+% Si nombramos como $s^1$ al estado perteneciente al jugador $\cuad$
+% para las posiciones $(0,0)$ de Roborta y $(1,0)$ de Rigoborto, con $s^2$, $s^3$
+% y $s^4$ a los estados del jugador $\diam$ para las posición $(1,0)$ de
+% Rigoborto y las posiciones $(0,1)$, $(1,1)$ y $(1,0)$ de Roborta,
+% respectivamente, y con $s^5$, $s^6$, $s^7$, y tenemos los siguientes conjuntos
+% soportes para cada uno:
+\begin{itemize}
+	\item $V_{\substack{c(0,0) \\ \ (1,0)}} = \left\{\left\{\substack{d(0,1) \\ \ (1,0)}, \substack{d(1,1) \\ \ (1,0)}, \substack{d(1,0) \\ \ (1,0)}\right\}\right\}$
+	\item $V_{\substack{d(0,1) \\ \ (1,0)}} = \left\{\left\{\substack{c(0,1) \\ \ (0,0)}\right\}, \left\{\substack{c(0,1) \\ \ (1,1)}\right\}\right\}$
+	\item $V_{\substack{d(1,1) \\ \ (1,0)}} = \left\{\left\{\substack{c(1,1) \\ \ (0,0)}\right\}, \left\{\substack{c(1,1) \\ \ (1,1)}\right\}\right\}$
+	\item $V_{\substack{d(1,0) \\ \ (1,0)}} = \left\{\left\{\substack{c(1,0) \\ \ (0,0)}\right\}, \left\{\substack{c(1,0) \\ \ (1,1)}\right\}\right\}$
+\end{itemize}
+
+Entonces, si quisiesemos desrandomizar el fragmento de juego estocástico que
+vimos en la figura~\ref{fig:psg} quedaría como muestra la
+figura~\ref{fig:desrand}.
+
+\begin{figure}[ht]
+	\centering
+	\begin{tikzpicture}[->]
+		\tikzset{
+			state/.style={draw, circle, minimum size=1.2cm, font=\normalsize},
+			square state/.style={draw, rectangle, minimum size=1.4cm, font=\normalsize, align=center},
+			diamond state/.style={draw, diamond, aspect=1.5, minimum size=1.5cm, font=\normalsize, align=center},
+			every node/.style={inner sep=4pt}
+		}
+
+		% Nodo raíz a la izquierda
+		\node[square state] (left) at (0, 0) {$(0,0)$\\$(1,0)$};
+
+		% Nodo Vleft
+		\node[diamond state] (Vleft) at (3,0) {$V^1_{\substack{c(0,0) \\ \ (1,0)}}$};
+
+		% Nivel intermedio (rombos) centrados horizontalmente, espaciados verticalmente
+		\node[diamond state] (d1) at (6, 4) {$(0,1)$\\$(1,0)$};
+		\node[diamond state] (d2) at (6, 0) {$(1,1)$\\$(1,0)$};
+		\node[diamond state] (d3) at (6, -4) {$(1,0)$\\$(1,0)$};
+
+		% Nodos Vd
+		\node[diamond state] (Vs1) at (9, 5) {$V^1_{\substack{d(0,1) \\ \ (1,0)}}$};
+		\node[diamond state] (Vs2) at (9, 3) {$V^2_{\substack{d(0,1) \\ \ (1,0)}}$};
+
+		\node[diamond state] (Vs3) at (9, 1.0) {$V^1_{\substack{d(1,1) \\ \ (1,0)}}$};
+		\node[diamond state] (Vs4) at (9, -1.0) {$V^2_{\substack{d(1,1) \\ \ (1,0)}}$};
+
+		\node[diamond state] (Vs5) at (9, -3) {$V^1_{\substack{d(1,0) \\ \ (1,0)}}$};
+		\node[diamond state] (Vs6) at (9, -5) {$V^2_{\substack{d(1,0) \\ \ (1,0)}}$};
+
+		% Nodos hojas (cuadrados), suficientemente separados
+		\node[square state] (s1) at (12, 5) {$(0,1)$\\$(0,0)$};
+		\node[square state] (s2) at (12, 3) {$(0,1)$\\$(1,1)$};
+
+		\node[square state] (s3) at (12, 1.0) {$(1,1)$\\$(0,0)$};
+		\node[square state] (s4) at (12, -1.0) {$(1,1)$\\$(1,1)$};
+
+		\node[square state] (s5) at (12, -3) {$(1,0)$\\$(0,0)$};
+		\node[square state] (s6) at (12, -5) {$(1,0)$\\$(1,1)$};
+
+		% Arista de left a Vleft
+		\draw[-> ] (left) to (Vleft);
+
+		% Aristas desde left a cada rombo
+		\draw[-> ] (Vleft) to (d1);
+		\draw[-> ]  (Vleft) to (d2);
+		\draw[-> ] (Vleft) to (d3);
+
+		% Aristas desde cada rombo a dos Vs
+		\draw[-> ] (d1) to (Vs1);
+		\draw[-> ] (d1) to (Vs2);
+
+		\draw[-> ] (d2) to (Vs3);
+		\draw[-> ] (d2) to (Vs4);
+
+		\draw[-> ] (d3) to (Vs5);
+		\draw[-> ] (d3) to (Vs6);
+
+		% Aristas desde cada Vs a cuads
+		\draw[-> ] (Vs1) to (s1);
+		\draw[-> ] (Vs2) to (s2);
+
+		\draw[-> ] (Vs3) to (s3);
+		\draw[-> ] (Vs4) to (s4);
+
+		\draw[-> ] (Vs5) to (s5);
+		\draw[-> ] (Vs6) to (s6);
+
+		% Puntos suspensivos para indicar que continúa
+		\node at (13,5) {$\cdots$};
+		\node at (13,3) {$\cdots$};
+
+		\node at (13,1) {$\cdots$};
+		\node at (13,-1) {$\cdots$};
+
+		\node at (13, -3) {$\cdots$};
+		\node at (13, -5) {$\cdots$};
+
+	\end{tikzpicture}
+	\caption{Desrandomización del PSG de Roborta y Rigoborto.}
+	\label{fig:desrand}
+\end{figure}
+
 \subsection*{Relación entre un PSG y su desrandomización}
 
 Nos será útil pensar en transformaciones entre los distintos juegos para la
@@ -157,6 +269,8 @@ politópico de la siguiente forma:
 		\hat \varphi^{\supp(\alpha)} := \bigwedge_{s' \in \supp(\alpha)} (\siempevent \alpha \rightarrow \siempevent (\alpha \wedge \bigcirc s' ))
 	$
 \end{center}
+
+\kathy{Ver si agg lo de condiciones de victoria y capaz agg lo de Rabin}
 
 \textbf{Transformación de caminos}
 
