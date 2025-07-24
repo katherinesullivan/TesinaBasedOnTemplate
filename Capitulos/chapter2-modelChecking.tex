@@ -2,12 +2,12 @@
 ~\label{cap:modelos}
 \vspace{-1cm}
 
-En este capítulo presentaremos brevemente la verificación de modelos con
-juegos. Para ello comenzaremos dando un contexto sobre el campo de la
-verificación de modelos y luego presentaremos unos modelos matemáticos que
-sirven para la representación de distintos tipos de sistemas (las cadenas de
+En este capítulo presentaremos brevemente cómo se aborda la verificación de
+modelos con juegos. Para ello comenzaremos dando un contexto sobre el campo de
+la verificación de modelos y luego presentaremos cuatro modelos matemáticos que
+sirven para la representación de distintos tipos de sistemas: las cadenas de
 Markov, los procesos de decisión de Markov, los juegos estocásticos y los
-juegos -de grafo- deterministas).
+juegos -de grafo- deterministas.
 
 % En este capítulo presentaremos brevemente la verificación de modelos con juegos. Para ello
 % comenzaremos dando un contexto sobre el campo de estudio de la verificación de
@@ -25,16 +25,16 @@ La verificación de modelos (\textit{model checking} en inglés) es una técnica
 prominente dentro de la verificación formal que sirve para evaluar las
 propiedades funcionales de los sistemas de información y comunicación de manera
 automatizada. Esta técnica requiere de un modelo del sistema en cuestión y una
-propiedad deseada, y verifica sistemáticamente si el modelo dado satisface
-dicha propiedad.
+propiedad deseada, y consiste en verificar sistemáticamente si el modelo dado
+satisface dicha propiedad.
 
-Existen numerosas propiedades de interés para comprobar (a destacar podrían ser
-la ausencia de interbloqueos o propiedades de solicitud-respuesta) y, a su vez,
-existen muchos modelos matemáticos que permiten distintas representaciones de
-sistemas reales, cada uno con sus particularidades. La idea de las próximas
-subsecciones será presentar varios de estos modelos, ver ciertas propiedades de
-los mismos y ver, como motivación, un ejemplo de sistema representable con
-ellos.
+Existen numerosas propiedades de interés para comprobar sobre sitemas (a
+destacar podrían ser la ausencia de interbloqueos o propiedades de
+solicitud-respuesta) y, a su vez, existen muchos modelos matemáticos que
+permiten distintas representaciones de sistemas reales, cada uno con sus
+particularidades. La idea de las próximas subsecciones será presentar varios de
+estos modelos, sus características y ver, como motivación, un ejemplo de
+sistema representable con ellos.
 
 % Las propiedades típicas que se pueden comprobar son la ausencia de
 % interbloqueos, los invariantes y las propiedades de solicitud-respuesta.
@@ -84,24 +84,28 @@ Pasemos, entonces, a su definición.
 	$$ \sum_{s' \in \St} P(s, s') = 1$$
 \end{definition}
 
-La función de probabilidad de transición $P$ especifica para cada estado $s$ la
-probabilidad $P(s, s')$ de moverse de $s$ a $s'$ en un solo paso. La
-restricción impuesta en $P$ asegura que la función sea una distribución.
+A la función $P$ se la denomina la función de probabilidad de transición y cada
+elemento $P(s, s')$ se interpreta como la probabilidad de moverse de $s$ a $s'$
+en un solo paso. La restricción impuesta sobre $P$ asegura que esta función sea
+una distribución
 
-Una cadena de Markov induce un grafo subyacente, donde los estados actúan como
-vértices y hay una arista entre $s$ y $s'$ si y solo si $P(s, s') > 0$. Las
-cadenas de Markov se suelen representar directamente por su grafo subyacente,
-donde sus aristas estarán anotadas con las probabilidades en el intervalo $(0,
-	1]$.
+% La función de probabilidad de transición $P$ especifica para cada estado $s$ la
+% probabilidad $P(s, s')$ de moverse de $s$ a $s'$ en un solo paso. La
+% restricción impuesta en $P$ asegura que la función sea una distribución.
+
+Una cadena de Markov induce un grafo donde los estados actúan como vértices y
+hay una arista entre $s$ y $s'$ si y solo si $P(s, s') > 0$. Las cadenas de
+Markov se suelen representar directamente por su grafo subyacente, donde sus
+aristas estarán anotadas con las probabilidades en el intervalo $(0, 1]$.
 
 Los caminos en una cadena de Markov son los caminos en el grafo subyacente. Es
 decir, son definidos como secuencias infinitas de estados $\omega = (s_0, s_1,
 	s_2, \dots) \in \St^\omega$ tales que $P(s_i, s_{i+1}) > 0 $ para todo $i \geq
 	0$. A su vez, dado un camino infinito $\omega = (s_0, s_1, \dots)$, podemos
 pensar en los prefijos finitos de ese camino, $\prefijo(\omega) = \{(s_0,
-	\dots, s_n) | n \in \mathbb{N}\}$. Notaremos con $\Paths(M)$ al conjunto de
-todos los caminos en $M$ y con $\Pathsfin(M)$ al conjunto de todos los prefijos
-finitos de caminos en $M$.
+	\dots, s_n) | n \in \mathbb{N}\}$. Sea $M$ una cadena de Markov, notaremos con
+$\Paths(M)$ al conjunto de todos los caminos en $M$ y con $\Pathsfin(M)$ al
+conjunto de todos los prefijos finitos de caminos en $M$.
 
 Veamos un pequeño ejemplo de cómo sería una cadena de Markov.
 
@@ -111,10 +115,10 @@ Veamos un pequeño ejemplo de cómo sería una cadena de Markov.
 Supongamos que queremos observar el comportamiento de un pequeño robot llamado
 \textit{Randomito}.
 
-\textit{Randomito} se encuentra en una grilla 2x2 y se comporta totalmente probabilísticamente siguiendo la siguiente descripción: desde su posición inicial de quietud en la esquina superior izquierda tiene una probabilidad de 0.5 de seguir allí y 0.25 de moverse tanto a la izquierda como hacia abajo. Si sucede que en algún momento se encuentra en la esquina superior o inferior derecha, como a \emph{Randomito} no le gusta quedarse del lado de la derecha, tiene probabilidad 0 de quedarse allí o de ir hacia arriba o abajo, respectivamente. Desde esas esquinas, \emph{Randomito} se mueve con probabilidad 1 hacia la izquierda. Desde la esquina inferior izquierda tendrá una probabilidad de 0.3 de quedarse allí, 0.2 de ir a la derecha y 0.5 de ir hacia arriba.
+\textit{Randomito} se encuentra en una grilla 2x2 y se comporta totalmente probabilísticamente siguiendo la siguiente descripción: desde su posición inicial de reposo en la esquina superior izquierda tiene una probabilidad de 0.5 de seguir allí y de 0.25 de moverse tanto a la izquierda como hacia abajo. Si sucede que en algún momento se encuentra en la esquina superior o inferior derecha, como a \emph{Randomito} no le gusta quedarse del lado de la derecha, tiene probabilidad 0 de quedarse allí o de ir hacia abajo o arriba. Desde esas esquinas, \emph{Randomito} se mueve con probabilidad 1 hacia la izquierda. Desde la esquina inferior izquierda tendrá una probabilidad de 0.3 de quedarse allí, 0.2 de ir a la derecha y 0.5 de ir hacia arriba.
 
 El comportamiento de \emph{Randomito} se puede modelar con la cadena de Markov
-que representa el siguiente grafo:
+representada por el siguiente grafo:
 
 \begin{figure}[h]
 	\centering
@@ -156,47 +160,53 @@ que representa el siguiente grafo:
 		\draw[->] (ID) to[bend left]  node[midway, below] {1} (II);
 
 	\end{tikzpicture}
-	\caption{Cadena de Markov representando el comportamiento probabilístico de \emph{Randomito}.}
+	\caption{Cadena de Markov que representa el comportamiento probabilístico de \emph{Randomito}.}
 	\label{fig:cm-randomito}
 \end{figure}
 
-Caminos posibles de esta cadena de Markov podrían ser:
+% Los 3 puntos están significando distintas cosas!!
+Algunos caminos posibles en esta cadena de Markov son:
 \begin{itemize}
 	\item el que mantiene a \emph{Randomito} siempre en la esquina superior izquierda,
-	      $(SI, SI, SI, \dots)$, o
-	\item el describe un primer movimiento en ``C'' de \emph{Randomito} y luego se
-	      comporta de cualquier manera, $(SI, SD, SI, II, ID, II, SI, \dots)$.
+	      $(s_1, s_2, s_3, \dots)$ donde $\forall k > 0, s_k = SI$, o
+	\item el camino cuyos primeros movimientos forman la letra ``C'' en eñ grafo y luego
+	      se comporta de manera arbitraria, $(SI, SD, SI, II, ID, II, SI, \dots)$.
 	      %\item  o algunos de los que mantienen a \emph{Randomito} en la parte superior de la grilla, como $(SI, SD, SI, SD, SI, SD, \dots)$ o $(SI, SD, SI, SD, SI, SI, SI, \dots)$.
 \end{itemize}
 
-Una duda natural entonces que podría surgir es ``¿qué probabilidad hay de que
+Una pregunta natural que podría surgir es ``¿qué probabilidad hay de que
 \emph{Randomito} siga alguno de esos caminos?''.
 
 Para poder asociar probabilidades a eventos en cadenas de Markov (o, lo que es
 lo mismo, pensar en preguntas sobre la probabilidad de que \emph{Randomito}
 siga algún tipo particular de camino), la noción intuitiva de probabilidades en
-$M$ debe ser formalizada. Lograremos esto asociándole un espacio de
-probabilidad a $M$. Los caminos infinitos de $M$ jugarán el rol de resultados
-de la $\sigma$-álgebra asociada, esto es $Outc^M = \Paths(M)$, y la
-$\sigma$-álgebra asociada a $M$ será la generada por los conjuntos cilindro
-formados por los fragmentos de caminos finitos en $M$.
+ellas debe ser formalizada. Lograremos esto asociándole un espacio de
+probabilidad, es decir, una $\sigma$-álgebra y una medida de probabilidad, a
+cada cadena de Markov.
+
+Sea $M$ una cadena de Markov, los caminos infinitos de $M$ jugarán el rol de
+resultados, esto es $Outc^M = \Paths(M)$, y la $\sigma$-álgebra asociada a $M$
+será la generada por los conjuntos cilindro formados por los fragmentos de
+caminos finitos en $M$.
 
 \begin{definition}[Conjunto cilindro]
-	El conjunto cilindro de $\hat \omega = (s_0, \dots, s_n) \in \Pathsfin(M)$ está definido como
-	$$\Cyl(\hat \omega) = \{\omega \in \Paths(M) \mid \hat \omega \in \prefijo(\omega)\}$$
+	%El conjunto cilindro de $\hat \omega = (s_0, \dots, s_n) \in \Pathsfin(M)$ está definido como
+	Sea $\hat \omega = (s_0, \dots, s_n)$ un camino finito en una cadena de Markov
+	$M$. El conjunto cilindro de $\hat \omega$ está definido como: $$\Cyl(\hat
+		\omega) = \{\omega \in \Paths(M) \mid \hat \omega \in \prefijo(\omega)\}$$
 \end{definition}
 
 \begin{definition}[$\sigma$-álegra de una cadena de Markov]
-	La $\sigma$-álgebra $\eventE^M$ asociada a la cadena de Markov $M$ es la $\sigma$-álgebra más pequeña que contiene todos los conjuntos cilindro $\Cyl(\hat \omega)$ donde $\hat \omega \in \Pathsfin(M)$.
+	La $\sigma$-álgebra $\eventE^M$ asociada a la cadena de Markov $M$ es la $\sigma$-álgebra más pequeña que contiene todos los conjuntos cilindro de todos los prefijos de caminos finitos de $M$.
 \end{definition}
 
-De conceptos clásicos de teoría de probabilidad se sigue entonces que para cada
-estado $s$ existe una única medida de probabilidad $\Prob^M_{s}$ en la
+De conceptos clásicos de teoría de probabilidad se deriva que para cada estado
+$s$ existe una única medida de probabilidad $\Prob^M_{s}$ en la
 $\sigma$-álgebra $\eventE^M$ asociada a $M$, donde las probabilidades para los
 conjunto cilindros (es decir, los eventos) están dadas por:
 \begin{equation}
 	\label{probMC}
-	\Prob^M_{s}(Cyl(s_0, \dots, s_n)) = \iota(s,s_0) \cdot \prod_{0 \leq i < n} P(si, s_{i+1})\text{, donde }\iota(s,s_0) =
+	\Prob^M_{s}(Cyl(s_0, \dots, s_n)) = \iota(s,s_0) \cdot \prod_{0 \leq i < n} P(s_i, s_{i+1})\text{, donde }\iota(s,s_0) =
 	\begin{cases}
 		1 &\text{si } s = s_0 \\
 		0 &\text{en otro caso}
@@ -206,7 +216,7 @@ conjunto cilindros (es decir, los eventos) están dadas por:
 \textbf{¿Qué probabilidad hay de que Randomito siga este camino?}
 
 Ahora, con las definiciones vistas, podemos pensar en la probabilidad que tiene
-\emph{Randomito} de tomar algunos caminos en específico. Por ejemplo,
+\emph{Randomito} de tomar algunos caminos específicos. Por ejemplo,
 
 \begin{itemize}
 	\item la probabilidad de que \emph{Randomito} se quede siempre en la esquina superior
@@ -224,26 +234,29 @@ Ahora, con las definiciones vistas, podemos pensar en la probabilidad que tiene
 \section{Procesos de Decisión de Markov}
 
 Las cadenas de Markov resultan útiles cuando queremos modelar sistemas en donde
-existen decisiones probabilistas, pero existen situaciones en donde además de
-decisiones probabilistas, necesitamos modelar elecciones, es decir, decisiones
-no-deterministas. Para ello, existen los llamados procesos de decisión de
-Markov.
+existen decisiones probabilistas, pero existen situaciones en donde además
+necesitamos modelar elecciones, es decir, decisiones no-deterministas. Para
+ello, existen los llamados procesos de decisión de Markov.
 
 Un proceso de decisión de Markov (MDP, por sus siglas en inglés) es una
 generalización de una cadena de Markov donde un conjunto de acciones posibles
 es asociado a cada estado. A cada par estado-acción le corresponde una
 distribución de probabilidad que es usada para seleccionar el próximo estado. A
-su vez, una cadena de Markov se corresponde a un MDP donde hay exactamente una
-acción asociada a cada estado.
+su vez, una cadena de Markov se corresponde con un MDP que tiene exactamente
+una acción asociada a cada estado.
 
-Asumiremos la existencia de un conjunto fijo de acciones $\Act$ y a
-continuación presentaremos la definición de un proceso de decisión de Markov:
+A continuación presentamos la definición de un proceso de decisión de Markov,
+en ella asumiremos un conjunto fijo de acciones $\Act$.
+
+% Asumiremos la existencia de un conjunto fijo de acciones $\Act$ y a
+% continuación presentaremos la definición de un proceso de decisión de Markov:
 
 \begin{definition}[Proceso de Decisión de Markov]
 	Un proceso de decisión de Markov $\M =(\St, \Act, \theta)$ consiste de un conjunto finito de estados $\St$ y de dos componentes, $\Act$ y $\theta$, que especifican la estructura de transición entre los estados:
 	\begin{itemize}
-		\item $\Act$ es un conjunto de acciones. Para cada $s \in \St$, $\Act(s) \subseteq \Act$ es el conjunto finito de
-		      acciones disponibles en $s$. Para cada estado $s \in \St$ se requiere que $\Act(s) \neq \emptyset$.
+		\item Para cada $s \in \St$, $\Act(s) \subseteq \Act$ es el conjunto finito de
+		      acciones disponibles en $s$. Para cada estado $s \in \St$ se requiere que
+		      $\Act(s) \neq \emptyset$. %% Pensar la notacion de A(s) si no confunde por pensar en funcion
 		\item $\theta : \St \times \Act \times \St \rightarrow [0,1]$ es una función de transición probabilística. Para todo estado $s \in \St$, si $a \in \Act(s)$ tenemos que $\sum_{s' \in \St} \theta(s, a, s') = 1$, mientras que si $a \notin \Act(s)$, $\sum_{s' \in \St} \theta(s, a, s') = 0$. Para cada $s, t \in \St$ y $a \in \Act(s)$, $\theta(s, a, t)$ es la probabilidad de transicionar de $s$ a $t$ cuando la acción $a$ es seleccionada.
 	\end{itemize}
 \end{definition}
@@ -252,11 +265,11 @@ El concepto de caminos en MDPs que mostraremos en este trabajo difiere del
 concepto de camino que se puede encontrar en alguna literatura y del que
 presentamos para cadenas de Markov, donde estos eran solo secuencias de
 estados. Un camino en un proceso de decisión de Markov es una secuencia
-alternante infinita de estados y acciones, construida iterativamente por un
-proceso de dos pasos. Primero, dado un estado $s$, una acción $a \in \Act(s)$
-es seleccionada no-determinísticamente. Luego, el sucesor $t$ de $s$ es
-seleccionado de acuerdo a la distribución asociada a la acción $a$. La
-definición formal es como sigue:
+alternante infinita de estados y acciones, construida iterativamente mediante
+un proceso de dos pasos. Primero, dado un estado $s$, una acción $a \in
+	\Act(s)$ es seleccionada no-determinísticamente. Luego, el sucesor $t$ de $s$
+es seleccionado de acuerdo a la distribución asociada a la acción $a$. La
+definición formal es la siguiente:
 
 \begin{definition}[Camino en un MDP]
 	Un camino en un MDP $\M$ es una secuencia infinita $\omega = (s_0, a_0, s_1, a_1, \dots)$ tal que $s \in \St$, $a_i \in \Act(s_i)$ y $a_i(s_{i+1}) > 0$ para todo $i \geq 0$.
@@ -264,7 +277,7 @@ definición formal es como sigue:
 	Dado un estado $s$, indicaremos con $\Paths_s$ al conjunto de todos los caminos
 	que se originan en $s$, con $\Paths$ al conjunto de todos los caminos en $\M$ y
 	con $\Pathsfin$ al conjunto de todos los prefijos finitos de caminos en $\M$
-	que terminan en un estado $s \in \St$.
+	que terminan en un estado (y no en una acción).
 \end{definition}
 
 Veamos un ejemplo de un proceso de decisión de Markov.
@@ -276,7 +289,7 @@ podemos manejar a través de un control remoto. Con este control, podemos
 decidir si se mueve a la izquierda, derecha, arriba o abajo (dependiendo de lo
 que permita su posición en la grilla). Sin embargo, por irregularidades que
 puede haber en la grilla cuando seleccionamos una acción habrá una probabilidad
-de que la acción no tenga el resultado deseado. Es decir, si estando en la
+de que la acción no tenga el resultado deseado. Por ejemplo, si estando en la
 esquina superior izquierda, elijo que \emph{Roborto} se mueva a la derecha,
 esto sucederá con una probabilidad $p$, pero por las irregularidades del
 terreno, también puede suceder que se mueva hacia abajo a la derecha con una
@@ -621,7 +634,7 @@ estado que pertenece a $\St_\cuad$ y otra que pertence a $\St_\diam$).
 Ahora, si decidimos con nuestro amigo hacer que los turnos sean intercalados,
 es decir, nosotros movemos a Roborta, él mueve a Rigoborto, nosotros otra vez,
 él devuelta y así, y definimos que nosotros seamos el jugador $\cuad$ y él el
-$\diam$, en la siguiente figura podemos ver cómo sería un fragmento de este
+$\diam$, en la figura~\ref{fig:sg} podemos ver cómo sería un fragmento de este
 juego estocástico en donde ambos robots empiezan del lado izquierdo de la
 grilla, Roborta en la esquina superior y Rigoborto en la esquina inferior. Las
 probabilidades de que las transiciones fallen seguirán la misma caracterización

@@ -51,9 +51,15 @@ máxima que tiene este de ganar, aún cuando esta sea menor que 1.
 
 En el trabajo nos concentraremos en el análisis cualitativo de juegos
 estocásticos politópicos con objetivos de Rabin. Mostraremos que el conjunto de
-sus estados ganadores son iguales a los estados ganadores de un particular
-juego determinista construido a partir del juego estocástico politópico,
-presentaremos un algoritmo para su cómputo y analizaremos su complejidad.
+sus estados ganadores es igual al conjunto de los estados ganadores de un
+particular juego determinista construido a partir del juego estocástico
+politópico. Además, presentaremos un algoritmo para obtener estos conjuntos y
+analizaremos la complejidad de este algoritmo.
+
+% Mostraremos que el conjunto de
+% sus estados ganadores son iguales a los estados ganadores de un particular
+% juego determinista construido a partir del juego estocástico politópico,
+% presentaremos un algoritmo para su cómputo y analizaremos su complejidad.
 
 %Esta igualdad que mostramos también permite que cualquier avance en términos de mejoras para el cómputo de conjuntos de estados ganadores en juegos deterministas, resultará en una mejora para el cómputo de conjuntos de estados ganadores en juego estocásticos politóìcos con objetivos de Rabin.
 
@@ -68,13 +74,17 @@ situaciones competitivas con más de un tomador de decisiones.
 
 % El problema de síntesis (o problema de control) para los sistemas reactivos refiere a la construcción de una estrategia ganadora en el correspondiente juego. Este problema fue planteado por primera vez por Alonzo Church \cite{28, 8} y Richard Büchi en condiciones que pueden ser reducidads a juegos deterministas con objetivos $\omega$-regulares. Estos problemas fueron resueltos por .... Ahora bien, la restricción a juegos deterministas resultaba restrictiva, pues pueden existir situaciones en las que es útil modelar comportamiento que no es estrictamente adversarial \cite{88,31}. Es por esto que el estudio con esta formulación fue prosperando en los años posteriores.
 
-Gracias a su aporte para la modelización en varias áreas, resultó lógica la
-división de juegos estocásticos en base a distintos tipos de funciones de pago.
-El estudio de la existencia, tipo y computabilidad de las estrategias óptimas
-suele considerarse en juegos con funciones de recompensa cuantitativas (eg.,
-funciones de recompensa media, descontada, pesada o límite) y cualitativas
-(eg., funciones de recompensas asociadas a objetivos de alcanzabilidad, de
-Büchi, de Rabin o de Müller) \cite{Chatterjee2007,Kučera2011,Chatterjee1}.
+% Gracias a su aporte para la modelización en varias áreas, resultó lógica la
+% división de juegos estocásticos en base a distintos tipos de funciones de pago.
+
+Gracias al uso que tuvieron los juegos estocásticos en la modelización de
+sistemas en distintas áreas, resultó lógico dividir los mismos en base a
+distintos tipos de funciones de pago. El estudio de la existencia, tipo y
+computabilidad de las estrategias óptimas suele considerarse en juegos con
+funciones de recompensa cuantitativas (eg., funciones de recompensa media,
+descontada, pesada o límite) y cualitativas (eg., funciones de recompensas
+asociadas a objetivos de alcanzabilidad, de Büchi, de Rabin o de Müller)
+\cite{Chatterjee2007,Kučera2011,Chatterjee1}.
 
 Resultados para juegos estocásticos con funciones de recompensa media y
 descontada fueron reportados desde 1958 por Gillete \cite{Gillette1958},
@@ -94,6 +104,8 @@ los juegos estocásticos politópicos con objetivos de Rabin.
 
 \section{Organización del trabajo}
 ~\label{cap:intro:sec:outline}
+La tesina está organizada en seis capítulos:
+
 \begin{itemize}
 	\item En el \textbf{Capítulo~\ref{cap:modelos}}, nos adentraremos en el campo de la
 	      verificación de modelos con juegos, presentando definiciones básicas de modelos
