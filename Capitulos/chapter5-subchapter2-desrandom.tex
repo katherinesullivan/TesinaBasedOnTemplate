@@ -561,12 +561,113 @@ las estrategias $\sigma_\cuad$ y $\sigma_\diam$ si $\forall i \geq 0$ vale
 
 \section{Implicancias algorítmicas de la prueba}
 
+\subsection*{Algoritmo para el cálculo de estados ganadores en un juego justo con objetivo de Rabin}
+
+En \cite{Banerjee} se presenta un algoritmo para calcular el conjunto de
+vértices ganadores en un juego de adversario justo $G$ con un objetivo de Rabin
+$R$. Este algoritmo es de ejecución simbólica, punto fijo
+
+En \cite{Banerjee} se presenta un algoritmo para calcular el conjunto de
+vértices ganadores en un juego de adversario justo \( G \) con un objetivo de
+Rabin \( R \). Este algoritmo se basa en la caracterización del conjunto
+ganador mediante una expresión de punto fijo y es de ejecución simbólica, es
+decir, se plantea sobre conjuntos, y operará utilizando transformadores de
+estados adecuados.
+
+El algoritmo se expresa en $\mu$-cálculo, una lógica que permite representar
+propiedades sobre sistemas de transición finitos mediante operadores de punto
+fijo. Formalmente, las fórmulas del $\mu$-cálculo se definen inductivamente
+como sigue:
+\[
+	\varphi ::= p \mid X \mid \varphi \cup \varphi \mid \varphi \cap \varphi \mid \text{pre}(\varphi) \mid \mu X.\varphi \mid \nu X.\varphi
+\]
+donde \( p \) denota un conjunto de vértices (una proposición atómica), \( X \)
+es una variable, \(\text{pre}\) representa un operador monotónico sobre
+conjuntos que variará en el cojunto de los transformadores que presentaremos a
+continuación ($\{\Pre_\cuad^\exists, \Pre_\diam^\forall, \Cpre, \Lpre^\exists,
+	\Apre\}$), y \( \mu X.\varphi \) (resp. \( \nu X.\varphi \)) representa el
+menor (resp. mayor) punto fijo de la función definida por \( \varphi \)
+respecto de la variable \( X \).
+
+Sea \( G = (V, E, V_0, V_1) \) un grafo de juego, donde \( V \) es el conjunto
+de vértices, \( E \subseteq V \times V \) es el conjunto de transiciones, y \(
+V_0 \), \( V_1 \) son los vértices controlados por el jugador \( \square \) y
+por el adversario \( \diamondsuit \), respectivamente. Se asume además un
+subconjunto \( V^\ell \subseteq V_1 \) de vértices \emph{live}, sobre los
+cuales se impone una hipótesis de equidad.
+% ESTO REESCRIBIR PERO DARLE NOMBRE A LOS VERTICES LIVE -> hacer algo de newV y con eso hablar de los live vertices
+
+Dado un conjunto de vértices \( S \subseteq V \), se definen los siguientes
+operadores: % relacionarlo con lo de que quede de set transformers en el parrafo de mu calculo
+
+\begin{itemize}
+	\item \textbf{Predecesor existencial del jugador \( \cuad \):}
+	      \[
+		      \Pre_\cuad^\exists(S) := \{v \in V_\cuad \mid \exists v' \in S \text{ tal que } (v, v') \in E\}
+	      \]
+
+	\item \textbf{Predecesor universal del jugador \( \diam \):}
+	      \[
+		      \Pre_\diam^\forall(S) := \{v \in V_\diam \mid \forall v' \in V,\ (v, v') \in E \Rightarrow v' \in S\}
+	      \]
+
+	\item \textbf{Predecesor controlable:}
+	      \[
+		      \Cpre(S) := \Pre_\cuad^\exists(S) \cup \Pre_\diam^\forall(S)
+	      \]
+
+	\item \textbf{Predecesor existencial sobre vértices live:}
+	      \[
+		      \Lpre^\exists(S) := \{v \in V^\ell \mid \exists v' \in S \text{ tal que } (v, v') \in E\}
+	      \]
+
+	\item \textbf{Predecesor casi seguro:}
+	      \[
+		      \Apre(S, T) := \Cpre(T) \cup \left( \Lpre^\exists(T) \cap \Pre_1^\forall(S) \right)
+	      \]
+\end{itemize}
+
+Este último operador identifica los vértices desde los cuales el jugador \(
+\square \) puede garantizar la llegada a \( T \) sin abandonar \( S \), ya sea
+directamente mediante \( \Cpre \), o confiando en la equidad del adversario
+para transitar, desde un vértice live, hacia \( T \), manteniéndose mientras
+tanto dentro de \( S \).
+
+Dado un objetivo de Rabin especificado por un conjunto de pares \( R = \{(G_i,
+R_i)\}_{i \in [1;k]} \), el conjunto de vértices ganadores se obtiene como la
+interpretación de la siguiente fórmula del $\mu$-cálculo: % no es esta la manera en la representamos los objetivos de rabin asi que va a haber que cambiar eso
+
+\[
+	Z^* = \nu Y_0.\, \mu X_0.\, \bigcup_{p_1 \in P}\, \nu Y_1.\, \mu X_1.\, \bigcup_{p_2 \in P \setminus \{p_1\}}\, \cdots\, \bigcup{p_k} \nu Y_d.\, \mu X_d.\, \left[ \bigcup_{j=0}^d\, C_{p_j} \right]
+\]
+
+donde \( P = \{1, \dots, k\} \), y cada término \( C_{p_j} \) se define como:
+
+\[
+	C_{p_j} := \left( \bigcap_{i=0}^j R_{p_i} \right) \cap \left[ (G_{p_j} \cap \Cpre(Y_{p_j})) \cup \Apre(Y_{p_j}, X_{p_j}) \right]
+\]
+
+con la convención de que \( R_{p_0} = G_{p_0} = \emptyset \). Esta fórmula
+alterna puntos fijos máximos y mínimos para reflejar la semántica de la
+condición de Rabin, y extiende el algoritmo de Piterman para juegos
+deterministas mediante la incorporación del operador \( \Apre \), que permite
+tratar directamente los vértices bajo equidad.
+
+% la idea va a ser intentar dar un poco una intuicion pero mandar a leer pieterman pnuelli y banerjee para entender por que funciona esto
+% intuicion podria ser minimizador y maximidzador C y esa idea capaz de acumulacion del obj de rabin ?) no se
+Dado que todos los operadores involucrados son monótonos, esta fórmula se puede
+evaluar iterativamente sobre una base simbólica, y converge en un número finito
+de pasos. Más detalles sobre la correctitud de este algoritmo se pueden
+encontrar en \cite{Banerjee} y \cite{Piterman}.
+
+%El resultado es un conjunto \( Z^* \subseteq V \) que representa los vértices desde los cuales el jugador \( \square \) posee una estrategia determinista y sin memoria que garantiza, bajo la hipótesis de juego justo, satisfacer la condición de Rabin especificada.
+
 \subsection*{Complejidad del cálculo de estados ganadores en un PSG con objetivo de Rabin}
 
-Haber podido probar esta igualdad nos permite calcular el conjunto de estados
-casi seguramente ganadores para $\cuad$ en $\Gk$ mediante el algoritmo que se
-propone en \cite{Banerjee} para calcular el conjunto de vértices ganadores en
-un juego de adversario justo $G$ con un objetivo de Rabin $R$.
+Haber podido probar la igualdad en \ref{teocuali} nos permite calcular el
+conjunto de estados casi seguramente ganadores para $\cuad$ en $\Gk$ mediante
+el algoritmo que se propone en \cite{Banerjee} y presentamos en la subsección
+anterior.
 
 Este algoritmo tiene una complejidad de $O(n^2 d!)$ donde $n$ es la cantidad de
 vértices en $G$ y $d$ la cantidad de pares en $R$.
@@ -586,18 +687,17 @@ plantearse ``¿cómo se gana?''. Esta pregunta abarca tanto con qué clase de
 estrategias se puede ganar como también podría enfocarse en describir paso a
 paso cómo se deberían ver esas estrategias y se asocia a lo que es conocido
 como el problema de \textit{sintésis de estrategias}, remarcado como de interés
-en la literatura. En cierto punto, con lo demostrado, también respondemos
+en la literatura. Con lo demostrado en \ref{teocuali}, también respondemos
 parcialmente a esta pregunta por lo siguiente.
 
 El algoritmo simbólico planteado en la subsección anterior y propuesto en
 \cite{Banerjee} permite extraer una estrategia sin memoria ganadora para el
 jugador $\cuad$ en el juego justo, por lo que tendríamos así una estrategia sin
 memoria ganadora en la desrandomización de un juego estocástico politópico con
-objetivo de Rabin. Como nosotros mostramos cómo, a partir de una estrategia en
-la desrandomización, obtener una estrategia en el juego original, con esto
+objetivo de Rabin, y como nosotros mostramos cómo, a partir de una estrategia
+en la desrandomización, obtener una estrategia en el juego original, con esto
 tenemos la manera de sintetizar una estrategia ganadora en un PSG con objetivo
-de Rabin y estamos respondiendo, en cierta manera, a la pregunta de ``¿cómo se
-gana?''.
+de Rabin.
 
 % El desarrollo de esta prueba en cierto punto nos permitió abordar la pregunta
 % que planteamos como de nuestro interés en el capítulo~\ref{cap:objetivos} sobre

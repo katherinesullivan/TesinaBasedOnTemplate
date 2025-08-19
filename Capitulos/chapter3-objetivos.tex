@@ -28,9 +28,9 @@ en él, un objetivo será algún $\phi \subseteq \{\omega' | \exists \omega =
 	(s_1, s_2, \dots)\} = \{(s_1, s_2, \dots) | \forall i \geq 0, \exists \alpha
 	\in \Act(s_i) \text{ tal que } \alpha(s_{i+1}) > 0\}$. A lo largo de esta
 sección nos seguiremos refiriendo a objetivos como conjuntos de caminos para
-evitar tener que ir diferenciando, pero pensamos que es importante recalcar que
-los objetivos se plantean sobre conjuntos de secuencias de estados y no son
-planteados como dependientes de las acciones tomadas.
+evitar tener que ir diferenciando, pero recalcamos que los objetivos se
+plantean sobre conjuntos de secuencias de estados y no son dependientes de las
+acciones tomadas.
 
 Con eso aclarado, un objetivo para el jugador $\cuad$ especifica un conjunto de
 caminos que son ganadores para el jugador $\cuad$, y un objetivo para el
@@ -69,11 +69,14 @@ todas las estrtategias del otro jugador. La respuesta a esta pregunta es
 conocida como el valor del estado y comentaremos brevemente sobre ella en los
 capítulos~\ref{cap:psg} y \ref{cap:conclusions}.
 
-El conjunto de estados desde donde el jugador $\cuad$ gana para algún objetivo
-$\phi$ será llamado la región ganadora del juego. El aporte más importante de
-este trabajo será presentar cómo calcular la región ganadora de un juego
-estocástico politópico con un tipo particular de objetivo $\omega$-regular: un
-objetivo de Rabin.
+Por otro lado, introducimos también los conceptos de condición de victoria y
+región ganadora. Usaremos el termino condición de victoria para referirnos a la
+formulación con notación LTL de un objetivo, mientras que el conjunto de
+estados desde donde el jugador $\cuad$ gana para algún objetivo $\phi$ será
+llamado la región ganadora del juego. El aporte más importante de este trabajo
+será presentar cómo calcular la región ganadora de un juego estocástico
+politópico con un tipo particular de objetivo $\omega$-regular: un objetivo de
+Rabin. %mmmm% capaz verr de redactar mejor esto
 
 % \begin{definition}[regiones ganadoras]
 % 	El jugador $\cuad$ gana el juego de grafo de dos jugadores $G$ para una condición ganadora $\varphi$ desde un vértice $v_0$ si existe una estrategia $\picuad$ tal que para cada $\pidiam$, la jugada $\rho$ que sigue $\picuad$ y $\pidiam$ satisface $\varphi$, i.e., $\rho \in \varphi$.
@@ -94,7 +97,7 @@ finito.
 Esta subclase de objetivos resulta de importancia en el contexto de la
 verificación y síntesis de sistemas reactivos, donde es necesario especificar y
 razonar sobre comportamientos que pueden durar indefinidamente. Estos objetivos
-permiten expresar propiedades como ``algo bueno ocurre infinitamente a menudo"
+permiten expresar propiedades como ``algo bueno ocurre infinitamente a menudo''
 o ``algo malo ocurre sólo una cantidad finita de veces".
 
 \section{Clasificación de objetivos $\omega$-regulares}
@@ -105,7 +108,7 @@ En particular, las siguientes especificaciones de condiciones de aceptación
 definen objetivos $\omega$-regulares y son las más estudiadas:
 
 \begin{itemize}
-	\item \textbf{Objetivos de alcanzabilidad y seguridad.} Una especificación de alcanzabilidad para un juego $G$ es un conjunto $T \subseteq S$ de estados. La especificación de alcanzabilidad requiere que algún estado en $T$ sea visitado. Así, la especificación de alcanzabilidad $T$ define el conjunto $\Reach(T) = \{(s_0, s_1, s_2, \dots) \in \Paths(G) | \exists k \geq 0, s_k \in T\}$ de caminos ganadores; este conjunto es llamado un objetivo de alcanzabilidad.
+	\item \textbf{Objetivos de alcanzabilidad y seguridad.} Una especificación de alcanzabilidad para un juego $G$ es un conjunto $T \subseteq S$ de estados. La especificación de alcanzabilidad requiere que algún estado en $T$ sea visitado. Así, la especificación de alcanzabilidad $T$ define el conjunto $\Reach(T) = \{(s_0, s_1, s_2, \dots) \in \Paths(G) | \exists k \geq 0, s_k \in T\}$ de caminos ganadores; este conjunto es llamado un objetivo de alcanzabilidad. La condición de victoria asociada sería simplemente $\alc T$.
 
 	      Una especificación de seguridad para $G$ es también un conjunto $U \subseteq S$
 	      de estados, llamados estados seguros. La especificación de seguridad $U$
@@ -115,7 +118,7 @@ definen objetivos $\omega$-regulares y son las más estudiadas:
 	      alcanzabilidad y seguridad son objetivos duales: $\Safe(U) = \Paths(G)
 		      \setminus (\Reach(S \setminus U))$.
 
-	\item \textbf{Objetivos de Büchi y co-Büchi}. Una especificación de Büchi para $G$ es un conjunto $B \subseteq S$ de estados, que son llamados estados de Büchi. La especificación de Büchi requiere que algún estado en $B$ sea visitado infinitamente a menudo. Para un camino $\omega = (s_0, s_1, s_2, \dots)$, escribimos $\Inf(\omega) = \{s \in S | s_k = s \text{ para infinitos } k \geq 0\}$ para el conjunto de estados que ocurren infinitamente a menudo en $\omega$. Entonces, el objetivo de Büchi definido por $B$ es el conjunto $\Buchi(B) = \{\omega \in \Paths(G) | \Inf(\omega) \cap B \neq \emptyset\}$ de caminos ganadores.
+	\item \textbf{Objetivos de Büchi y co-Büchi}. Una especificación de Büchi para $G$ es un conjunto $B \subseteq S$ de estados, que son llamados estados de Büchi. La especificación de Büchi requiere que algún estado en $B$ sea visitado infinitamente a menudo. Para un camino $\omega = (s_0, s_1, s_2, \dots)$, escribimos $\Inf(\omega) = \{s \in S | s_k = s \text{ para infinitos } k \geq 0\}$ para el conjunto de estados que ocurren infinitamente a menudo en $\omega$. Entonces, el objetivo de Büchi definido por $B$ es el conjunto $\Buchi(B) = \{\omega \in \Paths(G) | \Inf(\omega) \cap B \neq \emptyset\}$ de caminos ganadores y su condición de victoria asociada es $\siempevent B$.
 
 	      El dual de una especificación de Büchi es una especificación de co-Büchi $C
 		      \subseteq S$, que especifica un conjunto de estados llamados co-Büchi. Esta
@@ -131,7 +134,12 @@ definen objetivos $\omega$-regulares y son las más estudiadas:
 	      jugado en $G$ con el objetivo de alcanzabilidad $\Reach(T)$ es equivalente a un
 	      juego jugado en $G'$ con el objetivo de Büchi, $\Buchi(T)$.
 
-	\item \textbf{Objetivos de Rabin y Streett}. Ahora pasamos a combinaciones booleanas de objetivos de Büchi y co-Büchi. Una especificación de Rabin para el juego $G$ es un conjunto finito $R = \{(E_1,F_1) \dots (E_d, F_d)\}$ de pares de conjuntos de estados, esto es, $E_j \subseteq S$ y $F_j \subseteq S$ para todo $ 1 \leq j \leq d$. Los pares en $R$ son llamados pares de Rabin. Asumimos, sin pérdida de generalidad, que $\bigcup_{1 \leq j \leq d} (E_j \cup F_j) = S$. La especificación de Rabin $R$ requiere que para algun par de Rabin $1 \leq j \leq d$, todos los estados en el conjunto de la izquierda $E_j$ sean visitados solo una cantidad finita de veces, y que algún estado en el conjunto de la derecha $F_j$ sea visitado infinitamente a menudo. Con eso, el objetivo de Rabin definido por $R$ es el conjunto $\Rabin(R) = \{\omega \in \Paths(G) | \exists j \in [1, d], \Inf(\omega) \cap E_j = \emptyset \wedge \Inf(\omega) \cap F_j \neq \emptyset \}$ de conjuntos ganadores. Nótese que el objetivo co-Büchi $\coBuchi(C)$ es igual al objetivo de Rabin con un único par $\Rabin(\{(C,S)\})$ y que el objetivo de Büchi $\Buchi(B)$ es igual al objetivo de Rabin con dos pares $\Rabin(\{(\emptyset, B), (S,S)\})$ (por la asumpción que hicimos sobre la unión de los conjuntos de los pares).
+	\item \textbf{Objetivos de Rabin y Streett}. Ahora pasamos a combinaciones booleanas de objetivos de Büchi y co-Büchi. Una especificación de Rabin para el juego $G$ es un conjunto finito $R = \{(E_1,F_1) \dots (E_d, F_d)\}$ de pares de conjuntos de estados, esto es, $E_j \subseteq S$ y $F_j \subseteq S$ para todo $ 1 \leq j \leq d$. Los pares en $R$ son llamados pares de Rabin. Asumimos, sin pérdida de generalidad, que $\bigcup_{1 \leq j \leq d} (E_j \cup F_j) = S$. La especificación de Rabin $R$ requiere que para algun par de Rabin $1 \leq j \leq d$, todos los estados en el conjunto de la izquierda $E_j$ sean visitados solo una cantidad finita de veces, y que algún estado en el conjunto de la derecha $F_j$ sea visitado infinitamente a menudo. Con eso, el objetivo de Rabin definido por $R$ es el conjunto $\Rabin(R) = \{\omega \in \Paths(G) | \exists j \in [1, d], \Inf(\omega) \cap E_j = \emptyset \wedge \Inf(\omega) \cap F_j \neq \emptyset \}$ de conjuntos ganadores y su respectiva condición de victoria sería $\bigvee_{1 \leq j \leq d} \eventsiemp \overline{E_j} \wedge \siempevent F_j$.
+
+	      Nótese que el objetivo co-Büchi $\coBuchi(C)$ es igual al objetivo de Rabin con
+	      un único par $\Rabin(\{(C,S)\})$ y que el objetivo de Büchi $\Buchi(B)$ es
+	      igual al objetivo de Rabin con dos pares $\Rabin(\{(\emptyset, B), (S,S)\})$
+	      (por la asumpción que hicimos sobre la unión de los conjuntos de los pares).
 
 	      Los complementos de los objetivos de Rabin son los objetivos de Streett. Una
 	      especificación de Streett para $G$ es también un conjunto $W = \{(E_1, F_1),
