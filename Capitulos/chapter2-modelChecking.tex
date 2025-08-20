@@ -169,7 +169,7 @@ Algunos caminos posibles en esta cadena de Markov son:
 \begin{itemize}
 	\item el que mantiene a \emph{Randomito} siempre en la esquina superior izquierda,
 	      $(s_1, s_2, s_3, \dots)$ donde $\forall k > 0, s_k = SI$, o
-	\item el camino cuyos primeros movimientos forman la letra ``C'' en eñ grafo y luego
+	\item el camino cuyos primeros movimientos forman la letra ``C'' en el grafo y luego
 	      se comporta de manera arbitraria, $(SI, SD, SI, II, ID, II, SI, \dots)$.
 	      %\item  o algunos de los que mantienen a \emph{Randomito} en la parte superior de la grilla, como $(SI, SD, SI, SD, SI, SD, \dots)$ o $(SI, SD, SI, SD, SI, SI, SI, \dots)$.
 \end{itemize}
@@ -319,7 +319,7 @@ Tomando el conjunto de acciones, $\Act = \{\rightarrow, \leftarrow, \uparrow,
 izquierda, arriba y abajo, podemos ver el proceso dibujado en la
 figura~\ref{fig:mdp-roborto}.
 
-Otra vez, tendremos la duda de con que probabilidades se surgirán ciertos
+Otra vez, tendremos la duda de con qué probabilidades ocurren ciertos
 comportamientos de nuestro Robot, y para eso, otra vez, deberemos formalizar
 ciertas nociones.
 
@@ -376,7 +376,7 @@ necesitamos resolver de alguna manera el no determinismo, y para ello
 introduciremos el concepto de estrategia.
 
 \begin{definition}[Estrategia en un MDP]
-	Sea $\M = (\St, \Act, \theta)$ un MDP. Una estrategia para $\M$ es una función $\pi: \Pathsfin \rightarrow \dist (\Act)$ que asigna una distribución de probabilidad a cada prefijo finito de camino tal que $\pi(\hat \omega) (a) > 0$ solo si $a \in \Act(s)$.
+	Sea $\M = (\St, \Act, \theta)$ un MDP. Una estrategia para $\M$ es una función $\pi: \Pathsfin \rightarrow \dist (\Act)$ que asigna una distribución de probabilidad a cada prefijo finito de camino verificando que $\pi(\hat \omega) (a) > 0$ solo si $a \in \Act(s)$.
 \end{definition}
 
 \kathy{Comentar algo de que en la literatura se suelen bajar las acciones de la definición de estrategia? O capaz la idea sería dropear las acciones de la definición de estrategia acá? Esto último implicaría cambiar tmb para sg y psg}
@@ -412,7 +412,9 @@ configuración donde el MDP $\M$ está en el estado $s_n$ y cuenta con la
 historia $(s_0, a_0, \cdots, s_{n-1}, a_{n-1})$. Según la definición que vimos
 las estrategias pueden depender de la historia en su totalidad, produciendo
 resultados distintos si al menos una acción o estado en su historia cambia,
-pero es cierto que este caso no es lo usual.
+pero no es usual el definir comportamientos distintos si solo una acción o
+estado en su historia cambia. Presentamos algunas clases de estrategias que no
+hacen esto:
 
 \begin{definition}[Estrategias sin memoria]
 	Sea $\M$ un MDP con espacio de estados $\St$. Una estrategia $\pi$ en $\M$ es sin memoria sii para cada par de caminos $(s_0, a_0, \dots, s_n)$ y $(t_0, a'_0, \dots, t_m)$ con $s_n = t_m$ vale que:
@@ -427,9 +429,9 @@ variante que busca reflejar la idea de finitud sin ser tan restrictiva: las
 estrategias de memoria finita. Una estrategia de memoria finita puede ser
 pensada intuitivamente como que solo puede guardar hasta una cantidad finita de
 información de la historia, por lo que no podrá ser distinta para \textbf{todo}
-prefijo finito de camino. Formalmente, la definiremos a través de una autómata
+prefijo finito de camino. Formalmente, la definiremos a través de un autómata
 determinista finito (DFA). La distribución de probabilidad de las acciones será
-seleecionada a partir del estado actual en $\M$ y el estado actual del autómata
+seleccionada a partir del estado actual en $\M$ y el estado actual del autómata
 (al que llamaremos modo). Veamos su definición:
 
 \begin{definition}[Estrategias con memoria finita]
@@ -438,21 +440,25 @@ seleecionada a partir del estado actual en $\M$ y el estado actual del autómata
 		\item $Q$ es un conjunto finito de modos,
 		\item $\Delta : Q \times \Act \times \St \rightarrow Q$ es la función de transición del autómata,
 		\item $start: \St \rightarrow Q$ es la función que determina el modo en el que empieza el automáta para un estado inicial $s$,
-		\item $f_\pi : Q \times \St \rightarrow \dist(\Act)$ es la función que asigna la distribución de probabilidad en las acciones desde un estado $s$, es decir, lo que veníamos entendiendo como estrategia en sí.
+		\item $f_\pi : Q \times \St \rightarrow \dist(\Act)$ es la función que, desde un estado y modo, asigna la distribución de probabilidad sobre las acciones asociada a este estado y modo, es decir, cumpliría el rol de lo que veníamos entendiendo como estrategia.
 	\end{itemize}
-	El funcionamiento del MDP bajo la estrategia de memoria finita sería como sigue. En principio, se inicializa el modo del DFA a $q_0 = start(s_0)$. Luego, desde cada estado $s_i$ posterior el proceso será iterativo. Primero, se seleccionará la distribución de probabilidad en las acciones a partir del modo actual $q_i$ del autómata con $f_\pi((q_i,s_i))$. Una vez tomada la decisión, se determina probabilísticamente la siguiente acción $a_{i+1}$, y, a partir de ella, se determina también probabilísticamente el siguiente estado $s_{i+1}$. Con la nueva acción y estado se selecionará el próximo modo del DFA $q_{i+1} = \Delta(q_i, a_{i+1}, s_{i+1})$ y se repetirá el proceso.
+	El funcionamiento del MDP bajo la estrategia de memoria finita sería como sigue. En principio, se inicializa el modo del DFA a $q_0 = start(s_0)$. Luego, desde cada estado $s_i$ posterior el proceso será iterativo. Primero, se seleccionará la distribución de probabilidad sobre las acciones a partir del modo actual $q_i$ del autómata con $f_\pi((q_i,s_i))$. Una vez tomada la decisión, se determina probabilísticamente la siguiente acción $a_{i+1}$, y, a partir de ella, se determina también probabilísticamente el siguiente estado $s_{i+1}$. Con la nueva acción y estado se selecionará el próximo modo del DFA $q_{i+1} = \Delta(q_i, a_{i+1}, s_{i+1})$ y se repetirá el proceso.
 
 	Para $\hat \omega \in \Pathsfin$, notaremos con $\pi(\hat \omega)$ a la
 	distribución obtenida al realizar el proceso explicado anteriormente con $\hat
-		\omega$
+		\omega$.
 	%\hl{pero qué pasa con la elección probabilística de las acciones? No
 	% habría que tenerlo? Y que hay de sin memoria? Ahi en realidad entonces no
 	% tendria que ser ultimo estado y penultima accion?}.
 \end{definition}
 
-Además de su categorización en base a qué tanto dependen de su historia, existe
-otro tipo de caracterización de las estrategias dependiendo en cómo es la
-distribución que realiza $\pi$ sobre las acciones disponibles desde un estado.
+A su vez, existe otro tipo de categorización de las estrategias que depende de
+cómo es la distribución que realiza la estrategia sobre las acciones
+disponibles desde un estado.
+
+% Además de su categorización en base a qué tanto dependen de su historia, existe
+% otro tipo de caracterización de las estrategias dependiendo en cómo es la
+% distribución que realiza $\pi$ sobre las acciones disponibles desde un estado.
 
 Una estrategia es pura\footnote{o determinista, pero nos abstendremos de usar
 	este nombre por las confunsiones que pueda llegar a generar el extensivo uso de
@@ -460,13 +466,16 @@ Una estrategia es pura\footnote{o determinista, pero nos abstendremos de usar
 distribución $\pi(\hat \omega)$ es una distribución de Dirac (es decir, una
 distribución $\delta_a$ tal que $\delta_a(a) = 1$ y $\delta_a(b) = 0$ para todo
 $b \neq a$). Y, por otro lado, una estrategia se dice randomizada cuando no es
-pura, es decir, la distribución $\pi(\hat \omega)$ no es una distribución de
-Dirac (ie, existen al menos dos $s, s' \in St$ distintos tales que $\pi(\hat
-	\omega)(s) > 0$ y $\pi(\hat \omega)(s') > 0$).
+pura, es decir, cuando la distribución $\pi(\hat \omega)$ no es una
+distribución de Dirac (i.e., existen al menos dos $s, s' \in St$ distintos
+tales que $\pi(\hat \omega)(s) > 0$ y $\pi(\hat \omega)(s') > 0$).
 
 En la literatura (véase \cite{BaierKatoen, AlfaroThesis}) es usual encontrarse
 con el estudio de estrategias solo en su variante pura y, en ese caso, se puede
 pensar a las estrategias como una función $\pi: \Pathsfin \rightarrow \Act$.
+
+Volviendo al ejemplo que presentamos de Roborto, ahora presentaremos distintos
+tipos de estrategias para él.
 
 \textbf{Controlando a Roborto}
 
@@ -520,16 +529,18 @@ de ellas:
 \section{Juegos estocásticos}
 
 Además de elecciones, podríamos también querer modelar comportamiento
-adversarial. Este comportamiento adversarial, donde surgen distintos agentes
-con distintos objetivos, se ha modelado históricamente a través de juegos. Si
-estos juegos exhiben también comportamiento probabilístico los modelos que se
-suele usar son los llamados juegos estocásticos.
+adversarial. En este tipo de comportamiento, surgen distintos agentes con
+distintos objetivos, por lo cual se ha pensado históricamente a través de
+juegos. Para modelar estos juegos cuando existe un comportamiento
+probabilístico suelen usarse los llamados juegos estocásticos.
+% Si estos juegos exhiben también comportamiento probabilístico los modelos que se
+% suele usar son los llamados juegos estocásticos.
 
 % \hl{Definir cómo queda con lo de acciones habilitadas esto o MDP} ¿qué?
 \begin{definition}[Juego estocástico]
 	Un juego estocástico (SG) es una tupla $\G = (\St, (\St_\cuad, \St_\diam), \Act, \theta)$ donde:
 	\begin{itemize}
-		\item $\St$, un conjunto finito de estados con $\St_\cuad, \St_\diam \subseteq \St$ siendo una partición de él,
+		\item $\St$ es un conjunto finito de estados con $\St_\cuad, \St_\diam \subseteq \St$ siendo una partición de él,
 		\item $\Act$ es un conjuno finito de acciones, y
 		\item $\theta : \St \times \Act \times \St \rightarrow [0,1]$ es una función de transición probabilística tal que para cada $s \in \St$, $\theta(s, a, \cdot) \in \dist(\St)$ o  $\theta(s, a, \St) = 0$.
 	\end{itemize}
@@ -541,13 +552,16 @@ entonces $\G$ es un proceso de decisión de Markov, y, como vimos antes, si a la
 vez $\forall s \in \St$, $\abs{\Act(s)} = 1$ entonces $\G$ es una cadena de
 Markov.
 
-Otra manera de verlo es pensar a los juegos estocásticos como un procesos de
+Otra manera de verlo a los juegos estocásticos es pensarlos como procesos de
 decisión de Markov donde el conjunto de estados está particionado en dos: los
 estados correspondientes al jugador $\cuad$ y los estados correspondientes al
-jugador $\diam$. La idea de esta anotación de a quién pertence los estados es
-lo que introduce esta idea adversarial: no solo habrá un ente que tome las
-decisiones no deterministas, sino dos. Esto quiere decir que tendremos dos
-tipos de estrategias, una por cada tipo de jugador.
+jugador $\diam$. Esta partición de estados genera que haya dos entes que tomen
+decisiones no-deterministas, en lugar de uno, con lo cual tendremos dos tipos
+de estrategias, una por cada tipo de jugador.
+% La idea de esta anotación de a quién pertence los estados es
+% lo que introduce esta idea adversarial: no solo habrá un ente que tome las
+% decisiones no deterministas, sino dos. Esto quiere decir que tendremos dos
+% tipos de estrategias, una por cada tipo de jugador.
 
 Al igual que con los MDPs, antes de definir las estrategias, presentamos el
 concepto de camino en un juego estocástico, el cual seguirá la misma idea del
@@ -581,8 +595,8 @@ $\Pi^{F}_i$ al conjunto de las estrategias de memoria finita del jugador $i$,
 $\Pi^{D}_i$ al conjunto de las estrategias puras del jugador $i$, $\Pi^{R}_i$
 al conjunto de las estrategias randomizadas del jugador $i$ y las podremos
 combinar diciendo por ejemplo que $\Pi^{MD}_i$ es el conjunto de las
-estrategias puras sin memoria del jugador $i$ y $\Pi^{FR}_i$ al conjunto de las
-estrategias randomizadas con memoria finita del jugador $i$.
+estrategias puras sin memoria del jugador $i$ y $\Pi^{FR}_i$ es el conjunto de
+las estrategias randomizadas con memoria finita del jugador $i$.
 
 De manera similar a como lo razonamos para procesos de decisión de Markov, si
 fijamos dos estrategias $\pi_\cuad \in \Pi_\cuad$ y $\pi_\diam \in \Pi_\diam$
@@ -597,7 +611,7 @@ $\varepsilon$ empezando desde el estado $s$.
 \textbf{Un ejemplo de juego estocástico: Roborta vs Rigoborto}
 
 La idea ahora será presentar un juego estocástico. Para eso pensaremos que
-mientras que nosotros tenemos a Roborta, la robota hermana de Roborto, un amigo
+mientras que nosotros tenemos a Roborta, la hermana robot de Roborto, un amigo
 nuestro tiene un controlador que le permite decidir los movimientos de
 Rigoborto, un robot también de características similares a las de Roborto.
 
@@ -803,7 +817,7 @@ contraposición a los caminos siendo notados con $\omega$ para juegos
 estocásticos.
 
 \begin{definition}[camino sobre un 2G]
-	Un camino (o jugada) en un juego de grafo de dos jugadores es una secuencia infinita de vértices $\rho = v_0v_1v_2 \dots \in V^\omega$, donde para todo $i \in \N_0$ tenemos que $v^i \in V$ y $(v^i, v^{i+1}) \in E$.
+	Un camino (o jugada) en un juego de grafo de dos jugadores es una secuencia infinita de vértices $\rho = v_0v_1v_2 \dots \in V^\omega$, donde para todo $i \in \N_0$ tenemos que $v_i \in V$ y $(v_i, v_{i+1}) \in E$.
 
 	% Esta definición de respeta la damos con 
 	% Sean $\sigma_\cuad$ y $\sigma_\diam$ un par de estrategias y sea $v_0$ un
@@ -828,8 +842,8 @@ detalle en el capítulo siguiente.
 \end{definition}
 
 Si otra vez queremos pensar en cómo se podrían categorizar las estrategias,
-podemos facilmente ver que acá las nociones de con memoria finita o sin memoria
-se peuden extender de manera intuitiva, pero que todas las estrategias serían
+podemos ver fácilmente que las nociones de con memoria finita o sin memoria se
+pueden extender de manera intuitiva, pero que todas las estrategias serían
 puras (o deterministas).
 
 % \begin{definition}[estrategia sin memoria en un 2G]

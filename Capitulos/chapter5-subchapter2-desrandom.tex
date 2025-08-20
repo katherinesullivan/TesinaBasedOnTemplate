@@ -343,7 +343,7 @@ la elección de una acción a la que $\pi_i(\omega)$ le asigne una probabilidad
 positiva (por cada $\omega$ seleccionado en el paso anterior).
 
 \begin{boxgris}[¿Cómo se podrían tomar esas elecciones?]{}
-	Suponiendo que tenemos una estrategia $\pi_i$ en $\Gk$, es probable que a su vez tengamos caminos $\omega'_1, \omega'_2, \dots$ en $\Gk$ específicos en que estemos interesados que $\sigma_i$ replique. En ese caso, una manera de tomar las decisiones antes planteadas es usando los prefijos finitos de los distintos $\omega'_k$ para las decisiones de $\sigma_i$. Esto sería: si tenemos un prefijo de camino $\hat \omega = (s_1, \alpha_1, \dots, s_m, \alpha_m)$ (que respeta $\pi_i$), entonces haremos que para $\hat \rho = (s_1, v_{\supp(\alpha_1)}, \dots, s_m)$, $\sigma_i(\hat \rho) = v_{\supp(\alpha_m)}$.
+	Suponiendo que tenemos una estrategia $\pi_i$ en $\Gk$, es probable que a su vez tengamos caminos $\omega'_1, \omega'_2, \dots$ en $\Gk$ específicos en que estemos interesados que $\sigma_i$ replique. En ese caso, una manera de tomar las decisiones antes planteadas es usando los prefijos finitos de los distintos $\omega'_k$ para las decisiones de $\sigma_i$. Esto sería: si tenemos un prefijo de camino $\hat \omega = (s_1, \alpha_1, s_2, \alpha_2, \dots, s_m, \alpha_m)$ (que respeta $\pi_i$), entonces haremos que para $\hat \rho = (s_1, v_{\supp(\alpha_1)}, s_2, v_{\supp(\alpha_2)} \dots, s_m)$, $\sigma_i(\hat \rho) = v_{\supp(\alpha_m)}$.
 \end{boxgris}
 
 Con estas decisiones tomadas, podemos definir como se comportará $\sigma_i$

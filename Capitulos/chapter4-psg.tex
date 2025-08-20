@@ -143,7 +143,7 @@ conjunto finito de politopos convexos de distribuciones de probabilidad sobre
 los estados. La definición formal es como sigue:
 
 \begin{definition}[PSG]
-	Un juego estocástico politópico (abreviado PSG, por sus siglas en inglés) es una estructura \( \K = (\St, (\St_\square, \St_\diamondsuit), \Theta) \) tal que \( \St \) es un conjunto finito de estados particionado en \( \St = \St_\square \biguplus \St_\diamondsuit \) y \( \Theta : \St \to \mathscr{P}_f(\textsf{DPoly}(\St)) \).
+	Un juego estocástico politópico (abreviado PSG, por sus siglas en inglés) es una estructura \( \K = (\St, (\St_\square, \St_\diamondsuit), \Theta) \) tal que \( \St \) es un conjunto finito de estados particionado en $\St_\cuad$ y $\St_\diam$, (es decir, \( \St = \St_\square \biguplus \St_\diamondsuit \)) y \( \Theta : \St \to \mathscr{P}_f(\textsf{DPoly}(\St)) \).
 \end{definition}
 
 Un juego estocástico politópico se diferencia de un juego estocástico
@@ -155,7 +155,7 @@ estocástico, el siguiente estado \( s' \) se selecciona de acuerdo con la
 distribución \( \mu \) correspondiente a la acción seleccionada, y el juego
 continuará desde \( s' \) repitiendo el mismo proceso.
 
-Viendo esto, es natural pensar que desarrollo de un juego estocástico
+Viendo esto, es natural pensar que el desarrollo de un juego estocástico
 politópico se puede interpretar en términos de un juego estocástico donde el
 número de transiciones salientes desde los estados de los jugadores puede ser
 no numerable. Formalmente, la interpretación de un PSG es la siguiente:
@@ -179,35 +179,36 @@ necesitamos extender las estrategias a este dominio no numerable, que debe
 estar dotado de una \( \sigma \)-álgebra adecuada.
 
 Para esto, utilizamos una construcción estándar para darle a \(
-\textsf{Dist}(S) \) una \( \sigma \)-álgebra: \( \Sigma_{\textsf{Dist}(S)} \)
-se define como la \( \sigma \)-álgebra más pequeña que contiene los conjuntos
-\( \{\mu \in \textsf{Dist}(S) \mid \mu(S) \geq p\} \) para todo \( S \subseteq
-S \) y \( p \in [0, 1] \). Ahora, dotamos a \( \Act \) con la \( \sigma
-\)-álgebra producto \( \Sigma_\Act = \mathscr{P} \left(\bigcup_{s \in S}
-\Theta(s)\right) \otimes \Sigma_{\Dist(S)} \), y llamamos \( \textsf{PMeas}(A)
-\) al conjunto de todas las medidas de probabilidad sobre \( \Sigma_\Act \). No
-es difícil comprobar que cada conjunto de acciones habilitadas \( \Act(s) \) es
-medible (es decir, \( \Act(s) \in \Sigma_\Act \)) y que la función \( \theta(s,
-\cdot, s') \) es medible (es decir, \( \{a \in \Act \mid \theta(s, a, s') \leq
-p\} \in \Sigma_\Act \) para todo \( p \in [0, 1] \)).
+\textsf{Dist}(\St) \) una \( \sigma \)-álgebra: \( \Sigma_{\textsf{Dist}(\St)}
+\) se define como la \( \sigma \)-álgebra más pequeña que contiene los
+conjuntos \( \{\mu \in \textsf{Dist}(\St) \mid \mu(S) \geq p\} \) para todo \(
+S \subseteq \St \) y \( p \in [0, 1] \). Ahora, dotamos a \( \Act \) con la \(
+\sigma \)-álgebra producto \( \Sigma_\Act = \mathscr{P} \left(\bigcup_{s \in S}
+\Theta(s)\right) \otimes \Sigma_{\Dist(\St)} \), y llamamos \(
+\textsf{PMeas}(A) \) al conjunto de todas las medidas de probabilidad sobre \(
+\Sigma_\Act \). No es difícil comprobar que cada conjunto de acciones
+habilitadas \( \Act(s) \) es medible (es decir, \( \Act(s) \in \Sigma_\Act \))
+y que la función \( \theta(s, \cdot, s') \) es medible (es decir, \( \{a \in
+\Act \mid \theta(s, a, s') \leq p\} \in \Sigma_\Act \) para todo \( p \in [0,
+	1] \)).
 
 Ahora bien, para dar la medida de probabilidad $\Prob^{\picuad, \pidiam}$
 debemos primero presentar las nociones de camino y estrategia en un PSG.
 
-Como lo hicimos para MDPs y juegos estocásticos a la definición de camino la
-daremos como una secuencia de estados y acciones. Esto difiere de la
-formulación original hecha para PSGs en \cite{Polytopal}, pero cambiaremos
-acordemente las definiciones que se asocian a ello para mantener la formalidad
-de los resultados.
+Como lo hicimos para MDPs y juegos estocásticos, daremos la definición de
+camino en un PSG como una secuencia alternante de estados y acciones. Esto
+difiere de la formulación original para caminos en PSGs hecha en
+\cite{Polytopal}, por lo que cambiaremos acordemente las definiciones que se
+asocian a ello para mantener la formalidad de los resultados.
 
 \begin{definition}[Camino en un PSG]
-	Un camino en un PSG es una secuencia infinita que alterna entre estados y acciones. Formalmente un camino es un $\omega = (s_0, (K_0, \mu_0), s_1, (K_1, \mu_1), \dots)$ tal que $s_i \in \St$, $(K_i, \mu_i) \in \Act(s_i)$ y $\mu_i(s_{i+1}) > 0$ para todo $i \geq 0$.
+	Un camino en un PSG es una secuencia infinita que alterna entre estados y acciones. Formalmente, un camino es un $\omega = (s_0, (K_0, \mu_0), s_1, (K_1, \mu_1), \dots)$ tal que $s_i \in \St$, $(K_i, \mu_i) \in \Act(s_i)$ y $\mu_i(s_{i+1}) > 0$ para todo $i \geq 0$.
 
-	Al igual que para juegos estocásticos, notaremos al conjunto de todos los
-	caminos de un PSG como $\Paths$, con $\Pathsfin$ al conjunto de los prefijos de
+	Al igual que para juegos estocásticos, notaremos con $\Paths$ al conjunto de
+	todos los caminos de un PSG, con $\Pathsfin$ al conjunto de los prefijos de
 	caminos finitos y con $\Pathsfin^i$ al conjunto de los prefijos de camino
 	finitos que terminan en un estado $s \in \St_i$. Dado un estado $s$,
-	indicaremos con $\Paths_s$ el conjunto de los caminos que se originan en $s$, y
+	indicaremos con $\Paths_s$ al conjunto de los caminos que se originan en $s$, y
 	con $\Paths_s^n$ al conjunto de los caminos que se originan en $s$ y tiene un
 	total de $n$ estados.
 \end{definition}
@@ -215,10 +216,10 @@ de los resultados.
 \begin{definition}[Conjuntos soporte y acciones]
 	Dada una acción $(K, \mu)$ definiremos su conjunto soporte, $\supp((K, \mu))$ como el conjunto formado por los estados a los cuales $(K, \mu)$ les asigna una probabilidad positiva. Es decir,
 	$$supp((K, \mu)) = \{s \in \St \mid \mu(s) > 0\}.$$
-	Dado un estado $s$ y un conjunto de estados $V$, definiremos como $acc(s, V)$ a
+	Dado un estado $s$ y un conjunto de estados $V$, denotaremos con $acc(s, V)$ a
 	las acciones que parten desde $s$ y tienen como conjunto soporte $V$. Es decir,
 	$$acc(s, V) = \{\alpha \in \Act(s) \mid supp(\alpha) = V\} = \{(K, \mu) \in \Act(s) \mid \mu(V) = 1 \wedge \forall v \in V, \ \mu(v) > 0\}.$$
-	Por último, dado un estado $s$, definiremos como $V_s$ al conjunto de todos los
+	Por último, dado un estado $s$, denotaremos con $V_s$ al conjunto de todos los
 	soportes que pueden tener las distintas acciones desde $s$. Es decir,
 	\begin{align*}~\label{definicionVs}
 		V_s &= \{supp(\mu) \mid \exists K \in \Theta(s): \mu \in K\} = \\
@@ -233,11 +234,11 @@ Entonces, ahora sí podemos extender el concepto de estrategia en un PSG:
 \end{definition}
 
 Los distintos tipos de estrategias que presentamos en el
-capítulo~\ref{cap:modelos} se extienden naturalmente a este tipo de
-estrategias, y los conjuntos de estrategias de ese tipo se denotarán de la
-misma manera en la que se presentaron con juegos estocásticos. A estos tipos de
-estrategias agregamos una particular de los juegos estocásticos politópicos:
-las estrategias extremas.
+capítulo~\ref{cap:modelos} (puras, randomizadas, sin memoria y con memoria
+finita) se extienden naturalmente a las estrategias en PSGs, y los conjuntos de
+tipos de estrategias se denotarán de la misma manera en la que se presentaron
+para juegos estocásticos. A estos tipos de estrategias agregamos una particular
+de los juegos estocásticos politópicos: las estrategias extremas.
 
 \begin{definition}[Estrategia extrema en un PSG]
 	Una estrategia $\pi_i$ para el jugador $i$ ($i \in \{\cuad, \diam\}$) en un PSG se dirá \textbf{extrema} si para todo $\hat \omega \in \Pathsfin$, $\pi_i(\hat \omega s)\{(K, \mu) \in \Act(s)| \mu \in \mathbb{V}(K)\} = 1$. Es decir, diremos que una estrategia es extrema si solo asigna probabilidades positivas a distribuciones en los vértices del politopo.
@@ -342,14 +343,14 @@ politopo $P$ de soluciones a las ecuaciones que mostramos a continuación.
 	\begin{aligned}
 		p_1 + p_2 + p_3 &= 1 \\
 		0.05 \leq p_2 &\leq 0.3 \\
-		0.0 \leq p_3 &\leq 0.2 \\
+		0 \leq p_3 &\leq 0.2 \\
 		p_1 &\geq 0
 	\end{aligned}
 	\right\}
 \]
 
 Por otro lado, en los otros estados tendremos politopos pero que representan un
-punto en el espacio que definen $p1$, $p_2$ y $p_3$, haciendo simplemente que
+punto en el espacio que definen $p_1$, $p_2$ y $p_3$, haciendo simplemente que
 $p_1 = 1$ y $p_2 = p_3 = 0$.
 
 Luego, con todo esto definido, podríamos ver cómo se adaptaría el fragmento de
@@ -443,8 +444,8 @@ Estas son las que solo basan sus elecciones en acciones cuya distribución de
 probabilidad se corresponde con alguno de los vértices del politopo. Para eso,
 consideremos cuáles son los vértices para los politopos definidos. Estos serán
 los valores extremos que pueden tomar las variables $p_1$, $p_2$ y $p_3$. Es
-decir, nuestro conjunto de vértices pensando en triplas $(p_1, p_2, p_3)$ va a
-ser $\{(0.95, 0.05, 0), (0.75, 0.05, 0.2), (0.7, 0.3, 0), (0.5, 0.3, 0.2)\}$.
+decir, nuestro conjunto de vértices pensando en tripletas $(p_1, p_2, p_3)$ va
+a ser $\{(0.95, 0.05, 0), (0.75, 0.05, 0.2), (0.7, 0.3, 0), (0.5, 0.3, 0.2)\}$.
 Luego, un ejemplo de una estrategia sin memoria extrema en nuestro juego podría
 ser la que siempre que se encuentra en un estado desde el que puede tomar una
 decisión politópica, elige con $0.6$ de probabilidad hacer el movimiento
@@ -454,8 +455,8 @@ hacer el movimiento vertical con la distribución $(0.75, 0.05, 0.2)$.
 Además, con lo que vimos en el capítulo anterior, sería interesante pensar en
 algún objetivo asociado a este jeugo. En particular, resultaría de interés
 presentar un objetivo de Rabin, así que eso es lo que haremos. Podríamos
-definir el siguiente objetivo de Rabin con dos pares $R={(E_1,F_1),(E_2,F_2)}$
-con los siguientes significados de los conjuntos:
+definir el siguiente objetivo de Rabin con dos pares
+$R=\{(E_1,F_1),(E_2,F_2)\}$ con los siguientes significados de los conjuntos:
 
 \begin{itemize}
 	\item $E_1$: todos los estados donde Roborta y Rigoborto están en la misma celda.
@@ -484,14 +485,14 @@ podría ser. En primer lugar, solo en los estados en los que les toca elegir a
 robots que se encuentran en $(0,0)$ o $(1,1)$ tendremos una cantidad infinita
 de distribuciones de las cuales elegir, en el resto la elección de la acción
 determinará directamente un comportamiento certero. En segundo lugar, para los
-estados que tenemos una cantidad infinita de soluciones, igual estas solo se
+estados que tenemos una cantidad infinita de soluciones, estas solo se
 corresponden a un politopo (recordemos que según la definición que dimos, desde
 un estado podemos tener una cantidad finita de politopos desde los cuales
 elegir). Y, en tercer lugar, los politopos que presentamos no son
 particularmente complejos. Es valioso recordar que los politopos pueden tener
 mayor dimensión y las variables pueden estar más correlacionadas entre sí.
 Tomamos la decisión de simplificar lo más posible el ejemplo a fin de que quede
-una imagen clara y entendible de los que es un PSG antes de proceder con los
+una imagen clara y entendible de qué es un PSG antes de proceder con los
 teoremas mostrados en el paper.
 
 % Existen muchas razones por las cuales podríamos no saber las probabilidades

@@ -11,26 +11,27 @@
 En este capítulo presentaremos la formalización de los objetivos en juegos,
 hablaremos un poco sobre las preguntas que nos planteamos cuando estudiamos
 juegos, veremos una clasificación típica de los objetivos $\omega$-regulares y
-desarrollaremos sobre la importancia de los objetivos de Rabin y nuestro
-interés en su estudio.
+explicaremos la importancia de los objetivos de Rabin y nuestro interés en su
+estudio.
 
 \section{Objetivos en juegos y preguntas de investigación}
 
 En la literatura, un objetivo $\phi$ para un juego es definido como un conjunto
 de caminos. Para los juegos deterministas nosotros mantendremos esta
 definición, pero como para los juegos estocásticos definimos a los caminos como
-secuencias alternantes de estados y acciones (lo cual puede no ser el caso en
-alguna literatura), debemos remarcar que un objetivo en ellos será un conjunto
-de secuencias infinitas de estados que se corresponderían a un camino, es
-decir, siendo $\G$ un juego estocástico y $\Paths(\G)$ el conjunto de caminos
-en él, un objetivo será algún $\phi \subseteq \{\omega' | \exists \omega =
-	(s_1, \alpha_1, s_2, \alpha_2, \dots) \in \Paths(\G) \text{ tal que } \omega' =
-	(s_1, s_2, \dots)\} = \{(s_1, s_2, \dots) | \forall i \geq 0, \exists \alpha
-	\in \Act(s_i) \text{ tal que } \alpha(s_{i+1}) > 0\}$. A lo largo de esta
-sección nos seguiremos refiriendo a objetivos como conjuntos de caminos para
-evitar tener que ir diferenciando, pero recalcamos que los objetivos se
-plantean sobre conjuntos de secuencias de estados y no son dependientes de las
-acciones tomadas.
+secuencias alternantes de estados y acciones (a diferencia de alguna
+literatura, en donde se los definen como secuencias de estados), debemos
+remarcar que un objetivo en ellos será un conjunto de secuencias infinitas de
+estados. Formalmente, si $\G$ es un juego
+%% ESTOY ACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+estocástico y $\Paths(\G)$ el conjunto de caminos en él, un objetivo será algún
+$\phi \subseteq \{\omega' | \exists \omega = (s_1, \alpha_1, s_2, \alpha_2,
+	\dots) \in \Paths(\G) \text{ tal que } \omega' = (s_1, s_2, \dots)\} = \{(s_1,
+	s_2, \dots) | \forall i \geq 0, \exists \alpha \in \Act(s_i) \text{ tal que }
+	\alpha(s_{i+1}) > 0\}$. A lo largo de esta sección nos seguiremos refiriendo a
+objetivos como conjuntos de caminos para evitar tener que diferenciarlos, pero
+recalcamos que los objetivos se plantean sobre conjuntos de secuencias de
+estados y no son dependientes de las acciones tomadas.
 
 Con eso aclarado, un objetivo para el jugador $\cuad$ especifica un conjunto de
 caminos que son ganadores para el jugador $\cuad$, y un objetivo para el
@@ -59,14 +60,14 @@ gana un jugador? Es decir, fijado un estado $s$ nos podemos preguntar si existe
 una estrategia para algún jugador tal que, frente a cualquier estrategia del
 otro jugador, puede asegurar que se produce un camino dentro del conjunto
 $\phi$. Esta pregunta en la literatura de juegos estocásticos es conocida como
-la pregunta cualitativa (y es esta pregunta sobre la cual enfocaremos nuestro
-estudio). Se la llama así en contraposición a otra pregunta interesante que
-también nos podemos hacer en los juegos estocásticos, la pregunta cuantitativa:
-para un estado $s$, ¿cuál es la probabilidad de que desde $s$ gane algún
-jugador? Esta última pregunta puede ser respondida para todos los estados, aún
-cuando no existe una estrategia que asegure un comportamiento ganador frente a
-todas las estrtategias del otro jugador. La respuesta a esta pregunta es
-conocida como el valor del estado y comentaremos brevemente sobre ella en los
+la pregunta cualitativa (y sobre esta enfocaremos nuestro estudio). Se la llama
+así en contraposición a otra pregunta interesante que también nos podemos hacer
+en los juegos estocásticos, la pregunta cuantitativa: para un estado $s$, ¿cuál
+es la probabilidad de que desde $s$ gane algún jugador? Esta última pregunta
+puede ser respondida para todos los estados, aún cuando no existe una
+estrategia que asegure un comportamiento ganador frente a todas las
+estrtategias del otro jugador. La respuesta a esta pregunta es conocida como el
+valor del estado y hablaremos brevemente sobre ella en los
 capítulos~\ref{cap:psg} y \ref{cap:conclusions}.
 
 Por otro lado, introducimos también los conceptos de condición de victoria y
@@ -103,8 +104,8 @@ o ``algo malo ocurre sólo una cantidad finita de veces".
 \section{Clasificación de objetivos $\omega$-regulares}
 
 Existen varios tipos de objetivos $\omega$-regulares, cada uno definido por
-diferentes condiciones de aceptación en los autómatas sobre palabras infinitas.
-En particular, las siguientes especificaciones de condiciones de aceptación
+diferentes condiciones de aceptación en autómatas sobre palabras infinitas. En
+particular, las siguientes especificaciones de condiciones de aceptación
 definen objetivos $\omega$-regulares y son las más estudiadas:
 
 \begin{itemize}
@@ -134,12 +135,12 @@ definen objetivos $\omega$-regulares y son las más estudiadas:
 	      jugado en $G$ con el objetivo de alcanzabilidad $\Reach(T)$ es equivalente a un
 	      juego jugado en $G'$ con el objetivo de Büchi, $\Buchi(T)$.
 
-	\item \textbf{Objetivos de Rabin y Streett}. Ahora pasamos a combinaciones booleanas de objetivos de Büchi y co-Büchi. Una especificación de Rabin para el juego $G$ es un conjunto finito $R = \{(E_1,F_1) \dots (E_d, F_d)\}$ de pares de conjuntos de estados, esto es, $E_j \subseteq S$ y $F_j \subseteq S$ para todo $ 1 \leq j \leq d$. Los pares en $R$ son llamados pares de Rabin. Asumimos, sin pérdida de generalidad, que $\bigcup_{1 \leq j \leq d} (E_j \cup F_j) = S$. La especificación de Rabin $R$ requiere que para algun par de Rabin $1 \leq j \leq d$, todos los estados en el conjunto de la izquierda $E_j$ sean visitados solo una cantidad finita de veces, y que algún estado en el conjunto de la derecha $F_j$ sea visitado infinitamente a menudo. Con eso, el objetivo de Rabin definido por $R$ es el conjunto $\Rabin(R) = \{\omega \in \Paths(G) | \exists j \in [1, d], \Inf(\omega) \cap E_j = \emptyset \wedge \Inf(\omega) \cap F_j \neq \emptyset \}$ de conjuntos ganadores y su respectiva condición de victoria sería $\bigvee_{1 \leq j \leq d} \eventsiemp \overline{E_j} \wedge \siempevent F_j$.
+	\item \textbf{Objetivos de Rabin y Streett}. Ahora pasamos a combinaciones booleanas de objetivos de Büchi y co-Büchi. Una especificación de Rabin para el juego $G$ es un conjunto finito $R = \{(E_1,F_1) \dots (E_d, F_d)\}$ de pares de conjuntos de estados, esto es, $E_j \subseteq S$ y $F_j \subseteq S$ para todo $ 1 \leq j \leq d$. Los pares en $R$ son llamados pares de Rabin. Asumimos, sin pérdida de generalidad, que $\bigcup_{1 \leq j \leq d} (E_j \cup F_j) = S$. La especificación de Rabin $R$ requiere que para algún par de Rabin $1 \leq j \leq d$, todos los estados en el conjunto de la izquierda $E_j$ sean visitados solo una cantidad finita de veces, y que algún estado en el conjunto de la derecha $F_j$ sea visitado infinitamente a menudo. Con esto, el objetivo de Rabin definido por $R$ es el conjunto $\Rabin(R) = \{\omega \in \Paths(G) | \exists j \in [1, d], \Inf(\omega) \cap E_j = \emptyset \wedge \Inf(\omega) \cap F_j \neq \emptyset \}$ de conjuntos ganadores y su respectiva condición de victoria será $\bigvee_{1 \leq j \leq d} \eventsiemp \overline{E_j} \wedge \siempevent F_j$.
 
-	      Nótese que el objetivo co-Büchi $\coBuchi(C)$ es igual al objetivo de Rabin con
-	      un único par $\Rabin(\{(C,S)\})$ y que el objetivo de Büchi $\Buchi(B)$ es
-	      igual al objetivo de Rabin con dos pares $\Rabin(\{(\emptyset, B), (S,S)\})$
-	      (por la asumpción que hicimos sobre la unión de los conjuntos de los pares).
+	      Nótese que el objetivo $\coBuchi(C)$ es igual al objetivo de Rabin con un único
+	      par $\Rabin(\{(C,S)\})$ y que el objetivo $\Buchi(B)$ es igual al objetivo de
+	      Rabin con dos pares $\Rabin(\{(\emptyset, B), (S,S)\})$ (por la asumpción que
+	      hicimos sobre la unión de los conjuntos de los pares).
 
 	      Los complementos de los objetivos de Rabin son los objetivos de Streett. Una
 	      especificación de Streett para $G$ es también un conjunto $W = \{(E_1, F_1),
@@ -193,15 +194,15 @@ definen objetivos $\omega$-regulares y son las más estudiadas:
 
 \section{La importancia de los objetivos de Rabin}
 
-Con lo presentado en la sección anterior, poedemos deducir algo muy interesante
+Con lo presentado en la sección anterior, podemos deducir algo muy interesante
 de los objetivos de Rabin. Mencionamos primero que los objetivos de
 alcanzabilidad y seguridad pueden transformarse en objetivos de Büchi y
 co-Büchi. Y luego mencionamos que tanto los objetivos de Büchi como de co-Büchi
-pueden trasnformarse en objetivos de Rabin (con lo cual también podemos hacer
-lo mismo con los objetivos de alcanzabilidad y seguridad). A su vez, también
-mencionamos que los objetivos de paridad y de Müller pueden ser transformados a
-objetivos de Rabin. Con esto, podemos empezar a deducir lo que se prueba
-formalmente con la prueba de Safra en \cite{Safra}: cada objetivo
+pueden trasnformarse en objetivos de Rabin (con lo cual también podemos
+transformar los objetivos de alcanzabilidad y seguridad en objetivos de Rabin).
+A su vez, también mencionamos que los objetivos de paridad y de Müller pueden
+ser transformados a objetivos de Rabin. Con esto, podemos empezar a deducir lo
+que se prueba formalmente con la prueba de Safra en \cite{Safra}: cada objetivo
 $\omega$-regular puede ser transformado a un objetivo de Rabin. (Safra lo que
 prueba en realidad es que cada autómata no determinista de Büchi -de los cuales
 se sabe que pueden reconocer todos los lenguajes $\omega$-regulares- se puede
