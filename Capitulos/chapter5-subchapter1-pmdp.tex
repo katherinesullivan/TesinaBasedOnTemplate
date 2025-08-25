@@ -23,7 +23,7 @@ acciones posibles a tomar desde un estado puede ser no numerable.
 
 Los caminos, las estrategias, y la medida de probabilidad en los PMDPs se
 definen tomando las mismas definiciones de los juegos estocásticos politópicos.
-Lo que presentaremos formalmente a continuación será las definiciones de
+Lo que presentaremos formalmente a continuación serán las definiciones de
 conjuntos estado-resultado, sub-PMDPs y componentes finales que en cierta forma
 extienden a los conceptos de conjuntos estado-acción, sub-MDPs y componentes
 finales que se suelen encontrar en la literatura de procesos de decisión de
@@ -74,9 +74,9 @@ conjunto resultado sea $V'$. La definición formal es como sigue:
 \end{definition}
 
 Intuitivamente, una componente final representa un conjunto de pares
-estado-resultado que, una vez en ellos, es posible quedase allí para siempre si
-la estrategia escoge las acciones de manera apropiada. Esta intuición se hará
-precisa con los siguientes teoremas.
+estado-resultado que, una vez en ellos, es posible quedarse allí para siempre
+si la estrategia escoge las acciones de manera apropiada. Esta intuición se
+hará precisa con los siguientes teoremas.
 
 Antes de enunciar estos teoremas, introducimos una abreviatura para el conjunto
 de estados-resultados que ocurren infinitamente a menudo en un camino dado. %y una notación para el conjunto (infinito) de acciones con el mismo conjunto resultado.
@@ -105,20 +105,20 @@ Ahora sí, podemos pasar a presentar las primeras demostraciones:
 
 	\begin{itemize}
 		\item Si $s_n \in C$, la estrategia asignará probabilidad positiva a una única acción
-		      $(K, \mu) \in A(s_n, V')$ para cada conjunto resultado $V'$ (notaremos a esta
+		      $(K, \mu)$ para cada conjunto resultado $V' \in D(s_n)$ (notaremos a esta
 		      acción particular con $(K, \mu)_{V'}$), y la probabilidad de elegir cada una de
 		      esas acciones se distribuirá de manera uniforme. Es decir,
 		      \[
 			      \pi'(s_0 \dots s_n)(K, \mu) =
 			      \begin{cases}
-				      \frac{1}{\abs{D(s_n)}} \quad \text{si } (K, \mu) = (K, \mu)_{V'} \text{ para algún } V' \in D(s); \\
+				      \frac{1}{\abs{D(s_n)}} \quad \text{si } (K, \mu) = (K, \mu)_{V'} \text{ para algún } V' \in D(s_n); \\
 				      0 \qquad \quad \text{en otro caso}
 			      \end{cases}
 		      \]
 
 		\item Si $s_n \notin C$, la estrategia $\pi'$ coincide con $\pi$, i.e.
 		      \[
-			      \pi(s_0 \dots s_n)(K, \mu) = \pi'(s_0\dots s_n)(K, \mu) \quad \forall (K, \mu) \in Act
+			      \pi(s_0 \dots s_n)(K, \mu) = \pi'(s_0\dots s_n)(K, \mu) \quad \forall (K, \mu) \in \Act
 		      \]
 
 		      %debería ser \pi(s_0 \dots s_n)
@@ -139,11 +139,11 @@ probar el teorema principal de esta tesina.
 \begin{corollary}
 	\label{adaptB30}
 	Sea $\M$ un PMDP y sea $s$ un estado ganador en él para una condición de Rabin $R = \{(E_1, F_1), \dots, (E_d, F_d)\}$. %, cuya especificación LTL es $\varphi$ (es decir, para toda estrategia $\pi$, $\ProbPMDP(\varphi) = 1$). 
-	Entonces, para toda componente final $(C,D)$ alcanzable desde $s$, vale que existe algún $j \in [1, d]$ tal que $C \cap E_j= \emptyset$ y $C \cap F_j \neq \emptyset$.
+	Entonces, para toda componente final $(C,D)$ alcanzable desde $s$ con la (alguna) estrategia ganadora $\pi$, existe algún $j \in [1, d]$ tal que $C \cap E_j= \emptyset$ y $C \cap F_j \neq \emptyset$.
 \end{corollary}
 
 \begin{proof}
-	Supongamos que existe una componente final $(C', D')$ alcanzable desde $s$ tal que esta no cumple que existe algún $j \in [1, d]$ tal que $C' \cap E_j= \emptyset$ y $C' \cap F_j \neq \emptyset$.
+	Supongamos que existe una componente final $(C', D')$ alcanzable desde $s$ con la estrategia ganadora $\pi$, tal que esta no cumple que existe algún $j \in [1, d]$ tal que $C' \cap E_j= \emptyset$ y $C' \cap F_j \neq \emptyset$.
 
 	Por teorema~\ref{estabEC}, sabemos que existe una estrategia válida $\pi'$ tal
 	que permite llegar a $C'$ desde $s$ y quedarse allí para siempre. Podemos
@@ -154,9 +154,9 @@ probar el teorema principal de esta tesina.
 	sabemos que existe algún $j \in [1, d]$ tal que $\Inf(\omega') \cap E_j =
 		\emptyset$ y $\Inf(\omega') \cap F_j \neq \emptyset$, lo que quiere decir que
 	existe algún $j \in [1, d]$ tal que $C' \cap E_j= \emptyset$ y $C' \cap F_j
-		\neq \emptyset$ y tendríamos una contradicción.
+		\neq \emptyset$, y tendríamos una contradicción.
 
-	Esta contradicción viene de suponer que existe tal comopnente final. Con lo que
+	Esta contradicción viene de suponer que existe tal comopnente final. Por lo que
 	probamos lo que queríamos.
 \end{proof}
 
@@ -175,10 +175,10 @@ componente final. Esta es la razón detrás del nombre ``componente final".
 
 	Si podemos mostrar que
 	\begin{equation}\label{omegaEnOmega0}
-		\Prob^\pi_{\M, s}(\{ \omega \in \Paths(s) \mid \omega \in \Paths_s^{(C,D)}\}) = 0
+		\Prob^\pi_{\M, s}(\{ \omega \in \Paths(s) \mid \omega \in \Paths_s^{(C,D)}\}) = 0,
 	\end{equation}
 	como $(C,D)$ es un sub-PMDP cualquiera y como hay una cantidad finita de sub-PMDPs en $\M$, esto es lo mismo que mostrar que
-	$$\Prob^\pi_{\M, s}(\{ \omega \in \Paths(s) \mid \sub(\inft(\omega)) \text{ es una componente final}\}) = 1$$.
+	$$\Prob^\pi_{\M, s}(\{ \omega \in \Paths(s) \mid \sub(\inft(\omega)) \text{ es una componente final}\}) = 1.$$
 	Veamos que vale \ref{omegaEnOmega0}, dividiendo en casos según cuál es la
 	condición de la definición \ref{defEC} que no se cumple para $(C,D)$:
 
@@ -257,7 +257,7 @@ de decisión de Markov para el análisis de condiciones de Rabin.
 
 \textbf{Nota sobre la limitación a estrategias finitas del Teorema~\ref{teoFundEC}}
 
-Ahora bien, una pregunta muy natural que surge es "¿por qué nos restringimos a
+Ahora bien, una pregunta muy natural que surge es ``¿por qué nos restringimos a
 estrategias de memoria finita en este último teorema?"
 
 En un principio la idea fue poder probar ambos teoremas en su caso general, sin
@@ -343,7 +343,7 @@ sea válido.
 Esta limitación a la que nos tuvimos que atener aquí, sin embargo, no
 constituyó una limitación a la prueba del teorema principal sobre regiones
 ganadoras que mostramos más adelante, porque pudimos reducir lo que
-necesitabamos para su prueba al corolario~\ref{adaptB30}.
+necesitábamos para su prueba al corolario~\ref{adaptB30}.
 
 % ES PMDP CHE
 % Consideremos un juego estocástico politópico donde tenemos un vértice $t$ y un

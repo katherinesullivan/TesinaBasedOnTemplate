@@ -8,12 +8,12 @@ ganadores con probabilidad 1 en un juego estocástico politópico con un objetiv
 de Rabin es igual al conjunto de vértices ganadores de un juego justo
 construido a partir del PSG.
 
-Para eso primero presentaremos el concepto de juego justo y la construcción del
-juego justo a partir del PSG. Luego, explicitaremos un poco más la relación
-entre el PSG y el juego justo construido, al cual llamaremos su
-desrandomización. Seguido de eso, expondremos la prueba formal de la igualdad
-entre los conjuntos. Y, por último, mostraremos un algoritmo para el cálculo de
-los estados ganadores y la sintésis de estrategias ganadoras para un PSG con un
+Para eso primero presentaremos el concepto de juego justo y la construcción de
+uno a partir de un PSG. Luego, explicitaremos un poco más la relación entre el
+PSG y el juego justo construido, al cual llamaremos su desrandomización.
+Seguido de esto, expondremos la prueba formal de la igualdad entre los
+conjuntos. Y, por último, mostraremos un algoritmo para el cálculo de los
+estados ganadores y la sintésis de estrategias ganadoras para un PSG con un
 objetivo de Rabin. % VER ESTO EN DEPENDENCIA DE LO QUE TERMINEMOS ESCRIBIENDO AL FINAL
 
 \subsection*{Juegos de adversario justo}
@@ -30,10 +30,10 @@ menudo por el jugador $\diam$. Es decir, si un vértice $v$ es visitado
 infinitas veces, se espera también que toda arista en $E^l$ saliente de $v$ sea
 tomada una cantidad infinita de veces.
 
-Denotamos por $G^{l} = \langle G, E^{l} \rangle$ a un juego de adversario
-justo, y extendemos nociones como jugadas, estrategias, condiciones ganadoras,
-regiones ganadoras, etc. de juegos deterministas de manera natural. Una jugada
-$\rho$ sobre $G^{l}$ se dice fuertemente justa si satisface la siguiente
+Denotamos con $G^{l} = \langle G, E^{l} \rangle$ a un juego de adversario
+justo. Las nociones de jugadas, estrategias, condiciones ganadoras, regiones
+ganadoras, etc. de juegos deterministas se extienden de manera natural. Una
+jugada $\rho$ sobre $G^{l}$ se dice fuertemente justa si satisface la siguiente
 fórmula en lógica temporal lineal (LTL):
 \[
 	\alpha := \bigwedge_{(v, v') \in E^{l}} \left( \siempevent v \rightarrow \siempevent (v \wedge \bigcirc v') \right).
@@ -327,15 +327,14 @@ Supongamos ahora que tenemos una estrategia $\pi_i$ en $\Gk$ y queremos
 construir una estrategia $\sigma_i$ en $\DGk$ que tenga un comportamiento
 similar.
 
-Para cada prefijo finito de camino $\rho$ debemos definir qué vértice será el
-que elija $\sigma_i(\rho)$. La idea será que elegiremos un vértice $v_V$ que se
-corresponde al soporte de una acción a la que $\pi_i(\omega)$ (siendo $\omega$
-tal que $\derand(\omega) = \rho$) le asigne una probabilidad positiva.
-
-Como existen varios prefijos de camino que podrían cumplir con la condición de
-$\omega$, la definición de $\derand(\pi_i)$ dependerá de la elección de un
-prefijo de camino $\omega$ para cada prefijo de camino $\rho$ tal que
-$\derand(\omega) = \rho$.
+Para cada prefijo finito de camino $\rho$ en la desrandomización, debemos
+definir qué vértice será el que elija $\sigma_i(\rho)$. La idea será elegir un
+vértice $v_V$ que se corresponda con el conjunto soporte de una acción a la que
+$\pi_i(\omega)$ (siendo $\omega$ tal que $\derand(\omega) = \rho$) le asigne
+una probabilidad positiva. Como pueden existir varios prefijos de camino en el
+PSG cuya desrandomización sea $\rho$, la definición de $\derand(\pi_i)$
+dependerá de la elección de un prefijo de camino $\omega$ particular para cada
+prefijo de camino $\rho$ tal que $\derand(\omega) = \rho$.
 
 Además, como cada acción le puede dar probabilidad positiva a varias acciones
 con distintos soportes, la definición de $\derand(\pi_i)$ también dependerá de
@@ -346,7 +345,7 @@ positiva (por cada $\omega$ seleccionado en el paso anterior).
 	Suponiendo que tenemos una estrategia $\pi_i$ en $\Gk$, es probable que a su vez tengamos caminos $\omega'_1, \omega'_2, \dots$ en $\Gk$ específicos en que estemos interesados que $\sigma_i$ replique. En ese caso, una manera de tomar las decisiones antes planteadas es usando los prefijos finitos de los distintos $\omega'_k$ para las decisiones de $\sigma_i$. Esto sería: si tenemos un prefijo de camino $\hat \omega = (s_1, \alpha_1, s_2, \alpha_2, \dots, s_m, \alpha_m)$ (que respeta $\pi_i$), entonces haremos que para $\hat \rho = (s_1, v_{\supp(\alpha_1)}, s_2, v_{\supp(\alpha_2)} \dots, s_m)$, $\sigma_i(\hat \rho) = v_{\supp(\alpha_m)}$.
 \end{boxgris}
 
-Con estas decisiones tomadas, podemos definir como se comportará $\sigma_i$
+Con estas decisiones tomadas, podemos definir cómo se comportará $\sigma_i$
 para cada prefijo de camino que termina en un estado $s \in \St$.
 
 Ahora bien, para el caso de $\sigma_\diam$ también hay que definir cómo se
@@ -363,7 +362,7 @@ equidad.
 	\begin{enumerate}
 		\item como cada $V_k$ es finito, podemos numerar cada $s^{V_k} \in V_k$ de manera
 		      $s_0^{V_k}, s_1^{V_k}, \dots$. Esto nos permite seleccionar el próximo estado
-		      en base a la cantidad de veces que se visitó $v_{V_k}$. Si $n$ fueron las veces
+		      en base a la cantidad de veces que se visitó $v_{V_k}$. Si fueron $n$ las veces
 		      que se visitó $v_{V_k}$ en el prefijo finito de camino $\rho '$, entonces
 		      podemos definir $\sigma_\diam(\rho ' v_{V_k}) = s_n^{V_k}$.
 		\item si tenemos un camino $\hat \omega$ válido que respeta la estrategia
@@ -375,16 +374,16 @@ equidad.
 	\end{enumerate}
 \end{boxgris}
 
-Con estas decisiones ya tomadas resulta la construcción de la $\sigma_i$ que
-queríamos, a la cual llamaremos $\derand(\pi_i)$.
+De esta manera podemos construir la estrategia $\sigma_i$ que queríamos
+obtener, a la cual llamaremos $\derand(\pi_i)$.
 
 \textbf{Respetar una estrategia}
 
 Al hablar de caminos específicos es natural pensar que estos fueron producto de
 una partida en la que los jugadores siguieron determinadas estrategias. Para la
-prueba que plantearemos a continuación querremos formalizar esta relación entre
-caminos y las estrategias que se siguieron en ellos y lo haremos a través de la
-idea de que un camino ``respeta" determinadas estrategias.
+prueba que plantearemos a continuación, formalizaremos esta relación entre
+caminos y las estrategias que se siguieron en ellos a través de la idea de que
+un camino ``respeta'' determinadas estrategias.
 
 Sea $\omega = (s_0, \alpha_0, s_1, \alpha_1, \dots)$ un camino en un juego
 estocástico poliópico y sean $\picuad$ y $\pidiam$ dos estrategias en el mismo
@@ -506,16 +505,16 @@ las estrategias $\sigma_\cuad$ y $\sigma_\diam$ si $\forall i \geq 0$ vale
 
 	Como $\picuad^*$ es una estrategia ganadora frente a cualquier estrategia
 	$\pidiam$, siempre se cumple la condición de Rabin con probabilidad 1 en el
-	PMDP $\M'$ que se forma al fijar la estrategia $\picuad^*$ en $\Gk$. Por
-	teorema~\ref{adaptB30}, entonces vale que para cada componente final $(C,D)$
+	PMDP $\M'$ que se forma al fijar la estrategia $\picuad^*$ en $\Gk$. Por el
+	corolario~\ref{adaptB30}, entonces vale que para cada componente final $(C,D)$
 	alcanzable desde $s$ en el PMDP $\M^*$ vale que existe algún $j \in [1,d]$ tal
 	que $C \cap E_j = \emptyset$ y $C \cap F_j \neq \emptyset$.
 
 	Si denotamos como $\Inf(\rho)_D$ a la función que le asocia a cada $s_i$ en
 	$\Inf(\rho)_C$ el conjunto formado solo por el $V_i$ correspondiente al vértice
-	$v_{V_i}$ en $\rho$, esto que presentamos anteriormente quiere decir que si
-	podemos probar que $(\Inf(\rho)_C, \Inf(\rho)_D)$ es una componente final
-	alcanzable desde $s$ en el PMDP $\M^*$, entonces vale la ecuación~\ref{varphi}.
+	$v_{V_i}$ en $\rho$, gracias al corolario~\ref{adaptB30}, si podemos probar que
+	$(\Inf(\rho)_C, \Inf(\rho)_D)$ es una componente final alcanzable desde $s$ en
+	el PMDP $\M^*$, entonces vale la ecuación~\ref{varphi}.%esto que presentamos anteriormente quiere decir que 
 
 	% probar que es subPMDP no hace falta pq es solo una cuestion de tipado
 
@@ -553,9 +552,9 @@ las estrategias $\sigma_\cuad$ y $\sigma_\diam$ si $\forall i \geq 0$ vale
 	puesto que tanto $\pidiam^*$ como $\picuad^*$ les dan probabilidad positiva a
 	los mismos vértices en $\St$ que $\sigma_\diam$ asegura visitar infinitamente.
 
-	Con lo cual hemos probado que vale l ecuación~\ref{varphi} y, por lo tanto, que
-	$\sigma_\cuad*$ es ganadora en $\DGk$ desde $s$, con lo que hemos probado que
-	$s \in \W$.
+	Con lo cual hemos probado que vale la ecuación~\ref{varphi} y, por lo tanto,
+	que $\sigma_\cuad*$ es ganadora en $\DGk$ desde $s$, con lo que hemos probado
+	que $s \in \W$.
 
 \end{proof}
 
@@ -563,9 +562,9 @@ las estrategias $\sigma_\cuad$ y $\sigma_\diam$ si $\forall i \geq 0$ vale
 
 \subsection*{Algoritmo para el cálculo de estados ganadores en un juego justo con objetivo de Rabin}
 
-En \cite{Banerjee} se presenta un algoritmo para calcular el conjunto de
-vértices ganadores en un juego de adversario justo $G$ con un objetivo de Rabin
-$R$. Este algoritmo es de ejecución simbólica, punto fijo
+% En \cite{Banerjee} se presenta un algoritmo para calcular el conjunto de
+% vértices ganadores en un juego de adversario justo $G$ con un objetivo de Rabin
+% $R$. Este algoritmo es de ejecución simbólica, punto fijo
 
 En \cite{Banerjee} se presenta un algoritmo para calcular el conjunto de
 vértices ganadores en un juego de adversario justo \( G \) con un objetivo de
@@ -589,16 +588,8 @@ continuación ($\{\Pre_\cuad^\exists, \Pre_\diam^\forall, \Cpre, \Lpre^\exists,
 menor (resp. mayor) punto fijo de la función definida por \( \varphi \)
 respecto de la variable \( X \).
 
-Sea \( G = (V, E, V_0, V_1) \) un grafo de juego, donde \( V \) es el conjunto
-de vértices, \( E \subseteq V \times V \) es el conjunto de transiciones, y \(
-V_0 \), \( V_1 \) son los vértices controlados por el jugador \( \square \) y
-por el adversario \( \diamondsuit \), respectivamente. Se asume además un
-subconjunto \( V^\ell \subseteq V_1 \) de vértices \emph{live}, sobre los
-cuales se impone una hipótesis de equidad.
-% ESTO REESCRIBIR PERO DARLE NOMBRE A LOS VERTICES LIVE -> hacer algo de newV y con eso hablar de los live vertices
-
-Dado un conjunto de vértices \( S \subseteq V \), se definen los siguientes
-operadores: % relacionarlo con lo de que quede de set transformers en el parrafo de mu calculo
+Dado la desrandomización de un PSG, y dos conjuntos de vértices en él, \( S, T
+\subseteq V \), se definen los siguientes operadores: % relacionarlo con lo de que quede de set transformers en el parrafo de mu calculo
 
 \begin{itemize}
 	\item \textbf{Predecesor existencial del jugador \( \cuad \):}
@@ -616,9 +607,9 @@ operadores: % relacionarlo con lo de que quede de set transformers en el parrafo
 		      \Cpre(S) := \Pre_\cuad^\exists(S) \cup \Pre_\diam^\forall(S)
 	      \]
 
-	\item \textbf{Predecesor existencial sobre vértices live:}
+	\item \textbf{Predecesor existencial sobre vértices especiales:}
 	      \[
-		      \Lpre^\exists(S) := \{v \in V^\ell \mid \exists v' \in S \text{ tal que } (v, v') \in E\}
+		      \Lpre^\exists(S) := \{v \in \tilde V \mid \exists v' \in S \text{ tal que } (v, v') \in E\}
 	      \]
 
 	\item \textbf{Predecesor casi seguro:}
@@ -633,24 +624,27 @@ directamente mediante \( \Cpre \), o confiando en la equidad del adversario
 para transitar, desde un vértice live, hacia \( T \), manteniéndose mientras
 tanto dentro de \( S \).
 
-Dado un objetivo de Rabin especificado por un conjunto de pares \( R = \{(G_i,
-R_i)\}_{i \in [1;k]} \), el conjunto de vértices ganadores se obtiene como la
-interpretación de la siguiente fórmula del $\mu$-cálculo: % no es esta la manera en la representamos los objetivos de rabin asi que va a haber que cambiar eso
+Entonces, ahora estamos en condiciones de presentar el algoritmo. Dado un
+objetivo de Rabin especificado por un conjunto de pares $R = \{(E_1, F_1),
+	\dots, (E_d, F_d)\}$, con conjunto de índices $P = [1;d]$, el conjunto de
+vértices ganadores se obtiene como el siguiente punto fijo expresado en
+$\mu$-cálculo:
 
 \[
-	Z^* = \nu Y_0.\, \mu X_0.\, \bigcup_{p_1 \in P}\, \nu Y_1.\, \mu X_1.\, \bigcup_{p_2 \in P \setminus \{p_1\}}\, \cdots\, \bigcup{p_k} \nu Y_d.\, \mu X_d.\, \left[ \bigcup_{j=0}^d\, C_{p_j} \right]
+	Z^* = \nu Y_{p_0}.\, \mu X_{p_0}.\, \bigcup_{p_1 \in P}\, \nu Y_{p_1}.\, \mu X_{p_1}.\, \bigcup_{p_2 \in P_{\setminus 1}}\, \nu Y_{p_2}.\, \mu X_{p_2} .\, \cdots\, \bigcup_{p_d \in P_{\setminus d-1}} \nu Y_{p_d}.\, \mu X_{p_d}.\, \left[ \bigcup_{j=0}^d\, C_{p_j} \right],
 \]
 
-donde \( P = \{1, \dots, k\} \), y cada término \( C_{p_j} \) se define como:
+donde:
 
 \[
-	C_{p_j} := \left( \bigcap_{i=0}^j R_{p_i} \right) \cap \left[ (G_{p_j} \cap \Cpre(Y_{p_j})) \cup \Apre(Y_{p_j}, X_{p_j}) \right]
+	C_{p_j} := \left( \bigcap_{i=0}^j \overline{E}_{p_i} \right) \cap \left[ (F_{p_j} \cap \Cpre(Y_{p_j})) \cup (\Apre(Y_{p_j}, X_{p_j})) \right]
 \]
 
-con la convención de que \( R_{p_0} = G_{p_0} = \emptyset \). Esta fórmula
-alterna puntos fijos máximos y mínimos para reflejar la semántica de la
-condición de Rabin, y extiende el algoritmo de Piterman para juegos
-deterministas mediante la incorporación del operador \( \Apre \), que permite
+con $p_0 = 0$, \( E_{p_0} := \emptyset \), $G_{p_0} := \emptyset$ y
+$P_{\setminus i} = P \setminus \{p_1, \dots, p_i\}$. Esta fórmula alterna
+puntos fijos máximos y mínimos para reflejar la semántica de la condición de
+Rabin, y extiende el algoritmo para juegos deterministas presentado en
+\cite{Piterman} mediante la incorporación del operador \( \Apre \), que permite
 tratar directamente los vértices bajo equidad.
 
 % la idea va a ser intentar dar un poco una intuicion pero mandar a leer pieterman pnuelli y banerjee para entender por que funciona esto
@@ -665,8 +659,8 @@ encontrar en \cite{Banerjee} y \cite{Piterman}.
 \subsection*{Complejidad del cálculo de estados ganadores en un PSG con objetivo de Rabin}
 
 Haber podido probar la igualdad en \ref{teocuali} nos permite calcular el
-conjunto de estados casi seguramente ganadores para $\cuad$ en $\Gk$ mediante
-el algoritmo que se propone en \cite{Banerjee} y presentamos en la subsección
+conjunto de estados casi seguramente ganadores para $\cuad$ en $\Gk$ a través
+del algoritmo que se propone en \cite{Banerjee} y presentamos en la subsección
 anterior.
 
 Este algoritmo tiene una complejidad de $O(n^2 d!)$ donde $n$ es la cantidad de
@@ -681,23 +675,22 @@ desde un estado $s$ en $\K$.
 
 \subsection*{Sintésis de estrategias ganadoras en un PSG con objetivo de Rabin}
 
-El cálculo de desde qué estados gana el jugador $\cuad$ responde parcialmente a
-la pregunta de ``¿quién gana?'', pero resulta no de menor importancia el
-plantearse ``¿cómo se gana?''. Esta pregunta abarca tanto con qué clase de
-estrategias se puede ganar como también podría enfocarse en describir paso a
-paso cómo se deberían ver esas estrategias y se asocia a lo que es conocido
-como el problema de \textit{sintésis de estrategias}, remarcado como de interés
-en la literatura. Con lo demostrado en \ref{teocuali}, también respondemos
-parcialmente a esta pregunta por lo siguiente.
+El cálculo que determina de desde qué estados gana el jugador $\cuad$ responde
+parcialmente a la pregunta de ``¿quién gana?'', pero resulta no de menor
+importancia el plantearse ``¿cómo se gana?''. Esta pregunta abarca tanto con
+qué clase de estrategias se puede ganar como también podría enfocarse en
+describir paso a paso cómo se deberían ver esas estrategias y se asocia a lo
+que es conocido como el problema de \textit{sintésis de estrategias}, el cual
+es de especial interés en la literatura. Con lo demostrado en \ref{teocuali},
+también respondemos parcialmente a esta pregunta.
 
 El algoritmo simbólico planteado en la subsección anterior y propuesto en
 \cite{Banerjee} permite extraer una estrategia sin memoria ganadora para el
-jugador $\cuad$ en el juego justo, por lo que tendríamos así una estrategia sin
-memoria ganadora en la desrandomización de un juego estocástico politópico con
-objetivo de Rabin, y como nosotros mostramos cómo, a partir de una estrategia
-en la desrandomización, obtener una estrategia en el juego original, con esto
-tenemos la manera de sintetizar una estrategia ganadora en un PSG con objetivo
-de Rabin.
+jugador $\cuad$ en el juego justo (lo que significa que tenemos una manera de
+extraer una estrategia sin memoria ganadora en la desrandomización). A partir
+de esta estrategia sin memoria en la desrandomización, vimos que podemos
+contruir una estrategia en el PSG. Esto significa que tenemos una manera de
+sintetizar una estrategia ganadora en un PSG con objetivo de Rabin.
 
 % El desarrollo de esta prueba en cierto punto nos permitió abordar la pregunta
 % que planteamos como de nuestro interés en el capítulo~\ref{cap:objetivos} sobre
