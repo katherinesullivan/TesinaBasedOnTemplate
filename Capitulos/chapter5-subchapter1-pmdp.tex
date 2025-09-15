@@ -133,32 +133,32 @@ Ahora sí, podemos pasar a presentar las primeras demostraciones:
 	infinitamente a menudo con probabilidad 1.
 \end{proof}
 
-Este teorema nos permite presentar un corolario que nos será útil al momento de
-probar el teorema principal de esta tesina.
+% Este teorema nos permite presentar un corolario que nos será útil al momento de
+% probar el teorema principal de esta tesina.
 
-\begin{corollary}
-	\label{adaptB30}
-	Sea $\M$ un PMDP y sea $s$ un estado ganador en él para una condición de Rabin $R = \{(E_1, F_1), \dots, (E_d, F_d)\}$. %, cuya especificación LTL es $\varphi$ (es decir, para toda estrategia $\pi$, $\ProbPMDP(\varphi) = 1$). 
-	Entonces, para toda componente final $(C,D)$ alcanzable desde $s$ con la (alguna) estrategia ganadora $\pi$, existe algún $j \in [1, d]$ tal que $C \cap E_j= \emptyset$ y $C \cap F_j \neq \emptyset$.
-\end{corollary}
+% \begin{corollary}
+% 	\label{adaptB30}
+% 	Sea $\M$ un PMDP y sea $s$ un estado ganador en él para una condición de Rabin $R = \{(E_1, F_1), \dots, (E_d, F_d)\}$. %, cuya especificación LTL es $\varphi$ (es decir, para toda estrategia $\pi$, $\ProbPMDP(\varphi) = 1$). 
+% 	Entonces, para toda componente final $(C,D)$ alcanzable desde $s$ con la (alguna) estrategia ganadora $\pi$, existe algún $j \in [1, d]$ tal que $C \cap E_j= \emptyset$ y $C \cap F_j \neq \emptyset$.
+% \end{corollary}
 
-\begin{proof}
-	Supongamos que existe una componente final $(C', D')$ alcanzable desde $s$ con la estrategia ganadora $\pi$, tal que esta no cumple que existe algún $j \in [1, d]$ tal que $C' \cap E_j= \emptyset$ y $C' \cap F_j \neq \emptyset$.
+% \begin{proof}
+% 	Supongamos que existe una componente final $(C', D')$ alcanzable desde $s$ con la estrategia ganadora $\pi$, tal que esta no cumple que existe algún $j \in [1, d]$ tal que $C' \cap E_j= \emptyset$ y $C' \cap F_j \neq \emptyset$.
 
-	Por teorema~\ref{estabEC}, sabemos que existe una estrategia válida $\pi'$ tal
-	que permite llegar a $C'$ desde $s$ y quedarse allí para siempre. Podemos
-	plantear un camino que sigue esa estrategia $\pi'$, llamemóslo $\omega'$. Ahora
-	bien, entonces también por como presentamos que será esa estrategia $\pi'$ en
-	el teorema~\ref{estabEC}, sabemos que $\Inf(\omega') = C$. Pero, a su vez
-	sabemos que ese camino debe cumplir con la condición de Rabin, es decir,
-	sabemos que existe algún $j \in [1, d]$ tal que $\Inf(\omega') \cap E_j =
-		\emptyset$ y $\Inf(\omega') \cap F_j \neq \emptyset$, lo que quiere decir que
-	existe algún $j \in [1, d]$ tal que $C' \cap E_j= \emptyset$ y $C' \cap F_j
-		\neq \emptyset$, y tendríamos una contradicción.
+% 	Por teorema~\ref{estabEC}, sabemos que existe una estrategia válida $\pi'$ tal
+% 	que permite llegar a $C'$ desde $s$ y quedarse allí para siempre. Podemos
+% 	plantear un camino que sigue esa estrategia $\pi'$, llamemóslo $\omega'$. Ahora
+% 	bien, entonces también por como presentamos que será esa estrategia $\pi'$ en
+% 	el teorema~\ref{estabEC}, sabemos que $\Inf(\omega') = C$. Pero, a su vez
+% 	sabemos que ese camino debe cumplir con la condición de Rabin, es decir,
+% 	sabemos que existe algún $j \in [1, d]$ tal que $\Inf(\omega') \cap E_j =
+% 		\emptyset$ y $\Inf(\omega') \cap F_j \neq \emptyset$, lo que quiere decir que
+% 	existe algún $j \in [1, d]$ tal que $C' \cap E_j= \emptyset$ y $C' \cap F_j
+% 		\neq \emptyset$, y tendríamos una contradicción.
 
-	Esta contradicción viene de suponer que existe tal comopnente final. Por lo que
-	probamos lo que queríamos.
-\end{proof}
+% 	Esta contradicción viene de suponer que existe tal comopnente final. Por lo que
+% 	probamos lo que queríamos.
+% \end{proof}
 
 El próximo resultado establece que, para cualquier estado inicial y cualquier
 estrategia de memoria finita, un camino terminará con probabilidad 1 en una
@@ -342,8 +342,10 @@ sea válido.
 
 Esta limitación a la que nos tuvimos que atener aquí, sin embargo, no
 constituyó una limitación a la prueba del teorema principal sobre regiones
-ganadoras que mostramos más adelante, porque pudimos reducir lo que
-necesitábamos para su prueba al corolario~\ref{adaptB30}.
+ganadoras que mostramos más adelante, porque terminamos arribando a otra forma
+de probarlo.
+% pudimos reducir lo que
+% necesitábamos para su prueba al corolario~\ref{adaptB30}.
 
 % ES PMDP CHE
 % Consideremos un juego estocástico politópico donde tenemos un vértice $t$ y un

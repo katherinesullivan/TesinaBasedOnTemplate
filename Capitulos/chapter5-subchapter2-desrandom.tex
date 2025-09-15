@@ -521,73 +521,49 @@ obtener, a la cual llamaremos $\derand(\pi_i)$.
 		\omega^{n+1}$, el prefijo de camino finito de lomngitud $n+1$ del menor camino
 	ganador $\omega$ tal que $\derand(\omega_n) = \hat \rho^n$, tomando como orden
 	uno que asigna mayor precedencia a todos los caminos ganadores y luego se
-	comporta de acuerdo al orden de caminos presentado en la subsección anterior de esta sección \ref{ordenCaminos}.
+	comporta de acuerdo al orden de caminos presentado en la subsección anterior de
+	esta sección \ref{ordenCaminos}.
 
 	Entonces ahora queremos ver que $\sigma_\cuad^*$ es ganadora en $\DGk$ desde
 	$s$.
 
-	Una manera de ver esto es probar que para un camino cualquiera $\rho$ generado
-	por $\sigma_\cuad^*$ y una estrategia válida $\sigma_\diam$ arbitraria en
-	$\DGk$, $\Inf(\rho)_C = \Inf(\rho) \cap \St$ cumple con la especificación
-	$\varphi$. Es decir, que vale la siguiente fórmula:
+	Una manera de probar esto es ver que, dada una estrategia arbitraria
+	$\sigma_\diam$ válida, $\rho$, el camino que surje de respetar las estrategias
+	$\sigma_\cuad^*$ y $\sigma_\diam$ desde $s$, cumple con la condición de Rabin.
+	Es decir, que existe algún $j \in [0,d]$ tal que $\Inf(\rho) \cap E_j =
+		\emptyset \wedge \Inf(\rho) \cap F_j \neq \emptyset$.
 
-	\begin{equation}
-		\label{varphi}
-		\varphi' := \bigvee_{j = 1}^{k} \left((\Inf(\rho)_C \cap R_j = \emptyset) \wedge (\Inf(\rho)_C \cap G_j \neq \emptyset)  \right)
-	\end{equation}
+	Si podemos ver que $\Inf(\rho) \cap \St = \Inf(\omega) \cap \St$ para algún
+	camino $\omega$ ganador en $\Gk$, eso ya nos asegura que vale la condición de
+	Rabin para $\rho$. Así que eso es lo que probaremos.
 
-	Como $\picuad^*$ es una estrategia ganadora frente a cualquier estrategia
-	$\pidiam$, siempre se cumple la condición de Rabin con probabilidad 1 en el
-	PMDP $\M^*$ que se forma al fijar la estrategia $\picuad^*$ en $\Gk$. Por el
-	corolario~\ref{adaptB30}, entonces vale que para cada componente final $(C,D)$
-	alcanzable desde $s$ en el PMDP $\M^*$ vale que existe algún $j \in [1,d]$ tal
-	que $C \cap E_j = \emptyset$ y $C \cap F_j \neq \emptyset$.
+	Sea $\omega$ el camino de menor orden de aquellos que respetan $\pi_\cuad^*$ y
+	$\pi_\diam$, donde $\pi_\diam$ es una randomización de $\sigma_\diam$. Veremos
+	que efectivamente $\Inf(\rho) \cap \St = \Inf(\omega) \cap \St$.
 
-	Denotamos como $\Inf(\rho)_D$ a la función que le asocia a cada $s_i$ en
-	$\Inf(\rho)_C$ el conjunto formado solo por el $V_i$ correspondiente al vértice
-	$v_{V_i}$ en $\rho$. Gracias al corolario~\ref{adaptB30}, si podemos probar que
-	$(\Inf(\rho)_C, \Inf(\rho)_D)$ es una componente final alcanzable desde $s$ en
-	el PMDP $\M^*$, entonces vale la ecuación~\ref{varphi}.%esto que presentamos anteriormente quiere decir que 
+	Si tenemos que $s_\rho \in \Inf(\rho)$ entonces sabemos que $\exists^{\infty} n
+		\mid \left( \sigma_\cuad^*(\rho_n) = v_{V'} \vee \sigma_\diam(\rho_n) =
+		v_{V'}\right)$ para algún $V'$ tal que $s_\rho \in V'$.
 
-	% probar que es subPMDP no hace falta pq es solo una cuestion de tipado
+	Si $\exists^{\infty} n \mid \sigma_\cuad^*(\rho_n) = v_{V'}$ para algún $V'$
+	tal que $s_\rho \in V'$, entonces por como definimos $\sigma_\cuad^*$ eso
+	significa que $\exists^{\infty} n \mid \pi_\cuad^*(\omega_n) = \alpha'$ para
+	algún $\alpha'$ tal que $\supp(\alpha') = V'$ y $s_\rho \in V'$, con lo que
+	$s_\rho$ pertenecería también a $\Inf(\omega)$ por la condición de equidad
+	impuesta sobre los juegos justos.
 
-	Veamos entonces primero que $(\Inf(\rho)_C, \Inf(\rho)_D)$ cumple las dos
-	condiciones para ser componente final en $\M^*$:
+	Si esto no sucede, entonces necesariamente ocurre que $\exists^{\infty} n \mid
+		\sigma_\diam(\rho_n) = v_{V'}$ para algún $V'$ tal que $s_\rho \in V'$. Pero
+	entonces, como $\pi_\diam$ es solo la randomización de $\sigma_\diam$ tenemos
+	que $\exists^{\infty} n \mid \pi_\diam(\omega_n) = \alpha'$ para algún
+	$\alpha'$ tal que $\supp(\alpha') = V'$ y $s_\rho \in V'$, con lo que $s_\rho$
+	pertenecería también a $\Inf(\omega)$ por la condición de equidad impuesta
+	sobre los juegos justos.
 
-	% Si podemos probar que $\Inf(\rho)'$ es un sub-PMDP alcanzable en el PMDP que se
-	% forma al fijar la estrategia de memoria finita $\picuad^*$ en $\Gk$, por el
-	% teorema \ref{adaptB30} podemos ver que vale la ecuación \ref{varphi}.
-
-	% Primero, podemos ver que $\inft(\rho)$ \hl{(entendiendo los vértices de la
-	% 	forma $v_V$ como el conjunto resultado $V$)} es una componente final en el
-	% polytopal markov decision process que se forma al fijar la estrategia
-	% $\picuad^*$ en $\Gk$, llamémoslo $(C,D)$, viendo que cumple las dos
-	% propiedades:
-
-	\begin{itemize}
-		\item Para cada $V^i$ que aparece como subíndice de vértices \textit{especiales} en
-		      $\Inf(\rho)$, vale que $V^i \subseteq C$. En el caso de que existiese algún
-		      $s_x \in V^i$ tal que $s_x \notin C$, se estaría contradiciendo que $\pidiam$
-		      sea una estrategia válida en $\DGk$, puesto que visitaría infinitas veces
-		      $v_{V^i}$ y solo finitas veces $s_x$, uno de sus sucesores.
-		\item El grafo dirigido inducido por $\Inf(\rho)$ es fuertemente conexo. Si fuese de
-		      otra manera habría dos vértices $u, v \in \Inf(\rho)$ tales que $v$ no sería
-		      alcanzable desde $u$, contradiciendo así que $u$ y $v$ son visitados infinitas
-		      veces por $\sigma$.
-	\end{itemize}
-
-	Luego, podemos ver que $\Inf(\rho)_C$ es alcanzable en $\Gk$ viendo que existe
-	una estrategia $\pidiam^*$ en $\Gk$ que lo posibilita.
-
-	Definamos $\pidiam^* = \rand(\sigma_\diam)$.
-
-	Esta estrategia permite llegar con probabilidad positiva a $\Inf(\rho)_C$,
-	puesto que tanto $\pidiam^*$ como $\picuad^*$ les dan probabilidad positiva a
-	los mismos vértices en $\St$ que $\sigma_\diam$ asegura visitar infinitamente.
-
-	Con lo cual hemos probado que vale la ecuación~\ref{varphi} y, por lo tanto,
-	que $\sigma_\cuad*$ es ganadora en $\DGk$ desde $s$, con lo que hemos probado
-	que $s \in \W$.
+	Un análisis idéntico se puede realizar para ver que dado un $s_\omega \in
+		\Inf(\omega) \cap \St$ este pertenece también a $\Inf(\rho)$, con lo que se
+	prueba la doble contención que muestra la igualdad entre $\Inf(\rho) \cap \St$
+	y $\Inf(\omega) \cap \St$, y con eso lo que queríamos probar originalmente.
 
 \end{proof}
 
