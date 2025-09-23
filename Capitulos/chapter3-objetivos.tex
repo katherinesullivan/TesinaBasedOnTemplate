@@ -17,21 +17,19 @@ estudio.
 \section{Objetivos en juegos y preguntas de investigación}
 
 En la literatura, un objetivo $\phi$ para un juego es definido como un conjunto
-de caminos. Para los juegos deterministas nosotros mantendremos esta
+de caminos. Para los juegos no-estocásticos nosotros mantendremos esta
 definición, pero como para los juegos estocásticos definimos a los caminos como
-secuencias alternantes de estados y acciones (a diferencia de alguna
-literatura, en donde se los definen como secuencias de estados), debemos
-remarcar que un objetivo en ellos será un conjunto de secuencias infinitas de
-estados. Formalmente, si $\G$ es un juego
-%% ESTOY ACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-estocástico y $\Paths(\G)$ el conjunto de caminos en él, un objetivo será algún
-$\phi \subseteq \{\omega' | \exists \omega = (s_1, \alpha_1, s_2, \alpha_2,
-	\dots) \in \Paths(\G) \text{ tal que } \omega' = (s_1, s_2, \dots)\} = \{(s_1,
-	s_2, \dots) | \forall i \geq 0, \exists \alpha \in \Act(s_i) \text{ tal que }
-	\alpha(s_{i+1}) > 0\}$. A lo largo de esta sección nos seguiremos refiriendo a
-objetivos como conjuntos de caminos para evitar tener que diferenciarlos, pero
-recalcamos que los objetivos se plantean sobre conjuntos de secuencias de
-estados y no son dependientes de las acciones tomadas.
+secuencias alternantes de estados y acciones, debemos remarcar que un objetivo
+en ellos será un conjunto de secuencias infinitas de estados. Formalmente, si
+$\G$ es un juego estocástico y $\Paths(\G)$ el conjunto de caminos en él, un
+objetivo será algún $\phi \subseteq \{\omega' | \exists \omega = (s_1,
+	\alpha_1, s_2, \alpha_2, \dots) \in \Paths(\G) \text{ tal que } \omega' = (s_1,
+	s_2, \dots)\} = \{(s_1, s_2, \dots) | \forall i \geq 0, \exists \alpha \in
+	\Act(s_i) \text{ tal que } \alpha(s_{i+1}) > 0\}$. A lo largo de esta sección
+nos seguiremos refiriendo a objetivos como conjuntos de caminos para evitar
+tener que diferenciarlos, pero recalcamos que los objetivos se plantean sobre
+conjuntos de secuencias de estados y no son dependientes de las acciones
+tomadas.
 
 Con eso aclarado, un objetivo para el jugador $\cuad$ especifica un conjunto de
 caminos que son ganadores para el jugador $\cuad$, y un objetivo para el
@@ -50,8 +48,8 @@ objetivo para el jugador $\diam$ será su complemento.
 % conjunto $\phi$.
 
 Definir la noción de objetivos nos permitirá hacernos la pregunta que uno
-primero asocia con juegos: ``¿quién gana''. Para que esta pregunta pueda ser
-respondida en un contexto académico la deberíamos formalizar, y cuando lo
+primero asocia con juegos: ``¿quién gana?''. Para que esta pregunta pueda ser
+respondida en un contexto académico la deberíamos formalizar y, cuando lo
 hacemos, en realidad son muchas las preguntas que se pueden pensar sobre
 ``¿quién gana?''.
 
@@ -63,19 +61,19 @@ $\phi$. Esta pregunta en la literatura de juegos estocásticos es conocida como
 la pregunta cualitativa (y sobre esta enfocaremos nuestro estudio). Se la llama
 así en contraposición a otra pregunta interesante que también nos podemos hacer
 en los juegos estocásticos, la pregunta cuantitativa: para un estado $s$, ¿cuál
-es la probabilidad de que desde $s$ gane algún jugador? Esta última pregunta
-puede ser respondida para todos los estados, aún cuando no existe una
-estrategia que asegure un comportamiento ganador frente a todas las
-estrtategias del otro jugador. La respuesta a esta pregunta es conocida como el
-valor del estado y hablaremos brevemente sobre ella en los
-capítulos~\ref{cap:psg} y \ref{cap:conclusions}.
+es la probabilidad de que, desde $s$, gane algún jugador? Esta última pregunta
+puede responderse para todos los estados, aún cuando no existe una estrategia
+que asegure un comportamiento ganador frente a todas las estrtategias del otro
+jugador. La respuesta a esta pregunta es conocida como el valor del estado y
+hablaremos brevemente sobre ella en los capítulos~\ref{cap:psg} y
+\ref{cap:conclusions}.
 
 Por otro lado, introducimos también los conceptos de condición de victoria y
 región ganadora. Usaremos el termino condición de victoria para referirnos a la
 formulación con notación LTL de un objetivo, mientras que el conjunto de
-estados desde donde el jugador $\cuad$ gana para algún objetivo $\phi$ será
-llamado la región ganadora del juego. El aporte más importante de este trabajo
-será presentar cómo calcular la región ganadora de un juego estocástico
+estados desde donde el jugador $\cuad$ gana para algún objetivo $\phi$ se
+denomina la ``región ganadora del juego''. El aporte más importante de este
+trabajo será presentar cómo calcular la región ganadora de un juego estocástico
 politópico con un tipo particular de objetivo $\omega$-regular: un objetivo de
 Rabin. %mmmm% capaz verr de redactar mejor esto
 
@@ -91,12 +89,12 @@ regulares al dominio de las palabras infinitas. Mientras que los lenguajes
 regulares clásicos describen conjuntos de cadenas finitas reconocibles por
 autómatas finitos, los lenguajes $\omega$-regulares operan sobre secuencias
 infinitas, capturando comportamientos infinitos. Esta generalización fue
-formalizada en los años sesenta con los autómatas de Büchi, que introdujeron
+formalizada en los años sesenta con los autómatas de Büchi que introdujeron
 condiciones de aceptación sobre corridas infinitas de autómatas de estado
 finito.
 
 Esta subclase de objetivos resulta de importancia en el contexto de la
-verificación y síntesis de sistemas reactivos, donde es necesario especificar y
+verificación y síntesis de sistemas reactivos donde es necesario especificar y
 razonar sobre comportamientos que pueden durar indefinidamente. Estos objetivos
 permiten expresar propiedades como ``algo bueno ocurre infinitamente a menudo''
 o ``algo malo ocurre sólo una cantidad finita de veces".
@@ -138,9 +136,9 @@ definen objetivos $\omega$-regulares y son las más estudiadas:
 	\item \textbf{Objetivos de Rabin y Streett}. Ahora pasamos a combinaciones booleanas de objetivos de Büchi y co-Büchi. Una especificación de Rabin para el juego $G$ es un conjunto finito $R = \{(E_1,F_1) \dots (E_d, F_d)\}$ de pares de conjuntos de estados, esto es, $E_j \subseteq S$ y $F_j \subseteq S$ para todo $ 1 \leq j \leq d$. Los pares en $R$ son llamados pares de Rabin. Asumimos, sin pérdida de generalidad, que $\bigcup_{1 \leq j \leq d} (E_j \cup F_j) = S$. La especificación de Rabin $R$ requiere que para algún par de Rabin $1 \leq j \leq d$, todos los estados en el conjunto de la izquierda $E_j$ sean visitados solo una cantidad finita de veces, y que algún estado en el conjunto de la derecha $F_j$ sea visitado infinitamente a menudo. Con esto, el objetivo de Rabin definido por $R$ es el conjunto $\Rabin(R) = \{\omega \in \Paths(G) | \exists j \in [1, d], \Inf(\omega) \cap E_j = \emptyset \wedge \Inf(\omega) \cap F_j \neq \emptyset \}$ de conjuntos ganadores y su respectiva condición de victoria será $\bigvee_{1 \leq j \leq d} \eventsiemp \overline{E_j} \wedge \siempevent F_j$.
 
 	      Nótese que el objetivo $\coBuchi(C)$ es igual al objetivo de Rabin con un único
-	      par $\Rabin(\{(C,S)\})$ y que el objetivo $\Buchi(B)$ es igual al objetivo de
-	      Rabin con dos pares $\Rabin(\{(\emptyset, B), (S,S)\})$ (por la asumpción que
-	      hicimos sobre la unión de los conjuntos de los pares).
+	      par $\Rabin(\{(\overline C,S)\})$ y que el objetivo $\Buchi(B)$ es igual al
+	      objetivo de Rabin con dos pares $\Rabin(\{(\emptyset, B), (S,S)\})$ (por la
+	      suposición que hicimos sobre la unión de los conjuntos de los pares).
 
 	      Los complementos de los objetivos de Rabin son los objetivos de Streett. Una
 	      especificación de Streett para $G$ es también un conjunto $W = \{(E_1, F_1),
@@ -155,7 +153,7 @@ definen objetivos $\omega$-regulares y son las más estudiadas:
 		      E_j \neq \emptyset \vee \Inf(\omega) \cap F_j = \emptyset\}$ de caminos
 	      ganadores. Nótese que $\Streett(W) = \Paths(G) \setminus \Rabin(W)$.
 
-	\item \textbf{Objetivos de paridad}.Una especificación de paridad para \(G\) consiste en un entero no negativo \(d\) y una función \(p\colon S\to\{0,1,2,\dots,2d\}\), que asigna a cada estado de \(G\) un entero entre \(0\) y \(2d\). Para un estado \(s\in S\), el valor \(p(s)\) se denomina \emph{prioridad} de \(s\). Sin pérdida de generalidad asumimos que \(p^{-1}(j)\neq\emptyset\) para todo \(0<j\le2d\); esto implica que la especificación queda totalmente determinada por la función \(p\) (no es necesario indicar \(d\) explícitamente). El número \(2d+1\) es el número de prioridades de \(p\). La especificación exige que la prioridad mínima de todos los estados visitados infinitamente a menudo sea par. Formalmente, el objetivo de paridad definido por \(p\) es el conjunto \( \Parity(p)=\{\omega\in \Paths(G) | \min\{p(s)\mid s\in \Inf(\omega)\}\text{ es par}\}\) de caminos ganadores. Nótese que su complemento es también un objetivo de paridad, pues \(\Paths(G)\setminus \Parity(p)= Parity(p+1)\), donde \((p+1)(s)=p(s)+1\) para todo \(s\in S\) (si \(p^{-1}(0)=\emptyset\) se usa \(p-1\) en lugar de \(p+1\)). Esta autodualidad de los objetivos de paridad resulta muy conveniente al resolver juegos. Es también interesante notar que los objetivos de Büchi son objetivos de paridad con dos prioridades (siendo \(p^{-1}(0)=B\) y \(p^{-1}(1)=S\setminus B\)) y los objetivos de co-Büchi son objetivos de paridad con tres prioridades (siendo \(p^{-1}(0)=\emptyset\), \(p^{-1}(1)=S\setminus C\) y \(p^{-1}(2)=C\)).
+	\item \textbf{Objetivos de paridad}.Una especificación de paridad para \(G\) consiste en un entero no negativo \(d\) y una función \(p\colon S\to\{0,1,2,\dots,2d\}\), que asigna a cada estado de \(G\) un entero entre \(0\) y \(2d\). Para un estado \(s\in S\), el valor \(p(s)\) se denomina \emph{prioridad} de \(s\). Sin pérdida de generalidad asumimos que \(p^{-1}(j)\neq\emptyset\) para todo \(0<j\le2d\); esto implica que la especificación queda totalmente determinada por la función \(p\) (no es necesario indicar \(d\) explícitamente). El número \(2d+1\) es el número de prioridades de \(p\). La especificación exige que la prioridad mínima de todos los estados visitados infinitamente a menudo sea par. Formalmente, el objetivo de paridad definido por \(p\) es el conjunto de caminos ganadores \( \Parity(p)=\{\omega\in \Paths(G) | \min\{p(s)\mid s\in \Inf(\omega)\}\text{ es par}\}\). Nótese que su complemento es también un objetivo de paridad, pues \(\Paths(G)\setminus \Parity(p)= \Parity(p+1)\), donde \((p+1)(s)=p(s)+1\) para todo \(s\in S\) (si \(p^{-1}(0)=\emptyset\) se usa \(p-1\) en lugar de \(p+1\)). Esta autodualidad de los objetivos de paridad resulta muy conveniente al resolver juegos. Es también interesante notar que los objetivos de Büchi son objetivos de paridad con dos prioridades (siendo \(p^{-1}(0)=B\) y \(p^{-1}(1)=S\setminus B\)) y los objetivos de co-Büchi son objetivos de paridad con tres prioridades (siendo \(p^{-1}(0)=\emptyset\), \(p^{-1}(1)=S\setminus C\) y \(p^{-1}(2)=C\)).
 
 	      Los objetivos de paridad también se llaman objetivos Rabin-chain, pues son un
 	      caso especial de objetivos de Rabin: si los conjuntos de una especificación
@@ -170,8 +168,8 @@ definen objetivos $\omega$-regulares y son las más estudiadas:
 	      \(d+1\) pares de Rabin tal que \( \Parity(p) =
 	      \Rabin(\{(E_1,F_1),\dots,(E_{d+1},F_{d+1})\})\) de la siguiente manera: sea
 	      \(E_1=\emptyset\) y \(F_1=p^{-1}(0)\), y para todo \(1\le j\le d+1\) sea
-	      \(E_j=F_{j-1}\cup p^{-1}(2j-3)\) y \(F_j=E_j\cup p^{-1}(2j-2)\). Por tanto, los
-	      objetivos de paridad son una subclase de los objetivos de Rabin que está
+	      \(E_j=F_{j-1}\cup p^{-1}(2j-3)\) y \(F_j=E_j\cup p^{-1}(2j-2)\). Por lo tanto,
+	      los objetivos de paridad son una subclase de los objetivos de Rabin que está
 	      cerrada bajo complementación; de ello se sigue que todo objetivo de paridad es
 	      a la vez un objetivo de Rabin y un objetivo de Streett. % Su interés radica en que cualquier objetivo \(\omega\)-regular puede convertirse en uno de paridad tomando el producto síncrono del grafo de juego con un autómata de paridad determinista que acepte dicho objetivo.
 
