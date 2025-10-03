@@ -255,6 +255,8 @@ prueba que tenemos más adelante, así que veremos algunas definiciones. Antes,
 fijemos la interpretación de un juego estocástico politópico $\Gk$ y su
 desrandomización $\DGk$.
 
+\vspace{2cm}
+
 \textbf{Relación de orden entre caminos en un PSG}
 \label{ordenCaminos}
 
@@ -326,8 +328,6 @@ politópico de la siguiente forma:
 		\hat \varphi^{\supp(\alpha)} := \bigwedge_{s' \in \supp(\alpha)} (\siempevent \alpha \rightarrow \siempevent (\alpha \wedge \bigcirc s' ))
 	$
 \end{center}
-
-\kathy{Ver si agg lo de condiciones de victoria y capaz agg lo de Rabin}
 
 \textbf{Transformación de caminos}
 
@@ -517,10 +517,10 @@ obtener, a la cual llamaremos $\derand(\pi_i)$.
 	$\sigma_\cuad^*$ tal que $\cuad$ gana con ella desde $s$ en $\DGk$.
 
 	Definimos $\sigma_\cuad^* = \derand(\picuad^*, f)$, siendo $f$ una función que
-	a cada prefijo de camino en $\Gk$ $\hat \rho^n$ de longitud $n$ le asigna $\hat
-		\omega^{n+1}$, el prefijo de camino finito de lomngitud $n+1$ del menor camino
-	ganador $\omega$ tal que $\derand(\omega_n) = \hat \rho^n$, tomando como orden
-	uno que asigna mayor precedencia a todos los caminos ganadores y luego se
+	a cada prefijo de camino en $\DGk$ $\hat \rho^n$ de longitud $n$ le asigna
+	$\hat \omega^{n+1}$, el prefijo de camino finito de longitud $n+1$ del menor
+	camino ganador $\omega$ tal que $\derand(\omega_n) = \hat \rho^n$, tomando como
+	orden uno que asigna mayor precedencia a todos los caminos ganadores y luego se
 	comporta de acuerdo al orden de caminos presentado en la subsección anterior de
 	esta sección \ref{ordenCaminos}.
 
@@ -541,29 +541,49 @@ obtener, a la cual llamaremos $\derand(\pi_i)$.
 	$\pi_\diam$, donde $\pi_\diam$ es una randomización de $\sigma_\diam$. Veremos
 	que efectivamente $\Inf(\rho) \cap \St = \Inf(\omega) \cap \St$.
 
-	Si tenemos que $s_\rho \in \Inf(\rho)$ entonces sabemos que $\exists^{\infty} n
-		\mid \left( \sigma_\cuad^*(\rho_n) = v_{V'} \vee \sigma_\diam(\rho_n) =
-		v_{V'}\right)$ para algún $V'$ tal que $s_\rho \in V'$.
+	Si tenemos un estado $s_\rho$ en $\St$ tal que $s_\rho \in \Inf(\rho)$,
+	entonces sabemos que $\exists^{\infty} n \mid \left( \sigma_\cuad^*(\rho_n) =
+		v_{V'} \vee \sigma_\diam(\rho_n) = v_{V'}\right)$ para algún $V'$ tal que
+	$s_\rho \in V'$.
 
 	Si $\exists^{\infty} n \mid \sigma_\cuad^*(\rho_n) = v_{V'}$ para algún $V'$
 	tal que $s_\rho \in V'$, entonces por como definimos $\sigma_\cuad^*$ eso
-	significa que $\exists^{\infty} n \mid \pi_\cuad^*(\omega_n) = \alpha'$ para
+	significa que $\exists^{\infty} n \mid \pi_\cuad^*(\omega_n)(\alpha') > 0$ para
 	algún $\alpha'$ tal que $\supp(\alpha') = V'$ y $s_\rho \in V'$, con lo que
-	$s_\rho$ pertenecería también a $\Inf(\omega)$ por la condición de equidad
-	impuesta sobre los juegos justos.
+	$s_\rho$ pertenecería también a $\Inf(\omega)$ por la naturaleza probabilística
+	de la elección de acciones y la naturaleza probabilística de la elección de
+	próximo estado en $\Gk$ a partir de $\alpha'$.
 
 	Si esto no sucede, entonces necesariamente ocurre que $\exists^{\infty} n \mid
-		\sigma_\diam(\rho_n) = v_{V'}$ para algún $V'$ tal que $s_\rho \in V'$. Pero
-	entonces, como $\pi_\diam$ es solo la randomización de $\sigma_\diam$ tenemos
-	que $\exists^{\infty} n \mid \pi_\diam(\omega_n) = \alpha'$ para algún
-	$\alpha'$ tal que $\supp(\alpha') = V'$ y $s_\rho \in V'$, con lo que $s_\rho$
-	pertenecería también a $\Inf(\omega)$ por la condición de equidad impuesta
-	sobre los juegos justos.
+		\sigma_\diam(\rho_n) = v_{V'}$ para algún $V'$ tal que $s_\rho \in V'$. Y
+	entonces, como $\pi_\diam$ es solo una randomización de $\sigma_\diam$ tenemos
+	que $\exists^{\infty} n \mid \pi_\diam(\omega_n)(\alpha') > 0$ para algún
+	$\alpha'$ tal que $\supp(\alpha') = V'$ y $s_\rho \in V'$, con lo que, otra
+	vez, $s_\rho$ pertenecería también a $\Inf(\omega)$ por la naturaleza
+	probabilística de la elección de acciones y la naturaleza probabilística de la
+	elección de próximo estado en $\Gk$ a partir de $\alpha'$.
 
-	Un análisis idéntico se puede realizar para ver que dado un $s_\omega \in
-		\Inf(\omega) \cap \St$ este pertenece también a $\Inf(\rho)$, con lo que se
-	prueba la doble contención que muestra la igualdad entre $\Inf(\rho) \cap \St$
-	y $\Inf(\omega) \cap \St$, y con eso lo que queríamos probar originalmente.
+	Por otro lado, si tenemos un estado $s_\omega$ tal que $s_\omega \in
+		\Inf(\omega)$ entonces sabemos que $\exists^{\infty} n \mid \left(
+		\pi_\cuad^*(\omega_n)(\alpha') > 0 \vee \pi_\diam(\omega_n)(\alpha') >
+		0\right)$ para alguna $\alpha'$ tal que $s_\omega \in \supp(\alpha')$.
+
+	Si $\exists^{\infty} n \mid \pi_\cuad^*(\omega_n)(\alpha') > 0$ para alguna
+	$\alpha'$ tal que $s_\omega \in \supp(\alpha')$, entonces por como definimos
+	$\sigma_\cuad^*$ tenemos que $\exists^{\infty} n \mid \sigma_\cuad^*(\rho_n) =
+		v_{\supp(\alpha')}$, con lo que $s_\omega$ pertenecería también a $\Inf(\rho)$
+	por la condición de equidad impuesta en la desrandomización.
+
+	Si esto no sucede, entonces necesariamente ocurre que $\exists^{\infty} n \mid
+		\pi_\diam(\omega_n)(\alpha') > 0$ para alguna $\alpha'$ tal que $s_\omega \in
+		\supp(\alpha')$. Como $\pi_\diam$ es una randomización de $\sigma_\diam$
+	tenemos que $\exists^{\infty} n \mid \sigma_\diam(\rho_n) =
+		v_{\supp(\alpha')}$, con lo que, otra vez, $s_\omega$ petenecería también a
+	$\Inf(\rho)$ por la condición de equidad impuesta en la desrandomización.
+
+	Así hemos probado la doble contención que muestra la igualdad entre $\Inf(\rho)
+		\cap \St$ y $\Inf(\omega) \cap \St$, y con eso lo que queríamos probar
+	originalmente.
 
 \end{proof}
 
