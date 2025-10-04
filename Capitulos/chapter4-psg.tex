@@ -259,47 +259,54 @@ de los juegos estocásticos politópicos: las estrategias extremas.
 % finita.
 %Hemos visto el concepto de las estrategias sin memoria y con memoria finita y la extensión de las mimsas a este contexto se da de manera natural
 
-\begin{boxamarillo}[Medida de probabilidad que no va a ir probablemente]{}
-	Con la formalización del concepto de estrategia ahora podemos presentar
-	formalmente la definición de $\ProbG$, la medida de probabilidad definida por
-	la cadena de Markov dada por $\Gk$ y las estrategias $\picuad$ y $\pidiam$ en el estado $s$.
+% Con la formalización del concepto de estrategia ahora podemos presentar
+% formalmente la definición de
+% $\Prob^{\strat_{\maxplay},\strat_{\minplay}}_{\StochGK,s}$, la medida de
+% probabilidad definida por la cadena de Markov dada por $\StochGK$ y las
+% estrategias $\strat_{\maxplay}$ y $\strat_{\minplay}$ en el estado $s$. Para
+% eso, para cada $n\geq 0$ y $s \in \psgnodes$ definimos
+% $\Prob^{\strat_{\maxplay},\strat_{\minplay},n}_{\StochGK,s}$ sobre rectangulos
+% de caminos inductivamente como sigue.
+% %
+% Sea $S_i,S_{n-1}\in\powerset(\psgnodes)$,
+% $\polys\in\powerset(\bigcup_{s\in\psgnodes}\psgtrans(s))$, y
+% $\meass\in\PMeas(\psgnodes)$ para $0\leq i\leq n$ y sea $S_n^\maxplay =
+% 	S_n\cap\psgnmax$ y $S_n^\minplay = S_n\cap\psgnmin$.
+% %
+% \begin{align*}
+% 	\makebox[.8em]{}
+% 	&\hspace{-.8em}\Prob^{\strat_{\maxplay},\strat_{\minplay},0}_{\StochGK,s}(S_0) =  \Dirac_{s}(S_0) \\[.5ex]
+% 	&\hspace{-.8em}\Prob^{\strat_{\maxplay},\strat_{\minplay},n+1}_{\StochGK,s}(S_0\times(\polys_0\times \meass_0)\times \cdots\times S_n\times(\polys_n\times\meass_n)\times S_{n+1}) = {} \\
+% 	%
+% 	&\int_{(S_0\times(\polys_0\times \meass_0)\times \cdots\times S_n^\maxplay}
+% 	\left(
+% 	\int_{\polys_n\times\meass_n}\sgtrans(\last(\hat{\omega}),(K,\mu), S_{n+1})\ \diff\strat_\maxplay(\hat{\omega})(K,\mu)
+% 	\right)
+% 	\diff\Prob^{\strat_{\maxplay},\strat_{\minplay},n}_{\StochGK,s}(\hat{\omega}) + {} \\
+% 	&\int_{(S_0\times(\polys_0\times \meass_0)\times \cdots\times S_n^\minplay}
+% 	\left(
+% 	\int_{\polys_n\times\meass_n}\sgtrans(\last(\hat{\omega}),(K,\mu), S_{n+1})\ \diff\strat_\minplay(\hat{\omega})(K,\mu)
+% 	\right)
+% 	\diff\Prob^{\strat_{\maxplay},\strat_{\minplay},n}_{\StochGK,s}(\hat{\omega})
+% \end{align*}
 
-	Para eso, primero para cada $n \geq 0$ y $s \in \St$ definimos $\Prob^{\picuad,
-			\pidiam, n}_{\Gk, s} : \Paths^{n+1} \rightarrow [0, 1]$ para todo $s' \in \St$
-	y $\hat{\omega} \in \Paths_s^{n+1}$ inductivamente como sigue:
+% Sea $\Salg_\GamePaths$ la $\sigma$-álgebra producto usual sobre $\GamePaths$.
+% Por el teorema de extensión de Carathéodory,
+% $\Prob^{\strat_{\maxplay},\strat_{\minplay}}_{\StochGK,s}:\Salg_\GamePaths\to[0,1]$
+% se define como la única medida de probabilidad tal que para todo $n\geq 0$,
+% $S_i\in\powerset(\psgnodes)$,
+% $\polys\in\powerset(\bigcup_{s\in\psgnodes}\psgtrans(s))$, y
+% $\meass\in\PMeas(\psgnodes)$ con $0\leq i\leq n$,
+% %
+% \[\Prob^{\strat_{\maxplay},\strat_{\minplay}}_{\StochGK,s}(\Cyl(S_0\times(\polys_0\times \meass_0)\times S_1\times \cdots\times S_n)) = \Prob^{\strat_{\maxplay},\strat_{\minplay},n+1}_{\StochGK,s}(S_0\times(\polys_0\times \meass_0)\times S_1\times \cdots\times S_n)\]
+% %
+% donde la funci\'on $\Cyl$ est\'a extendida a conjuntos en la forma usual.
 
-	\begin{align*}
-		&\Prob^{\picuad, \pidiam, 0}_{\Gk, s}(s') = \delta_s(s') \\
-		&\Prob^{\picuad, \pidiam, n+1}_{\Gk, s}(\hat{\omega}s_nV's') = \Prob^{\picuad, \pidiam, n}_{\Gk, s}(\hat{\omega} s_n) \int_{\{ a \in A(s_n) \mid \supp(a) = V'\}} \theta(s_n, a, s') \, d(\pi_i(\hat{\omega}s_n)(a)) \\ & \qquad \qquad \qquad \qquad \qquad \text{si } s_n \in \St_i \text{ con } i \in \{\square, \diamondsuit\}
-	\end{align*}
-
-	(supp(a) = V' significa que el soporte de a es V')
-
-	(capaz restringirse sobre las acciones con soporte V'? No sé bien cómo va a quedar esto)
-
-	y extendemos \( \Prob^{\pi_\square, \pi_\diamondsuit, n}_{\Gk, s} :
-	\mathcal{P}(\Paths^{n+1}) \to [0, 1] \) a conjuntos como la suma de la medida
-	sobre los elementos del conjunto.
-
-	Sea \( \Sigma_\Paths \) la \( \sigma \)-álgebra discreta sobre \( \Paths \)
-	(pues tanto $\St$ como los conjuntos soportes serán conjuntos finitos) y \(
-	\Sigma_{\Paths^\omega} \) la \( \sigma \)-álgebra producto usual sobre \(
-	\Paths^\omega \). Por el teorema de extensión de Carathéodory, \(
-	\Prob^{\picuad, \pidiam}_{\Gk, s} : \Sigma_{\Paths^\omega} \to [0, 1] \) se
-	define como la única medida de probabilidad tal que para todo \( n \geq 0 \), y
-	\( SV_i \in \Sigma_\Paths \), \( 0 \leq i \leq n \),
-
-	\[
-		\Prob^{\picuad, \pidiam}_{\Gk, s}(SV_0 \times \dots \times SV_n \times \Paths^\omega) = \Prob^{\picuad, \pidiam, n}_{\Gk, s}(SV_0 \times \dots \times SV_n).
-	\]
-\end{boxamarillo}
-
-Así se logra interpretar un PSG como un SG pero con un conjunto infinito de
-acciones. \kathy{Pedro prometió hacer esto que está en el box amarillo bien :)}
-En \cite{Polytopal} se demuestra cómo ciertas preguntas que nos podemos hacer
-sobre esta interpretación infinita se pueden responder analizando una
-interpretación distinta con una cantidad finita de acciones, la cual
-presentamos a continuación.
+% Así se logra interpretar un PSG como un SG pero con un conjunto infinito de
+% acciones. En \cite{Polytopal} se demuestra cómo ciertas preguntas que nos
+% podemos hacer sobre esta interpretación infinita se pueden responder analizando
+% una interpretación distinta con una cantidad finita de acciones, la cual
+% presentamos a continuación.
 
 \begin{definition}[Interpretación extrema de un PSG]
 	Dada $\Gk = (\St, (\St_\cuad, \St_\diam), \Act, \theta)$ la interepretación de un PSG $\K$, la interpretación extrema de $\K$ es el juego estocástico $\Hk = (\St, (\St_\cuad, \St_\diam), \V(\Act), \theta_{\Hk})$ donde $\theta_{\Hk}$ es la restricción de  $\theta$ a las acciones en $\V(\Act) = \{(K, \mu) \in \Act \mid \mu \in \V(K)\}$. Es decir, para todos $s, s' \in \St$ y $a \in \V(\Act)$, $\theta_{\Hk}(s, a, s') = \theta(s, a, s')$.
