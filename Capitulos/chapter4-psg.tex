@@ -3,17 +3,12 @@
 \vspace{-1cm}
 
 El propósito de este capítulo es presentar las definiciones y los hallazgos que
-nos son más relevantes del paper \textit{Polytopal Stochastic Games}
-\cite{Polytopal} haciéndoles ciertos cambios que fueron necesarios para los
-resultados que mostraremos más adelante. Este trabajo es el que sirvió de
-inspiración para esta tesina y toda la producción aquí es una extensión del
-mismo.
-
-El paper, publicado en 2025, es el primero en presentar el concepto de
+nos son más relevantes de la reciente investigación de Castro y D'Argenio
+\cite{Polytopal}. Dicho trabajo es el primero en presentar el concepto de
 \textit{juego estocástico politópico}, respondiendo a la necesidad de juegos
 estocásticos que puedan capturar mayor incertidumbre sobre las distribuciones
 de probabilidad que determinan las acciones, haciendo esto a través de
-inecuaciones lineales cuyas soluciones forman un politopo.
+desigualdades lineales cuyas soluciones forman un politopo.
 
 % respondiendo a la necesidad de juegos
 % estocásticos que puedan capturar mayor incertidumbre sobre las distribuciones
@@ -38,8 +33,7 @@ Un \textbf{politopo convexo} en $\mathbb{R}^n$ es un conjunto acotado $K = \{ x
 Por acotado nos referimos a que $\exists \ M \in \mathbb{R}_{\geq 0}$ tal que
 $\sum_{i=1}^{n} |x_i| \leq M \ \forall x \in K$, y siendo $S$ un conjunto
 finito, como las funciones en $\mathbb{R}^S$ pueden ser vistas como vectores en
-$\mathbb{R}^{|S|}$, generalmente, nos referiremos a politopos en
-$\mathbb{R}^S$.
+$\mathbb{R}^{|S|}$, generalmente nos referiremos a politopos en $\mathbb{R}^S$.
 
 Sea \( \Poly(S) \) el conjunto de todos los politopos convexos en \(
 \mathbb{R}^S \). Nótese que el conjunto de todas las funciones de probabilidad
@@ -131,7 +125,7 @@ una combinación convexa de \( \{v^1, \dots, v^k\} \), es decir, \( x =
 % = \bigcup_{n \geq 0} (\St \setminus C) U^n C \) es el conjunto de todos los
 % caminos que alcanzan un estado en \( C \).
 
-\subsection*{PSGs}
+\subsection*{Juegos estocásticos politópicos}
 
 % Los juegos estocásticos politópicos fueron presentados en 2024 por Castro y
 % D'Argenio \cite{Polytopal}. La idea de su creción ...
@@ -142,7 +136,7 @@ perteneciente a un jugador diferente. Además, a cada estado se le asigna un
 conjunto finito de politopos convexos de distribuciones de probabilidad sobre
 los estados. La definición formal es como sigue:
 
-\begin{definition}[PSG]
+\begin{definition}[Juego estocástico politópico]
 	Un juego estocástico politópico (abreviado PSG, por sus siglas en inglés) es una estructura \( \K = (\St, (\St_\square, \St_\diamondsuit), \Theta) \) tal que \( \St \) es un conjunto finito de estados particionado en $\St_\cuad$ y $\St_\diam$, (es decir, \( \St = \St_\square \biguplus \St_\diamondsuit \)) y \( \Theta : \St \to \mathscr{P}_f(\textsf{DPoly}(\St)) \).
 \end{definition}
 
@@ -173,24 +167,23 @@ no numerable. Formalmente, la interpretación de un PSG es la siguiente:
 
 Nótese que el conjunto de acciones \( \Act \) puede ser no numerable, al igual
 que cada conjunto \( \Act(s) = \bigcup_{K \in \Theta(s)} \{K\} \times K \) de
-todas las acciones realizables en el estado s, identificado por el politopo
+todas las acciones realizables en el estado $s$, identificado por el politopo
 elegido y la distribución seleccionada dentro del politopo. Por lo tanto,
 necesitamos extender las estrategias a este dominio no numerable, que debe
 estar dotado de una \( \sigma \)-álgebra adecuada.
 
-Para esto, utilizamos una construcción estándar para darle a \(
+Para esto, utilizamos una construcción estándar \cite{Giry82} para darle a \(
 \textsf{Dist}(\St) \) una \( \sigma \)-álgebra: \( \Sigma_{\textsf{Dist}(\St)}
 \) se define como la \( \sigma \)-álgebra más pequeña que contiene los
 conjuntos \( \{\mu \in \textsf{Dist}(\St) \mid \mu(S) \geq p\} \) para todo \(
 S \subseteq \St \) y \( p \in [0, 1] \). Ahora, dotamos a \( \Act \) con la \(
 \sigma \)-álgebra producto \( \Sigma_\Act = \mathscr{P} \left(\bigcup_{s \in S}
-\Theta(s)\right) \otimes \Sigma_{\Dist(\St)} \), y llamamos \(
-\textsf{PMeas}(A) \) al conjunto de todas las medidas de probabilidad sobre \(
-\Sigma_\Act \). No es difícil comprobar que cada conjunto de acciones
-habilitadas \( \Act(s) \) es medible (es decir, \( \Act(s) \in \Sigma_\Act \))
-y que la función \( \theta(s, \cdot, s') \) es medible (es decir, \( \{a \in
-\Act \mid \theta(s, a, s') \leq p\} \in \Sigma_\Act \) para todo \( p \in [0,
-	1] \)).
+\Theta(s)\right) \otimes \Sigma_{\Dist(\St)} \), y llamamos \( \PMeas(\Act) \)
+al conjunto de todas las medidas de probabilidad sobre \( \Sigma_\Act \). No es
+difícil comprobar que cada conjunto de acciones habilitadas \( \Act(s) \) es
+medible (es decir, \( \Act(s) \in \Sigma_\Act \)) y que la función \( \theta(s,
+\cdot, s') \) es medible (es decir, \( \{a \in \Act \mid \theta(s, a, s') \leq
+p\} \in \Sigma_\Act \) para todo \( p \in [0, 1] \)).
 
 Ahora bien, para dar la medida de probabilidad $\Prob^{\picuad, \pidiam}$
 debemos primero presentar las nociones de camino y estrategia en un PSG.
@@ -204,7 +197,7 @@ asocian a ello para mantener la formalidad de los resultados.
 \begin{definition}[Camino en un PSG]
 	Un camino en un PSG es una secuencia infinita que alterna entre estados y acciones. Formalmente, un camino es un $\omega = (s_0, (K_0, \mu_0), s_1, (K_1, \mu_1), \dots)$ tal que $s_i \in \St$, $(K_i, \mu_i) \in \Act(s_i)$ y $\mu_i(s_{i+1}) > 0$ para todo $i \geq 0$.
 
-	Al igual que para juegos estocásticos, notaremos con $\Paths$ al conjunto de
+	Al igual que para juegos estocásticos, denotaremos con $\Paths$ al conjunto de
 	todos los caminos de un PSG, con $\Pathsfin$ al conjunto de los prefijos de
 	caminos finitos y con $\Pathsfin^i$ al conjunto de los prefijos de camino
 	finitos que terminan en un estado $s \in \St_i$. Dado un estado $s$,
@@ -215,10 +208,10 @@ asocian a ello para mantener la formalidad de los resultados.
 
 \begin{definition}[Conjuntos soporte y acciones]
 	Dada una acción $(K, \mu)$ definiremos su conjunto soporte, $\supp((K, \mu))$ como el conjunto formado por los estados a los cuales $(K, \mu)$ les asigna una probabilidad positiva. Es decir,
-	$$supp((K, \mu)) = \{s \in \St \mid \mu(s) > 0\}.$$
+	$$\supp((K, \mu)) = \supp(\mu) = \{s \in \St \mid \mu(s) > 0\}.$$
 	Dado un estado $s$ y un conjunto de estados $V$, denotaremos con $acc(s, V)$ a
 	las acciones que parten desde $s$ y tienen como conjunto soporte $V$. Es decir,
-	$$acc(s, V) = \{\alpha \in \Act(s) \mid supp(\alpha) = V\} = \{(K, \mu) \in \Act(s) \mid \mu(V) = 1 \wedge \forall v \in V, \ \mu(v) > 0\}.$$
+	$$\acc(s, V) = \{\alpha \in \Act(s) \mid supp(\alpha) = V\} = \{(K, \mu) \in \Act(s) \mid \mu(V) = 1 \wedge \forall v \in V, \ \mu(v) > 0\}.$$
 	Por último, dado un estado $s$, denotaremos con $V_s$ al conjunto de todos los
 	soportes que pueden tener las distintas acciones desde $s$. Es decir,
 	\begin{align*}~\label{definicionVs}
@@ -230,7 +223,7 @@ asocian a ello para mantener la formalidad de los resultados.
 Entonces, ahora sí podemos extender el concepto de estrategia en un PSG:
 
 \begin{definition}[Estrategia en un PSG]
-	Una estrategia $\pi_i$ para el jugador $i$ ($i \in \{\cuad, \diam\}$) en un PSG será una función $\pi_i : \Pathsfin^i \rightarrow \textsf{PMeas}(\Act)$ que asigna una medida de probabilidad a cada $\omega s$ tal que $\pi_i(\omega s)(\Act(s)) = 1$.
+	Una estrategia $\pi_i$ para el jugador $i$ ($i \in \{\cuad, \diam\}$) en un PSG será una función medible $\pi_i : \Pathsfin^i \rightarrow \PMeas(\Act)$ que asigna una medida de probabilidad a cada $\omega s$ tal que $\pi_i(\omega s)(\Act(s)) = 1$.
 \end{definition}
 
 Los distintos tipos de estrategias que presentamos en el
@@ -259,54 +252,59 @@ de los juegos estocásticos politópicos: las estrategias extremas.
 % finita.
 %Hemos visto el concepto de las estrategias sin memoria y con memoria finita y la extensión de las mimsas a este contexto se da de manera natural
 
-% Con la formalización del concepto de estrategia ahora podemos presentar
-% formalmente la definición de
-% $\Prob^{\strat_{\maxplay},\strat_{\minplay}}_{\StochGK,s}$, la medida de
-% probabilidad definida por la cadena de Markov dada por $\StochGK$ y las
-% estrategias $\strat_{\maxplay}$ y $\strat_{\minplay}$ en el estado $s$. Para
-% eso, para cada $n\geq 0$ y $s \in \psgnodes$ definimos
-% $\Prob^{\strat_{\maxplay},\strat_{\minplay},n}_{\StochGK,s}$ sobre rectangulos
-% de caminos inductivamente como sigue.
-% %
-% Sea $S_i,S_{n-1}\in\powerset(\psgnodes)$,
-% $\polys\in\powerset(\bigcup_{s\in\psgnodes}\psgtrans(s))$, y
-% $\meass\in\PMeas(\psgnodes)$ para $0\leq i\leq n$ y sea $S_n^\maxplay =
-% 	S_n\cap\psgnmax$ y $S_n^\minplay = S_n\cap\psgnmin$.
-% %
-% \begin{align*}
-% 	\makebox[.8em]{}
-% 	&\hspace{-.8em}\Prob^{\strat_{\maxplay},\strat_{\minplay},0}_{\StochGK,s}(S_0) =  \Dirac_{s}(S_0) \\[.5ex]
-% 	&\hspace{-.8em}\Prob^{\strat_{\maxplay},\strat_{\minplay},n+1}_{\StochGK,s}(S_0\times(\polys_0\times \meass_0)\times \cdots\times S_n\times(\polys_n\times\meass_n)\times S_{n+1}) = {} \\
-% 	%
-% 	&\int_{(S_0\times(\polys_0\times \meass_0)\times \cdots\times S_n^\maxplay}
-% 	\left(
-% 	\int_{\polys_n\times\meass_n}\sgtrans(\last(\hat{\omega}),(K,\mu), S_{n+1})\ \diff\strat_\maxplay(\hat{\omega})(K,\mu)
-% 	\right)
-% 	\diff\Prob^{\strat_{\maxplay},\strat_{\minplay},n}_{\StochGK,s}(\hat{\omega}) + {} \\
-% 	&\int_{(S_0\times(\polys_0\times \meass_0)\times \cdots\times S_n^\minplay}
-% 	\left(
-% 	\int_{\polys_n\times\meass_n}\sgtrans(\last(\hat{\omega}),(K,\mu), S_{n+1})\ \diff\strat_\minplay(\hat{\omega})(K,\mu)
-% 	\right)
-% 	\diff\Prob^{\strat_{\maxplay},\strat_{\minplay},n}_{\StochGK,s}(\hat{\omega})
-% \end{align*}
+Con la formalización del concepto de estrategia ahora podemos presentar
+formalmente la definición de $\Prob^{\picuad, \pidiam}_{\Gk,s}$, la medida de
+probabilidad definida por la cadena de Markov dada por $\Gk$ y las estrategias
+$\picuad$ y $\pidiam$ en el estado $s$. Para eso, para cada $n\geq 0$ y $s \in
+	\St$ definimos $\Prob^{\picuad,\pidiam,n}_{\Gk,s}$ sobre rectángulos de caminos
+inductivamente como sigue.
 
-% Sea $\Salg_\GamePaths$ la $\sigma$-álgebra producto usual sobre $\GamePaths$.
-% Por el teorema de extensión de Carathéodory,
-% $\Prob^{\strat_{\maxplay},\strat_{\minplay}}_{\StochGK,s}:\Salg_\GamePaths\to[0,1]$
-% se define como la única medida de probabilidad tal que para todo $n\geq 0$,
-% $S_i\in\powerset(\psgnodes)$,
-% $\polys\in\powerset(\bigcup_{s\in\psgnodes}\psgtrans(s))$, y
-% $\meass\in\PMeas(\psgnodes)$ con $0\leq i\leq n$,
+Sea $S_i,S_{n-1}\in\powerset(\St)$,
+$\polys\in\powerset(\bigcup_{s\in\psgnodes}\psgtrans(s))$, y
+$\meass\in\PMeas(\psgnodes)$ para $0\leq i\leq n$ y sea $S_n^\maxplay =
+	S_n\cap\psgnmax$ y $S_n^\minplay = S_n\cap\psgnmin$.
+
+\vspace{-1cm}
+\begin{align*}
+	\makebox[.8em]{}
+	&\hspace{-.8em}\Prob^{\strat_{\maxplay},\strat_{\minplay},0}_{\StochGK,s}(S_0) =  \Dirac_{s}(S_0) \\[.5ex]
+	&\hspace{-.8em}\Prob^{\strat_{\maxplay},\strat_{\minplay},n+1}_{\StochGK,s}(S_0\times(\polys_0\times \meass_0)\times \cdots\times S_n\times(\polys_n\times\meass_n)\times S_{n+1}) = {} \\
+	%
+	&\int_{(S_0\times(\polys_0\times \meass_0)\times \cdots\times S_n^\maxplay}
+	\left(
+	\int_{\polys_n\times\meass_n}\sgtrans(\last(\hat{\omega}),(K,\mu), S_{n+1})\ \diff\strat_\maxplay(\hat{\omega})(K,\mu)
+	\right)
+	\diff\Prob^{\strat_{\maxplay},\strat_{\minplay},n}_{\StochGK,s}(\hat{\omega}) + {} \\
+	&\int_{(S_0\times(\polys_0\times \meass_0)\times \cdots\times S_n^\minplay}
+	\left(
+	\int_{\polys_n\times\meass_n}\sgtrans(\last(\hat{\omega}),(K,\mu), S_{n+1})\ \diff\strat_\minplay(\hat{\omega})(K,\mu)
+	\right)
+	\diff\Prob^{\strat_{\maxplay},\strat_{\minplay},n}_{\StochGK,s}(\hat{\omega})
+\end{align*}
+
+Sea $\Salg_\Paths$ la $\sigma$-álgebra producto usual sobre los caminos
+(infinitos) en el PSG. \kathy{Cambio $\GamePaths$.} Por el teorema de extensión
+de Carathéodory,
+$\Prob^{\strat_{\maxplay},\strat_{\minplay}}_{\StochGK,s}:\Salg_\Paths\to[0,1]$
+se define como la única medida de probabilidad tal que para todo $n\geq 0$,
+$S_i\in\powerset(\psgnodes)$,
+$\polys\in\powerset(\bigcup_{s\in\psgnodes}\psgtrans(s))$, y
+$\meass\in\PMeas(\psgnodes)$ con $0\leq i\leq n$,
+%
+\[\Prob^{\strat_{\maxplay},\strat_{\minplay}}_{\StochGK,s}(\Cyl(S_0\times(\polys_0\times \meass_0)\times S_1\times \cdots\times S_n)) = \Prob^{\strat_{\maxplay},\strat_{\minplay},n+1}_{\StochGK,s}(S_0\times(\polys_0\times \meass_0)\times S_1\times \cdots\times S_n)\]
+%
+donde la funci\'on $\Cyl$ est\'a extendida a conjuntos en la forma usual.
+
 % %
 % \[\Prob^{\strat_{\maxplay},\strat_{\minplay}}_{\StochGK,s}(\Cyl(S_0\times(\polys_0\times \meass_0)\times S_1\times \cdots\times S_n)) = \Prob^{\strat_{\maxplay},\strat_{\minplay},n+1}_{\StochGK,s}(S_0\times(\polys_0\times \meass_0)\times S_1\times \cdots\times S_n)\]
 % %
 % donde la funci\'on $\Cyl$ est\'a extendida a conjuntos en la forma usual.
 
-% Así se logra interpretar un PSG como un SG pero con un conjunto infinito de
-% acciones. En \cite{Polytopal} se demuestra cómo ciertas preguntas que nos
-% podemos hacer sobre esta interpretación infinita se pueden responder analizando
-% una interpretación distinta con una cantidad finita de acciones, la cual
-% presentamos a continuación.
+Así se logra interpretar un PSG como un SG pero con un conjunto infinito de
+acciones. En \cite{Polytopal} se demuestra cómo ciertas preguntas que nos
+podemos hacer sobre esta interpretación infinita se pueden responder analizando
+una interpretación distinta con una cantidad finita de acciones, la cual
+presentamos a continuación.
 
 \begin{definition}[Interpretación extrema de un PSG]
 	Dada $\Gk = (\St, (\St_\cuad, \St_\diam), \Act, \theta)$ la interepretación de un PSG $\K$, la interpretación extrema de $\K$ es el juego estocástico $\Hk = (\St, (\St_\cuad, \St_\diam), \V(\Act), \theta_{\Hk})$ donde $\theta_{\Hk}$ es la restricción de  $\theta$ a las acciones en $\V(\Act) = \{(K, \mu) \in \Act \mid \mu \in \V(K)\}$. Es decir, para todos $s, s' \in \St$ y $a \in \V(\Act)$, $\theta_{\Hk}(s, a, s') = \theta(s, a, s')$.
@@ -453,7 +451,7 @@ consideremos cuáles son los vértices para los politopos definidos. Estos será
 los valores extremos que pueden tomar las variables $p_1$, $p_2$ y $p_3$. Es
 decir, nuestro conjunto de vértices pensando en tripletas $(p_1, p_2, p_3)$ va
 a ser $\{(0.95, 0.05, 0), (0.75, 0.05, 0.2), (0.7, 0.3, 0), (0.5, 0.3, 0.2)\}$.
-Luego, un ejemplo de una estrategia sin memoria extrema en nuestro juego podría
+Luego, un ejemplo de una estrategia extrema sin memoria en nuestro juego podría
 ser la que siempre que se encuentra en un estado desde el que puede tomar una
 decisión politópica, elige con $0.6$ de probabilidad hacer el movimiento
 lateral con la distribución $(0.95, 0.05, 0)$ y con un $0.4$ de probabilidad
@@ -508,12 +506,9 @@ teoremas mostrados en el paper.
 \section{Teoremas}
 
 En esta sección presentamos los resultados principales desarrollados en
-\cite{Polytopal}.
-
-Si bien el paper aborda 4 tipos distintos de objetivos (a saber, de
+\cite{Polytopal}. Si bien \cite{Polytopal} aborda 4 tipos distintos de objetivos (a saber, de
 alcanzabilidad, de recompensa media, de recompensa total acumulada y de
-recompensa total descontada), solo nos concentraremos en los resultados que el
-paper presenta para objetivos de alcanzabilidad.
+recompensa total descontada), solo nos concentraremos en los resultados correspondientes a objetivos de alcanzabilidad.
 
 El primer teorema, establece la determinación de los juegos estocásticos a la
 vez de que establece que los objetivos de alcanzabilidad en PSGs puede ser
@@ -536,7 +531,7 @@ los PSGs.
 
 El segundo resultado, se deriva del primero y presenta la complejidad del
 estudio cuantitativo de los juegos estocásticos politópicos. Enunciado sobre lo
-que nos interesa y notando como $\val_{\Gk,s}(\alc G)$ al valor del estado $s$
+que nos interesa y denotando como $\val_{\Gk,s}(\alc G)$ al valor del estado $s$
 (es decir, la probabilidad máxima de que $\cuad$ gane desde $s$) en el juego
 $\Gk$ con un objetivo de alcanzabilidad sobre un conjunto $G$, el teorema
 sería:

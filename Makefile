@@ -60,7 +60,7 @@ RM = rm -f
 LATEX = latex
 MKLATEX = latexmk -shell-escape
 BIB = biber
-EXT = *.bak* *.nav *.snm *.ptb *.blg *.log *.lof *.lot *.bit *.idx *.glo *.bbl *.ilg *.toc *.out *.ind *~ *.ml* *.mt* *.th* *.bmt *.xyc *.bcf *.run.xml *.dot *.ptc
+EXT = *.bak* *.nav *.snm *.ptb *.blg *.log *.lof *.lot *.bit *.idx *.glo *.bbl *.ilg *.toc *.out *.ind *~ *.ml* *.mt* *.th* *.bmt *.xyc *.bcf *.run.xml *.dot *.ptc *.aux *.fdb_latexmk *.fls 
 LINT = chktex
 FORMAT = latexindent -w -s -m -l=.localSettings.yaml
 SPELLCHECK = aspell -c -d es -t
