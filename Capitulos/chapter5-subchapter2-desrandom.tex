@@ -267,7 +267,9 @@ que maximizan las probabilidades asignadas a los estados numerados primero. Es
 decir, tendrá precedencia la acción que asigna mayor probabilidad al estado
 numerado más bajo y si hay acciones que coinciden en la probabilidad asignada a
 un estado se define su orden fijándose cuál asigna una probabilidad mayor al
-próximo estado numerado más bajo.
+próximo estado numerado más bajo. \kathy{Ver si tiene sentido mantener esto.
+	Esto era para definir bien la desrandomiz de estrategias. Vieja segunda parte
+	de la prueba.}
 
 A partir de la numeración de estados y el orden de las acciones, podemos
 definir un orden entre caminos de la siguiente manera: un camino $(s_0,
@@ -277,57 +279,103 @@ estas numeraciones coinciden, si $\alpha_0$ es menor que $\alpha'_0$, o si
 también estas acciones coinciden si la numeración de $s_1$ es menor a la de
 $s'_1$, y así sucesivamente siguiendo un orden lexicográfico que intercala el
 orden provisto por la numeración de los estados y el orden de las acciones.
+\kathy{Chau a la sección de respetar una estrategia}
 
-\textbf{Respetar una estrategia}
+% \textbf{Respetar una estrategia}
 
-Al hablar de caminos específicos es natural pensar que estos fueron producto de
-una partida en la que los jugadores siguieron determinadas estrategias. Para la
-prueba que plantearemos a continuación, formalizaremos esta relación entre
-caminos y las estrategias que se siguieron en ellos a través de la idea de que
-un camino ``respeta'' determinadas estrategias.
+% Al hablar de caminos específicos es natural pensar que estos fueron producto de
+% una partida en la que los jugadores siguieron determinadas estrategias. Para la
+% prueba que plantearemos a continuación, formalizaremos esta relación entre
+% caminos y las estrategias que se siguieron en ellos a través de la idea de que
+% un camino ``respeta'' determinadas estrategias.
 
-Sea $\omega = (s_0, \alpha_0, s_1, \alpha_1, \dots)$ un camino en un juego
-estocástico poliópico y sean $\picuad$ y $\pidiam$ dos estrategias en el mismo
-juego. Decimos que $\omega$ respeta las estrategias $\picuad$ y $\pidiam$ si
-$\forall i \geq 0$ vale
-\begin{align*}
-	&\bigl( s_i \in \St_\cuad \wedge \picuad(s_0, \alpha_0, \dots, s_i)(\alpha_i) > 0 \wedge s_{i+1} \in \supp(\alpha_i) \bigr) \bigvee \\
-	&\left(s_i \in \St_\diam \wedge \pidiam(s_0, \alpha_0, \dots, s_i)(\alpha_i) > 0 \wedge
-	s_{i+1} \in \supp(\alpha_i) \right)
-\end{align*}
+% Sea $\omega = (s_0, \alpha_0, s_1, \alpha_1, \dots)$ un camino en un juego
+% estocástico poliópico y sean $\picuad$ y $\pidiam$ dos estrategias en el mismo
+% juego. Decimos que $\omega$ respeta las estrategias $\picuad$ y $\pidiam$ si
+% $\forall i \geq 0$ vale
 % \begin{align*}
-% 	&\bigl( s_i \in \St_\cuad \wedge \picuad(\hat
-% 	\omega_i)(\alpha_i) > 0 \wedge s_{i+1} \in \supp(\alpha_i) \bigr) \bigvee \\
-% 	&\left(s_i \in \St_\diam \wedge \pidiam(\hat \omega_i)(\alpha_i) > 0 \wedge
+% 	&\bigl( s_i \in \St_\cuad \wedge \picuad(s_0, \alpha_0, \dots, s_i)(\alpha_i) > 0 \wedge s_{i+1} \in \supp(\alpha_i) \bigr) \bigvee \\
+% 	&\left(s_i \in \St_\diam \wedge \pidiam(s_0, \alpha_0, \dots, s_i)(\alpha_i) > 0 \wedge
 % 	s_{i+1} \in \supp(\alpha_i) \right)
 % \end{align*}
+% % \begin{align*}
+% % 	&\bigl( s_i \in \St_\cuad \wedge \picuad(\hat
+% % 	\omega_i)(\alpha_i) > 0 \wedge s_{i+1} \in \supp(\alpha_i) \bigr) \bigvee \\
+% % 	&\left(s_i \in \St_\diam \wedge \pidiam(\hat \omega_i)(\alpha_i) > 0 \wedge
+% % 	s_{i+1} \in \supp(\alpha_i) \right)
+% % \end{align*}
 
-Sea $\rho = (s_0, v_{V_0}, s_1, v_{V_1}, \dots)$ un camino en la
-desrandomización de un juego estocástico politópico y sean $\sigma_\cuad$ y
-$\sigma_\diam$ dos estrategias en el mismo juego. Decimos que $\rho$ respeta
-las estrategias $\sigma_\cuad$ y $\sigma_\diam$ si $\forall i \geq 0$ vale
+% Sea $\rho = (s_0, v_{V_0}, s_1, v_{V_1}, \dots)$ un camino en la
+% desrandomización de un juego estocástico politópico y sean $\sigma_\cuad$ y
+% $\sigma_\diam$ dos estrategias en el mismo juego. Decimos que $\rho$ respeta
+% las estrategias $\sigma_\cuad$ y $\sigma_\diam$ si $\forall i \geq 0$ vale
 
-\begin{align*}
-	\sigma_\diam&(s_0, v_{V_0}, \dots, s_i, v_{V_i})=s_{i+1} \bigwedge \\
-	&\bigl( \left( s_i \in \St_\cuad \wedge \sigma_\cuad(s_0, v_{V_0}, \dots, s_i)=v_{V_i} \right) \bigvee \\
-	&\left( s_i \in \St_\diam \wedge \sigma_\diam(s_0, v_{V_0}, \dots, s_i)=v_{V_i} \right) \bigr)
-\end{align*}
+% \begin{align*}
+% 	\sigma_\diam&(s_0, v_{V_0}, \dots, s_i, v_{V_i})=s_{i+1} \bigwedge \\
+% 	&\bigl( \left( s_i \in \St_\cuad \wedge \sigma_\cuad(s_0, v_{V_0}, \dots, s_i)=v_{V_i} \right) \bigvee \\
+% 	&\left( s_i \in \St_\diam \wedge \sigma_\diam(s_0, v_{V_0}, \dots, s_i)=v_{V_i} \right) \bigr)
+% \end{align*}
 %$ \sigma_\diam(\hat \rho_{v_{V_i}})=s_{i+1} \bigwedge \left( \left( s_i \in \St_\cuad \wedge \sigma_\cuad(\hat \rho_{s_i})=v_{V_i} \right) \bigvee \left( s_i \in \St_\diam \wedge \sigma_\diam(\hat \rho_{s_i})=v_{V_i} \right) \right)$
+
+\textbf{Caminos abstractos en un PSG}
+
+Para lograr una mejor cercanía con los juegos desrandomizados, utilizaremos
+\emph{caminos abstractos} de la forma $(s_0,V_0,s_1,V_1,s_2,\ldots)$ con
+$s_i\in\psgnodes$ y $V_i\in \{\supp(\alpha) | \alpha \in \Act(s_i)\}$, $0\leq i
+	< n$, que capturan los caminos donde las respectivas acciones tienen medidas de
+probabilidad cuyo soporte son los conjuntos $V_i$. Esto queda formalizado como
+sigue.
+
+Dado $V\in \{\supp(\alpha) | \alpha \in \Act(s)\}$, definimos
+$\alpha_s(V)=\{(K,\mu)\in\sgactions(s)\mid\supp(\mu)=V\}$ al conjunto de
+acciones de $s$ cuyas medidas de probabilidad tienen a $V$ como soporte. Luego,
+un camino abstracto $(s_0,V_0,s_1,V_1,s_2,\ldots)$ representa al conjunto de
+caminos de la forma $\{(s_0,\alpha_0,s_1,\alpha_1,s_2,\ldots)\mid \forall i\geq
+	0\colon \alpha_i\in\alpha_{s_i}(V_i)\}$. Similarmente, un camino abstracto
+finito $(s_0,V_0,s_1,V_1,s_2,\ldots,s_n)$ define un conjunto de caminos finitos
+siguiendo el mismo patrón.
+
+Teniendo en cuenta este marco, por el teorema de extensión de Carathéodory,
+podemos definir una medida de probabilidad sobre los caminos abstractos. Dadas
+las estrategias $\strat_{\maxplay}$ y $\strat_{\minplay}$ y el estado $s$,
+utilizaremos la misma notación
+$\Prob^{\strat_{\maxplay},\strat_{\minplay}}_{\StochGK,s}$ para identificar la
+nueva medida de probabilidad definida por
+%
+\begin{align*}
+	\Prob^{\strat_{\maxplay},\strat_{\minplay}}_{\StochGK,s}(\Cyl(s_0,V_0,s_1,V_1,s_2,\ldots,s_n)) = {} \hspace{-8em} & \\
+	& \Prob^{\strat_{\maxplay},\strat_{\minplay}}_{\StochGK,s}(\Cyl(\{s_0\}\times\alpha_{s_0}(V_0)\times\{s_1\}\times\alpha_{s_1}(V_1)\times\{s_2\}\times\cdots\times\{s_n\}))
+\end{align*}
+%
 
 \textbf{Condición de equidad en el juego estocástico politópico}
 
-Podemos expresar fácilmente la condición de equidad en el juego estocástico
-politópico de la siguiente forma:
+Podemos expresar la condición de equidad representativa del juego justp en el
+juego estocástico politópico fácilmente con notación LTL sorbe caminos
+abstractos. Si denotamos $V_{\Gk}$ al conjunto finito de todos los conjuntos
+soporte de medidas de probabilidad de las acciones en $\Gk$, tenemos que:
 
 \begin{center}
 	$
-		\hat \varphi^l := \bigwedge_{\alpha \in \Act} \hat \varphi^{\supp(\alpha)}
+		\hat \varphi^l := \bigwedge_{V' \in V_{\Gk}} \hat \varphi^{V'}
 	$, con
 
 	$
-		\hat \varphi^{\supp(\alpha)} := \bigwedge_{s' \in \supp(\alpha)} (\siempevent \alpha \rightarrow \siempevent (\alpha \wedge \bigcirc s' ))
+		\hat \varphi^{V'} := \bigwedge_{s' \in V'} (\siempevent V' \rightarrow \siempevent (V' \wedge \bigcirc s' ))
 	$
 \end{center}
+
+\kathy{¿Algo más para que quede obvio que es igual a varphi l?}
+
+% \begin{center}
+% 	$
+% 		\hat \varphi^l := \bigwedge_{\alpha \in \Act} \hat \varphi^{\supp(\alpha)}
+% 	$, con
+
+% 	$
+% 		\hat \varphi^{\supp(\alpha)} := \bigwedge_{s' \in \supp(\alpha)} (\siempevent \alpha \rightarrow \siempevent (\alpha \wedge \bigcirc s' ))
+% 	$
+% \end{center}
 
 \textbf{Transformación de caminos}
 
@@ -369,6 +417,7 @@ $\rand(\sigma_i)$.
 	$\sigma_i(s_0, v_{V_0}, \dots, s_k) = v_{V_k} \implies \rand(\sigma_i)(s_0, \alpha_0, \dots, s_k)(\alpha_k) = 1$ donde \\ $\forall i \ \supp(\alpha_i) = V_i$.
 	\captionof{figure}{Una forma de ver la randomización de estrategias en $\DGk$}
 \end{center}
+\kathy{¿Sacar esto?}
 % \begin{figure}[ht]
 % 	\centering
 % 	\begin{equation*}
@@ -440,6 +489,7 @@ obtener, a la cual llamaremos $\derand(\pi_i)$.
 	Formalmente, lo que necesitamos, en realidad, es una función que dado un prefijo finito de camino $\hat \rho$ de longitud $n$, devuelva un prefijo de camino finito $\hat \omega$ de longitud $n+1$ tal que $\hat \omega_n$ (es decir, el prefijo hasta su posición $n$) desrandomizado coincide con $\hat \rho$. Esto permite declarar el comportamiento de la nueva estrategia sobre el prefijo $\hat \rho$ eligiendo el nuevo vértice a partir de la posición $n+1$ del $\hat \omega$ obtenido de la siguiente manera: si la posición se corresponde con un estado, entonces definimos como próximo vértice ese mismo estado (y aseguramos cumplir con la condición de equidad) y si la posición se corresponde con una acción, entonces definimos como próximo vértice $v_V$ siendo $V$ el conjunto soporte de la acción.
 	Así que, con declarar una función $f$ de estas características, nos basta para poder referirnos a una desrandomización concreta. Notaremos con $\derand(\pi_i, f)$ a la desrandomización concreta de $\pi_i$ que podemos definir a través de $f$.
 \end{boxgris}
+\kathy{¿Vale la pena esto?}
 
 \section{Prueba de igualdad sobre los conjuntos ganadores}
 
@@ -478,33 +528,75 @@ obtener, a la cual llamaremos $\derand(\pi_i)$.
 		\inf_{\pidiam \in \Pidiam} \Prob_{\Gk,s}^{\picuadGk, \pidiam}(\varphi) = 1
 	\end{equation}
 
-	Proponemos como $\picuadGk$ a una randomización de $\sigma_\cuad^*$ y veremos
-	que vale \ref{pisirve} por reducción al absurdo.
+	Proponemos como $\picuadGk$ a una randomización de $\sigma_\cuad^*$.
 
-	Supongamos que no vale \ref{pisirve}, es decir,
-	\begin{equation}
-		\inf_{\pidiam \in \Pidiam} \Prob_{\Gk, s}^{\picuadGk, \pidiam} (\varphi) < 1.
-	\end{equation}
+	Por definición de $\sigma_\cuad^*$ sabemos que si está frente a una estratgeia
+	$\sigma_\diam$ que respeta la condición de equidad $\varphi^l$, etnonces la
+	jugada determinada por ambas estrategias cumple la especificación $\varphi$.
 
-	Esto significa que existe una estrategia $\pidiam^*$ que hace que $\Prob_{\Gk,
-			s}^{\picuadGk, \pidiam} (\varphi) < 1$. A su vez, esto significa que existe un
-	camino $\omega^*$ que empieza desde $s$, respeta las estrategias $\picuadGk$ y
-	$\pidiam^*$, pero no cumple $\varphi$.
+	Como vimos en la sección anterior, pedir que valga $\varphi^l$ en $\DGk$ es
+	equivalente a pedir que valga la siguiente fórmula LTL sobre caminos
+	abstractos:
 
-	Pensemos, entonces, en $\sigma_\diam^*$ una desrandomización válida de
-	$\pidiam^*$ que sigue las elecciones de acciones que toman los prefijos de
-	$\omega^*$.
+	$\hat{\varphi^l} = \bigwedge_{V' \in V_{\Gk}} \bigwedge_{s' \in V'} \siempevent V' \rightarrow \siempevent (V' \wedge \bigcirc s').$
 
-	Luego, $\rho^* = \derand(\omega^*)$ respeta las estrategias $\sigma_\cuad^*$ y
-	$\sigma_\diam^*$. Como $\rho^* \cap \St = \omega^* \cap \St$ y $\omega^*$ no
-	cumple $\varphi$, $\rho^*$ no cumple $\varphi$. Es decir, existe un camino que
-	empieza desde $s$, respeta $\sigma_\cuad^*$, pero no es ganador para $\varphi$.
-	Esto contradice que la estrategia $\sigma_\cuad^*$ sea ganadora desde $s$.
+	Entonces, en principio, tenemos que:
 
-	Llegamos a esta contradicción por suponer que no vale \ref{pisirve}. Entonces
-	la ecuación sí vale y, consecuentemente, tenemos que $s \in \W^{as}$, como
-	queríamos probar.
-	% -------------------------------------------------------------------------------------------------------------------------------------------------
+	$\inf_{\pidiam \in \Pidiam} \Prob^{\picuadGk, \pidiam}_{\Gk, s} (\hat{\varphi^l} \rightarrow \varphi) = 1.$
+
+	Veremos que la ecuación~\ref{pisirve} vale viendo que la probabilidad de que no
+	valga $\hat{\varphi^l}$ es $0$.
+
+	\begin{align*}
+		&\Prob_{\Gk, s}^{\picuadGk, \pidiam}(\neg \hat{\varphi}^l) = \\
+		&\Prob_{\Gk, s}^{\picuadGk, \pidiam}\left(\neg \left( \bigwedge_{V' \in V_{Gk}} \bigwedge_{s' \in V'} \left( \siempevent V' \rightarrow \siempevent (V' \wedge \bigcirc s' ) \right)\right)\right) = \\
+		&\Prob_{\Gk, s}^{\picuadGk, \pidiam}\left(\left( \bigvee_{V' \in V_{Gk}} \left( \neg \bigwedge_{s' \in V'} \left( \siempevent V' \rightarrow \siempevent (V' \wedge \bigcirc s' ) \right)\right)\right)\right) = \\
+		&\Prob_{\Gk, s}^{\picuadGk, \pidiam} \left(\bigvee_{V' \in V_{Gk}} \bigvee_{s' \in V'} \neg \left( \siempevent V' \rightarrow \siempevent (V' \wedge \bigcirc s' ) \right)\right) = \\
+		&\Prob_{\Gk, s}^{\picuadGk, \pidiam} \left(\bigvee_{V' \in V_{Gk}} \bigvee_{s' \in V'} \left( \siempevent V' \wedge \eventsiemp \neg (V' \wedge \bigcirc s' ) \right)\right) \leq \\
+		&\sum_{V' \in V_{\Gk}} \sum_{s' \in V'} \Prob_{\Gk, s}^{\picuadGk, \pidiam} \left( \siempevent V' \wedge \eventsiemp \neg (V' \wedge \bigcirc s' ) \right)
+	\end{align*}
+
+	Veamos que cada término en esta última sumatoria es $0$. Para eso, consideremos
+	un $V' \in V_{\Gk}$ arbitrario y también un $s' \in V'$ arbitrario.
+
+	Sea $I = (i_0, i_1, i_2, \dots)$ el conjunto infinito de momentos donde se
+	elige alguna acción $(K,\mu)$ cuyo soporte es $V'$. \kathy{¿Decir algo más de
+		la justificación de pq decimos que existe este conjunto infinito I?} Como
+	estamos trabajando con estrategias de memoria finita habrá solo una cantidad
+	finita de distribuciones que se pueden elegir desde $s$. Por lo tanto, existirá
+	una distribución $\mu_\text{min}$ que minimiza la probabilidad de ir a $s'$.
+
+	Para cada $i_k \in I$ la probabilidad de no visitar $s'$ luego de los próximos
+	$l$ momentos en $I$, es decir, en ninguno de los momentos $(i_{k+1}+1,
+		i_{k+2}+1, \dots, i_{k+l}+1)$ está acotada superiormente por $(1 -
+		\mu_\text{min})^l$, que converge a 0 cuando $l$ tiende a infinito. Esto
+	siginifica que cualquier término de la sumatoria es efectivamente 0.
+
+	Con esto tenemos que $\Prob = 0$ y ... lo que queríamos probar
+	% Supongamos que no vale \ref{pisirve}, es decir,
+	% \begin{equation}
+	% 	\inf_{\pidiam \in \Pidiam} \Prob_{\Gk, s}^{\picuadGk, \pidiam} (\varphi) < 1.
+	% \end{equation}
+
+	% Esto significa que existe una estrategia $\pidiam^*$ que hace que $\Prob_{\Gk,
+	% 		s}^{\picuadGk, \pidiam} (\varphi) < 1$. A su vez, esto significa que existe un
+	% camino $\omega^*$ que empieza desde $s$, respeta las estrategias $\picuadGk$ y
+	% $\pidiam^*$, pero no cumple $\varphi$.
+
+	% Pensemos, entonces, en $\sigma_\diam^*$ una desrandomización válida de
+	% $\pidiam^*$ que sigue las elecciones de acciones que toman los prefijos de
+	% $\omega^*$.
+
+	% Luego, $\rho^* = \derand(\omega^*)$ respeta las estrategias $\sigma_\cuad^*$ y
+	% $\sigma_\diam^*$. Como $\rho^* \cap \St = \omega^* \cap \St$ y $\omega^*$ no
+	% cumple $\varphi$, $\rho^*$ no cumple $\varphi$. Es decir, existe un camino que
+	% empieza desde $s$, respeta $\sigma_\cuad^*$, pero no es ganador para $\varphi$.
+	% Esto contradice que la estrategia $\sigma_\cuad^*$ sea ganadora desde $s$.
+
+	% Llegamos a esta contradicción por suponer que no vale \ref{pisirve}. Entonces
+	% la ecuación sí vale y, consecuentemente, tenemos que $s \in \W^{as}$, como
+	% queríamos probar.
+	% % -------------------------------------------------------------------------------------------------------------------------------------------------
 
 	\textbf{Segunda contención: } $\W^{as} \subseteq \W$
 
