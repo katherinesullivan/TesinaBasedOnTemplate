@@ -7,7 +7,7 @@ Al igual que en el caso de PSGs, haremos el estudio de PMDP sobre la
 interpretación de los mismos que formalizamos de la siguiente manera:
 
 \begin{definition}
-	La interpretación de un \textit{proceso de decisión de Markov politópico} (PMDP por sus siglas en inglés) es una tupla $\M = (\St, Act, \theta')$ donde $S$ es un conjunto finito de estados, $Act$ es un conjunto de pares (politopo, distribución) y $\theta': \St \times Act \times \St \rightarrow [0, 1]$ es la función de transición entre estados.
+	La interpretación de un \textit{proceso de decisión de Markov politópico} (PMDP por sus siglas en inglés) es una tupla $\M = (\St, Act, \theta')$ donde $S$ es un conjunto finito de estados, $Act$ es un conjunto de pares (politopo, distribución) y $\theta': \St \times Act \times \St \rightarrow [0, 1]$ es la función de transición entre estados definida como en la Definición~\ref{def:interpret}.
 \end{definition}
 
 Entonces, los PMDPs puden ser interpretados como MDPs en donde el número de
@@ -30,7 +30,7 @@ finales que se suelen encontrar en la literatura de procesos de decisión de
 Markov \cite{AlfaroThesis,BaierKatoen}.
 
 \begin{definition}[Conjuntos estado-resultado y sub-PMDPs]
-	Dado un PMDP $\M = (S, Act, \theta')$ un conjunto estado-resultado es un subconjunto $\chi \subseteq \{(s, V') \mid s \in S \wedge V' \in V_s\}$. Un sub-PMDP es un par $(C, D)$, donde $C \subseteq S$ y $D$ es una función que asocia a cada $s \in C$ un conjunto $D(s) \subseteq V_s$ de subconjuntos de estados próximos posibles. Hay una relación uno-a-uno entre sub-PMDPs y conjuntos de estado-acción:
+	Sea $\M$ un PMDP $\M = (S, Act, \theta')$ y dado un estado $s$, sea $V_s = \{\supp(a) | a \in \Act(s)\}$ el conjunto formado por los conjuntos soporte de las acciones salientes de él. Un conjunto estado-resultado es un subconjunto $\chi \subseteq \{(s, V') \mid s \in S \wedge V' \in V_s\}$, mientras que un sub-PMDP es un par $(C, D)$, donde $C \subseteq S$ y $D$ es una función que asocia a cada $s \in C$ un conjunto $D(s) \subseteq V_s$ de subconjuntos de estados próximos posibles. Hay una relación uno-a-uno entre sub-PMDPs y conjuntos de estado-acción:
 
 	\begin{itemize}
 		\item dado un conjunto estado-resultado $\chi$, denotamos $\sub(\chi) = (C, D)$ al
@@ -59,7 +59,7 @@ conjunto resultado sea $V'$. La definición formal es como sigue:
 \end{definition}
 
 \begin{definition}[Componente final] \label{defEC}
-	Un sub-PMDP es una componente final si:
+	Un sub-PMDP $(C, D)$ es una componente final si:
 
 	\begin{itemize}
 		\item $V' \subseteq C$ para todo $V'$ tal que existe un $s \in C$ donde $V' \in D(s)$
@@ -95,7 +95,7 @@ Ahora sí, podemos pasar a presentar las primeras demostraciones:
 	\label{teoEstabilidadEC}
 	Sea $(C, D)$ una componente final. Entonces, para cada estrategia $\pi$ existe una estrategia $\pi'$, que difiere de $\pi$ solo en $C$, tal que:
 	\begin{equation} \label{estabEC}
-		\Prob^\pi_s(\diam C) = \Prob^{\pi'}_s(\diam C) = \Prob^{\pi'}_s(\inft(\omega) = \er(C,D))
+		\Prob^\pi_s(\diam C) = \Prob^{\pi'}_s(\diam C) = \Prob^{\pi'}_s(\{ \omega \in \Paths_s | \inft(\omega) = \er(C,D)\})
 	\end{equation}
 	para todo $s \in S$.
 \end{theorem}
@@ -105,13 +105,14 @@ Ahora sí, podemos pasar a presentar las primeras demostraciones:
 
 	\begin{itemize}
 		\item Si $s_n \in C$, la estrategia asignará probabilidad positiva a una única acción
-		      $(K, \mu)$ para cada conjunto resultado $V' \in D(s_n)$ (notaremos a esta
-		      acción particular con $(K, \mu)_{V'}$), y la probabilidad de elegir cada una de
-		      esas acciones se distribuirá de manera uniforme. Es decir,
+		      $(K, \mu) \in \Act(s_n)$ tal que $\supp(\mu)=V'$ para cada conjunto resultado
+		      $V' \in D(s_n)$ (denotaremos a esta acción particular con $(K, \mu)_{V'}$), y
+		      la probabilidad de elegir cada una de esas acciones se distribuirá de manera
+		      uniforme. Es decir,
 		      \[
 			      \pi'(s_0 \dots s_n)(K, \mu) =
 			      \begin{cases}
-				      \frac{1}{\abs{D(s_n)}} \quad \text{si } (K, \mu) = (K, \mu)_{V'} \text{ para algún } V' \in D(s_n); \\
+				      \frac{1}{\abs{D(s_n)}} \quad \text{si } (K', \mu') = (K, \mu)_{V'} \text{ para algún } V' \in D(s_n); \\
 				      0 \qquad \quad \text{en otro caso}
 			      \end{cases}
 		      \]
@@ -255,7 +256,7 @@ de decisión de Markov para el análisis de condiciones de Rabin.
 	Sea $\M$ un PMDP, $s$ un estado en él y sea $\pi$ una estrategia de memoria finita en él. Una condición de Rabin $R = \{ (E_1, F_1), \dots, (E_d, F_d)\}$ se satisface desde $s$, siguiendo la estrategia $\pi$ con probabilidad 1 si y solo si para cada componente final $U$ alcanzable desde $s$, existe un $j \in \{ 1, \dots, d\}$ tal que $U \cap E_j = \emptyset$ y $U \cap F_j \neq \emptyset$.
 \end{corollary}
 
-\textbf{Nota sobre la limitación a estrategias finitas del Teorema~\ref{teoFundEC}}
+\subsection*{Nota sobre la limitación a estrategias finitas del Teorema~\ref{teoFundEC}}
 
 Ahora bien, una pregunta muy natural que surge es ``¿por qué nos restringimos a
 estrategias de memoria finita en este último teorema?"
@@ -265,7 +266,7 @@ tener que limitarnos en la clase de las estrategias utilizadas. La idea para
 probar esto esencialmente fue intentar seguir como modelo las pruebas
 realizadas para MDPs en \cite{AlfaroThesis,BaierKatoen}. Esto en el caso del
 teorema~\ref{teoEstabilidadEC} vino sin complicaciones, pero en el caso del
-teorema~\ref{teoFundEC} devino en problemas, puesto que la finitud de acciones
+teorema~\ref{teoFundEC} devino en problemas puesto que la finitud de acciones
 salientes de un estado probó ser una hipótesis fundamental.
 
 La idea de prueba consiste en proponer un sub-PMDP $(C, D)$ arbitrario que no
@@ -300,12 +301,13 @@ siguiente manera:
 donde $\#_t$ se define inductivamente sobre caminos de la siguiente manera:
 
 \begin{align*}
-	&\#_t(\emptyset) = 0 \\
-	&\#_t(\omega V' t) = \#_t(\omega) + 1 \\
-	&\#_t(\omega V' s) = \#_t(\omega)
+	&\#_t(\varepsilon) = 0 \\
+	&\#_t(\omega \alpha t) = \#_t(\omega) + 1 \\
+	&\#_t(\omega \alpha s) = \#_t(\omega)
 \end{align*}
 
-siendo $\omega$ un camino, $\emptyset$ el camino vacío y $s \neq t$.
+siendo $\omega$ un prefijo de camino, $\alpha$ una acción, $\varepsilon$ el
+camino vacío y $s$ y $t$ estados diferentes.
 
 Si suponemos que $s$ no forma parte de $C$, tenemos que la probabilidad de
 quedarnos en $C$ sería $\Pi_{i \geq 0} 1-(\frac{1}{i^2})$, que sabemos que
@@ -340,10 +342,10 @@ solo implica que este método de prueba no es útil para probar el
 teorema~\ref{teoFundEC} para cualquier tipo de estrategias; no significa que no
 sea válido.
 
-Esta limitación a la que nos tuvimos que atener aquí, sin embargo, no
-constituyó una limitación a la prueba del teorema principal sobre regiones
-ganadoras que mostramos más adelante, porque terminamos arribando a otra forma
-de probarlo.
+% Esta limitación a la que nos tuvimos que atener aquí, sin embargo, no
+% constituyó una limitación a la prueba del teorema principal sobre regiones
+% ganadoras que mostramos más adelante, porque terminamos arribando a otra forma
+% de probarlo.
 % pudimos reducir lo que
 % necesitábamos para su prueba al corolario~\ref{adaptB30}.
 

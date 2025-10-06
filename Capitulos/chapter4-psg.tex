@@ -155,6 +155,7 @@ número de transiciones salientes desde los estados de los jugadores puede ser
 no numerable. Formalmente, la interpretación de un PSG es la siguiente:
 
 \begin{definition}[Interpretación de un PSG]
+	\label{def:interpret}
 	La interpretación del juego estocástico politópico \( \K \) se define por el juego estocástico \( \Gk = (\St, (\St_\square, \St_\diamondsuit), \Act, \theta) \), donde \( \Act = \bigcup_{s \in \St} \Theta(s) \times \textsf{Dist}(\St) \) y
 	\[
 		\theta(s, (K, \mu), s') =
@@ -506,9 +507,10 @@ teoremas mostrados en el paper.
 \section{Teoremas}
 
 En esta sección presentamos los resultados principales desarrollados en
-\cite{Polytopal}. Si bien \cite{Polytopal} aborda 4 tipos distintos de objetivos (a saber, de
-alcanzabilidad, de recompensa media, de recompensa total acumulada y de
-recompensa total descontada), solo nos concentraremos en los resultados correspondientes a objetivos de alcanzabilidad.
+\cite{Polytopal}. Si bien \cite{Polytopal} aborda 4 tipos distintos de
+objetivos (a saber, de alcanzabilidad, de recompensa media, de recompensa total
+acumulada y de recompensa total descontada), solo nos concentraremos en los
+resultados correspondientes a objetivos de alcanzabilidad.
 
 El primer teorema, establece la determinación de los juegos estocásticos a la
 vez de que establece que los objetivos de alcanzabilidad en PSGs puede ser
@@ -531,9 +533,9 @@ los PSGs.
 
 El segundo resultado, se deriva del primero y presenta la complejidad del
 estudio cuantitativo de los juegos estocásticos politópicos. Enunciado sobre lo
-que nos interesa y denotando como $\val_{\Gk,s}(\alc G)$ al valor del estado $s$
-(es decir, la probabilidad máxima de que $\cuad$ gane desde $s$) en el juego
-$\Gk$ con un objetivo de alcanzabilidad sobre un conjunto $G$, el teorema
+que nos interesa y denotando como $\val_{\Gk,s}(\alc G)$ al valor del estado
+$s$ (es decir, la probabilidad máxima de que $\cuad$ gane desde $s$) en el
+juego $\Gk$ con un objetivo de alcanzabilidad sobre un conjunto $G$, el teorema
 sería:
 
 \begin{theorem}[Complejidad en un PSG]

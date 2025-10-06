@@ -3,32 +3,33 @@
 
 A fin de responder la pregunta cualitativa en el estudio de los juegos
 estocásticos politópicos con objetivos de Rabin, presentaremos un tipo nuevo de
-juegos deterministas: los juegos justos. Probaremos que el conjunto de vértices
-ganadores con probabilidad 1 en un juego estocástico politópico con un objetivo
-de Rabin es igual al conjunto de vértices ganadores de un juego justo
-construido a partir del PSG.
+juegos no-estocásticos: los juegos justos. Probaremos que el conjunto de
+vértices ganadores con probabilidad 1 en un juego estocástico politópico
+\kathy{agg si nos reducimos a analizar solo estrategias de memoria finita?} con
+un objetivo de Rabin es igual al conjunto de vértices ganadores de un juego
+justo construido a partir del PSG.
 
 Para eso primero presentaremos el concepto de juego justo y la construcción de
 uno a partir de un PSG. Luego, explicitaremos un poco más la relación entre el
-PSG y el juego justo construido, al cual llamaremos su desrandomización.
-Seguido de esto, expondremos la prueba formal de la igualdad entre los
-conjuntos. Y, por último, mostraremos un algoritmo para el cálculo de los
-estados ganadores y la sintésis de estrategias ganadoras para un PSG con un
-objetivo de Rabin. % VER ESTO EN DEPENDENCIA DE LO QUE TERMINEMOS ESCRIBIENDO AL FINAL
+PSG y el juego justo construido, al cual llamaremos su
+\textit{desrandomización}. Seguido de esto, expondremos la prueba formal de la
+igualdad entre los conjuntos. Por último, mostraremos un algoritmo para el
+cálculo de los estados ganadores y la sintésis de estrategias ganadoras para un
+PSG con un objetivo de Rabin. % VER ESTO EN DEPENDENCIA DE LO QUE TERMINEMOS ESCRIBIENDO AL FINAL
 
 \subsection*{Juegos de adversario justo}
 
-Sea $G$ un juego de grafo de dos jugadores y sea $E^{l} \subseteq (V_\diam
-	\times V) \cap E$ un conjunto dado de aristas que deben ser tomadas
-infinitamente a menudo si el estado del que parten es visitado infinitamente a
-menudo. Nombraremos $V^{l} := \mathrm{dom}(E^{l})$ al conjunto de vértices del
-jugador $\diam$ que está en el dominio de $E^{l}$. Las aristas en $E^{l}$
-representarán suposiciones de equidad sobre el jugador $\diam$: para cada
-arista $(v, v') \in E^{l}$, si $v$ es visitado infinitamente a menudo en una
-jugada, se espera que la arista $(v, v')$ sea elegida también infinitamente a
-menudo por el jugador $\diam$. Es decir, si un vértice $v$ es visitado
-infinitas veces, se espera también que toda arista en $E^l$ saliente de $v$ sea
-tomada una cantidad infinita de veces.
+Sea $G = (V, (V_\cuad, V_\diam), E)$ un juego de grafo de dos jugadores y sea
+$E^{l} \subseteq (V_\diam \times V) \cap E$ un conjunto dado de aristas que
+deben ser tomadas infinitamente a menudo si el estado del que parten es
+visitado infinitamente a menudo. Definiremos $V^{l} := \mathrm{dom}(E^{l})$ al
+conjunto de vértices del jugador $\diam$ que está en el dominio de $E^{l}$. Las
+aristas en $E^{l}$ representarán suposiciones de equidad sobre el jugador
+$\diam$: para cada arista $(v, v') \in E^{l}$, si $v$ es visitado infinitamente
+a menudo en una jugada, se espera que la arista $(v, v')$ sea elegida también
+infinitamente a menudo por el jugador $\diam$. Es decir, si un vértice $v$ es
+visitado infinitas veces, se espera también que toda arista en $E^l$ saliente
+de $v$ sea tomada una cantidad infinita de veces.
 
 Denotamos con $G^{l} = \langle G, E^{l} \rangle$ a un juego de adversario
 justo. Las nociones de jugadas, estrategias, condiciones ganadoras, regiones
@@ -40,23 +41,21 @@ fórmula en lógica temporal lineal (LTL):
 \]
 Dado $G^{l}$ y una condición de victoria $\varphi$, el jugador $\cuad$ gana el
 juego de adversario justo sobre $G^{l}$ con respecto a la condición de victoria
-$\varphi$ desde un vértice $v_0 \in V$ si gana el juego sobre $G^{l}$ para la
+$\varphi$ desde un vértice $v_0 \in V$ si gana el juego sobre $G$ para la
 condición de victoria $\alpha \rightarrow \varphi$ desde $v_0$.
 
 Hay dos observaciones interesantes para hacer sobre los juegos de adversario
-justo:
-
-Primero, las aristas en $E^l$ permiten descartar ciertas estrategias del
+justo. Primero, las aristas en $E^l$ permiten descartar ciertas estrategias del
 jugador $\diam$, facilitando que el jugador $\cuad$ gane en determinadas
 situaciones. Por ejemplo, consideremos un grafo de juego
-(figura~\ref{fig:juego-justo}, parte superior) con dos vértices $p$ y $q$. El
+(Figura~\ref{fig:juego-justo}, parte superior) con dos vértices $p$ y $q$. El
 vértice $p$ pertenece al jugador $\diam$ y el vértice $q$ al jugador $\cuad$.
 La arista $(p, q)$ es una arista en $E^l$ (representada con línea discontinua).
 Supongamos que la especificación para el jugador $\cuad$ es $\varphi =
 	\siempevent q$. Si la arista $(p, q)$ no estuviera en $E^l$, el jugador $\cuad$
-no ganaría desde $p$, porque el jugador $\diam$ podría mantener el juego
+no ganaría desde $p$ debido a que el jugador $\diam$ podría mantener el juego
 atrapado en $p$ eligiéndose a sí mismo como sucesor en cada turno. En
-contraste, el jugador $\cuad$ gana desde $p$ en el juego adversarial justo,
+contraste, el jugador $\cuad$ gana desde $p$ en el juego adversarial justo
 porque la suposición de equidad sobre la arista $(p, q)$ fuerza al jugador
 $\diam$ a elegir infinitamente a menudo la transición hacia $q$.
 
@@ -65,13 +64,14 @@ las elecciones de estrategias del jugador $\diam$ menos que lo que
 restringirían la suposición de que el jugador $\diam$ elige probabilísticamente
 entre estas aristas. Consideremos, por ejemplo, un juego de adversario justo
 con un único vértice del jugador $\diam$, $p$ con dos aristas en $E^l$
-salientes hacia los estados $q$ y $q'$, como se muestra en la Figura 1 (parte
-inferior). Si el jugador $\diam$ elige aleatoriamente entre las aristas $(p,
-	q)$ y $(p, q')$, toda secuencia finita de visitas a los estados $q$ y $q'$
-ocurrirá infinitamente a menudo con probabilidad uno. Esto no es cierto en el
-juego de adversario justo. Aquí el jugador $\diam$ puede elegir una secuencia
-particular de visitas a $q$ y $q'$ (por ejemplo, simplemente $qq'qq'qq'\dots$),
-siempre que ambos sean visitados infinitamente a menudo.
+salientes hacia los estados $q$ y $q'$, como se muestra en la
+Figura~\ref{fig:juego-justo} (parte inferior). Si el jugador $\diam$ elige
+aleatoriamente entre las aristas $(p, q)$ y $(p, q')$, toda secuencia finita de
+visitas a los estados $q$ y $q'$ ocurrirá infinitamente a menudo con
+probabilidad uno. Esto no es cierto en el juego de adversario justo. Aquí el
+jugador $\diam$ puede elegir una secuencia particular de visitas a $q$ y $q'$
+(por ejemplo, simplemente $qq'qq'qq'\dots$), siempre que ambos sean visitados
+infinitamente a menudo.
 
 \begin{figure}[ht]
 	\centering
@@ -120,7 +120,7 @@ de 2 jugadores justo con:
 	&V &&= \St \cup \tilde V \\
 	&V_\cuad &&= \St_\cuad \\
 	&V_\diam &&= \St_\diam \cup \tilde V \\
-	&E &&= \{(s, v_{V}) : V \in V_s\} \\
+	&E &&= \{(s, v_{V}) : V \in V_s\} \cup E^l\\
 	&E^l &&= \{(v_{V}, s') : s' \in V\}
 \end{alignat*}
 
@@ -136,14 +136,14 @@ Esta misma condición de equidad se puede expresar como
 	$ \varphi^V := \bigwedge_{s' \in V} (\siempevent v_{V'} \rightarrow \siempevent (v_{V'} \wedge \bigcirc s' ))$
 \end{center}
 
-\textbf{Roborta vs Rigoborto desrandomizado}
+\subsection*{Roborta vs Rigoborto desrandomizado}
 
-Con lo definido en la subsección anterior, podemos ver cómo quedaría el PSG que
+Con lo definido en la subsección anterior podemos ver cómo quedaría el PSG que
 presentamos como ejemplo en \ref{sec:ejpsg}.
 
 Para ello, primero deberíamos pensar cuáles son los conjuntos $V_s$ para cada
-$s \in \St$. Notaremos a los estados por las coordenadas en las que se
-encuentra Roborta arriba y Rigoborto abajo, al igual que hicimos para
+$s \in \St$. Denotaremos a los estados con las coordenadas en las que se
+encuentra Roborta arriba y Rigoborto abajo al igual que hicimos para
 graficarlos, y con una $c$ para indicar que pertenecen al jugador $\cuad$ y una
 $d$ para indicar que pertenecen al jugador $\diam$. Entonces estos serían
 algunos de los conjuntos soportes de diferentes estados que nos son de interés:
@@ -161,8 +161,8 @@ algunos de los conjuntos soportes de diferentes estados que nos son de interés:
 \end{itemize}
 
 Entonces, si quisiesemos desrandomizar el fragmento de juego estocástico que
-vimos en la figura~\ref{fig:psg} quedaría como muestra la
-figura~\ref{fig:desrand}.
+vimos en la Figura~\ref{fig:psg} quedaría como muestra la
+Figura~\ref{fig:desrand}.
 
 \begin{figure}[ht]
 	\centering
