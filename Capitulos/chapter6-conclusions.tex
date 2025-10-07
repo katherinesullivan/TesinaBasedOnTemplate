@@ -16,10 +16,11 @@ La contribuciones concretas pueden resumirse en los siguientes puntos clave:
 	      interpretación de un PSG $\Gk$, se puede construir su desrandomización $\DGk$
 	      como un juego determinista con suposiciones de \emph{justicia extrema} sobre
 	      ciertas aristas salientes.
-	\item Establecimos una correspondencia entre caminos y estrategias en el PSG y en su
-	      desrandomización, mediante las funciones \texttt{desrand} y \texttt{rand} y
-	      demostramos que un estado $s$ es ganador en el PSG si y sólo si es ganador en
-	      el juego justo correspondiente.
+	\item Establecimos una correspondencia entre caminos abstractos en el PSG y caminos
+	      en su desrandomización, lo que nos permitió construir estrategias en cada uno
+	      de ellos a partir de estrategias en el otro, y demostrar que un estado $s$ es
+	      ganador en el PSG con alguna estrategia de memoria finita si y sólo si es
+	      ganador en el juego justo correspondiente.
 	\item A partir de esta equivalencia, se derivan dos consecuencias fundamentales:
 	      \begin{itemize}
 		      \item Es posible realizar la \emph{sintésis de estrategias ganadoras} para el PSG
@@ -35,7 +36,7 @@ La contribuciones concretas pueden resumirse en los siguientes puntos clave:
 
 Nuestra metodología ofrece una reducción natural del problema probabilístico a
 un problema completamente determinista, permitiendo reutilizar herramientas
-estándares para juegos de dos jugadores deterministas.
+estándares para juegos de dos jugadores no-estocásticos.
 
 Así, respondemos satisfactoriamente a las dos preguntas centrales:
 \textit{“quién gana”}, al caracterizar los estados ganadores con probabilidad 1
