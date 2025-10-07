@@ -30,7 +30,7 @@ finales que se suelen encontrar en la literatura de procesos de decisión de
 Markov \cite{AlfaroThesis,BaierKatoen}.
 
 \begin{definition}[Conjuntos estado-resultado y sub-PMDPs]
-	Sea $\M$ un PMDP $\M = (S, Act, \theta')$ y dado un estado $s$, sea $V_s = \{\supp(a) | a \in \Act(s)\}$ el conjunto formado por los conjuntos soporte de las acciones salientes de él. Un conjunto estado-resultado es un subconjunto $\chi \subseteq \{(s, V') \mid s \in S \wedge V' \in V_s\}$, mientras que un sub-PMDP es un par $(C, D)$, donde $C \subseteq S$ y $D$ es una función que asocia a cada $s \in C$ un conjunto $D(s) \subseteq V_s$ de subconjuntos de estados próximos posibles. Hay una relación uno-a-uno entre sub-PMDPs y conjuntos de estado-acción:
+	Sea $\M$ un PMDP $\M = (S, Act, \theta')$ y dado un estado $s$, sea $\Vs = \{\supp(a) | a \in \Act(s)\}$ el conjunto formado por los conjuntos soporte de las acciones salientes de él. Un conjunto estado-resultado es un subconjunto $\chi \subseteq \{(s, V') \mid s \in S \wedge V' \in \Vs\}$, mientras que un sub-PMDP es un par $(C, D)$, donde $C \subseteq S$ y $D$ es una función que asocia a cada $s \in C$ un conjunto $D(s) \subseteq \Vs$ de subconjuntos de estados próximos posibles. Hay una relación uno-a-uno entre sub-PMDPs y conjuntos de estado-acción:
 
 	\begin{itemize}
 		\item dado un conjunto estado-resultado $\chi$, denotamos $\sub(\chi) = (C, D)$ al
