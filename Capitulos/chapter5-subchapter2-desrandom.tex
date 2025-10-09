@@ -514,8 +514,8 @@ medidas de probabilidad de las acciones en $\Gk$, tenemos que:
 	los cuales el jugador $\cuad$ gana con probabilidad 1 en $\Gk$ con alguna
 	estrategia de memoria finita. Entonces, $\W = \W^{as}$.
 
-	Es más, a partir de una estrategia ganadora en $\DGk$ se puede construir
-	fácilmente una estrategia ganadora en $\Gk$, y viceversa.
+	Es más, a partir de una estrategia ganadora en $\DGk$ se puede construir una
+	estrategia ganadora en $\Gk$, y viceversa.
 \end{theorem}
 
 \begin{proof}
@@ -559,7 +559,7 @@ medidas de probabilidad de las acciones en $\Gk$, tenemos que:
 
 	Esto significa que si podemos probar que la probabilidad de que no valga $\hat
 		\varphi^l$ es 0, habremos probado que la probabilidad de que valga $\varphi$ es
-	1, pues veamos la siguiente derivación:
+	1.Esto es consecuencia del siguiente cálculo:
 
 	\begin{align*}
 		&\Prob_{\Gk,s}^{\picuadGk, \pidiam}(\hat{\varphi}^l \rightarrow \varphi) = \Prob_{\Gk,s}^{\picuadGk, \pidiam}(\neg \hat{\varphi}^l \vee \varphi) \leq \\
@@ -580,21 +580,22 @@ medidas de probabilidad de las acciones en $\Gk$, tenemos que:
 		&\sum_{V' \in \VGk} \sum_{s' \in V'} \Prob_{\Gk, s}^{\picuadGk, \pidiam} \left( \siempevent V' \wedge \eventsiemp \neg (V' \wedge \bigcirc s' ) \right)
 	\end{align*}
 
-	Para probar que esta sumatoria da 0, veremos que cada término en esta es $0$.
-	Para eso, consideremos un $V' \in \VGk$ arbitrario y también un $s' \in V'$
-	arbitrario.
+	Para probar que esta sumatoria da 0, veremos que cada uno de los sumandos es
+	igual a $0$. Para eso, consideremos un $V' \in \VGk$ arbitrario y también un
+	$s' \in V'$ arbitrario.
 
 	Sea $I = (i_0, i_1, i_2, \dots)$ el conjunto infinito de momentos donde se
-	elige alguna acción $(K,\mu)$ cuyo soporte es $V'$. \kathy{¿Decir algo más de
-		la justificación de pq decimos que existe este conjunto infinito I?} Como
-	estamos trabajando con estrategias de memoria finita habrá solo una cantidad
-	finita de distribuciones que se pueden elegir desde $s$. Por lo tanto, existirá
-	una distribución $\mu_\text{min}$ que minimiza la probabilidad de ir a $s'$.
+	elige alguna acción $(K,\mu)$ cuyo soporte es $V'$. Como estamos trabajando con
+	estrategias de memoria finita habrá solo una cantidad finita de distribuciones
+	que se pueden elegir desde $s$. Dado que necesariamente $V'$ se repite
+	infinitas veces (para que $\siempevent V'$ se haga verdadero), entonces
+	existirá una distribución $\mu_\text{min}$ con soporte $V'$ que minimiza la
+	probabilidad de ir a $s'$.
 
 	Para cada $i_k \in I$ la probabilidad de no visitar $s'$ luego de los próximos
 	$l$ momentos en $I$, es decir, en ninguno de los momentos $(i_{k+1}+1,
 		i_{k+2}+1, \dots, i_{k+l}+1)$ está acotada superiormente por $(1 -
-		\mu_\text{min})^l$, que converge a 0 cuando $l$ tiende a infinito. Esto
+		\mu_\text{min}(s'))^l$, que converge a 0 cuando $l$ tiende a infinito. Esto
 	siginifica que cualquier término de la sumatoria es efectivamente 0.
 
 	Con esto tenemos que $\Prob_{\Gk,s}^{\picuadGk, \pidiam}(\neg \hat{\varphi}^l)
@@ -644,8 +645,8 @@ medidas de probabilidad de las acciones en $\Gk$, tenemos que:
 
 	Lo que haremos para ver que esta estrategia es ganadora es probar que para un
 	camino cualquiera $\rho$ generado por $\sigma_\cuad^*$ y alguna estrategia
-	$\sigma_\diam$ arbitraria válida en $\DGk$, $\Inf_C(\rho) = \Inf(\rho) \cap
-		\St$ cumple con la especificación $\varphi$. Es decir, que vale:
+	$\sigma_\diam$ justa arbitraria en $\DGk$, $\Inf_C(\rho) = \Inf(\rho) \cap \St$
+	cumple con la especificación $\varphi$. Es decir, que vale:
 
 	\begin{equation}
 		\label{varphi'}
@@ -677,12 +678,12 @@ medidas de probabilidad de las acciones en $\Gk$, tenemos que:
 		\item Para cada $V'$ que se asigna con $\Inf_D(\rho)$ vale que $V' \subseteq
 			      \Inf_C(\rho)$. En el caso de que existiese algún $s' \in V'$ que no
 		      perteneciese a $\Inf_C(\rho)$ se estaría contradiciendo que $\sigma_\diam$ sea
-		      una estrategia valida en $\DGk$, pues se visitaría infinitas veces $v_{V'}$
-		      pero solo finitas veces $s'$, uno de sus sucesores.
+		      una estrategia justa en $\DGk$, pues se visitaría infinitas veces $v_{V'}$ pero
+		      solo finitas veces $s'$, uno de sus sucesores.
 		\item El grafo $(\Inf_C(\rho) \cup \{v_{V'} | \exists s \in C : V' \in
 			      \Inf_D(\rho)(s)\}, \rho_{(\Inf_C(\rho), \Inf_D(\rho))})$ es trivialmente
-		      conexo, pues cualesquiera dos vértices $u$, $v$ pueden ser conectados con el
-		      camino $\rho$ al ambos aparecer infintas veces en él.
+		      conexo, pues cualesquiera par de vértices $u$, $v$ pueden ser conectados con el
+		      camino $\rho$ dado que ambos aparecer infintas veces en él.
 	\end{itemize}
 
 	Ahora veamos que esta componente final es alcanzable en $\M^*$. Esto lo haremos
@@ -825,7 +826,7 @@ Dado la desrandomización de un PSG, y dos conjuntos de vértices en él, \( S, 
 
 	\item \textbf{Predecesor casi seguro:}
 	      \[
-		      \Apre(S, T) := \Cpre(T) \cup \left( \Lpre^\exists(T) \cap \Pre_1^\forall(S) \right)
+		      \Apre(S, T) := \Cpre(T) \cup \left( \Lpre^\exists(T) \cap \Pre_\diam^\forall(S) \right)
 	      \]
 \end{itemize}
 
@@ -851,12 +852,27 @@ donde:
 	C_{p_j} := \left( \bigcap_{i=0}^j \overline{E}_{p_i} \right) \cap \left[ (F_{p_j} \cap \Cpre(Y_{p_j})) \cup (\Apre(Y_{p_j}, X_{p_j})) \right]
 \]
 
-con $p_0 = 0$, \( E_{p_0} := \emptyset \), $G_{p_0} := \emptyset$ y
-$P_{\setminus i} = P \setminus \{p_1, \dots, p_i\}$. Esta fórmula alterna
-puntos fijos máximos y mínimos para reflejar la semántica de la condición de
-Rabin, y extiende el algoritmo para juegos deterministas presentado en
-\cite{Piterman} mediante la incorporación del operador \( \Apre \), que permite
-tratar directamente los vértices bajo equidad.
+\hspace{-0.63cm}con $p_0 = 0$, \( E_{p_0} := \emptyset \), $F_{p_0} := \emptyset$ y
+$P_{\setminus i} = P \setminus \{p_1, \dots, p_i\}$.
+
+% Esta fórmula alterna
+% puntos fijos máximos y mínimos para reflejar la semántica de la condición de
+% Rabin, y extiende el algoritmo para juegos deterministas presentado en
+% \cite{Piterman} mediante la incorporación del operador \( \Apre \), que permite
+% tratar directamente los vértices bajo equidad.
+
+Intuitivamente, un término $C_{p_j}$ computa el conjunto de estados que siempre
+se quedan en $Q_{p_j} := \bigcap_{i=0}^{j} \overline{E}_{p_i}$ a la vez que
+siempre vuelven a $F_{p_j}$. Dada la condición ganadora local más simple $\psi
+	:= \diam Q \wedge \siempevent F$ para dos conjuntos de estados $Q$ y $F$,
+sabemos que el conjunto $\nu Y .\ \mu X.Q \cap [(F \cap \Cpre(Y) \cup
+		(\Cpre(X)))]$ define exactamente a los estados ganadores para el jugados
+$\cuad$ en un juego de grafo de dos jugadores tradicional con objetivo $\psi$
+\cite{MalerSynthesis}. El operador $\Apre$ lo que hace es adaptar este cómputo
+para los juegos con adversario justo. Con lo que se puede entender que cada
+término $C_{p_j}$ resuelve el problema local de quedarse en $Q_{p_j}$ y volver
+siempre eventualmente a $F_{p_j}$, y los sucesivos puntos fijos máximos y
+mínimos permiten reflejar la semántica de los objetivos de Rabin.
 
 % la idea va a ser intentar dar un poco una intuicion pero mandar a leer pieterman pnuelli y banerjee para entender por que funciona esto
 % intuicion podria ser minimizador y maximidzador C y esa idea capaz de acumulacion del obj de rabin ?) no se
@@ -886,11 +902,11 @@ desde un estado $s$ en $\K$.
 
 \subsection*{Sintésis de estrategias ganadoras en un PSG con objetivo de Rabin}
 
-El cálculo que determina de desde qué estados gana el jugador $\cuad$ responde
-parcialmente a la pregunta de ``¿quién gana?'', pero resulta no de menor
-importancia el plantearse ``¿cómo se gana?''. Esta pregunta abarca tanto con
-qué clase de estrategias se puede ganar como también podría enfocarse en
-describir paso a paso cómo se deberían ver esas estrategias y se asocia a lo
+El cálculo que determina el conjunto de los estados ganadores para el jugador
+$\cuad$ responde parcialmente a la pregunta de ``¿quién gana?'', pero resulta
+no de menor importancia el plantearse ``¿cómo se gana?''. Esta pregunta abarca
+tanto con qué clase de estrategias se puede ganar como también podría enfocarse
+en describir paso a paso cómo se deberían ver esas estrategias y se asocia a lo
 que es conocido como el problema de \textit{sintésis de estrategias}, el cual
 es de especial interés en la literatura. Con lo demostrado en \ref{teocuali},
 también respondemos parcialmente a esta pregunta.
