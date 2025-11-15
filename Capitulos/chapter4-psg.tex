@@ -1,6 +1,7 @@
 \chapter{Juegos Estocásticos Politópicos - PSGs}
 ~\label{cap:psg}
 \vspace{-1cm}
+\epigraph{Infinito: mayor que la cosa más grande que haya existido nunca, y más. Mucho mayor que eso, en realidad; verdadera y asombrosamente enorme, de un tamaño absolutamente pasmoso, algo para decir: ``vaya, qué cosa tan inmensa".}{\textit{El restaurante del fin del mundo}, \\ Douglas Adams}
 
 El propósito de este capítulo es presentar las definiciones y los hallazgos que
 nos son más relevantes de la reciente investigación de Castro y D'Argenio
@@ -284,13 +285,12 @@ $\meass\in\PMeas(\psgnodes)$ para $0\leq i\leq n$ y sea $S_n^\maxplay =
 \end{align*}
 
 Sea $\Salg_\Paths$ la $\sigma$-álgebra producto usual sobre los caminos
-(infinitos) en el PSG. \kathy{Cambio $\GamePaths$.} Por el teorema de extensión
-de Carathéodory,
+(infinitos) en el PSG. Por el teorema de extensión de Carathéodory,
 $\Prob^{\strat_{\maxplay},\strat_{\minplay}}_{\StochGK,s}:\Salg_\Paths\to[0,1]$
 se define como la única medida de probabilidad tal que para todo $n\geq 0$,
 $S_i\in\powerset(\psgnodes)$,
 $\polys\in\powerset(\bigcup_{s\in\psgnodes}\psgtrans(s))$, y
-$\meass\in\PMeas(\psgnodes)$ con $0\leq i\leq n$,
+$\meass\in\PMeas(\psgnodes)$ con $0\leq i\leq n$,%\kathy{Cambio $\GamePaths$.} 
 %
 \[\Prob^{\strat_{\maxplay},\strat_{\minplay}}_{\StochGK,s}(\Cyl(S_0\times(\polys_0\times \meass_0)\times S_1\times \cdots\times S_n)) = \Prob^{\strat_{\maxplay},\strat_{\minplay},n+1}_{\StochGK,s}(S_0\times(\polys_0\times \meass_0)\times S_1\times \cdots\times S_n)\]
 %
