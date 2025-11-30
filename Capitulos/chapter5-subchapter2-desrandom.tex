@@ -4,9 +4,9 @@
 A fin de responder la pregunta cualitativa en el estudio de los juegos
 estocásticos politópicos con objetivos de Rabin, presentaremos un tipo nuevo de
 juegos no-estocásticos: los juegos justos. Probaremos que el conjunto de
-vértices ganadores con probabilidad 1 en un juego estocástico politópico con un
-objetivo de Rabin es igual al conjunto de vértices ganadores de un juego justo
-construido a partir del PSG.
+vértices ganadores con probabilidad 1 en un PSG con un objetivo de Rabin es
+igual al conjunto de vértices ganadores de un juego justo construido a partir
+del PSG.
 
 Para eso primero presentaremos el concepto de juego justo y la construcción de
 uno a partir de un PSG. Luego, explicitaremos un poco más la relación entre el
@@ -18,7 +18,7 @@ PSG con un objetivo de Rabin. % VER ESTO EN DEPENDENCIA DE LO QUE TERMINEMOS ESC
 
 \subsection*{Juegos de adversario justo}
 
-Sea $G = (V, (V_\cuad, V_\diam), E)$ un juego de grafo de dos jugadores y sea
+Sea $G = (V, (V_\cuad, V_\diam), E)$ un juego de grafo de dos jugadores y
 $E^{l} \subseteq (V_\diam \times V) \cap E$ un conjunto dado de aristas que
 deben ser tomadas infinitamente a menudo si el estado del que parten es
 visitado infinitamente a menudo. Definiremos $V^{l} := \mathrm{dom}(E^{l})$ al
@@ -47,30 +47,29 @@ Hay dos observaciones interesantes para hacer sobre los juegos de adversario
 justo. Primero, las aristas en $E^l$ permiten descartar ciertas estrategias del
 jugador $\diam$, facilitando que el jugador $\cuad$ gane en determinadas
 situaciones. Por ejemplo, consideremos un grafo de juego
-(Figura~\ref{fig:juego-justo}, parte superior) con dos vértices $p$ y $q$. El
-vértice $p$ pertenece al jugador $\diam$ y el vértice $q$ al jugador $\cuad$.
-La arista $(p, q)$ es una arista en $E^l$ (representada con línea discontinua).
+(Figura~\ref{fig:juego-justo1}) con dos vértices $p$ y $q$. El vértice $p$
+pertenece al jugador $\diam$ y el vértice $q$ al jugador $\cuad$. La arista
+$(p, q)$ es una arista en $E^l$ (representada con línea discontinua).
 Supongamos que la especificación para el jugador $\cuad$ es $\varphi =
 	\siempevent q$. Si la arista $(p, q)$ no estuviera en $E^l$, el jugador $\cuad$
 no ganaría desde $p$ debido a que el jugador $\diam$ podría mantener el juego
 atrapado en $p$ eligiéndose a sí mismo como sucesor en cada turno. En
-contraste, el jugador $\cuad$ gana desde $p$ en el juego adversarial justo
+contraste, el jugador $\cuad$ gana desde $p$ en el juego de adversario justo
 porque la suposición de equidad sobre la arista $(p, q)$ fuerza al jugador
 $\diam$ a elegir infinitamente a menudo la transición hacia $q$.
 
 Segundo, las suposiciones de equidad modeladas por aristas en $E^l$ restringen
-las elecciones de estrategias del jugador $\diam$ menos que lo que
-restringirían la suposición de que el jugador $\diam$ elige probabilísticamente
-entre estas aristas. Consideremos, por ejemplo, un juego de adversario justo
-con un único vértice del jugador $\diam$, $p$ con dos aristas en $E^l$
-salientes hacia los estados $q$ y $q'$, como se muestra en la
-Figura~\ref{fig:juego-justo} (parte inferior). Si el jugador $\diam$ elige
-aleatoriamente entre las aristas $(p, q)$ y $(p, q')$, toda secuencia finita de
-visitas a los estados $q$ y $q'$ ocurrirá infinitamente a menudo con
-probabilidad uno. Esto no es cierto en el juego de adversario justo. Aquí el
-jugador $\diam$ puede elegir una secuencia particular de visitas a $q$ y $q'$
-(por ejemplo, simplemente $qq'qq'qq'\dots$), siempre que ambos sean visitados
-infinitamente a menudo.
+las elecciones de estrategias del jugador $\diam$ menos que lo que restringiría
+la suposición de que el jugador $\diam$ elige probabilísticamente entre estas
+aristas. Consideremos, por ejemplo, un juego de adversario justo con un único
+vértice del jugador $\diam$, $p$ con dos aristas en $E^l$ salientes hacia los
+estados $q$ y $q'$, como se muestra en la Figura~\ref{fig:juego-justo2}. Si el
+jugador $\diam$ elige aleatoriamente entre las aristas $(p, q)$ y $(p, q')$,
+toda secuencia finita de visitas a los estados $q$ y $q'$ ocurrirá
+infinitamente a menudo con probabilidad uno. Esto no es cierto en el juego de
+adversario justo. Aquí el jugador $\diam$ puede elegir una secuencia particular
+de visitas a $q$ y $q'$ (por ejemplo, simplemente $qq'qq'qq'\dots$), siempre
+que ambos sean visitados infinitamente a menudo.
 
 \begin{figure}[ht]
 	\centering
@@ -90,6 +89,20 @@ infinitamente a menudo.
 		\draw[->] (p1) edge[loop left] (p1);
 		\draw[->, dashed] (p1) to[bend left=20] (q1);
 		\draw[->] (q1) edge[bend left=20] (p1);
+	\end{tikzpicture}
+	\caption{Un juego de adversario justo.}
+	\label{fig:juego-justo1}
+\end{figure}
+
+\begin{figure}[ht]
+	\centering
+	\begin{tikzpicture}[>=Stealth, node distance=3.5cm, font=\scriptsize]
+		% Definición de estilos para los nodos
+		\tikzset{
+			state/.style={draw, circle, minimum size=1.2cm, font=\normalsize},
+			square state/.style={draw, rectangle, minimum size=1.2cm, font=\normalsize},
+			diamond state/.style={draw, diamond, aspect=1.5, minimum size=1.5cm,font=\normalsize}
+		}
 
 		% --- Figura inferior ---
 		\node[diamond state] (p2) at (0,-3.5) {$p$};
@@ -103,27 +116,24 @@ infinitamente a menudo.
 		\draw[->] (q2p) edge[bend left=20] (p2);
 
 	\end{tikzpicture}
-	\caption{Dos juegos de adversario justo.}
-	\label{fig:juego-justo}
+	\caption{Otro juego de adversario justo.}
+	\label{fig:juego-justo2}
 \end{figure}
-
 \subsection*{Desrandomización de PSGs}
 
-Dada la interpretación de un juego estocástico politópico $\Gk = (\St,
-	(\St_\cuad, \St_\diam), \Act, \theta)$, y denotando con $\Vs$ al conjunto
-$\{\supp(\alpha) | \alpha \in \Act(s)\}$ para cada $s \in \St$, se define la
-\textit{desrandomización} de $\Gk$, $\DGk := (( V, V_\cuad, V_\diam, E ), E^l
-	)$, como el juego de grafo de 2 jugadores justo con:
-
+Dada la interpretación de un PSG $\Gk = (\St, (\St_\cuad, \St_\diam), \Act,
+	\theta)$, y denotando con $\Vs$ al conjunto $\{\supp(\alpha) | \alpha \in
+	\Act(s)\}$ para cada $s \in \St$, se define la \textit{desrandomización} de
+$\Gk$, $\DGk := (( V, V_\cuad, V_\diam, E ), E^l )$, como el juego de grafo de
+2 jugadores justo donde
 \begin{alignat*}{2}
-	&\tilde V &&= \newV \\
-	&V &&= \St \cup \tilde V \\
-	&V_\cuad &&= \St_\cuad \\
-	&V_\diam &&= \St_\diam \cup \tilde V \\
-	&E &&= \{(s, v_{V}) : V \in \Vs\} \cup E^l\\
-	&E^l &&= \{(v_{V}, s') : s' \in V\}
+	&\tilde V &&= \{v_{V'} \mid \exists s \in \St \text{ tal que } V' \in V_s\}, \\
+	&V &&= \St \cup \tilde V, \\
+	&V_\cuad &&= \St_\cuad, \\
+	&V_\diam &&= \St_\diam \cup \tilde V, \\
+	&E &&= \{(s, v_{V}) \mid V \in \Vs\} \cup E^l,\\
+	&E^l &&= \{(v_{V}, s') \mid s' \in V\},
 \end{alignat*}
-
 y para el cual se cumple la siguiente condición de equidad: $$ \varphi^l :=
 	\bigwedge_{(v_{V'},s') \in E^l} (\siempevent v_{V'} \rightarrow \siempevent
 	(v_{V'} \wedge \bigcirc s' )) $$
@@ -133,9 +143,8 @@ Esta misma condición de equidad se puede expresar como
 \begin{center}
 	$ \varphi^l : = \bigwedge_{v_V \in \tilde V} \varphi^V $, donde
 
-	$ \varphi^V := \bigwedge_{s' \in V} (\siempevent v_{V'} \rightarrow \siempevent (v_{V'} \wedge \bigcirc s' ))$
+	$ \varphi^V := \bigwedge_{s' \in V} (\siempevent v_{V'} \rightarrow \siempevent (v_{V'} \wedge \bigcirc s' ))$.
 \end{center}
-
 \subsection*{Roborta vs Rigoborto desrandomizado}
 
 Con lo definido en la subsección anterior podemos ver cómo quedaría el PSG que
@@ -247,15 +256,11 @@ Figura~\ref{fig:desrand}.
 	\caption{Desrandomización del PSG de Roborta y Rigoborto.}
 	\label{fig:desrand}
 \end{figure}
-
 \subsection*{Relación entre un PSG y su desrandomización}
 
 Nos será útil formalizar algunas cuestiones sobre los distintos juegos para la
 prueba que tenemos más adelante, así que veremos algunas definiciones. Antes,
-fijemos la interpretación de un juego estocástico politópico $\Gk$ y su
-desrandomización $\DGk$.
-
-\vspace{2cm}
+fijemos la interpretación de un PSG $\Gk$ y su desrandomización $\DGk$.
 
 % \textbf{Relación de orden entre caminos en un PSG}
 % \label{ordenCaminos}
@@ -343,7 +348,7 @@ nueva medida de probabilidad definida por
 %
 \begin{align*}
 	\Prob^{\strat_{\maxplay},\strat_{\minplay}}_{\StochGK,s}(\Cyl(s_0,V_0,s_1,V_1,s_2,\ldots,s_n)) = {} \hspace{-8em} & \\
-	& \Prob^{\strat_{\maxplay},\strat_{\minplay}}_{\StochGK,s}(\Cyl(\{s_0\}\times\alpha_{s_0}(V_0)\times\{s_1\}\times\alpha_{s_1}(V_1)\times\{s_2\}\times\cdots\times\{s_n\}))
+	& \Prob^{\strat_{\maxplay},\strat_{\minplay}}_{\StochGK,s}(\Cyl(\{s_0\}\times\alpha_{s_0}(V_0)\times\{s_1\}\times\alpha_{s_1}(V_1)\times\{s_2\}\times\cdots\times\{s_n\})).
 \end{align*}
 %
 
@@ -352,12 +357,11 @@ abtractos en $\Gk$ y caminos en $\DGk$. Si tenemos un camino abstracto $(s_0,
 	V_0, s_1, V_1, \dots)$ su camino equivalente en $\DGk$ será el camino $(s_0,
 	v_{V_0}, s_1, v_{V_1}, \dots)$.
 
-\textbf{Condición de equidad en el juego estocástico politópico}
+\textbf{Condición de equidad en el PSG}
 
 Al haber una relación directa entre caminos abstractos y caminos en la
 desrandomización, podemos expresar la condición de equidad representativa del
-juego justo en el juego estocástico politópico fácilmente usando notación LTL
-sorbe caminos abstractos.
+juego justo en el PSG fácilmente usando notación LTL sobre caminos abstractos.
 
 Si denotamos $\VGk$ al conjunto finito de todos los conjuntos soporte de
 medidas de probabilidad de las acciones en $\Gk$, tenemos que:
@@ -368,7 +372,7 @@ medidas de probabilidad de las acciones en $\Gk$, tenemos que:
 	$, con
 
 	$
-		\hat \varphi^{V'} := \bigwedge_{s' \in V'} (\siempevent V' \rightarrow \siempevent (V' \wedge \bigcirc s' ))
+		\hat \varphi^{V'} := \bigwedge_{s' \in V'} (\siempevent V' \rightarrow \siempevent (V' \wedge \bigcirc s' )).
 	$
 \end{center}
 
@@ -500,7 +504,7 @@ medidas de probabilidad de las acciones en $\Gk$, tenemos que:
 
 \begin{theorem}
 	\label{teocuali}
-	Sea $\Gk = (\St, (\St_\cuad, \St_\diam), \Act, \theta)$ la interpretación de un juego estocástico politópico, $R = \{(E_1, F_1), \dots, (E_d, F_d)\}$ una condición de Rabin sobre $\St$, con su especificación LTL $\varphi$,
+	Sea $\Gk = (\St, (\St_\cuad, \St_\diam), \Act, \theta)$ la interpretación de un PSG, \\ $R = \{(E_1, F_1), \dots, (E_d, F_d)\}$ una condición de Rabin sobre $\St$, con su especificación LTL
 
 	$$
 		\varphi := \bigvee_{j \in [1, k]} \left( \eventsiemp \overline{E_j} \wedge \eventsiemp F_j \right)
@@ -530,8 +534,9 @@ medidas de probabilidad de las acciones en $\Gk$, tenemos que:
 	$\picuadGk$ tal que:
 	\begin{equation}
 		\label{pisirve}
-		\inf_{\pidiam \in \Pidiam} \Prob_{\Gk,s}^{\picuadGk, \pidiam}(\varphi) = 1
+		\inf_{\pidiam \in \Pidiam} \Prob_{\Gk,s}^{\picuadGk, \pidiam}(\varphi) = 1. \quad \footnotemark
 	\end{equation}
+	\footnotetext{Usaremos fórmulas LTL para referirnos al conjunto de caminos que hacen verdadera la fórmula.}
 
 	Definiremos a $\picuadGk$ a partir de $\sigma_\cuad^*$. Sea $s \in \St_\cuad$.
 	Si $\sigma_\cuad^*(s_0, v_{V_0}, s_1, \alpha_1, \dots, s_k) = v_{V_k}$,
@@ -550,35 +555,31 @@ medidas de probabilidad de las acciones en $\Gk$, tenemos que:
 	equivalente a pedir que valga la siguiente fórmula LTL sobre caminos
 	abstractos:
 
-	$\hat \varphi^l = \bigwedge_{V' \in \VGk} \bigwedge_{s' \in V'} \left( \siempevent V' \rightarrow \siempevent (V' \wedge \bigcirc s') \right).$
+	$$\hat \varphi^l = \bigwedge_{V' \in \VGk} \bigwedge_{s' \in V'} \left( \siempevent V' \rightarrow \siempevent (V' \wedge \bigcirc s') \right).$$
 
-	Entonces, en principio, tenemos que:
+	Entonces, en principio, tenemos que
 
-	$\inf_{\pidiam \in \Pidiam} \Prob^{\picuadGk, \pidiam}_{\Gk, s} (\hat \varphi^l \rightarrow \varphi) = 1.$
+	$$\inf_{\pidiam \in \Pidiam} \Prob^{\picuadGk, \pidiam}_{\Gk, s} (\hat \varphi^l \rightarrow \varphi) = 1.$$
 
 	Esto significa que si podemos probar que la probabilidad de que no valga $\hat
 		\varphi^l$ es 0, habremos probado que la probabilidad de que valga $\varphi$ es
-	1.Esto es consecuencia del siguiente cálculo:
-
+	1. Esto es consecuencia del siguiente cálculo:
 	\begin{align*}
 		&\Prob_{\Gk,s}^{\picuadGk, \pidiam}(\hat{\varphi}^l \rightarrow \varphi) = \Prob_{\Gk,s}^{\picuadGk, \pidiam}(\neg \hat{\varphi}^l \vee \varphi) \leq \\
 		&\Prob_{\Gk,s}^{\picuadGk, \pidiam}(\neg \hat{\varphi}^l) + \Prob_{\Gk,s}^{\picuadGk, \pidiam}(\varphi) = 0 + \Prob_{\Gk,s}^{\picuadGk, \pidiam}(\varphi) = \\
-		&\Prob_{\Gk,s}^{\picuadGk, \pidiam}(\varphi)
+		&\Prob_{\Gk,s}^{\picuadGk, \pidiam}(\varphi).
 	\end{align*}
-
 	Por eso, en lo que resta de la prueba de esta contención nos concentraremos en
 	probar que $\Prob_{\Gk,s}^{\picuadGk, \pidiam}(\neg \hat{\varphi}^l) = 0$.
 	Veamos:
-
 	\begin{align*}
 		&\Prob_{\Gk, s}^{\picuadGk, \pidiam}(\neg \hat{\varphi}^l) = \\
 		&\Prob_{\Gk, s}^{\picuadGk, \pidiam}\left(\neg \left( \bigwedge_{V' \in \VGk} \bigwedge_{s' \in V'} \left( \siempevent V' \rightarrow \siempevent (V' \wedge \bigcirc s' ) \right)\right)\right) = \\
 		&\Prob_{\Gk, s}^{\picuadGk, \pidiam}\left(\left( \bigvee_{V' \in \VGk} \left( \neg \bigwedge_{s' \in V'} \left( \siempevent V' \rightarrow \siempevent (V' \wedge \bigcirc s' ) \right)\right)\right)\right) = \\
 		&\Prob_{\Gk, s}^{\picuadGk, \pidiam} \left(\bigvee_{V' \in \VGk} \bigvee_{s' \in V'} \neg \left( \siempevent V' \rightarrow \siempevent (V' \wedge \bigcirc s' ) \right)\right) = \\
 		&\Prob_{\Gk, s}^{\picuadGk, \pidiam} \left(\bigvee_{V' \in \VGk} \bigvee_{s' \in V'} \left( \siempevent V' \wedge \eventsiemp \neg (V' \wedge \bigcirc s' ) \right)\right) \leq \\
-		&\sum_{V' \in \VGk} \sum_{s' \in V'} \Prob_{\Gk, s}^{\picuadGk, \pidiam} \left( \siempevent V' \wedge \eventsiemp \neg (V' \wedge \bigcirc s' ) \right)
+		&\sum_{V' \in \VGk} \sum_{s' \in V'} \Prob_{\Gk, s}^{\picuadGk, \pidiam} \left( \siempevent V' \wedge \eventsiemp \neg (V' \wedge \bigcirc s' ) \right).
 	\end{align*}
-
 	Para probar que esta sumatoria da 0, veremos que cada uno de los sumandos es
 	igual a $0$. Para eso, consideremos un $V' \in \VGk$ arbitrario y también un
 	$s' \in V'$ arbitrario.
@@ -636,11 +637,11 @@ medidas de probabilidad de las acciones en $\Gk$, tenemos que:
 	$\sigma_\cuad^*$ tal que $\cuad$ gana con ella desde $s$ en $\DGk$.
 
 	Definimos a $\sigma_\cuad^*$ como la estrategia que para cada prefijo de camino
-	finito $\hat \rho = (s_0, v_{V_0}, s_1, v_{V_1}, \dots, s_n)$ con $s_n \in
-		\St_\cuad$, asigna como próximo vértice un a un vértice $v_V'$ que se
-	corresponde con un $V' \in \VGk$ tal que $\Prob^{\picuad^*, \pidiam}_{\Gk,
+	finito \\ $\hat \rho = (s_0, v_{V_0}, s_1, v_{V_1}, \dots, s_n)$ con $s_n \in
+		\St_\cuad$, asigna como próximo vértice a un vértice $v_{V'}$ que se
+	corresponde con un $V' \in \VGk$ tal que $$\Prob^{\picuad^*, \pidiam}_{\Gk,
 		s}(\Cyl(\{s_0\} \times \{V_0\} \times \{s_1\} \times \dots \times \{s_n\}
-		\times \{V'\} \times \St)) > 0$.
+		\times \{V'\} \times \St)) > 0.$$
 
 	Lo que haremos para ver que esta estrategia es ganadora es probar que para un
 	camino cualquiera $\rho$ generado por $\sigma_\cuad^*$ y alguna estrategia
@@ -649,7 +650,7 @@ medidas de probabilidad de las acciones en $\Gk$, tenemos que:
 
 	\begin{equation}
 		\label{varphi'}
-		\varphi' := \bigvee_{j = 1}^{d} \left((\Inf_C(\rho) \cap E_j = \emptyset) \wedge (\Inf_C(\rho) \cap F_j \neq \emptyset)  \right)
+		\varphi' := \bigvee_{j = 1}^{d} \left((\Inf_C(\rho) \cap E_j = \emptyset) \wedge (\Inf_C(\rho) \cap F_j \neq \emptyset)  \right).
 	\end{equation}
 
 	Para lograr esto, nos valdremos del Corolario~\ref{adaptB30}.
@@ -682,7 +683,7 @@ medidas de probabilidad de las acciones en $\Gk$, tenemos que:
 		\item El grafo $(\Inf_C(\rho) \cup \{v_{V'} | \exists s \in C : V' \in
 			      \Inf_D(\rho)(s)\}, \rho_{(\Inf_C(\rho), \Inf_D(\rho))})$ es trivialmente
 		      conexo, pues cualesquiera par de vértices $u$, $v$ pueden ser conectados con el
-		      camino $\rho$ dado que ambos aparecer infintas veces en él.
+		      camino $\rho$ dado que ambos aparecen infintas veces en él.
 	\end{itemize}
 
 	Ahora veamos que esta componente final es alcanzable en $\M^*$. Esto lo haremos
@@ -789,17 +790,17 @@ propiedades sobre sistemas de transición finitos mediante operadores de punto
 fijo. Formalmente, las fórmulas del $\mu$-cálculo se definen inductivamente
 como sigue:
 \[
-	\varphi ::= p \mid X \mid \varphi \cup \varphi \mid \varphi \cap \varphi \mid \text{pre}(\varphi) \mid \mu X.\varphi \mid \nu X.\varphi
+	\varphi ::= p \mid X \mid \varphi \cup \varphi \mid \varphi \cap \varphi \mid \textsf{pre}(\varphi) \mid \mu X.\varphi \mid \nu X.\varphi
 \]
 donde \( p \) denota un conjunto de vértices (una proposición atómica), \( X \)
-es una variable, \(\text{pre}\) representa un operador monotónico sobre
+es una variable, \(\textsf{pre}\) representa un operador monotónico sobre
 conjuntos que variará en el cojunto de los transformadores que presentaremos a
 continuación ($\{\Pre_\cuad^\exists, \Pre_\diam^\forall, \Cpre, \Lpre^\exists,
 	\Apre\}$), y \( \mu X.\varphi \) (resp. \( \nu X.\varphi \)) representa el
 menor (resp. mayor) punto fijo de la función definida por \( \varphi \)
 respecto de la variable \( X \).
 
-Dado la desrandomización de un PSG, y dos conjuntos de vértices en él, \( S, T
+Dada la desrandomización de un PSG y dos conjuntos de vértices en él, \( S, T
 \subseteq V \), se definen los siguientes operadores: % relacionarlo con lo de que quede de set transformers en el parrafo de mu calculo
 
 \begin{itemize}
@@ -832,25 +833,21 @@ Dado la desrandomización de un PSG, y dos conjuntos de vértices en él, \( S, 
 Este último operador identifica los vértices desde los cuales el jugador \(
 \square \) puede garantizar la llegada a \( T \) sin abandonar \( S \), ya sea
 directamente mediante \( \Cpre \), o confiando en la equidad del adversario
-para transitar, desde un vértice live, hacia \( T \), manteniéndose mientras
-tanto dentro de \( S \).
+para transitar, desde un vértice en $\tilde V$, hacia \( T \), manteniéndose
+mientras tanto dentro de \( S \).
 
 Entonces, ahora estamos en condiciones de presentar el algoritmo. Dado un
 objetivo de Rabin especificado por un conjunto de pares $R = \{(E_1, F_1),
-	\dots, (E_d, F_d)\}$, con conjunto de índices $P = [1;d]$, el conjunto de
+	\dots, (E_d, F_d)\}$, con conjunto de índices $P = [1..d]$, el conjunto de
 vértices ganadores se obtiene como el siguiente punto fijo expresado en
 $\mu$-cálculo:
-
 \[
 	Z^* = \nu Y_{p_0}.\, \mu X_{p_0}.\, \bigcup_{p_1 \in P}\, \nu Y_{p_1}.\, \mu X_{p_1}.\, \bigcup_{p_2 \in P_{\setminus 1}}\, \nu Y_{p_2}.\, \mu X_{p_2} .\, \cdots\, \bigcup_{p_d \in P_{\setminus d-1}} \nu Y_{p_d}.\, \mu X_{p_d}.\, \left[ \bigcup_{j=0}^d\, C_{p_j} \right],
 \]
-
 donde:
-
 \[
 	C_{p_j} := \left( \bigcap_{i=0}^j \overline{E}_{p_i} \right) \cap \left[ (F_{p_j} \cap \Cpre(Y_{p_j})) \cup (\Apre(Y_{p_j}, X_{p_j})) \right]
 \]
-
 \hspace{-0.63cm}con $p_0 = 0$, \( E_{p_0} := \emptyset \), $F_{p_0} := \emptyset$ y
 $P_{\setminus i} = P \setminus \{p_1, \dots, p_i\}$.
 
@@ -865,13 +862,14 @@ se quedan en $Q_{p_j} := \bigcap_{i=0}^{j} \overline{E}_{p_i}$ a la vez que
 siempre vuelven a $F_{p_j}$. Dada la condición ganadora local más simple $\psi
 	:= \diam Q \wedge \siempevent F$ para dos conjuntos de estados $Q$ y $F$,
 sabemos que el conjunto $\nu Y .\ \mu X.Q \cap [(F \cap \Cpre(Y) \cup
-		(\Cpre(X)))]$ define exactamente a los estados ganadores para el jugados
+		(\Cpre(X)))]$ define exactamente a los estados ganadores para el jugador
 $\cuad$ en un juego de grafo de dos jugadores tradicional con objetivo $\psi$
-\cite{MalerSynthesis}. El operador $\Apre$ lo que hace es adaptar este cómputo
-para los juegos con adversario justo. Con lo que se puede entender que cada
-término $C_{p_j}$ resuelve el problema local de quedarse en $Q_{p_j}$ y volver
-siempre eventualmente a $F_{p_j}$, y los sucesivos puntos fijos máximos y
-mínimos permiten reflejar la semántica de los objetivos de Rabin.
+como se puede ver en \cite{MalerSynthesis}. El operador $\Apre$ lo que hace es
+adaptar este cómputo para los juegos con adversario justo. Con lo que se puede
+entender que cada término $C_{p_j}$ resuelve el problema local de quedarse en
+$Q_{p_j}$ y volver siempre eventualmente a $F_{p_j}$, y los sucesivos puntos
+fijos máximos y mínimos permiten reflejar la semántica de los objetivos de
+Rabin.
 
 % la idea va a ser intentar dar un poco una intuicion pero mandar a leer pieterman pnuelli y banerjee para entender por que funciona esto
 % intuicion podria ser minimizador y maximidzador C y esa idea capaz de acumulacion del obj de rabin ?) no se

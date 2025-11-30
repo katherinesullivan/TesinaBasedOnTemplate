@@ -1,13 +1,13 @@
 \section{Procesos de Decisión de Markov Politópicos - PMDPs}
 \label{sec:pmdp}
 
-Llamaremos proceso de decisión de Markov politópico y lo indicaremos con las
-siglas PMDP a un PSG donde $\St_\cuad = \emptyset$ o $\St_\diam = \emptyset$.
-Al igual que en el caso de PSGs, haremos el estudio de PMDP sobre la
-interpretación de los mismos que formalizamos de la siguiente manera:
+Llamaremos proceso de decisión de Markov politópico a un PSG donde $\St_\cuad =
+	\emptyset$ o $\St_\diam = \emptyset$. Al igual que en el caso de PSGs, haremos
+el estudio de PMDP sobre la interpretación de los mismos que formalizamos de la
+siguiente manera:
 
 \begin{definition}
-	La interpretación de un \textit{proceso de decisión de Markov politópico} (PMDP por sus siglas en inglés) es una tupla $\M = (\St, Act, \theta')$ donde $S$ es un conjunto finito de estados, $Act$ es un conjunto de pares (politopo, distribución) y $\theta': \St \times Act \times \St \rightarrow [0, 1]$ es la función de transición entre estados definida como en la Definición~\ref{def:interpret}.
+	La interpretación de un \textit{proceso de decisión de Markov politópico} (PMDP por sus siglas en inglés) es una tupla $\M = (\St, Act, \theta')$ donde $S$ es un conjunto finito de estados, $Act$ es un conjunto de pares (politopo, distribución) y \\ $\theta': \St \times Act \times \St \rightarrow [0, 1]$ es la función de transición entre estados definida como en la Definición~\ref{def:interpret}.
 \end{definition}
 
 Entonces, los PMDPs puden ser interpretados como MDPs en donde el número de
@@ -30,7 +30,7 @@ finales que se suelen encontrar en la literatura de procesos de decisión de
 Markov \cite{AlfaroThesis,BaierKatoen}.
 
 \begin{definition}[Conjuntos estado-resultado y sub-PMDPs]
-	Sea $\M$ un PMDP $\M = (S, Act, \theta')$ y dado un estado $s$, sea $\Vs = \{\supp(a) | a \in \Act(s)\}$ el conjunto formado por los conjuntos soporte de las acciones salientes de él. Un conjunto estado-resultado es un subconjunto $\chi \subseteq \{(s, V') \mid s \in S \wedge V' \in \Vs\}$, mientras que un sub-PMDP es un par $(C, D)$, donde $C \subseteq S$ y $D$ es una función que asocia a cada $s \in C$ un conjunto $D(s) \subseteq \Vs$ de subconjuntos de estados próximos posibles. Hay una relación uno-a-uno entre sub-PMDPs y conjuntos de estado-acción:
+	Sea $\M=(S, Act, \theta')$ un PMDP y dado un estado $s$, sea $\Vs = \{\supp(\mu) | (K, \mu) \in \Act(s)\}$ el conjunto formado por los conjuntos soporte de las acciones salientes de él. Un conjunto estado-resultado es un subconjunto $\chi \subseteq \{(s, V') \mid s \in S \wedge V' \in \Vs\}$, mientras que un sub-PMDP es un par $(C, D)$, donde $C \subseteq S$ y $D: C \rightarrow \mathscr{P}(\mathscr{P}(S))$ es una función que asocia a cada $s \in C$ un conjunto $D(s) \subseteq \Vs$ de subconjuntos de estados próximos posibles. Hay una relación uno-a-uno entre sub-PMDPs y conjuntos de estado-acción:
 
 	\begin{itemize}
 		\item dado un conjunto estado-resultado $\chi$, denotamos $\sub(\chi) = (C, D)$ al
@@ -39,8 +39,8 @@ Markov \cite{AlfaroThesis,BaierKatoen}.
 			      C = \{s \mid \exists V' . (s, V') \in \chi\} \quad D(s) = \{V' \mid (s, V') \in \chi\}
 		      \]
 
-		\item dado un sub-PMDP $(C, D)$, denotamos por $\er(C,D) = \{(s,V') \mid s \in C
-			      \wedge V' \in D(s)\}$ al conjunto estado-resultado correspondiente a $(C, D)$.
+		\item dado un sub-PMDP $(C, D)$, denotamos por $$\er(C,D) = \{(s,V') \mid s \in C
+			      \wedge V' \in D(s)\}$$ al conjunto estado-resultado correspondiente a $(C, D)$.
 	\end{itemize}
 \end{definition}
 
@@ -54,7 +54,7 @@ conjunto resultado sea $V'$. La definición formal es como sigue:
 \begin{definition}[Relación de aristas $\rho$]
 	Para un sub-PMDP, definimos la relación $\rho_{(C,D)}$ como
 	\[
-		\rho_{(C,D)} = \{(s, v_{V'}) \mid \exists V' \in D(s)\} \cup \{(v_{V'}, t) \mid t \in V' \}
+		\rho_{(C,D)} = \{(s, v_{V'}) \mid \exists V' \in D(s)\} \cup \{(v_{V'}, t) \mid t \in V' \}.
 	\]
 \end{definition}
 
@@ -62,7 +62,7 @@ conjunto resultado sea $V'$. La definición formal es como sigue:
 	Un sub-PMDP $(C, D)$ es una componente final si:
 
 	\begin{itemize}
-		\item $V' \subseteq C$ para todo $V'$ tal que existe un $s \in C$ donde $V' \in D(s)$
+		\item $V' \subseteq C$ para todo $V'$ tal que existe un $s \in C$ donde $V' \in D(s)$.
 
 		\item el grafo $(C \cup \{v_{V'} \mid \exists s \in C : V' \in D(s)\}, \rho_{(C,D)})$
 		      es fuertemente conexo.
@@ -89,11 +89,11 @@ de estados-resultados que ocurren infinitamente a menudo en un camino dado. %y u
 	al conjunto de pares estado-resultado que ocurren infinitas veces en él.
 \end{definition}
 
-Ahora sí, podemos pasar a presentar las primeras demostraciones:
+Ahora sí, podemos pasar a presentar las primeras demostraciones.
 
 \begin{theorem}[Estabilidad de componentes finales]
 	\label{teoEstabilidadEC}
-	Sea $(C, D)$ una componente final. Entonces, para cada estrategia $\pi$ existe una estrategia $\pi'$, que difiere de $\pi$ solo en $C$, tal que:
+	Sea $(C, D)$ una componente final. Entonces, para cada estrategia $\pi$ existe una estrategia $\pi'$, que difiere de $\pi$ solo en $C$, tal que
 	\begin{equation} \label{estabEC}
 		\Prob^\pi_s(\diam C) = \Prob^{\pi'}_s(\diam C) = \Prob^{\pi'}_s(\{ \omega \in \Paths_s | \inft(\omega) = \er(C,D)\})
 	\end{equation}
@@ -113,13 +113,13 @@ Ahora sí, podemos pasar a presentar las primeras demostraciones:
 			      \pi'(s_0 \dots s_n)(K, \mu) =
 			      \begin{cases}
 				      \frac{1}{\abs{D(s_n)}} \quad \text{si } (K', \mu') = (K, \mu)_{V'} \text{ para algún } V' \in D(s_n); \\
-				      0 \qquad \quad \text{en otro caso}
+				      0 \qquad \quad \text{en otro caso}.
 			      \end{cases}
 		      \]
 
 		\item Si $s_n \notin C$, la estrategia $\pi'$ coincide con $\pi$, i.e.
 		      \[
-			      \pi(s_0 \dots s_n)(K, \mu) = \pi'(s_0\dots s_n)(K, \mu) \quad \forall (K, \mu) \in \Act
+			      \pi(s_0 \dots s_n)(K, \mu) = \pi'(s_0\dots s_n)(K, \mu) \quad \forall (K, \mu) \in \Act.
 		      \]
 
 		      %debería ser \pi(s_0 \dots s_n)
@@ -167,7 +167,7 @@ componente final. Esta es la razón detrás del nombre ``componente final".
 
 \begin{theorem}[teorema fundamental de las componentes finales] \label{teoFundEC}
 	Sea $\M$ un PMDP. Para todo $s \in S$, toda estrategia $\pi$ de memoria finita,
-	$$\Prob^\pi_{\M, s}(\{ \omega \in \Paths(s) \mid \sub(\inft(\omega)) \text{ es una componente final}\}) = 1$$
+	$$\Prob^\pi_{\M, s}(\{ \omega \in \Paths_s \mid \sub(\inft(\omega)) \text{ es una componente final}\}) = 1$$
 \end{theorem}
 
 \begin{proof}
@@ -176,10 +176,10 @@ componente final. Esta es la razón detrás del nombre ``componente final".
 
 	Si podemos mostrar que
 	\begin{equation}\label{omegaEnOmega0}
-		\Prob^\pi_{\M, s}(\{ \omega \in \Paths(s) \mid \omega \in \Paths_s^{(C,D)}\}) = 0,
+		\Prob^\pi_{\M, s}(\{ \omega \in \Paths_s \mid \omega \in \Paths_s^{(C,D)}\}) = 0,
 	\end{equation}
 	como $(C,D)$ es un sub-PMDP cualquiera y como hay una cantidad finita de sub-PMDPs en $\M$, esto es lo mismo que mostrar que
-	$$\Prob^\pi_{\M, s}(\{ \omega \in \Paths(s) \mid \sub(\inft(\omega)) \text{ es una componente final}\}) = 1.$$
+	$$\Prob^\pi_{\M, s}(\{ \omega \in \Paths_s \mid \sub(\inft(\omega)) \text{ es una componente final}\}) = 1.$$
 	Veamos que vale \ref{omegaEnOmega0}, dividiendo en casos según cuál es la
 	condición de la definición \ref{defEC} que no se cumple para $(C,D)$:
 
@@ -206,8 +206,8 @@ componente final. Esta es la razón detrás del nombre ``componente final".
 		      Para que valga que $\omega$ esté en $\Paths_s^{(C,D)}$ tiene que valer que en
 		      infinitos momentos $i$ nos quedemos en $C$. Entonces que vale que $\Prob_s^\pi
 			      (\omega \in \Paths_s^{(C,D)}) < r^k$ para todo $k > 0$ natural. Como sabemos
-		      que $r < 1$, tenemos que $\Prob^\pi_{\M, s}(\{ \omega \in \Paths(s) \mid \omega
-			      \in \Paths_s^{(C,D)}\}) = 0$.
+		      que $r < 1$, tenemos que $$\Prob^\pi_{\M, s}(\{ \omega \in \Paths_s \mid \omega
+			      \in \Paths_s^{(C,D)}\}) = 0.$$
 
 		      %Es decir para un subconjunto infinito $J \subseteq I$, vale que: $$\Prob_{s}^{\pi}(\omega \in \Omega_s^{(C,D)}) \leq \prod_{i \in J} r_i$$
 
@@ -244,7 +244,7 @@ componente final. Esta es la razón detrás del nombre ``componente final".
 			            infinita de $V_j$ iguales, con lo que $V_j \in D(j)$, lo que contradice la
 			            hipótesis anterior. Absurdo
 		      \end{enumerate}
-		      Con lo que arribamos a que $\Prob^\pi_{\M, s}(\{ \omega \in \Paths(s) \mid \omega \in \Paths_s^{(C,D)}\}) = 0  $
+		      Con lo que arribamos a que $\Prob^\pi_{\M, s}(\{ \omega \in \Paths(s) \mid \omega \in \Paths_s^{(C,D)}\}) = 0$.
 	\end{itemize}
 
 \end{proof}
@@ -254,7 +254,7 @@ de decisión de Markov para el análisis de condiciones de Rabin.
 
 \begin{corollary}
 	\label{adaptB30}
-	Sea $\M$ un PMDP, $s$ un estado en él y sea $\pi$ una estrategia de memoria finita en él. Una condición de Rabin $R = \{ (E_1, F_1), \dots, (E_d, F_d)\}$ se satisface desde $s$, siguiendo la estrategia $\pi$ con probabilidad 1 si y solo si para cada componente final $U$ alcanzable desde $s$, existe un $j \in \{ 1, \dots, d\}$ tal que $U \cap E_j = \emptyset$ y $U \cap F_j \neq \emptyset$.
+	Sea $\M$ un PMDP, $s$ un estado en él y sea $\pi$ una estrategia de memoria finita en él. Una condición de Rabin $R = \{ (E_1, F_1), \dots, (E_d, F_d)\}$ se satisface desde $s$, siguiendo la estrategia $\pi$ con probabilidad 1 si y solo si para cada componente final $(C,D)$ alcanzable desde $s$, existe un $j \in \{ 1, \dots, d\}$ tal que $C \cap E_j = \emptyset$ y $C \cap F_j \neq \emptyset$.
 \end{corollary}
 
 \subsection*{Nota sobre la limitación a estrategias finitas del Teorema~\ref{teoFundEC}}
@@ -293,20 +293,16 @@ acciones $\mu$ de la forma $\mu(s) = \frac{1}{k^2}$, $\mu(t) = 1 -
 	\frac{1}{k^2}$, por lo que se puede definir una estrategia de memoria infinita
 $\pi$ a partir de la cantidad de $t$ que se encuentran en el camino de la
 siguiente manera:
-
 \begin{align*}
 	&\pi(\omega t)(s) = \frac{1}{(\#_t(\omega))^2} \\
 	&\pi(\omega t)(t) = 1- \frac{1}{(\#_t(\omega))^2}
 \end{align*}
-
 donde $\#_t$ se define inductivamente sobre caminos de la siguiente manera:
-
 \begin{align*}
 	&\#_t(\varepsilon) = 0 \\
 	&\#_t(\omega \alpha t) = \#_t(\omega) + 1 \\
 	&\#_t(\omega \alpha s) = \#_t(\omega)
 \end{align*}
-
 siendo $\omega$ un prefijo de camino, $\alpha$ una acción, $\varepsilon$ el
 camino vacío y $s$ y $t$ estados diferentes.
 

@@ -38,14 +38,12 @@ $\mathbb{R}^{|S|}$, generalmente nos referiremos a politopos en $\mathbb{R}^S$.
 
 Sea \( \Poly(S) \) el conjunto de todos los politopos convexos en \(
 \mathbb{R}^S \). Nótese que el conjunto de todas las funciones de probabilidad
-en \( S \) forma el politopo convexo
-
-\( \Dist(S) = \{ \mu \in \mathbb{R}^S \mid \sum_{s \in S} \mu(s) = 1 \text{ y } \forall s \in S : \mu(s) \geq 0 \} \)
-
+en \( S \) forma el politopo convexo $$ \Dist(S) = \{ \mu \in \mathbb{R}^S \mid
+	\sum_{s \in S} \mu(s) = 1 \text{ y } \forall s \in S : \mu(s) \geq 0 \}. $$
 Definimos \( \DPoly(S) = \{ K \cap \Dist(S) \mid K \in \Poly(S) \} \). Cada \(
 K \in \DPoly(S) \) es un politopo convexo cuyos elementos son también funciones
 de probabilidad sobre \( S \), y su conjunto de desigualdades característico \(
-Ax \leq b \) ya codifica las desigualdades \( \sum_{s \in S} x_s = 1 \) y \(
+Ax \leq b \) ya codifica las desigualdades \\ \( \sum_{s \in S} x_s = 1 \) y \(
 x_s \geq 0 \) para todo \( s \in S \).
 
 Cualquier politopo convexo \( K \in \Poly(S) \) puede caracterizarse
@@ -141,14 +139,14 @@ los estados. La definición formal es como sigue:
 	Un juego estocástico politópico (abreviado PSG, por sus siglas en inglés) es una estructura \( \K = (\St, (\St_\square, \St_\diamondsuit), \Theta) \) tal que \( \St \) es un conjunto finito de estados particionado en $\St_\cuad$ y $\St_\diam$, (es decir, \( \St = \St_\square \biguplus \St_\diamondsuit \)) y \( \Theta : \St \to \mathscr{P}_f(\textsf{DPoly}(\St)) \).
 \end{definition}
 
-Un juego estocástico politópico se diferencia de un juego estocástico
-tradicional por el hecho de que desde un estado \( s \in \St_i \) (para \( i
-\in \{ \square, \diamondsuit \} \)), el jugador \( i \) elige jugar un politopo
-\( K \in \Theta(s) \) y una distribución \( \mu \in K \), en vez de elegir
-directamente una acción de entre un conjunto finito. Al igual que en un juego
-estocástico, el siguiente estado \( s' \) se selecciona de acuerdo con la
-distribución \( \mu \) correspondiente a la acción seleccionada, y el juego
-continuará desde \( s' \) repitiendo el mismo proceso.
+Un PSG se diferencia de un juego estocástico tradicional por el hecho de que
+desde un estado \( s \in \St_i \) (para \( i \in \{ \square, \diamondsuit \}
+\)), el jugador \( i \) elige jugar un politopo \( K \in \Theta(s) \) y una
+distribución \( \mu \in K \), en vez de elegir directamente una acción de entre
+un conjunto finito. Al igual que en un juego estocástico, el siguiente estado
+\( s' \) se selecciona de acuerdo con la distribución \( \mu \) correspondiente
+a la acción seleccionada, y el juego continuará desde \( s' \) repitiendo el
+mismo proceso.
 
 Viendo esto, es natural pensar que el desarrollo de un juego estocástico
 politópico se puede interpretar en términos de un juego estocástico donde el
@@ -157,7 +155,7 @@ no numerable. Formalmente, la interpretación de un PSG es la siguiente:
 
 \begin{definition}[Interpretación de un PSG]
 	\label{def:interpret}
-	La interpretación del juego estocástico politópico \( \K \) se define por el juego estocástico \( \Gk = (\St, (\St_\square, \St_\diamondsuit), \Act, \theta) \), donde \( \Act = \bigcup_{s \in \St} \Theta(s) \times \textsf{Dist}(\St) \) y
+	La interpretación del PSG \( \K \) se define por el juego estocástico \( \Gk = (\St, (\St_\square, \St_\diamondsuit), \Act, \theta) \), donde \\ \(\Act = \bigcup_{s \in \St} \Theta(s) \times \textsf{Dist}(\St) \) y
 	\[
 		\theta(s, (K, \mu), s') =
 		\begin{cases}
@@ -174,18 +172,18 @@ elegido y la distribución seleccionada dentro del politopo. Por lo tanto,
 necesitamos extender las estrategias a este dominio no numerable, que debe
 estar dotado de una \( \sigma \)-álgebra adecuada.
 
-Para esto, utilizamos una construcción estándar \cite{Giry82} para darle a \(
-\textsf{Dist}(\St) \) una \( \sigma \)-álgebra: \( \Sigma_{\textsf{Dist}(\St)}
-\) se define como la \( \sigma \)-álgebra más pequeña que contiene los
-conjuntos \( \{\mu \in \textsf{Dist}(\St) \mid \mu(S) \geq p\} \) para todo \(
-S \subseteq \St \) y \( p \in [0, 1] \). Ahora, dotamos a \( \Act \) con la \(
+Para esto, daremos una construcción estándar para darle a \( \textsf{Dist}(\St)
+\) una \( \sigma \)-álgebra: \( \Sigma_{\textsf{Dist}(\St)} \) se define como
+la \( \sigma \)-álgebra más pequeña que contiene los conjuntos \\ \( \{\mu \in
+\textsf{Dist}(\St) \mid \mu(S) \geq p\} \) para todo \( S \subseteq \St \) y \(
+p \in [0, 1] \) (ver~\cite{Giry82}). Ahora, dotamos a \( \Act \) con la \(
 \sigma \)-álgebra producto \( \Sigma_\Act = \mathscr{P} \left(\bigcup_{s \in S}
 \Theta(s)\right) \otimes \Sigma_{\Dist(\St)} \), y llamamos \( \PMeas(\Act) \)
-al conjunto de todas las medidas de probabilidad sobre \( \Sigma_\Act \). No es
-difícil comprobar que cada conjunto de acciones habilitadas \( \Act(s) \) es
-medible (es decir, \( \Act(s) \in \Sigma_\Act \)) y que la función \( \theta(s,
-\cdot, s') \) es medible (es decir, \( \{a \in \Act \mid \theta(s, a, s') \leq
-p\} \in \Sigma_\Act \) para todo \( p \in [0, 1] \)).
+al conjunto de todas las medidas de probabilidad sobre \( \Sigma_\Act \). Cada
+conjunto de acciones habilitadas \( \Act(s) \) es medible (es decir, \( \Act(s)
+\in \Sigma_\Act \)) y la función \( \theta(s, \cdot, s') \) es medible (es
+decir, \( \{a \in \Act \mid \theta(s, a, s') \leq p\} \in \Sigma_\Act \) para
+todo \( p \in [0, 1] \)) (ver~\cite{Polytopal}).
 
 Ahora bien, para dar la medida de probabilidad $\Prob^{\picuad, \pidiam}$
 debemos primero presentar las nociones de camino y estrategia en un PSG.
@@ -197,7 +195,7 @@ difiere de la formulación original para caminos en PSGs hecha en
 asocian a ello para mantener la formalidad de los resultados.
 
 \begin{definition}[Camino en un PSG]
-	Un camino en un PSG es una secuencia infinita que alterna entre estados y acciones. Formalmente, un camino es un $\omega = (s_0, (K_0, \mu_0), s_1, (K_1, \mu_1), \dots)$ tal que $s_i \in \St$, $(K_i, \mu_i) \in \Act(s_i)$ y $\mu_i(s_{i+1}) > 0$ para todo $i \geq 0$.
+	Un camino en un PSG es una secuencia infinita que alterna entre estados y acciones. Formalmente, un camino es un $$\omega = (s_0, (K_0, \mu_0), s_1, (K_1, \mu_1), \dots)$$ tal que $s_i \in \St$, $(K_i, \mu_i) \in \Act(s_i)$ y $\mu_i(s_{i+1}) > 0$ para todo $i \geq 0$.
 
 	Al igual que para juegos estocásticos, denotaremos con $\Paths$ al conjunto de
 	todos los caminos de un PSG, con $\Pathsfin$ al conjunto de los prefijos de
@@ -225,18 +223,18 @@ asocian a ello para mantener la formalidad de los resultados.
 Entonces, ahora sí podemos extender el concepto de estrategia en un PSG:
 
 \begin{definition}[Estrategia en un PSG]
-	Una estrategia $\pi_i$ para el jugador $i$ ($i \in \{\cuad, \diam\}$) en un PSG será una función medible $\pi_i : \Pathsfin^i \rightarrow \PMeas(\Act)$ que asigna una medida de probabilidad a cada $\omega s$ tal que $\pi_i(\omega s)(\Act(s)) = 1$.
+	Una estrategia $\pi_i$ para el jugador $i$ \\ ($i \in \{\cuad, \diam\}$) en un PSG será una función medible $\pi_i : \Pathsfin^i \rightarrow \PMeas(\Act)$ que asigna una medida de probabilidad a cada $\omega s$ tal que $\pi_i(\omega s)(\Act(s)) = 1$.
 \end{definition}
 
 Los distintos tipos de estrategias que presentamos en el
-capítulo~\ref{cap:modelos} (puras, randomizadas, sin memoria y con memoria
+capítulo~\ref{cap:modelos} (puras, aleatorias, sin memoria y con memoria
 finita) se extienden naturalmente a las estrategias en PSGs, y los conjuntos de
 tipos de estrategias se denotarán de la misma manera en la que se presentaron
 para juegos estocásticos. A estos tipos de estrategias agregamos una particular
 de los juegos estocásticos politópicos: las estrategias extremas.
 
 \begin{definition}[Estrategia extrema en un PSG]
-	Una estrategia $\pi_i$ para el jugador $i$ ($i \in \{\cuad, \diam\}$) en un PSG se dirá \textbf{extrema} si para todo $\hat \omega \in \Pathsfin$, $\pi_i(\hat \omega s)\{(K, \mu) \in \Act(s)| \mu \in \mathbb{V}(K)\} = 1$. Es decir, diremos que una estrategia es extrema si solo asigna probabilidades positivas a distribuciones en los vértices del politopo.
+	Una estrategia $\pi_i$ para el jugador $i$ ($i \in \{\cuad, \diam\}$) en un PSG se dirá \textbf{extrema} si para todo $\hat \omega \in \Pathsfin$, $$\pi_i(\hat \omega s)\{(K, \mu) \in \Act(s)| \mu \in \mathbb{V}(K)\} = 1.$$ Es decir, diremos que una estrategia es extrema si solo asigna probabilidades positivas a distribuciones en los vértices del politopo.
 
 	Notaremos con $\Pi_i^X$ a la familia de estrategias extremas para el jugador
 	$i$ y podremos combinar esta notación con las presentadas para otras familias
@@ -264,12 +262,12 @@ inductivamente como sigue.
 Sea $S_i,S_{n-1}\in\powerset(\St)$,
 $\polys\in\powerset(\bigcup_{s\in\psgnodes}\psgtrans(s))$, y
 $\meass\in\PMeas(\psgnodes)$ para $0\leq i\leq n$ y sea $S_n^\maxplay =
-	S_n\cap\psgnmax$ y $S_n^\minplay = S_n\cap\psgnmin$.
+	S_n\cap\psgnmax$ y $S_n^\minplay = S_n\cap\psgnmin$. Definimos entonces:
 
 \vspace{-1cm}
 \begin{align*}
 	\makebox[.8em]{}
-	&\hspace{-.8em}\Prob^{\strat_{\maxplay},\strat_{\minplay},0}_{\StochGK,s}(S_0) =  \Dirac_{s}(S_0) \\[.5ex]
+	&\hspace{-.8em}\Prob^{\strat_{\maxplay},\strat_{\minplay},0}_{\StochGK,s}(S_0) =  \Dirac_{s}(S_0), \text{   y} \\[.5ex]
 	&\hspace{-.8em}\Prob^{\strat_{\maxplay},\strat_{\minplay},n+1}_{\StochGK,s}(S_0\times(\polys_0\times \meass_0)\times \cdots\times S_n\times(\polys_n\times\meass_n)\times S_{n+1}) = {} \\
 	%
 	&\int_{(S_0\times(\polys_0\times \meass_0)\times \cdots\times S_n^\maxplay}
@@ -281,7 +279,7 @@ $\meass\in\PMeas(\psgnodes)$ para $0\leq i\leq n$ y sea $S_n^\maxplay =
 	\left(
 	\int_{\polys_n\times\meass_n}\sgtrans(\last(\hat{\omega}),(K,\mu), S_{n+1})\ \diff\strat_\minplay(\hat{\omega})(K,\mu)
 	\right)
-	\diff\Prob^{\strat_{\maxplay},\strat_{\minplay},n}_{\StochGK,s}(\hat{\omega})
+	\diff\Prob^{\strat_{\maxplay},\strat_{\minplay},n}_{\StochGK,s}(\hat{\omega}).
 \end{align*}
 
 Sea $\Salg_\Paths$ la $\sigma$-álgebra producto usual sobre los caminos
@@ -327,12 +325,12 @@ derecha'' o ``bajar''), sino también una distribución de posibles resultados
 estocásticos de entre una cantidad continua de posibilidades, que pueden
 incluir desvíos normales o fallos críticos.
 
-La idea es que otra vez estamos en una grilla 2x2, con lo que los estados los
-podemos seguir representando de igual manera, lo que cambiará en este juego,
-con respecto al juego estocástico que planteamos para Roborta y Rigoborto, es
-que desde los estados en los que les toca elegir a robots que se encuentran en
-$(0,0)$ o $(1,1)$ tendremos una cantidad continua de opciones determinada por
-un politopo.
+La idea es que otra vez estamos en una grilla 2x2, con lo que podemos seguir
+representando a los estados de igual manera. Lo que cambiará en este juego, con
+respecto al juego estocástico que planteamos para Roborta y Rigoborto en la
+sección~\ref{sec:sg}, es que desde los estados en los que les toca elegir a
+robots que se encuentran en $(0,0)$ o $(1,1)$ tendremos una cantidad continua
+de opciones determinada por un politopo.
 
 Este politopo estará definido por tres variables que representan la
 probabilidad de que el comando se ejecute correctamente $p_1$, la probabilidad
@@ -341,7 +339,7 @@ opuesta, $p_2$, y la probabilidad de que el comando sufra un fallo crítico y el
 robot se dirija de manera opuesta a como fue propuesto por el comando (es
 decir, si eligió desde $(0,0)$ ir a la derecha, ir hacia abajo y viceversa, y
 si se eligió ir a la izquierda desde $(1,1)$ ir hacia arriba y viceversa),
-$p_3$. Estas tres variables repetarán algunas restricciones formando así el
+$p_3$. Estas tres variables respetarán algunas restricciones formando así el
 politopo $P$ de soluciones a las ecuaciones que mostramos a continuación.
 
 \[
@@ -357,7 +355,7 @@ politopo $P$ de soluciones a las ecuaciones que mostramos a continuación.
 
 Por otro lado, en los otros estados tendremos politopos pero que representan un
 punto en el espacio que definen $p_1$, $p_2$ y $p_3$, haciendo simplemente que
-$p_1 = 1$ y $p_2 = p_3 = 0$.
+$p_1 = 1$ y $p_2 = 0$ y $p_3 = 0$.
 
 Luego, con todo esto definido, podríamos ver cómo se adaptaría el fragmento de
 juego que estuvimos viendo para juegos estocásticos y deterministas, en donde
@@ -441,11 +439,11 @@ representación gráfica de esto.
 			\textcolor{orange}{$p_1 \geq 0$}
 		};
 	\end{tikzpicture}
-	\caption{Fragmento de juego estocástico politópico Roborta vs Rigoborto.}
+	\caption{Fragmento de PSG Roborta vs Rigoborto.}
 	\label{fig:psg}
 \end{figure}
 
-Resulta también interesante ver algún ejemplo de una estrategia extremas aquí.
+Resulta también interesante ver algún ejemplo de una estrategia extrema aquí.
 Estas son las que solo basan sus elecciones en acciones cuya distribución de
 probabilidad se corresponde con alguno de los vértices del politopo. Para eso,
 consideremos cuáles son los vértices para los politopos definidos. Estos serán
@@ -480,26 +478,26 @@ Entonces, con este objetivo, el jugador $\cuad$ gana si:
 \end{enumerate}
 
 Este ejemplo de objetivo resulta interesante porque combina condiciones de
-seguridad (evitar colisiones o estados indeseados) y condiciones de liveness
+seguridad (evitar colisiones o estados indeseados) y condiciones de vitalidad
 (garantizar que los robots regresen repetidamente a ciertas posiciones), lo que
 refleja requisitos típicos en sistemas multiagente y robótica y la expresividad
 de los objetivos de Rabin.
 
 Con esto visto, antes de proceder, creemos que es importante remarcar que el
-juego estocástico politópico que definimos es bastante simple para lo que
-podría ser. En primer lugar, solo en los estados en los que les toca elegir a
-robots que se encuentran en $(0,0)$ o $(1,1)$ tendremos una cantidad infinita
-de distribuciones de las cuales elegir, en el resto la elección de la acción
-determinará directamente un comportamiento certero. En segundo lugar, para los
-estados que tenemos una cantidad infinita de soluciones, estas solo se
-corresponden a un politopo (recordemos que según la definición que dimos, desde
-un estado podemos tener una cantidad finita de politopos desde los cuales
-elegir). Y, en tercer lugar, los politopos que presentamos no son
-particularmente complejos. Es valioso recordar que los politopos pueden tener
-mayor dimensión y las variables pueden estar más correlacionadas entre sí.
-Tomamos la decisión de simplificar lo más posible el ejemplo a fin de que quede
-una imagen clara y entendible de qué es un PSG antes de proceder con los
-teoremas mostrados en el paper.
+PSG que definimos es bastante simple para lo que podría ser. En primer lugar,
+solo en los estados en los que les toca elegir a robots que se encuentran en
+$(0,0)$ o $(1,1)$ tendremos una cantidad infinita de distribuciones de las
+cuales elegir, en el resto la elección de la acción determinará directamente un
+comportamiento certero. En segundo lugar, para los estados que tenemos una
+cantidad infinita de soluciones, estas solo se corresponden a un politopo
+(recordemos que según la definición que dimos, desde un estado podemos tener
+una cantidad finita de politopos desde los cuales elegir). Y, en tercer lugar,
+los politopos que presentamos no son particularmente complejos. Es valioso
+recordar que los politopos pueden tener mayor dimensión y las variables pueden
+estar más correlacionadas entre sí. Tomamos la decisión de simplificar lo más
+posible el ejemplo a fin de que quede una imagen clara y entendible de qué es
+un PSG antes de proceder con los teoremas mostrados en el trabajo de Castro y
+D'Argenio \cite{Polytopal}.
 
 % Existen muchas razones por las cuales podríamos no saber las probabilidades
 % exactas de cómo es que podrían fallar nuestras indicaciones a los robots. Podría suceder, por ejemplo, que estemos en un terreno un poco desconocido,
@@ -513,16 +511,16 @@ acumulada y de recompensa total descontada), solo nos concentraremos en los
 resultados correspondientes a objetivos de alcanzabilidad.
 
 El primer teorema, establece la determinación de los juegos estocásticos a la
-vez de que establece que los objetivos de alcanzabilidad en PSGs puede ser
+vez que establece que los objetivos de alcanzabilidad en PSGs puede ser
 resueltos de manera equivalente en la interpretación extrema del PSG.
 
 \begin{theorem}[Reducción de PSGs]
-	Sean $\Gk$ y $\Hk$ la interpretación y la interpretación extrema, respectivamente, de un juego estocástico politópico $\K$. Sea $C$ un subconjunto de estados en $\K$. Entonces vale que:
+	Sean $\Gk$ y $\Hk$ la interpretación y la interpretación extrema, respectivamente, de un PSG $\K$. Sea $C$ un subconjunto de estados en $\K$. Entonces vale que:
 	\begin{align*}
 		&\inf_{\pidiam \in \Pidiam} \sup_{\picuad \in \Picuad} \ProbG(\alc C) = \\
 		&\inf_{\pidiam \in \Pidiam^{MD}} \sup_{\picuad \in \Picuad^{MD}} \ProbH(\alc C) = \\
 		&\sup_{\picuad \in \Picuad^{MD}} \inf_{\pidiam \in \Pidiam^{MD}} \ProbH(\alc C) = \\
-		&\sup_{\picuad \in \Picuad} \inf_{\pidiam \in \Pidiam} \ProbG(\alc C)
+		&\sup_{\picuad \in \Picuad} \inf_{\pidiam \in \Pidiam} \ProbG(\alc C).
 	\end{align*}
 \end{theorem}
 

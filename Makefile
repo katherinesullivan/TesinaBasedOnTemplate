@@ -58,7 +58,7 @@ CARTA = carta
 
 RM = rm -f
 LATEX = latex
-MKLATEX = latexmk -shell-escape
+MKLATEX = latexmk -pdf -shell-escape
 BIB = biber
 EXT = *.bak* *.nav *.snm *.ptb *.blg *.log *.lof *.lot *.bit *.idx *.glo *.bbl *.ilg *.toc *.out *.ind *~ *.ml* *.mt* *.th* *.bmt *.xyc *.bcf *.run.xml *.dot *.ptc *.aux *.fdb_latexmk *.fls 
 LINT = chktex

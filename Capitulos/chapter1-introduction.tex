@@ -10,7 +10,7 @@ A lo largo de la historia, la teoría de juegos ha cumplido un rol central en
 muchas áreas de las ciencias de la computación. En particular, la aparición del
 concepto de \textit{juego estocástico} ha tenido un impacto significativo en la
 modelización y estudio de sistemas reactivos, sistemas con comportamientos no
-deterministas, y sistemas con incertidumbre.
+deterministas y sistemas con incertidumbre.
 
 El concepto de juego estocástico se contrapone al de juego tradicional de 2
 jugadores. Mientras que en el último cada acción de un jugador resulta en un
@@ -36,7 +36,7 @@ responder es si un jugador tiene una estrategia ganadora. Esto dependerá de
 cómo se define el hecho de que un jugador gane. En juegos estocásticos, una
 manera de definir esto es a través de \textit{objetivos} dados en forma de una
 \textit{propiedad $\omega$-regular} $\phi$. Como nos concentraremos en juegos
-de suma cero, un jugador gana si se cumpla $\phi$, mientras que su contrincante
+de suma cero, un jugador gana si se cumple $\phi$, mientras que su contrincante
 ganará si se cumple $\neg \phi$.
 
 Dentro de las propiedades $\omega$-regulares se destacan \textit{las
@@ -48,7 +48,7 @@ Rabin \cite{AutomataLogicsInfiniteGames}.
 
 Una vez fijado un jugador (generalmente el jugador ``maximizador'', es decir,
 el jugador que busca que se cumpla la propiedad $\phi$), al problema de la
-computación de los estados estados ganadores de un juego se lo suele llamar el
+determinación de los estados ganadores de un juego se lo suele llamar el
 análisis cualitativo del juego, mientras que el análisis cuantitativo del juego
 refiere al problema de computar, para cada estado, cuál es la probabilidad
 máxima que tiene este de ganar, aún cuando esta sea menor que 1.
@@ -82,13 +82,15 @@ situaciones competitivas con más de un tomador de decisiones.
 % división de juegos estocásticos en base a distintos tipos de funciones de pago.
 
 Gracias al uso que tuvieron los juegos estocásticos en el modelado de sistemas
-en distintas áreas, resultó lógico dividir los mismos en base a distintos tipos
-de funciones de pago. El estudio de la existencia, tipo y computabilidad de las
-estrategias óptimas suele considerarse en juegos con funciones de recompensa
-cuantitativas (eg., funciones de recompensa media, con descuento, pesada o
-límite) y cualitativas (eg., funciones de recompensas asociadas a objetivos de
-alcanzabilidad, de Büchi, de Rabin o de Müller)
-\cite{Chatterjee2007,Kučera2011,Chatterjee1}.
+en distintas áreas (en el campo de la seguridad informática~\cite{SGSecurity},
+la robótica~\cite{SGInteractive}, las telecomunicaciones~\cite{SGM2M} y la
+gestión de recursos~\cite{SGSmartGrid}, entre otros) resultó lógico dividir los
+mismos en base a distintos tipos de funciones de pago. El estudio de la
+existencia, tipo y computabilidad de las estrategias óptimas suele considerarse
+en juegos con funciones de recompensa cuantitativas (eg., funciones de
+recompensa media, con descuento, pesada o límite) y cualitativas (eg.,
+funciones de recompensas asociadas a objetivos de alcanzabilidad, de Büchi, de
+Rabin o de Müller) \cite{Chatterjee2007,Kučera2011,Chatterjee1}.
 
 Las primeras propuestas de resultados para juegos estocásticos con funciones de
 recompensa media y con descuento fueron reportadas desde 1958 por Gillete
