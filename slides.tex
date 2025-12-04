@@ -1,4 +1,4 @@
-\documentclass[handout]{beamer}
+\documentclass{beamer}
 \usetheme{Madrid}
 
 \usepackage[spanish]{babel}
@@ -23,6 +23,7 @@
 \usepackage{amsthm}
 \usepackage{xcolor}
 \usepackage{wasysym}
+\usepackage{commath} % \abs
 \newcommand{\St}{\mathcal{S}}
 \newcommand{\Act}{\mathcal{A}}
 \newcommand{\diam}{\diamondsuit}
@@ -65,6 +66,12 @@
 \newcommand{\picuad}{\pi_{\square}}
 \newcommand{\pidiam}{\pi_{\diamondsuit}}
 \newcommand{\ProbG}{\Prob_{\Gk, s}^{\picuad, \pidiam}}
+
+% Comandos alg Banerjee
+\newcommand{\Pre}{\textsf{Pre}}
+\newcommand{\Cpre}{\textsf{Cpre}}
+\newcommand{\Lpre}{\textsf{Lpre}}
+\newcommand{\Apre}{\textsf{Apre}}
 
 \usepackage{listings}
 \lstset{
@@ -130,9 +137,11 @@
 \subsection{¿Qu\'e son los juegos estoc\'asticos polit\'opicos?}
 
 \begin{frame}{Una primera respuesta vaga}
-	\begin{block}{Juego estoc\'astico polit\'opico I}
+	\begin{block}{Juego estoc\'astico polit\'opico}
 		Un juego estoc\'asticos polit\'opicos es un \textbf{modelo matem\'atico} que utilizaremos para \textbf{representar un sistema} en el contexto de \textbf{verificaci\'on}.
 	\end{block}
+
+	\pause
 
 	La verificaci\'on es el proceso de demostrar que un \textbf{sistema cumple con
 		una especificaci\'on} formalmente definida.
@@ -205,29 +214,128 @@
 	\end{block}
 \end{frame}
 
-\begin{frame}{Juego estoc\'astico}
+\begin{frame}{Pensemos un ejemplo}
 
-	primero estados que pertenecen a distintos jugadores -> que el estado
-	pertenezca a un jugador significa que ese jugador elige la accion desde ahi
-	luego transiciones luego acciones luego probabilidades
+	\begin{center}
+		\begin{tikzpicture}[scale=0.75]
+			\tikzset{
+				transform shape,
+				square state/.style={draw, rectangle, minimum size=2cm, font=\normalsize, align=center},
+				square2 state/.style={draw, rectangle, minimum size=1.4cm, font=\normalsize, align=center},diamond state/.style={draw, diamond, aspect=1.5, minimum size=1.5cm, font=\normalsize, align=center},
+			}
 
-	elegir una accion determina una distribucion de probabilidad sobre en qu\'e
-	estado estar\'a el juego a continuaci\'on
+			% Grilla 2x2 con coordenadas
+			\node[square state] (c00) at (0, 0) {$(1,0)$};
+			\node[square state] (c10) at (2, 0) {$(1,1)$};
+			\node[square state] (c01) at (0, 2) {$(0,0)$};
+			\node[square state] (c11) at (2, 2) {$(0,1)$};
+
+			% Imágenes en dos casilleros (más pequeñas para ver los bordes)
+			\pause
+			\node (rigoborto) at (0, 3.4) {\includegraphics[width=1cm]{rigoborto.png}};
+			\pause
+			\node (roborta) at (-0.6, -0.3) {\includegraphics[width=1cm]{roborta.png}};
+
+			% Representación del turno
+			\only<4,5>{
+				\draw[red, thick, rounded corners] ($(rigoborto)+(-0.7,-1.2)$) rectangle ($(rigoborto)+(0.7,1.2)$);
+			}
+
+			% Representación del estado actual
+			\pause
+			\only<5>{
+				\node[square2 state, fill=gray!30] (current) at (5, 1) {$(0,0)$ \\ $(1,0)$};
+			}
+
+			\only<6,7>{
+				\draw[red, thick, rounded corners] ($(roborta)+(-0.7,-1.2)$) rectangle ($(roborta)+(0.7,1.2)$);
+			}
+
+			\only<7>{
+				\node[diamond state, fill=gray!30] (current2) at (5.5, 1) {$(1,1)$ \\ $(1,0)$};
+			}
+		\end{tikzpicture}
+	\end{center}
+	\only<8>{
+		\begin{align*}
+			&    \Act = \{\uparrow, \rightarrow, \downarrow, \leftarrow\} \\
+		\end{align*}
+	}
+
 \end{frame}
 
 \begin{frame}{Ejemplo de juego estoc\'astico}
-	Tenemos dos robotcitos, generar imagenes de estos
+	\centering
+	\begin{tikzpicture}[scale=0.75,->]
+		\tikzset{
+			transform shape,              % important: scale affects node shapes & text
+			x=1.6cm, y=0.7cm,            % compress horizontal / vertical distances
+			state/.style={draw, circle, minimum size=1.2cm, font=\normalsize},
+			square state/.style={draw, rectangle, minimum size=1.4cm, font=\normalsize, align=center},
+			diamond state/.style={draw, diamond, aspect=1.5, minimum size=1.5cm, font=\normalsize, align=center},
+			every node/.style={inner sep=4pt}
+		}
 
-	Decir c\'omo vamos a representar su estado
+		% Nodo ra\'iz a la izquierda
+		\node[square state] (left) at (0, 0) {$(0,0)$\\$(1,0)$};
 
-\end{frame}
+		% Nivel intermedio (rombos) centrados horizontalmente, espaciados verticalmente
+		\pause
+		\node[diamond state] (d1) at (3, 4) {$(0,1)$\\$(1,0)$};
+		\draw[->, draw=violet] (left) to  node[midway, left, text=violet] {$\rightarrow$,0.85} (d1);
+		\node[diamond state] (d2) at (3, 0) {$(1,1)$\\$(1,0)$};
+		\draw[->, draw=violet]  (left) to[bend left=20]  node[above, text=violet] {$\rightarrow$,0.15} (d2);
+		\pause
+		\node[diamond state] (d3) at (3, -4) {$(1,0)$\\$(1,0)$};
+		\draw[->, draw=orange] (left) to[bend right=20]  node[below, text=orange] {$\downarrow$, 0.2}  (d2);
+		\draw[->, draw=orange] (left) to  node[midway, left, text=orange]  {$\downarrow$, 0.8} (d3);
+		\pause
 
-\begin{frame}{Ejemplo de juego estoc\'astico}
-	\begin{align*}
-		&    \St_\cuad = \cuad \\
-		&    \St_\diam = \diam \\
-		&    \Act = \{\uparrow, \rightarrow, \downarrow, \leftarrow\} \\
-	\end{align*}
+		% Nodos hojas (cuadrados), suficientemente separados
+		\node[square state] (s1) at (6, 5) {$(0,1)$\\$(0,0)$};
+		\draw[->, draw=teal] (d1) to  node[midway, above, text=teal] {$\uparrow$, 1} (s1);
+		\pause
+		\node[square state] (s2) at (6, 3) {$(0,1)$\\$(1,1)$};
+		\draw[->, draw=violet] (d1) to  node[midway, below, text=violet] {$\rightarrow$,1} (s2);
+		\pause
+
+		\node[square state] (s3) at (6, 1.0) {$(1,1)$\\$(0,0)$};
+		\node[square state] (s4) at (6, -1.0) {$(1,1)$\\$(1,1)$};
+
+		\node[square state] (s5) at (6, -3) {$(1,0)$\\$(0,0)$};
+		\node[square state] (s6) at (6, -5) {$(1,0)$\\$(1,1)$};
+
+		% Aristas desde left a cada 
+		% \draw (left) -- (d1);
+		% \draw (left) -- (d2);
+		% \draw (left) -- (d3);
+
+		% Aristas desde cada rombo a dos cuadrados
+		% Desde II
+
+		% \draw (d1) -- (s1);
+		% \draw (d1) -- (s2);
+
+		\draw[->, draw=teal] (d2) to  node[midway, above, text=teal] {$\uparrow$, 1} (s3);
+		\draw[->, draw=violet] (d2) to  node[midway, below, text=violet] {$\rightarrow$,1} (s4);
+		% \draw (d2) -- (s3);
+		% \draw (d2) -- (s4);
+
+		\draw[->, draw=teal] (d3) to  node[midway, above, text=teal] {$\uparrow$, 1} (s5);
+		\draw[->, draw=violet] (d3) to  node[midway, below, text=violet] {$\rightarrow$,1} (s6);
+		% \draw (d3) -- (s5);
+		% \draw (d3) -- (s6);
+
+		% Puntos suspensivos para indicar que contin\'ua
+		\node at (7,5) {$\cdots$};
+		\node at (7,3) {$\cdots$};
+
+		\node at (7,1) {$\cdots$};
+		\node at (7,-1) {$\cdots$};
+
+		\node at (7, -3) {$\cdots$};
+		\node at (7, -5) {$\cdots$};
+	\end{tikzpicture}
 
 \end{frame}
 
@@ -277,7 +385,82 @@
 \end{frame}
 
 \begin{frame}{Ejemplo de juego estoc\'astico polit\'opico}
+	\centering
+	\begin{tikzpicture}[->, scale=0.75]
+		\tikzset{
+			transform shape,              % important: scale affects node shapes & text
+			x=1.4cm, y=0.7cm,            % compress horizontal / vertical distances
+			state/.style={draw, circle, minimum size=1.2cm, font=\normalsize},
+			square state/.style={draw, rectangle, minimum size=1.4cm, font=\normalsize, align=center},
+			diamond state/.style={draw, diamond, aspect=1.5, minimum size=1.5cm, font=\normalsize, align=center},
+			every node/.style={inner sep=4pt}
+		}
 
+		% Nodo ra\'iz a la izquierda
+		\node[square state] (left) at (0, 0) {$(0,0)$\\$(1,0)$};
+
+		\pause
+		\node[diamond state] (d1) at (3, 4) {$(0,1)$\\$(1,0)$};
+		\node[diamond state] (d2) at (3, 0) {$(1,1)$\\$(1,0)$};
+		\node[diamond state] (d3) at (3, -4) {$(1,0)$\\$(1,0)$};
+
+		\draw[->, draw=violet] (left) to[bend left=10]  node[midway, left, text=violet] {$\rightarrow$,$p_1$} (d1);
+		\draw[->, draw=violet]  (left) to[bend left=20]  node[midway, text=violet] {$\rightarrow$,$p_2$} (d2);
+		\draw[->, draw=violet] (left) to[bend left=10] node[midway, text=violet] {$\rightarrow$, $p_3$} (d3);
+		\pause
+
+		\node[align=left, anchor=west] at (8, -3) {
+			\small Restricciones:\\
+			\textcolor{violet}{$p_1 + p_2 + p_3 = 1$}\\
+			\textcolor{violet}{$0.05 \leq p_2 \leq 0.3$}\\
+			\textcolor{violet}{$0 \leq p_3 \leq 0.2$}\\
+			\textcolor{violet}{$p_1 \geq 0$} \\
+			\textcolor{orange}{$p_1 + p_2 + p_3 = 1$}\\
+			\textcolor{orange}{$0.05 \leq p_2 \leq 0.3$}\\
+			\textcolor{orange}{$0 \leq p_3 \leq 0.2$}\\
+			\textcolor{orange}{$p_1 \geq 0$}
+		};
+		\pause
+		\draw[->, draw=orange] (left) to[bend right=10] node[midway, left, text=orange] {$\downarrow$, $p_3$} (d1);
+		\draw[->, draw=orange] (left) to[bend right=20]  node[above, text=orange] {$\downarrow$, $p_2$}  (d2);
+		\draw[->, draw=orange] (left) to[bend right=10]  node[midway, left, text=orange]  {$\downarrow$, $p_1$} (d3);
+		\pause
+
+		% Nivel intermedio (rombos) centrados horizontalmente, espaciados verticalmente
+
+		% Nodos hojas (cuadrados), suficientemente separados
+		\node[square state] (s1) at (6, 5) {$(0,1)$\\$(0,0)$};
+		\node[square state] (s2) at (6, 3) {$(0,1)$\\$(1,1)$};
+
+		\node[square state] (s3) at (6, 1.0) {$(1,1)$\\$(0,0)$};
+		\node[square state] (s4) at (6, -1.0) {$(1,1)$\\$(1,1)$};
+
+		\node[square state] (s5) at (6, -3) {$(1,0)$\\$(0,0)$};
+		\node[square state] (s6) at (6, -5) {$(1,0)$\\$(1,1)$};
+
+		% Aristas desde left a cada rombo
+
+		% Aristas desde cada rombo a dos cuadrados
+		\draw[->, draw=teal] (d1) to  node[midway, above, text=teal] {$\uparrow$, 1} (s1);
+		\draw[->, draw=violet] (d1) to  node[midway, below, text=violet] {$\rightarrow$,1} (s2);
+
+		\draw[->, draw=teal] (d2) to  node[midway, above, text=teal] {$\uparrow$, 1} (s3);
+		\draw[->, draw=violet] (d2) to  node[midway, below, text=violet] {$\rightarrow$,1} (s4);
+
+		\draw[->, draw=teal] (d3) to  node[midway, above, text=teal] {$\uparrow$, 1} (s5);
+		\draw[->, draw=violet] (d3) to  node[midway, below, text=violet] {$\rightarrow$,1} (s6);
+
+		% Puntos suspensivos para indicar que contin\'ua
+		\node at (7,5) {$\cdots$};
+		\node at (7,3) {$\cdots$};
+
+		\node at (7,1) {$\cdots$};
+		\node at (7,-1) {$\cdots$};
+
+		\node at (7, -3) {$\cdots$};
+		\node at (7, -5) {$\cdots$};
+
+	\end{tikzpicture}
 \end{frame}
 
 \begin{frame}{Formalizando la noci\'on de elecci\'on}
@@ -354,9 +537,10 @@
 
 \begin{frame}{Algo m\'as sobre estrategias}
 	Existen distintas maneras de clasificar estrategias:
+	\pause
 
 	\begin{itemize}
-		\item seg\'un si son deterministas o randomizadas.
+		\item seg\'un si son deterministas o aleatorizadas. \pause
 		\item seg\'un si son sin memoria, con memoria finita o generales.
 	\end{itemize}
 
@@ -366,33 +550,49 @@
 
 \begin{frame}{Objetivos en un juego}
 	Podemos definir a los objetivos en un juego como:
+	\pause
 	\begin{itemize}
 		\item Maneras de codificar la especificaci\'on deseada para nuestro sistema/modelo
+		      \pause
 		\item Conjuntos de comportamientos/caminos (secuencias de estados)
 	\end{itemize}
-	Ejemplos de objetivos podr\'ian ser:
+	Ejemplos de objetivos podr\'ian ser: \pause
 	\begin{itemize}
-		\item El robot X llega a la esquina inferior izquierda. \pause
-		\item El robot X siempre pasa por la esquina superior izquierda. \pause
-		\item El robot X solo pasa por la parte superior del tablero hasta llegar a la
-		      esquina inferior derecha.
+		\item El robot X llega a la esquina inferior izquierda. \only<8->{$\alc InfIzq$}
+		      \pause
+		\item El robot X siempre pasa por la esquina superior izquierda.
+		      \only<9->{$\siempevent SupIzq$}
 	\end{itemize}
+
+	\pause
+	Los podemos expresar en LTL (recordando que a $\diam$ lo podemos leer como ``eventualmente" y $\cuad$ como ``siempre").
+	% EXPLICAR LTL !! capaz agregar en ltl cada uno
 \end{frame}
 
-\begin{frame}{Objetivos de alcanzabilidad y seguridad}
+\begin{frame}{Algunos objetivos}
+	\begin{itemize}
+		\item Objetivos de alcanzabilidad y seguridad:
 
-\end{frame}
+		      $\alc C$ \pause \hspace{1cm} ($\alc \overline{B}$)
+		      \pause
+		\item Objetivos de Büchi y co-Büchi:
 
-\begin{frame}{Objetivos de B\"uchi y co-B\"uchi}
+		      $\siempevent C$ \pause \hspace{1cm} ($\eventsiemp \overline{B}$)
+		      \pause
+		\item Objetivos de Rabin y Streett:
 
-\end{frame}
-
-\begin{frame}{Objetivos de Rabin y Streett}
-
+		      $\bigvee_{1 \leq j \leq d} \eventsiemp \overline{E_j} \wedge \siempevent F_j$ \pause \hspace{1cm} ($\bigwedge_{1 \leq j \leq d} (\siempevent E_j \vee \eventsiemp \overline{F_j})$)
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{¿Por qu\'e nos interesan los objetivos de Rabin?}
-
+	% Recalcar la idea de obj de rabin combinaciones de seguridad (eventualmente algo malo ya no va a pasar) y vitalidad (van a seguir pasando cosaa bonitas) (kinda, cuidado)
+	\begin{itemize}
+		\item Cada objetivo $\omega$-regular puede ser expresado como un objetivo de Rabin.
+		      \pause
+		\item Su forma coincide con la de las condiciones de equidad.
+	\end{itemize}
+	% repasar que son los objetivos omega regulares
 \end{frame}
 
 \section{Aportes de la tesina}
@@ -449,32 +649,111 @@
 \end{frame}
 
 \begin{frame}{Desrandomizaci\'on de un PSG}
-	Dada la interpretaci\'on de un PSG $\Gk = (\St, (\St_\cuad, \St_\diam), \Act,
-		\theta)$, y denotando con $\Vs$ al conjunto $\{\supp(\alpha) | \alpha \in
-		\Act(s)\}$ para cada $s \in \St$, se define la \textit{desrandomizaci\'on} de
-	$\Gk$, $\DGk := (( V, V_\cuad, V_\diam, E ), E^l )$, como el juego de grafo de
-	2 jugadores justo donde
-	\begin{alignat*}{2}
-		&\tilde V &&= \{v_{V} \mid \exists s \in \St \text{ tal que } V \in \Vs\}, \\
-		&V &&= \St \cup \tilde V, \\
-		&V_\cuad &&= \St_\cuad, \\
-		&V_\diam &&= \St_\diam \cup \tilde V, \\
-		&E^l &&= \{(v_{V}, s') \mid s' \in V\}, \text{   y } \\
-		&E &&= \{(s, v_{V}) \mid V \in \Vs\} \cup E^l.\\
-	\end{alignat*}
 
-	Explicar la condici\'on de equidad en base a los nuevos vertices
+	\begin{block}{Desrandomización de un PSG}
+		Dada $\Gk = (\St, (\St_\cuad, \St_\diam), \Act,
+			\theta)$, y denotando $\Vs=\{\supp(\alpha) | \alpha \in
+			\Act(s)\}$, se define la \textit{desrandomizaci\'on} de
+		$\Gk$, $\DGk := (( V, V_\cuad, V_\diam, E ), E^l )$, como el juego de grafo de
+		2 jugadores justo donde
+		\begin{alignat*}{2}
+			&\tilde V &&= \{v_{V} \mid \exists s \in \St \text{ tal que } V \in \Vs\}, \\
+			&V &&= \St \cup \tilde V, \\
+			&V_\cuad &&= \St_\cuad, \\
+			&V_\diam &&= \St_\diam \cup \tilde V, \\
+			&E^l &&= \{(v_{V}, s') \mid s' \in V\}, \text{   y } \\
+			&E &&= \{(s, v_{V}) \mid V \in \Vs\} \cup E^l.\\
+		\end{alignat*}
+		\vspace{-1cm}
+	\end{block}
+
+	%Explicar la condici\'on de equidad en base a los nuevos vertices
 \end{frame}
 
-\begin{frame}{Ejemplo de desrandomizaci\'on de un PSG}
-	repetir figura del psg para refrescar memoria
+\begin{frame}{El PSG que presentamos antes}
+	\centering
+	\begin{tikzpicture}[->, scale=0.75]
+		\tikzset{
+			transform shape,              % important: scale affects node shapes & text
+			x=1.4cm, y=0.7cm,            % compress horizontal / vertical distances
+			state/.style={draw, circle, minimum size=1.2cm, font=\normalsize},
+			square state/.style={draw, rectangle, minimum size=1.4cm, font=\normalsize, align=center},
+			diamond state/.style={draw, diamond, aspect=1.5, minimum size=1.5cm, font=\normalsize, align=center},
+			every node/.style={inner sep=4pt}
+		}
+
+		% Nodo ra\'iz a la izquierda
+		\node[square state] (left) at (0, 0) {$(0,0)$\\$(1,0)$};
+
+		\node[diamond state] (d1) at (3, 4) {$(0,1)$\\$(1,0)$};
+		\node[diamond state] (d2) at (3, 0) {$(1,1)$\\$(1,0)$};
+		\node[diamond state] (d3) at (3, -4) {$(1,0)$\\$(1,0)$};
+
+		\draw[->, draw=violet] (left) to[bend left=10]  node[midway, left, text=violet] {$\rightarrow$,$p_1$} (d1);
+		\draw[->, draw=violet]  (left) to[bend left=20]  node[midway, text=violet] {$\rightarrow$,$p_2$} (d2);
+		\draw[->, draw=violet] (left) to[bend left=10] node[midway, text=violet] {$\rightarrow$, $p_3$} (d3);
+
+		\node[align=left, anchor=west] at (8, -3) {
+			\small Restricciones:\\
+			\textcolor{violet}{$p_1 + p_2 + p_3 = 1$}\\
+			\textcolor{violet}{$0.05 \leq p_2 \leq 0.3$}\\
+			\textcolor{violet}{$0 \leq p_3 \leq 0.2$}\\
+			\textcolor{violet}{$p_1 \geq 0$} \\
+			\textcolor{orange}{$p_1 + p_2 + p_3 = 1$}\\
+			\textcolor{orange}{$0.05 \leq p_2 \leq 0.3$}\\
+			\textcolor{orange}{$0 \leq p_3 \leq 0.2$}\\
+			\textcolor{orange}{$p_1 \geq 0$}
+		};
+
+		\draw[->, draw=orange] (left) to[bend right=10] node[midway, left, text=orange] {$\downarrow$, $p_3$} (d1);
+		\draw[->, draw=orange] (left) to[bend right=20]  node[above, text=orange] {$\downarrow$, $p_2$}  (d2);
+		\draw[->, draw=orange] (left) to[bend right=10]  node[midway, left, text=orange]  {$\downarrow$, $p_1$} (d3);
+
+		% Nivel intermedio (rombos) centrados horizontalmente, espaciados verticalmente
+
+		% Nodos hojas (cuadrados), suficientemente separados
+		\node[square state] (s1) at (6, 5) {$(0,1)$\\$(0,0)$};
+		\node[square state] (s2) at (6, 3) {$(0,1)$\\$(1,1)$};
+
+		\node[square state] (s3) at (6, 1.0) {$(1,1)$\\$(0,0)$};
+		\node[square state] (s4) at (6, -1.0) {$(1,1)$\\$(1,1)$};
+
+		\node[square state] (s5) at (6, -3) {$(1,0)$\\$(0,0)$};
+		\node[square state] (s6) at (6, -5) {$(1,0)$\\$(1,1)$};
+
+		% Aristas desde left a cada rombo
+
+		% Aristas desde cada rombo a dos cuadrados
+		\draw[->, draw=teal] (d1) to  node[midway, above, text=teal] {$\uparrow$, 1} (s1);
+		\draw[->, draw=violet] (d1) to  node[midway, below, text=violet] {$\rightarrow$,1} (s2);
+
+		\draw[->, draw=teal] (d2) to  node[midway, above, text=teal] {$\uparrow$, 1} (s3);
+		\draw[->, draw=violet] (d2) to  node[midway, below, text=violet] {$\rightarrow$,1} (s4);
+
+		\draw[->, draw=teal] (d3) to  node[midway, above, text=teal] {$\uparrow$, 1} (s5);
+		\draw[->, draw=violet] (d3) to  node[midway, below, text=violet] {$\rightarrow$,1} (s6);
+
+		% Puntos suspensivos para indicar que contin\'ua
+		\node at (7,5) {$\cdots$};
+		\node at (7,3) {$\cdots$};
+
+		\node at (7,1) {$\cdots$};
+		\node at (7,-1) {$\cdots$};
+
+		\node at (7, -3) {$\cdots$};
+		\node at (7, -5) {$\cdots$};
+
+	\end{tikzpicture}
 \end{frame}
 
 \begin{frame}{Ejemplo de desrandomizaci\'on de un PSG}
 	\begin{itemize}
 		\item $V_{\substack{c(0,0) \\ \ (1,0)}} = \left\{\left\{\substack{d(0,1) \\ \ (1,0)}, \substack{d(1,1) \\ \ (1,0)}, \substack{d(1,0) \\ \ (1,0)}\right\}\right\}$
+		      \pause
 		\item $V_{\substack{d(0,1) \\ \ (1,0)}} = \left\{\left\{\substack{c(0,1) \\ \ (0,0)}\right\}, \left\{\substack{c(0,1) \\ \ (1,1)}\right\}\right\}$
+		      \pause
 		\item $V_{\substack{d(1,1) \\ \ (1,0)}} = \left\{\left\{\substack{c(1,1) \\ \ (0,0)}\right\}, \left\{\substack{c(1,1) \\ \ (1,1)}\right\}\right\}$
+		      \pause
 		\item $V_{\substack{d(1,0) \\ \ (1,0)}} = \left\{\left\{\substack{c(1,0) \\ \ (0,0)}\right\}, \left\{\substack{c(1,0) \\ \ (1,1)}\right\}\right\}$
 	\end{itemize}
 \end{frame}
@@ -491,18 +770,32 @@
 
 		% Nodo ra\'iz a la izquierda
 		\node[square state] (left) at (0, 0) {$(0,0)$\\$(1,0)$};
+		\pause
 
 		% Nodo Vleft
 		\node[diamond state] (Vleft) at (3,0) {$V^1_{\substack{c(0,0) \\ \ (1,0)}}$};
+		% Arista de left a Vleft
+		\draw[-> ] (left) to (Vleft);
+		\pause
 
 		% Nivel intermedio (rombos) centrados horizontalmente, espaciados verticalmente
 		\node[diamond state] (d1) at (6, 4) {$(0,1)$\\$(1,0)$};
 		\node[diamond state] (d2) at (6, 0) {$(1,1)$\\$(1,0)$};
 		\node[diamond state] (d3) at (6, -4) {$(1,0)$\\$(1,0)$};
+		% Aristas desde left a cada rombo
+		\draw[-> ] (Vleft) to (d1);
+		\draw[-> ]  (Vleft) to (d2);
+		\draw[-> ] (Vleft) to (d3);
+
+		\pause
 
 		% Nodos Vd
 		\node[diamond state] (Vs1) at (9, 5) {$V^1_{\substack{d(0,1) \\ \ (1,0)}}$};
 		\node[diamond state] (Vs2) at (9, 3) {$V^2_{\substack{d(0,1) \\ \ (1,0)}}$};
+		\draw[-> ] (d1) to (Vs1);
+		\draw[-> ] (d1) to (Vs2);
+
+		\pause
 
 		\node[diamond state] (Vs3) at (9, 1.0) {$V^1_{\substack{d(1,1) \\ \ (1,0)}}$};
 		\node[diamond state] (Vs4) at (9, -1.0) {$V^2_{\substack{d(1,1) \\ \ (1,0)}}$};
@@ -510,9 +803,22 @@
 		\node[diamond state] (Vs5) at (9, -3) {$V^1_{\substack{d(1,0) \\ \ (1,0)}}$};
 		\node[diamond state] (Vs6) at (9, -5) {$V^2_{\substack{d(1,0) \\ \ (1,0)}}$};
 
+		% Aristas desde cada rombo a dos Vs
+		\draw[-> ] (d2) to (Vs3);
+		\draw[-> ] (d2) to (Vs4);
+
+		\draw[-> ] (d3) to (Vs5);
+		\draw[-> ] (d3) to (Vs6);
+
+		\pause
+
 		% Nodos hojas (cuadrados), suficientemente separados
 		\node[square state] (s1) at (12, 5) {$(0,1)$\\$(0,0)$};
+		\draw[-> ] (d1) to (Vs1);
+
+		\pause
 		\node[square state] (s2) at (12, 3) {$(0,1)$\\$(1,1)$};
+		\draw[-> ] (d1) to (Vs2);
 
 		\node[square state] (s3) at (12, 1.0) {$(1,1)$\\$(0,0)$};
 		\node[square state] (s4) at (12, -1.0) {$(1,1)$\\$(1,1)$};
@@ -520,17 +826,7 @@
 		\node[square state] (s5) at (12, -3) {$(1,0)$\\$(0,0)$};
 		\node[square state] (s6) at (12, -5) {$(1,0)$\\$(1,1)$};
 
-		% Arista de left a Vleft
-		\draw[-> ] (left) to (Vleft);
-
-		% Aristas desde left a cada rombo
-		\draw[-> ] (Vleft) to (d1);
-		\draw[-> ]  (Vleft) to (d2);
-		\draw[-> ] (Vleft) to (d3);
-
 		% Aristas desde cada rombo a dos Vs
-		\draw[-> ] (d1) to (Vs1);
-		\draw[-> ] (d1) to (Vs2);
 
 		\draw[-> ] (d2) to (Vs3);
 		\draw[-> ] (d2) to (Vs4);
@@ -567,7 +863,9 @@
 		Sean:
 		\begin{itemize}
 			\item $\W$: conjunto de estados desde los que gana $\cuad$ en $\DGk$, y
+			      \pause
 			\item $\W^{as}$: conjunto de estados desde los cuales $\cuad$ gana con probabilidad 1 en $\Gk$ \tiny{con alguna estrategia de memoria finita}. \normalsize
+			      \pause
 		\end{itemize}
 
 		Entonces: $$\W =\W^{as}$$ \vspace{0.1cm}
@@ -591,16 +889,18 @@
 	\begin{enumerate}
 		\item $\W \subseteq \W^{as}$:
 
+		      \pause
 		      \begin{itemize}
 			      \item Sea $s \in \W$. Entonces, existe una estrategia ganadora $\sigma_\cuad$ en
-			            $\DGk$ desde $s$.
+			            $\DGk$ desde $s$. \pause
 			      \item Construimos una estrategia $\pi_\cuad$ en $\Gk$ a partir de $\sigma_\cuad$.
-			      \item Como $\pi_\cuad$ está definida a partir de $\sigma_\cuad$,
-			            $\Pr^{\pi_\cuad}_s(\varphi^l \rightarrow \varphi) = 1$, donde $\varphi^l$ es la
-			            suposici\'on de justicia para el juego desrandomizado y $\varphi$ es la
-			            condici\'on de victoria de Rabin.
-			      \item Luego, probamos que $\ProbG(\neg \varphi^l) = 0$.
-			      \item Por lo tanto, $\Pr^{\pi_\cuad}_s(\varphi) = 1$ y $s \in \W^{as}$.
+			            \pause
+			      \item Como $\pi_\cuad$ está definida a partir de $\sigma_\cuad$, $\ProbG(\varphi^l
+				            \rightarrow \varphi) = 1$, donde $\varphi^l$ es la suposici\'on de justicia
+			            para el juego desrandomizado y $\varphi$ es la condici\'on de victoria de
+			            Rabin. \pause
+			      \item Luego, probamos que $\ProbG(\neg \varphi^l) = 0$. \pause
+			      \item Por lo tanto, $\ProbG(\varphi) = 1$ y $s \in \W^{as}$.
 		      \end{itemize}
 		      \seti
 	\end{enumerate}
@@ -611,21 +911,50 @@
 	\begin{enumerate}
 		\conti
 		\item $\W^{as} \subseteq \W$:
+		      \pause
 
 		      \begin{itemize}
 			      \item Sea $s \in \W^{as}$. Entonces, existe una estrategia ganadora $\pi_\cuad$ en
-			            $\Gk$ desde $s$.
+			            $\Gk$ desde $s$. \pause
 			      \item Construimos una estrategia $\sigma_\cuad$ en $\DGk$ a partir de $\pi_\cuad$.
+			            \pause
 			      \item Probamos que para todo camino $\rho$ desde $s$ generado por $\sigma_\cuad$ y
 			            alguna estrategia $\sigma_\diam$ en $\DGk$, se cumple que $\Inf_C(\rho) =
-				            \Inf(\rho) \cap \St$ cumple con la especificaci\'on de Rabin.
+				            \Inf(\rho) \cap \St$ cumple con la especificaci\'on de Rabin. \pause
 			      \item Por lo tanto, $s \in \W$.
 		      \end{itemize}
 	\end{enumerate}
 \end{frame}
 
 \begin{frame}{Procesos de Decisi\'on de Markov Polit\'opicos}
+	\begin{block}{Proceso de Decisión de Markov Politópico}
+		Un Proceso de Decisión de Markov Politópico (PDMP) es una PSG donde consideramos un solo jugador, $\St_\diam = \emptyset$ o
+		$\St_\cuad = \emptyset$.
+	\end{block}
 
+	\pause
+	\begin{block}{Sub-PMDP}
+		Sea $\M=(S, Act, \theta')$ un PMDP y dado un estado $s$, sea $\Vs = \{\supp(\mu) | (K, \mu) \in \Act(s)\}$ el conjunto formado por los conjuntos soporte de las acciones salientes de él. Un sub-PMDP es un par $(C, D)$, donde $C \subseteq S$ y $D: C \rightarrow \mathcal{P}(\mathcal{P}(S))$ es una función que asocia a cada $s \in C$ un conjunto $D(s) \subseteq \Vs$ de subconjuntos de estados próximos posibles.
+	\end{block}
+
+\end{frame}
+
+\begin{frame}{Procesos de Decisi\'on de Markov Polit\'opicos}
+	\begin{block}{Componente final}
+		Un sub-PMDP $(C, D)$ es una componente final si:
+
+		\begin{itemize}
+			\item $V' \subseteq C$ para todo $V'$ tal que existe un $s \in C$ donde $V' \in D(s)$.
+
+			\item el grafo $(C \cup \{v_{V'} \mid \exists s \in C : V' \in D(s)\}, \rho_{(C,D)})$
+			      es fuertemente conexo.
+		\end{itemize}
+	\end{block}
+
+	\pause
+	\begin{block}{Corolario}
+		Sea $\M$ un PMDP, $s$ un estado en él y $\pi$ una estrategia de memoria finita en él. Una condición de Rabin $R = \{ (E_1, F_1), \dots, (E_d, F_d)\}$ se satisface desde $s$ siguiendo la estrategia $\pi$ con probabilidad 1 si y solo si para cada componente final $(C,D)$ alcanzable desde $s$, existe un $j \in \{ 1, \dots, d\}$ tal que $C \cap E_j = \emptyset$ y $C \cap F_j \neq \emptyset$.
+	\end{block}
 \end{frame}
 
 \subsection{¿Qu\'e resultados pr\'acticos obtuvimos a partir de ella?}
@@ -641,10 +970,72 @@
 		      compactas de conjuntos de estados y aplica transformadores sobre ellos.
 	\end{itemize}
 	% Agregar slide mostrando el algoritmo enunciandolo bien
+	% Hacer hincapie en que no lo explicamos en detalle porque no es aporte nuestro
+	% en la otra slide mostrar la complejidad que obtenemos
+\end{frame}
+
+\begin{frame}{Algoritmo para el cálculo de regiones ganadoras}
+
+	{\footnotesize
+
+		\[
+			Z^* = \nu Y_{p_0}.\, \mu X_{p_0}.\, \bigcup_{p_1 \in P}\, \nu Y_{p_1}.\, \mu X_{p_1}.\, \bigcup_{p_2 \in P_{\setminus 1}}\, \nu Y_{p_2}.\, \mu X_{p_2} .\, \cdots\, \bigcup_{p_d \in P_{\setminus d-1}} \nu Y_{p_d}.\, \mu X_{p_d}.\, \left[ \bigcup_{j=0}^d\, C_{p_j} \right],
+		\]
+		donde:
+		\[
+			C_{p_j} := \left( \bigcap_{i=0}^j \overline{E}_{p_i} \right) \cap \left[ (F_{p_j} \cap \Cpre(Y_{p_j})) \cup (\Apre(Y_{p_j}, X_{p_j})) \right]
+		\]
+		con $p_0 = 0$, \( E_{p_0} := \emptyset \), $F_{p_0} := \emptyset$ y
+		$P_{\setminus i} = P \setminus \{p_1, \dots, p_i\}$.
+
+		\pause
+		$$O((n l)^2 d!)$$
+		\pause
+		donde:
+		\begin{itemize}
+			\item $n$ es la cantidad de estados en el PSG,\pause
+			\item $d$ es la cantidad de pares en la condici\'on de Rabin, y \pause
+			\item $l = \max \{\abs{\Vs} \mid s \in \St \}$ es la cantidad máxima de conjuntos soporte para las acciones que puede haber desde un estado $s$ en el PSG.
+		\end{itemize}
+	}
+
 \end{frame}
 
 \begin{frame}{Sint\'esis de estrategia ganadora en un PSG}
+	% hablar de como construir una estrategia en gk a partir de una en dgk? 
+	% explicar como el algoritmo nos da una estrategia en dgk y como a partir de esa construimos una en gk
 
+	{\small
+		\textbf{1. Estrategia ganadora en la desrandomización}
+		\begin{itemize}
+			\pause
+			\item El algoritmo simbólico para juegos justos con objetivos de Rabin (Banerjee et
+			      al.) computa la región ganadora mediante un punto fijo. \pause
+			\item El mismo algoritmo permite extraer una \textbf{estrategia sin memoria}
+			      $\sigma^{*}_{\Box}$ para $\Box$ en $\DGk$. Esta estrategia indica, para cada
+			      estado $s \in \St_\cuad$, qué vértice $v_{V'}$ debe elegirse.
+		\end{itemize}
+
+		\medskip
+		\pause
+
+		\textbf{2. Traducción a estrategia ganadora en el PSG}
+		\begin{itemize}
+			\pause
+			\item Cada decisión $\sigma^{*}_{\Box}(s) = v_{V'}$ corresponde en el PSG a elegir
+			      una acción $(K,\mu)$ cuyo soporte sea exactamente $V'$. \pause
+			\item Así se define una \textbf{estrategia sin memoria $\widehat{\pi}^{*}_{\Box}$}:
+			      \[
+				      \widehat{\pi}^{*}_{\Box}(s)(K,\mu)=1
+				      \quad \text{si } \operatorname{supp}(\mu)=V'.
+			      \]
+		\end{itemize}
+	}
+
+	% El algoritmo nos permite obtener una estrategia ganadora $\sigma_\cuad$ en
+	% $\DGk$ desde cualquier estado en $\W$. \pause Usando la construcci\'on de la
+	% prueba de nuestro teorema principal, podemos obtener una estrategia ganadora
+	% $\pi_\cuad$ en $\Gk$ desde cualquier estado en $\W^{as}$.
 \end{frame}
 
 \section{Conclusi\'on}
@@ -664,7 +1055,7 @@
 			      \item un proceso para sintetizar estrategias ganadoras en un PSG con objetivo de
 			            Rabin, y \pause
 			      \item un algoritmo para el c\'alculo de conjunto de estados ganadores en un PSG con
-			            objetivo de Rabin.
+			            objetivo de Rabin. \pause
 		      \end{itemize}
 		\item Además, introdujimos el concepto de procesos de decisión de Markov politópicos
 		      y probamos unos teoremas básicos sobre ellos.
@@ -676,21 +1067,23 @@
 \begin{frame}{Trabajo futuro}
 	%podria decir que posible trabajo futuro 
 	La idea principal ser\'ia (fue) intentar responder: ¿cu\'al es la probabilidad
-	m\'axima que tiene un jugador de ganar desde un estado?
+	m\'axima que tiene un jugador de ganar desde un estado? \pause
 
 	Ideas para responder esa pregunta:
 	\begin{itemize}
 		\item mostrar que si una familia de estrategias es suficiente para el c\'alculo de
 		      regiones ganadoras entonces tambi\'en es suficiente para el c\'alculo de
-		      valores de los estados.
+		      valores de los estados. \pause
 		\item ver que el encontrar el valor en un estado de un PSG para un objetivo de Rabin
 		      puede ser equivalente a buscar el valor de un estado en la interpretaci\'on
 		      extrema del juego.
 	\end{itemize}
 \end{frame}
 
+\begingroup % Start a local scope
+\setbeamertemplate{footline}{} % Redefine footline to be empty
 \begin{noheadline}
-	\begin{frame}{}
+	\begin{frame}<beamer>[noframenumbering]
 		\begin{center}
 			¡Muchas gracias!
 		\end{center}
@@ -704,5 +1097,6 @@
 		Pasaje a imperativo
 	\end{frame}
 \end{noheadline}
+\endgroup
 
 \end{document}
