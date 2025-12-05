@@ -137,6 +137,7 @@
 \subsection{¿Qu\'e son los juegos estoc\'asticos polit\'opicos?}
 
 \begin{frame}{Una primera respuesta vaga}
+	\pause
 	\begin{block}{Juego estoc\'astico polit\'opico}
 		Un juego estoc\'asticos polit\'opicos es un \textbf{modelo matem\'atico} que utilizaremos para \textbf{representar un sistema} en el contexto de \textbf{verificaci\'on}.
 	\end{block}
@@ -216,6 +217,7 @@
 
 \begin{frame}{Pensemos un ejemplo}
 
+	\pause
 	\begin{center}
 		\begin{tikzpicture}[scale=0.75]
 			\tikzset{
@@ -235,28 +237,29 @@
 			\node (rigoborto) at (0, 3.4) {\includegraphics[width=1cm]{rigoborto.png}};
 			\pause
 			\node (roborta) at (-0.6, -0.3) {\includegraphics[width=1cm]{roborta.png}};
+			\pause
 
 			% Representación del turno
-			\only<4,5>{
+			\only<5,6>{
 				\draw[red, thick, rounded corners] ($(rigoborto)+(-0.7,-1.2)$) rectangle ($(rigoborto)+(0.7,1.2)$);
 			}
 
 			% Representación del estado actual
 			\pause
-			\only<5>{
+			\only<6>{
 				\node[square2 state, fill=gray!30] (current) at (5, 1) {$(0,0)$ \\ $(1,0)$};
 			}
 
-			\only<6,7>{
+			\only<7,8>{
 				\draw[red, thick, rounded corners] ($(roborta)+(-0.7,-1.2)$) rectangle ($(roborta)+(0.7,1.2)$);
 			}
 
-			\only<7>{
-				\node[diamond state, fill=gray!30] (current2) at (5.5, 1) {$(1,1)$ \\ $(1,0)$};
+			\only<8>{
+				\node[diamond state, fill=gray!30] (current2) at (5.5, 1) {$(0,0)$ \\ $(1,0)$};
 			}
 		\end{tikzpicture}
 	\end{center}
-	\only<8>{
+	\only<9>{
 		\begin{align*}
 			&    \Act = \{\uparrow, \rightarrow, \downarrow, \leftarrow\} \\
 		\end{align*}
@@ -340,14 +343,15 @@
 \end{frame}
 
 \begin{frame}{Juego estoc\'astico polit\'opico}
-	\begin{block}{Juego estoc\'astico polit\'opico II}
+	\pause
+	\begin{block}{Juego estoc\'astico polit\'opico}
 		Un juego estoc\'astico polit\'opico es una extensi\'on de los juegos estoc\'asticos. \pause Difiere de estos porque los jugadores pueden elegir de entre un conjunto \textbf{infinito de acciones}. \pause Este conjunto es caracterizado a trav\'es de \textbf{desigualdades lineales} cuyo espacio de soluciones forma un \textbf{politopo}.
 	\end{block}
 \end{frame}
 
 \begin{frame}{Politopos}
-	\begin{block}{Politopo convexo}
-		Un politopo convexo en $\mathbb{R}^n$ es un conjunto acotado $K = \{ x
+	\begin{block}{Politopo}
+		Un politopo en $\mathbb{R}^n$ es un conjunto acotado $K = \{ x
 			\in \mathbb{R}^n | Ax \leq b\}$ con $A \in \mathbb{R}^{m\times n}$ y $ b \in
 			\mathbb{R}^m$, para alg\'un $m \in \mathbb{N}$.
 	\end{block}
@@ -356,22 +360,24 @@
 	\begin{itemize}
 		\item Las funciones en $\mathbb{R}^S$ se pueden pensar como vectores y podemos hablar
 		      de politopos en $\mathbb{R}^S$. \pause
-		\item El conjunto de las distribuciones de probabilidad en $S$ forma un politopo
-		      convexo. \pause
-		\item  Definimos como \( \DPoly(S) \) al conjunto de politopos convexos cuyos
-		      elementos son funciones de probabilidad sobre $S$.
+		      % \item El conjunto de las distribuciones de probabilidad en $S$ forma un politopo
+		      %       convexo. \pause
+		\item  Definimos como \( \DPoly(S) \) al conjunto de politopos cuyos elementos son
+		      funciones de probabilidad sobre $S$.
 	\end{itemize}
 
 	% Trabajando con PSGs lo que hacemos es pensar en politopos cuyos elementos (vectores x en las desigualdades Ax <= b) son funciones de probabilidad sobre $S$. Pensamos en restricciones que cumplen las funciones de probabilidad que pueden ser elegidas por los jugadores.
 \end{frame}
 
 \begin{frame}{Juego estoc\'astico polit\'opico}
+	\pause
 	\begin{block}{Juego estoc\'astico polit\'opico}
 		Un juego estoc\'astico polit\'opico (PSG, por sus siglas en ingl\'es) es una estructura \( \K = (\St, (\St_\square, \St_\diamondsuit), \Theta) \) tal que \( \St \) es un conjunto finito de estados particionado en $\St_\cuad$ y $\St_\diam$, (es decir, \( \St = \St_\square \biguplus \St_\diamondsuit \)) y \( \Theta : \St \to \mathcal{P}_f(\textsf{DPoly}(\St)) \).
 	\end{block}
 \end{frame}
 
 \begin{frame}{Interpretaci\'on de un juego estoc\'astico polit\'opico}
+	\pause
 	\begin{block}{Interpretaci\'on de un PSG}
 		La interpretaci\'on del juego estoc\'astico polit\'opico \( \K \) se define por el juego estoc\'astico \( \Gk = (\St, (\St_\square, \St_\diamondsuit), \Act, \theta) \), donde \( \Act = \bigcup_{s \in \St} \Theta(s) \times \textsf{Dist}(\St) \) y
 		\[
@@ -413,12 +419,12 @@
 			\small Restricciones:\\
 			\textcolor{violet}{$p_1 + p_2 + p_3 = 1$}\\
 			\textcolor{violet}{$0.05 \leq p_2 \leq 0.3$}\\
-			\textcolor{violet}{$0 \leq p_3 \leq 0.2$}\\
-			\textcolor{violet}{$p_1 \geq 0$} \\
+			\textcolor{violet}{$0 < p_3 \leq 0.2$}\\
+			\textcolor{violet}{$p_1 > 0$} \\
 			\textcolor{orange}{$p_1 + p_2 + p_3 = 1$}\\
 			\textcolor{orange}{$0.05 \leq p_2 \leq 0.3$}\\
-			\textcolor{orange}{$0 \leq p_3 \leq 0.2$}\\
-			\textcolor{orange}{$p_1 \geq 0$}
+			\textcolor{orange}{$0 < p_3 \leq 0.2$}\\
+			\textcolor{orange}{$p_1 > 0$}
 		};
 		\pause
 		\draw[->, draw=orange] (left) to[bend right=10] node[midway, left, text=orange] {$\downarrow$, $p_3$} (d1);
@@ -465,6 +471,7 @@
 
 \begin{frame}{Formalizando la noci\'on de elecci\'on}
 	% Casi que entendimos la mitad del titulo, antes de pasar a la otra mitad quiero que retomemos un poquito la primera definicion que vimos de juego estocastico politopico. Dijimos que es un modelo \textbf{matematico} que nos servira para representar un sistema. Dijimos a su vez que en los sistemas que representamos tenemos dos jugadores o agentes que toman decisiones, pero 
+	\pause
 
 	\begin{center}
 		¿C\'omo definimos matem\'aticamente la noci\'on de elecci\'on de los jugadores?
@@ -495,7 +502,7 @@
 
 	\only<1,2>{
 		\begin{block}{Estrategia en un PSG}
-			Una estrategia $\pi_i$ para el jugador $i$ ($i \in \{\cuad, \diam\}$) en un PSG ser\'a una funci\'on $\pi_{{i}} : \Pathsfin^{i} \rightarrow {\PMeas}({\Act})$ que asigna una {medida de probabilidad} sobre las {acciones} a cada ${\omega} {s}$ tal que $\pi_i(\omega s)(\Act(s)) = 1$.
+			Una estrategia $\pi_i$ para el jugador $i$ ($i \in \{\cuad, \diam\}$) en un PSG ser\'a una funci\'on $\pi_{{i}} : \Pathsfin^{i} \rightarrow {\PMeas}({\Act})$ que asigna una {medida de probabilidad} sobre las {acciones} a cada ${\omega} {s}$.
 		\end{block}}
 
 	\only<3>{
@@ -552,9 +559,9 @@
 	Podemos definir a los objetivos en un juego como:
 	\pause
 	\begin{itemize}
-		\item Maneras de codificar la especificaci\'on deseada para nuestro sistema/modelo
+		\item maneras de codificar la especificaci\'on deseada para nuestro sistema/modelo
 		      \pause
-		\item Conjuntos de comportamientos/caminos (secuencias de estados)
+		\item conjuntos de comportamientos/caminos (secuencias de estados) \pause
 	\end{itemize}
 	Ejemplos de objetivos podr\'ian ser: \pause
 	\begin{itemize}
@@ -565,11 +572,12 @@
 	\end{itemize}
 
 	\pause
-	Los podemos expresar en LTL (recordando que a $\diam$ lo podemos leer como ``eventualmente" y $\cuad$ como ``siempre").
+	Los podemos expresar en LTL (recordando que a $\diam$ lo podemos leer como ``eventualmente'' y a $\cuad$ como ``siempre").
 	% EXPLICAR LTL !! capaz agregar en ltl cada uno
 \end{frame}
 
 \begin{frame}{Algunos objetivos}
+	\pause
 	\begin{itemize}
 		\item Objetivos de alcanzabilidad y seguridad:
 
@@ -587,6 +595,7 @@
 
 \begin{frame}{¿Por qu\'e nos interesan los objetivos de Rabin?}
 	% Recalcar la idea de obj de rabin combinaciones de seguridad (eventualmente algo malo ya no va a pasar) y vitalidad (van a seguir pasando cosaa bonitas) (kinda, cuidado)
+	\pause
 	\begin{itemize}
 		\item Cada objetivo $\omega$-regular puede ser expresado como un objetivo de Rabin.
 		      \pause
@@ -624,11 +633,11 @@
 		\item Probamos que los conjuntos ganadores para $\cuad$ en ambos juegos son
 		      equivalentes. \pause
 	\end{enumerate}
-	Con esto, adaptamos un \textbf{algoritmo} de ejecuci\'on simb\'olica para el c\'alculo de este conjunto, analizamos su \textbf{complejidad} y damos un m\'etodo para la obtenci\'on de \textbf{estratgias ganadoras}.
+	Con esto, adaptamos un \textbf{algoritmo} de ejecuci\'on simb\'olica para el c\'alculo de este conjunto, analizamos su \textbf{complejidad} y damos un m\'etodo para la obtenci\'on de \textbf{estrategias ganadoras}.
 \end{frame}
 
 \begin{frame}{Desrandomizaci\'on de un PSG}
-
+	\pause
 	\begin{block}{Juego de dos jugadores con adversario justo}
 		Sea $G = (V, (V_\cuad, V_\diam), E)$ un juego de grafo de dos jugadores y
 		$E^{l} \subseteq (V_\diam \times V) \cap E$ un conjunto dado de aristas que
@@ -697,12 +706,12 @@
 			\small Restricciones:\\
 			\textcolor{violet}{$p_1 + p_2 + p_3 = 1$}\\
 			\textcolor{violet}{$0.05 \leq p_2 \leq 0.3$}\\
-			\textcolor{violet}{$0 \leq p_3 \leq 0.2$}\\
-			\textcolor{violet}{$p_1 \geq 0$} \\
+			\textcolor{violet}{$0 < p_3 \leq 0.2$}\\
+			\textcolor{violet}{$p_1 > 0$} \\
 			\textcolor{orange}{$p_1 + p_2 + p_3 = 1$}\\
 			\textcolor{orange}{$0.05 \leq p_2 \leq 0.3$}\\
-			\textcolor{orange}{$0 \leq p_3 \leq 0.2$}\\
-			\textcolor{orange}{$p_1 \geq 0$}
+			\textcolor{orange}{$0 < p_3 \leq 0.2$}\\
+			\textcolor{orange}{$p_1 > 0$}
 		};
 
 		\draw[->, draw=orange] (left) to[bend right=10] node[midway, left, text=orange] {$\downarrow$, $p_3$} (d1);
@@ -928,13 +937,13 @@
 
 \begin{frame}{Procesos de Decisi\'on de Markov Polit\'opicos}
 	\begin{block}{Proceso de Decisión de Markov Politópico}
-		Un Proceso de Decisión de Markov Politópico (PDMP) es una PSG donde consideramos un solo jugador, $\St_\diam = \emptyset$ o
+		Un Proceso de Decisión de Markov Politópico (PDMP) es un PSG donde consideramos un solo jugador, $\St_\diam = \emptyset$ o
 		$\St_\cuad = \emptyset$.
 	\end{block}
 
 	\pause
 	\begin{block}{Sub-PMDP}
-		Sea $\M=(S, Act, \theta')$ un PMDP y dado un estado $s$, sea $\Vs = \{\supp(\mu) | (K, \mu) \in \Act(s)\}$ el conjunto formado por los conjuntos soporte de las acciones salientes de él. Un sub-PMDP es un par $(C, D)$, donde $C \subseteq S$ y $D: C \rightarrow \mathcal{P}(\mathcal{P}(S))$ es una función que asocia a cada $s \in C$ un conjunto $D(s) \subseteq \Vs$ de subconjuntos de estados próximos posibles.
+		Un sub-PMDP es un par $(C, D)$, donde $C \subseteq S$ y $D: C \rightarrow \mathcal{P}(\mathcal{P}(S))$ es una función que asocia a cada $s \in C$ un conjunto $D(s) \subseteq \Vs$ de subconjuntos de estados próximos posibles.
 	\end{block}
 
 \end{frame}
@@ -953,14 +962,16 @@
 
 	\pause
 	\begin{block}{Corolario}
-		Sea $\M$ un PMDP, $s$ un estado en él y $\pi$ una estrategia de memoria finita en él. Una condición de Rabin $R = \{ (E_1, F_1), \dots, (E_d, F_d)\}$ se satisface desde $s$ siguiendo la estrategia $\pi$ con probabilidad 1 si y solo si para cada componente final $(C,D)$ alcanzable desde $s$, existe un $j \in \{ 1, \dots, d\}$ tal que $C \cap E_j = \emptyset$ y $C \cap F_j \neq \emptyset$.
+		Una condición de Rabin $R = \{ (E_1, F_1), \dots, (E_d, F_d)\}$ se satisface con probabilidad 1 desde $s$ siguiendo una estrategia de memoria finita $\pi$ si y solo si para cada componente final $(C,D)$ alcanzable desde $s$, existe un $j \in \{ 1, \dots, d\}$ tal que $C \cap E_j = \emptyset$ y $C \cap F_j \neq \emptyset$.
 	\end{block}
 \end{frame}
 
 \subsection{¿Qu\'e resultados pr\'acticos obtuvimos a partir de ella?}
 
 \begin{frame}{Algoritmo para el c\'alculo de regiones ganadoras}
+	\pause
 	Adaptamos un algoritmo planteado por Banerjee et al. que:
+	\pause
 	\begin{itemize}
 		\item calcula el conjunto de estados ganadores en un juego de grafo de dos jugadores
 		      con adversario justo y objetivo de Rabin, \pause
@@ -975,6 +986,7 @@
 \end{frame}
 
 \begin{frame}{Algoritmo para el cálculo de regiones ganadoras}
+	\pause
 
 	{\footnotesize
 
@@ -1009,11 +1021,10 @@
 		\textbf{1. Estrategia ganadora en la desrandomización}
 		\begin{itemize}
 			\pause
-			\item El algoritmo simbólico para juegos justos con objetivos de Rabin (Banerjee et
-			      al.) computa la región ganadora mediante un punto fijo. \pause
-			\item El mismo algoritmo permite extraer una \textbf{estrategia sin memoria}
-			      $\sigma^{*}_{\Box}$ para $\Box$ en $\DGk$. Esta estrategia indica, para cada
-			      estado $s \in \St_\cuad$, qué vértice $v_{V'}$ debe elegirse.
+			\item El algoritmo simbólico que presentamos permite extraer una \textbf{estrategia
+				      sin memoria} $\sigma^{*}_{\Box}$ ganadora para $\Box$ en $\DGk$. Esta
+			      estrategia indica, para cada estado $s \in \St_\cuad$, qué vértice $v_{V'}$
+			      debe elegirse.
 		\end{itemize}
 
 		\medskip
@@ -1066,6 +1077,7 @@
 
 \begin{frame}{Trabajo futuro}
 	%podria decir que posible trabajo futuro 
+	\pause
 	La idea principal ser\'ia (fue) intentar responder: ¿cu\'al es la probabilidad
 	m\'axima que tiene un jugador de ganar desde un estado? \pause
 
@@ -1090,13 +1102,6 @@
 	\end{frame}
 \end{noheadline}
 
-\begin{noheadline}
-	\begin{frame}<beamer>[noframenumbering]
-		Idea escrita
-
-		Pasaje a imperativo
-	\end{frame}
-\end{noheadline}
 \endgroup
 
 \end{document}
